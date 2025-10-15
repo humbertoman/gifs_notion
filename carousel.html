@@ -21,8 +21,8 @@
         .carousel-container {
             /* Garante que o carrossel ocupe o espaço disponível, essencial para o Notion */
             width: 100%;
-            max-width: 450px; /* MUDANÇA: Largura máxima ajustada para formato vertical */
-            aspect-ratio: 9 / 16; /* MUDANÇA: Proporção vertical */
+            max-width: 450px; 
+            aspect-ratio: 3 / 4; /* MUDANÇA: Proporção ajustada para ser menos "esticada" */
         }
         .carousel-track {
             /* Transição suave ao trocar de slide */
@@ -37,9 +37,8 @@
         .carousel-slide img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Ajusta a imagem para caber, sem cortar */
+            object-fit: cover; /* MUDANÇA: Força a imagem a cobrir o espaço, sem margens */
             border-radius: 0.75rem; /* Bordas arredondadas para as imagens */
-            background-color: #111; /* Fundo escuro para preencher espaços vazios */
         }
     </style>
 </head>

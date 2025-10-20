@@ -21,12 +21,12 @@
     <!-- ============================================= -->
     <!-- ==    INÍCIO: Bloco da Atividade Principal   == -->
     <!-- ============================================= -->
-    <!-- MUDANÇA: 'lg:flex-row' foi trocado para 'md:flex-row' para ativar o layout lado a lado em telas menores (como dentro do Moodle) -->
     <main class="w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start">
 
         <!-- Coluna da Esquerda: O Carrossel -->
         <div class="flex-1 w-full flex justify-center md:justify-end transition-transform duration-300 hover:-translate-y-1">
-            <div id="carousel" class="w-full max-w-md aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl">
+            <!-- MUDANÇA: 'max-w-md' foi removido para permitir que o carrossel se ajuste ao espaço -->
+            <div id="carousel" class="w-full aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl">
                 <div class="carousel-track h-full flex">
                     <div class="carousel-slide h-full flex-shrink-0 w-full relative">
                         <img data-src="https://raw.githubusercontent.com/humbertoman/gifs_notion/main/gifs/diferente.gif" alt="GIF 1">
@@ -45,7 +45,8 @@
 
         <!-- Coluna da Direita: O Questionário -->
         <div class="flex-1 w-full flex justify-center md:justify-start transition-transform duration-300 hover:-translate-y-1">
-             <div class="w-full max-w-md h-[700px]">
+             <!-- MUDANÇA: 'max-w-md' foi removido para permitir que o formulário se ajuste ao espaço -->
+             <div class="w-full h-[700px]">
                 <iframe class="w-full h-full rounded-2xl shadow-2xl border border-slate-200/50" src="https://docs.google.com/forms/d/e/1FAIpQLSfYbE46iFIlBBsFpUHbfVVWEpb-P3-vAoMUeMFvIB1wXFrQ0w/viewform?embedded=true">Carregando…</iframe>
             </div>
         </div>

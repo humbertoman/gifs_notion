@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Página</title>
+    <title>Página de Atividade Interativa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* PARTE IMUTÁVEL: Estilos base para os componentes interativos */
-        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        /* Estilos base para uma aparência mais limpa */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
         .carousel-track { transition: transform 0.5s ease-in-out; }
         .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
         .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+        /* Estilo para vídeo responsivo */
         .aspect-h-9 { padding-bottom: 56.25%; }
         .aspect-w-16 { position: relative; height: 0; }
         .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
-        .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
+        /* Estilos para o Acordeão */
+        .accordion-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .accordion-header.active .accordion-chevron {
+            transform: rotate(90deg);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -26,15 +37,15 @@
 
     <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
 
-<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-slate-900 to-slate-800 shadow-lg">
+<header class="w-full bg-white border-b border-slate-200">
     <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
         <div class="py-4">
-            <span class="font-semibold text-white text-xl">Módulo 1</span>
+            <span class="font-semibold text-slate-800 text-xl">Módulo 1</span>
         </div>
     </div>
 </header>
 
-<p class="text-xl text-slate-600 leading-relaxed mb-6 max-w-3xl mx-auto text-center">
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
 Este curso foi pensado para a sua rotina no atendimento: vídeos curtos, exercícios simples e dois encontros. Você não precisa “saber tudo” para começar — aqui, cada passo já melhora sua capacidade de acolher e orientar uma pessoa surda com segurança e respeito. Ao longo das trilhas, você verá o essencial: cultura e direitos, comunicação visual (gestos, apontação, espaço), alfabeto e números, primeiros sinais, necessidades no balcão e etiqueta de atendimento.
 </p>
 
@@ -54,8 +65,7 @@ Este curso foi pensado para a sua rotina no atendimento: vídeos curtos, exercí
     <!-- ==                FIM DA ÁREA EDITÁVEL                          == -->
     <!-- ================================================================== -->
 
-    <!-- PARTE IMUTÁVEL: Scripts que fazem a página funcionar. Não altere. -->
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- CÓDIGO DO CARROSSEL ---
             const track = document.querySelector('.carousel-track');
@@ -94,5 +104,4 @@ Este curso foi pensado para a sua rotina no atendimento: vídeos curtos, exercí
     </script>
 </body>
 </html>
-
 

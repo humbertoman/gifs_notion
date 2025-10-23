@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Atividade Interativa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos base para uma aparência mais limpa */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .carousel-track { transition: transform 0.5s ease-in-out; }
+        .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+        /* Estilo para vídeo responsivo */
+        .aspect-h-9 { padding-bottom: 56.25%; }
+        .aspect-w-16 { position: relative; height: 0; }
+        .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        /* Estilos para o Acordeão */
+        .accordion-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .accordion-header.active .accordion-chevron {
+            transform: rotate(90deg);
+        }
+        /* Estilos para o Pop-up (Modal) */
+        #modal.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<!-- 
+==================================================================================================
+==
+==    CAIXA DE FERRAMENTAS: COPIE OS BLOCOS DESTA SEÇÃO PARA MONTAR SUAS PÁGINAS
+==    DICA PARA ESPAÇAMENTO: Para ajustar o espaço vertical entre os blocos, encontre a classe
+==    "my-12" no início de cada bloco e mude o número (ex: para "my-8" para menos espaço ou 
+==    "my-20" para mais espaço).
+==
+==================================================================================================
+
+<!-- ============================================= -->
+<!-- ==           INÍCIO: Bloco Header          == -->
+<!-- ============================================= -->
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-slate-800 to-slate-900 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
+        <div class="py-4">
+            <span class="font-semibold text-white text-xl">Sobre</span>
+        </div>
+    </div>
+</header>
+<!-- ============================================= -->
+<!-- ==             FIM: Bloco Header           == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==        INÍCIO: Bloco de Parágrafo         == -->
+<!-- ============================================= -->
+<p class="my-24 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    <!-- DICA DE FORMATAÇÃO:
+        Para NEGRITO, use a tag <strong>. Ex: uma palavra <strong>importante</strong>.
+        Para ITÁLICO, use a tag <em>. Ex: uma palavra <em>enfatizada</em>.
+        Para LINKS, use a tag <a>. Ex: <a href="https://google.com" target="_blank" class="text-blue-600 hover:underline">clique aqui</a>.
+        (target="_blank" faz o link abrir em uma nova aba)
+    -->
+Acesso à informação e à cultura é um direito assegurado em Lei. Sem atendimento em Libras, usuários surdos enfrentam barreiras na recepção de informações gerais e institucionais. Este projeto capacita servidores para usar a Libras em atendimentos e interações internas. O programa combina demonstrações práticas, simulações e feedback, guiado por materiais digitais e físicos. 
+</p>
+<p class="my-24 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Acesso à informação e à cultura é um direito assegurado em Lei. Sem atendimento em Libras, usuários surdos enfrentam barreiras na recepção de informações gerais e institucionais. Este projeto capacita servidores para usar a Libras em atendimentos e interações internas. O programa combina demonstrações práticas, simulações e feedback, guiado por materiais digitais. 
+</p>
+<p class="my-24 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Você não precisa “saber tudo” para começar — aqui, cada passo já melhora sua capacidade de acolher e orientar uma pessoa surda com segurança e respeito. Ao longo das trilhas, você verá o essencial: cultura e direitos, comunicação visual (gestos, apontação, espaço), alfabeto e números, primeiros sinais, necessidades no balcão e formas de atendimento.
+</p>
+<!-- ============================================= -->
+<!-- ==          FIM: Bloco de Parágrafo          == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- == INÍCIO: Bloco Objetivos de Aprendizagem  == -->
+<!-- Este bloco inteiro PODE ser editado, movido ou removido -->
+<!-- ============================================= -->
+<div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+    <!-- PODE editar o título -->
+    <h3 class="text-xl font-bold text-slate-900 mb-4">Objetivos do curso:</h3>
+    <!-- PODE editar, adicionar ou remover itens da lista (<li>) -->
+    <ul class="list-none space-y-3 text-lg text-slate-600">
+        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Sensibilizar servidores sobre cultura e direitos da comunidade surda.</li>
+        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Prover conhecimentos básicos de Libras aplicados ao fluxo de atendimento.</li>
+        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Capacitar os servidores a prestar atendimento acessível, eficiente e humanizado a pessoas surdas.</li>
+    </ul>
+</div>
+<!-- ============================================= -->
+<!-- ==  FIM: Bloco Objetivos de Aprendizagem   == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==      INÍCIO: Bloco Linha Divisória      == -->
+<!-- Este bloco inteiro PODE ser movido ou removido -->
+<!-- ============================================= -->
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+<!-- ============================================= -->
+<!-- ==        FIM: Bloco Linha Divisória       == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==    INÍCIO: Bloco da Atividade Principal   == -->
+<!-- Este bloco inteiro PODE ser editado, movido ou removido -->
+<!-- ============================================= -->
+<main class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+    <!-- Coluna da Esquerda: O Carrossel -->
+    <div class="flex-1 w-full flex justify-center md:justify-end transition-transform duration-300 hover:-translate-y-1">
+        <div id="carousel" class="w-full aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl">
+            <!-- PODE adicionar/remover slides (<div class="carousel-slide...") -->
+            <div class="carousel-track h-full flex">
+                <div class="carousel-slide h-full flex-shrink-0 w-full relative">
+                    <!-- PODE editar o src do GIF e o título -->
+                    <img data-src="https://raw.githubusercontent.com/humbertoman/gifs_notion/main/gifs/diferente.gif" alt="GIF 1">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Sinal 1</h3></div>
+                </div>
+                <div class="carousel-slide h-full flex-shrink-0 w-full relative">
+                    <img data-src="https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif" alt="GIF 2">
+                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Sinal 2</h3></div>
+                </div>
+            </div>
+            <!-- Botões e pontos (geralmente não precisam ser editados) -->
+            <button id="prevBtn" class="nav-button absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 backdrop-blur-sm p-2 rounded-full text-slate-800 hover:bg-white/60 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button id="nextBtn" class="nav-button absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 backdrop-blur-sm p-2 rounded-full text-slate-800 hover:bg-white/60 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            <div id="dots-container" class="absolute bottom-16 left-1/2 -translate-x-1/2 flex space-x-2"></div>
+        </div>
+    </div>
+    <!-- Coluna da Direita: O Questionário (Iframe) -->
+    <div class="flex-1 w-full flex justify-center md:justify-start transition-transform duration-300 hover:-translate-y-1">
+         <div class="w-full h-[700px]">
+            <!-- PODE editar o src do iframe (link do seu formulário Google, Microsoft, etc.) -->
+            <iframe class="w-full h-full rounded-2xl shadow-2xl border border-slate-200/50" src="https://docs.google.com/forms/d/e/1FAIpQLSfYbE46iFIlBBsFpUHbfVVWEpb-P3-vAoMUeMFvIB1wXFrQ0w/viewform?embedded=true">Carregando…</iframe>
+        </div>
+    </div>
+</main>
+<!-- ============================================= -->
+<!-- ==      FIM: Bloco da Atividade Principal    == -->
+<!-- ============================================= -->
+
+   
+    <!-- ***** PARTE IMUTÁVEL ***** -->
+    <!-- Conteúdo do Pop-up (colocado fora do container principal para sobrepor tudo) -->
+    <!-- Se você remover o bloco do botão Pop-up, PODE remover esta <div> inteira também -->
+    <div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+        <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <!-- PODE editar o título e texto do Pop-up -->
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Título do Pop-up</h3>
+            <p class="text-slate-600">Conteúdo do Pop-up.</p>
+        </div>
+    </div>
+
+    <!-- ***** PARTE IMUTÁVEL ***** -->
+    <!-- O <script> no final contém o código que faz os componentes interativos funcionarem. Não edite. -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.querySelector('.carousel-track');
+            if (track) { /* Código do Carrossel (imutável) */ const slides = Array.from(track.children); if (slides.length > 0) { const nextButton = document.getElementById('nextBtn'); const prevButton = document.getElementById('prevBtn'); const dotsContainer = document.getElementById('dots-container'); let currentIndex = 0; const loadSlideContent = (index) => { const slide = slides[index]; if (!slide) return; const img = slide.querySelector('img'); if (img && img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); } }; const moveToSlide = (targetIndex) => { if (slides.length === 0) return; const slideWidth = slides[0].getBoundingClientRect().width; if (!slideWidth) return; loadSlideContent(targetIndex); track.style.transform = `translateX(-${slideWidth * targetIndex}px)`; currentIndex = targetIndex; updateUI(); }; const updateUI = () => { if (slides.length === 0 || !dotsContainer) return; const dots = Array.from(dotsContainer.children); dots.forEach((dot, index) => { dot.classList.toggle('bg-white', index === currentIndex); dot.classList.toggle('bg-white/50', index !== currentIndex); }); if (prevButton) prevButton.disabled = (currentIndex === 0); if (nextButton) nextButton.disabled = (currentIndex === slides.length - 1); }; const setupCarousel = () => { if (slides.length === 0 || !dotsContainer) return; dotsContainer.innerHTML = ''; slides.forEach((_, index) => { const dot = document.createElement('button'); dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors'); dotsContainer.appendChild(dot); dot.addEventListener('click', () => moveToSlide(index)); }); const slideWidth = slides[0].getBoundingClientRect().width; if (!slideWidth) return; track.style.transition = 'none'; track.style.transform = `translateX(-${slideWidth * currentIndex}px)`; setTimeout(() => { track.style.transition = 'transform 0.5s ease-in-out'; }, 50); updateUI(); loadSlideContent(currentIndex); }; if (nextButton && prevButton) { nextButton.addEventListener('click', () => { if (currentIndex < slides.length - 1) { moveToSlide(currentIndex + 1); } }); prevButton.addEventListener('click', () => { if (currentIndex > 0) { moveToSlide(currentIndex - 1); } }); } window.addEventListener('resize', setupCarousel); setTimeout(setupCarousel, 100); } }
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => { /* Código do Acordeão (imutável) */ header.addEventListener('click', () => { const accordionContent = header.nextElementSibling; header.classList.toggle('active'); if (accordionContent.style.maxHeight) { accordionContent.style.maxHeight = null; } else { accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'; } }); });
+            const openModalBtn = document.getElementById('openModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            if (openModalBtn && modal && closeModalBtn && modalContent) { /* Código do Modal (imutável) */ const openModal = () => { modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.add('opacity-100'); modalContent.classList.add('scale-100'); }; const closeModal = () => { modal.classList.remove('opacity-100'); modalContent.classList.remove('scale-100'); setTimeout(() => { modal.classList.add('hidden'); }, 300); }; openModalBtn.addEventListener('click', openModal); closeModalBtn.addEventListener('click', closeModal); modal.addEventListener('click', (event) => { if (event.target === modal) { closeModal(); } }); }
+        });
+    </script>
+</body>
+</html>
+

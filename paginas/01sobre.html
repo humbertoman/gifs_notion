@@ -109,43 +109,42 @@ Você não precisa “saber tudo” para começar — aqui, cada passo já melho
 <!-- ============================================= -->
 
 <!-- ============================================= -->
-<!-- ==    INÍCIO: Bloco da Atividade Principal   == -->
+<!-- ==  INÍCIO: Bloco Imagem e Texto Lado a Lado == -->
 <!-- Este bloco inteiro PODE ser editado, movido ou removido -->
 <!-- ============================================= -->
-<main class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-    <!-- Coluna da Esquerda: O Carrossel -->
-    <div class="flex-1 w-full flex justify-center md:justify-end transition-transform duration-300 hover:-translate-y-1">
-        <div id="carousel" class="w-full aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl">
-            <!-- PODE adicionar/remover slides (<div class="carousel-slide...") -->
-            <div class="carousel-track h-full flex">
-                <div class="carousel-slide h-full flex-shrink-0 w-full relative">
-                    <!-- PODE editar o src do GIF e o título -->
-                    <img data-src="https://raw.githubusercontent.com/humbertoman/gifs_notion/main/gifs/diferente.gif" alt="GIF 1">
-                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Sinal 1</h3></div>
-                </div>
-                <div class="carousel-slide h-full flex-shrink-0 w-full relative">
-                    <img data-src="https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif" alt="GIF 2">
-                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Sinal 2</h3></div>
-                </div>
-            </div>
-            <!-- Botões e pontos (geralmente não precisam ser editados) -->
-            <button id="prevBtn" class="nav-button absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 backdrop-blur-sm p-2 rounded-full text-slate-800 hover:bg-white/60 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-            <button id="nextBtn" class="nav-button absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 backdrop-blur-sm p-2 rounded-full text-slate-800 hover:bg-white/60 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            <div id="dots-container" class="absolute bottom-16 left-1/2 -translate-x-1/2 flex space-x-2"></div>
+<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+    <!-- Coluna da Esquerda: Imagem -->
+    <div class="flex-1 w-full flex justify-center md:justify-end">
+        <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl">
+             <!-- PODE editar o src (link da imagem) e o alt (descrição) -->
+            <img class="w-full rounded-2xl shadow-xl" src="https://github.com/humbertoman/gifs_notion/blob/56334f667fa10c8ae141b1631a133d2e69b00451/gifs/20250617_2255_Retrato%20em%20Tons%20Past%C3%A9is_remix_01jy0bv3y8fmxbpamjdbfzdc8v.png" alt="Descrição da imagem">
+             <!-- PODE editar a legenda -->
+            <figcaption class="text-center text-slate-500 mt-4 text-base">Legenda (opcional).</figcaption>
+        </figure>
+    </div>
+    <!-- Coluna da Direita: Texto -->
+    <div class="flex-1 w-full flex justify-center md:justify-start">
+        <div class="max-w-md">
+             <!-- NOVO: Subtítulo adicionado -->
+             <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">Olá, me chamo Humberto Meira</h3>
+             <!-- PODE adicionar quantos parágrafos <p> precisar aqui -->
+             <!-- MUDANÇA: Removido text-center, mantido md:text-left (agora apenas text-left) -->
+            <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left">
+                Trabalho na área de língua de sinais há 17 anos. Comecei como tradutor intérprete de Libras e professor de crianças surdas no Centro de Atendimento ao Surdo (CAS).
+            </p>
+             <!-- MUDANÇA: Removido text-center, mantido md:text-left (agora apenas text-left) -->
+            <p class="text-xl text-slate-600 leading-relaxed text-left">
+                Em 2012, ingressei na Universidade Federal de Alagoas (UFAL) como docente, onde sigo lecionando no curso de Letras-Libras e desenvolvendo pesquisas na área de língua de sinais e educação de surdos.
+            </p>
+<p class="text-xl text-slate-600 leading-relaxed text-left">
+                Tenho graduação em Letras-Libras pela Universidade Federal de Santa Catarina, graduação em Jornalismo pela UFAL, mestrado e doutorado em linguística pela UFAL.
+            </p>
         </div>
     </div>
-    <!-- Coluna da Direita: O Questionário (Iframe) -->
-    <div class="flex-1 w-full flex justify-center md:justify-start transition-transform duration-300 hover:-translate-y-1">
-         <div class="w-full h-[700px]">
-            <!-- PODE editar o src do iframe (link do seu formulário Google, Microsoft, etc.) -->
-            <iframe class="w-full h-full rounded-2xl shadow-2xl border border-slate-200/50" src="https://docs.google.com/forms/d/e/1FAIpQLSfYbE46iFIlBBsFpUHbfVVWEpb-P3-vAoMUeMFvIB1wXFrQ0w/viewform?embedded=true">Carregando…</iframe>
-        </div>
-    </div>
-</main>
+</div>
 <!-- ============================================= -->
-<!-- ==      FIM: Bloco da Atividade Principal    == -->
+<!-- ==   FIM: Bloco Imagem e Texto Lado a Lado  == -->
 <!-- ============================================= -->
-
    
     <!-- ***** PARTE IMUTÁVEL ***** -->
     <!-- Conteúdo do Pop-up (colocado fora do container principal para sobrepor tudo) -->

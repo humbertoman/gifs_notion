@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<!-- ***** PARTE IMUTÁVEL ***** -->
-<!-- O <head> contém configurações essenciais, estilos e o link para o Tailwind CSS. -->
-<!-- NÃO EDITE esta seção, exceto o <title> se desejar. -->
+
+<!-- ========================================================================== -->
+<!-- ===                    NÃO MEXA NESTA SEÇÃO                           === -->
+<!-- ========================================================================== -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Você PODE editar o título da página aqui -->
-    <title>Template Mestre - Página Interativa</title> 
+    <title>Minha Página - Edite Este Título</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos base (IMUTÁVEL) */
         body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         .carousel-track { transition: transform 0.5s ease-in-out; }
         .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
@@ -21,317 +20,563 @@
         .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
         .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
         #modal.hidden { display: none; }
+        .custom-ordered-list { list-style: none; counter-reset: list-counter; padding-left: 0; }
+        .custom-ordered-list li { counter-increment: list-counter; position: relative; padding-left: 2.5rem; margin-bottom: 0.75rem; }
+        .custom-ordered-list li::before {
+            content: counter(list-counter);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #334155;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
     </style>
 </head>
-<!-- ***** FIM DA PARTE IMUTÁVEL ***** -->
+<!-- ========================================================================== -->
+<!-- ===                 FIM DA SEÇÃO QUE NÃO DEVE MEXER                   === -->
+<!-- ========================================================================== -->
 
 <body class="bg-slate-50 text-slate-800">
 
-<!-- ***** PARTE IMUTÁVEL ***** -->
-<!-- Header Fixo: Fica no topo da página. -->
-<!-- Você PODE editar o texto dentro do <span> (ex: "Módulo 1"). -->
-<!-- Se não quiser um header, pode remover este bloco <header> INTEIRO e também a div <div class="pt-24"> abaixo. -->
+<!-- ========================================================================== -->
+<!-- ===        NÃO MEXA - HEADER FIXO (você pode editar só o texto)      === -->
+<!-- ========================================================================== -->
 <header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-slate-800 to-slate-900 shadow-lg">
     <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
         <div class="py-4">
-            <span class="font-semibold text-white text-xl">Nome do Módulo/Página</span>
+            <!-- VOCÊ PODE EDITAR APENAS O TEXTO ABAIXO: -->
+            <span class="font-semibold text-white text-xl">Módulo 1: Deficiência x Diferença</span>
         </div>
     </div>
 </header>
-<!-- ***** FIM DA PARTE IMUTÁVEL ***** -->
+<!-- ========================================================================== -->
+<!-- ===                    FIM DO HEADER FIXO                             === -->
+<!-- ========================================================================== -->
 
-<!-- 
-==================================================================================================
-==
-==    INSTRUÇÕES GERAIS E CAIXA DE FERRAMENTAS
-==
-==================================================================================================
 
-**COMO USAR ESTE TEMPLATE:**
-1. Salve este arquivo com um novo nome (ex: `modulo1.html`) na sua pasta `/paginas/` no GitHub.
-2. Edite o `<title>` no início do código se desejar.
-3. Edite o texto do Header se estiver usando um.
-4. Vá até a seção marcada "<!-- ***** INÍCIO DA ÁREA EDITÁVEL DA PÁGINA ***** -->".
-5. Copie os blocos desejados da "Caixa de Ferramentas" abaixo e cole-os DENTRO da área editável.
-6. Edite o conteúdo (textos, links, imagens) de cada bloco colado.
-7. Remova os blocos que você não precisar da área editável.
-8. Lembre-se da regra de espaçamento: O primeiro bloco colado deve ter "mt-0 mb-12", os demais "my-12".
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+<div class="pt-24"> 
+    <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
+<!-- ========================================================================== -->
 
-**FORMATAÇÃO DE TEXTO (Dentro das tags <p>, <h4>, <li>, etc.):**
-   - **Negrito:** Envolva o texto com `<strong>texto</strong>`.
-   - **Itálico:** Envolva o texto com `<em>texto</em>`.
-   - **Link:** Use `<a href="URL_DO_LINK" target="_blank" class="text-blue-600 hover:underline">texto do link</a>`. 
-     (O `target="_blank"` faz abrir em nova aba. A `class="..."` dá o estilo azul sublinhado).
-   - **Quebra de Linha (dentro do mesmo parágrafo):** Use `<br>`.
-   - **Novo Parágrafo:** Use uma nova tag `<p class="... mb-4 ...">` (copie de um bloco existente).
 
-**COMO INCORPORAR NO MOODLE / CANVAS:**
-   1. Após salvar esta página no GitHub, copie a URL dela (ex: `https://seu-usuario.github.io/seu-repo/paginas/modulo1.html`).
-   2. No Moodle/Canvas, adicione um recurso "Página" ou "Rótulo".
-   3. No editor de conteúdo, clique no botão de código HTML (`</>`).
-   4. Cole o seguinte código, substituindo a URL:
-      `<iframe src="URL_DA_SUA_PAGINA_GITHUB" style="border:0px; width:100%; height:800px;"></iframe>`
-   5. Ajuste o `height` (altura) conforme necessário para evitar barras de rolagem excessivas ou espaços vazios.
+<!-- ############################################################################
+     ###                                                                      ###
+     ###   COMECE A EDITAR AQUI - COLE OS BLOCOS DA CAIXA DE FERRAMENTAS     ###
+     ###                                                                      ###
+     ############################################################################ -->
 
-**ESPAÇAMENTO (REGRAS):**
-   - O espaço abaixo do Header Fixo é criado pela `<div class="pt-24">` que envolve o conteúdo principal. NÃO remova essa `div` se usar o header fixo.
-   - Para espaço ENTRE blocos: Use a classe `my-12` na `div` principal de cada bloco. Pode ajustar o número (ex: `my-8`, `my-16`).
-   - Para o PRIMEIRO bloco logo após o header: Substitua `my-12` por `mt-0 mb-12` para evitar espaçamento duplo no topo.
-   - Para espaço ENTRE parágrafos dentro de um bloco: Use a classe `mb-4` (ou `mb-6`) no final da tag `<p>`.
 
-==================================================================================================
-== CAIXA DE FERRAMENTAS - BLOCOS PARA COPIAR E COLAR NA ÁREA EDITÁVEL ABAIXO
-==================================================================================================
--->
 
-<!-- ============================================= -->
-<!-- ==     INÍCIO: Bloco Título Principal (H1)   == -->
-<!-- ============================================= -->
-<h1 class="my-12 text-4xl font-bold text-slate-900 tracking-tight text-center">Seu Título Principal Aqui</h1>
-<!-- ============================================= -->
-<!-- ==       FIM: Bloco Título Principal (H1)    == -->
-<!-- ============================================= -->
 
-<!-- ============================================= -->
-<!-- ==      INÍCIO: Bloco Subtítulo (H2)        == -->
-<!-- ============================================= -->
-<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">Seu Subtítulo Aqui</h2>
-<!-- ============================================= -->
-<!-- ==        FIM: Bloco Subtítulo (H2)        == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==        INÍCIO: Bloco de Parágrafo         == -->
-<!-- ============================================= -->
-<p class="my-12 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4"> 
-    Texto do parágrafo aqui. Lembre-se das tags <strong>negrito</strong>, <em>itálico</em> e <a href="#" target="_blank" class="text-blue-600 hover:underline">links</a>. Use mb-4 para espaço entre parágrafos.
+        <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+ No fórum anterior, exploramos nossas percepções iniciais sobre a surdez. Agora, vamos aprofundar esse debate.
 </p>
-<!-- ============================================= -->
-<!-- ==          FIM: Bloco de Parágrafo          == -->
-<!-- ============================================= -->
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Historicamente, a visão dominante sobre a surdez é a do modelo clínico-patológico. Nessa perspectiva, a surdez é entendida como uma "falta" auditiva, uma patologia que precisa ser "corrigida" ou "consertada" para que a pessoa se aproxime de um padrão "normal" (o ouvinte).
+</p>
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Os textos de apoio deste tópico (sobre a "invenção da normalidade" e a biopolítica) irão demonstrar como a própria ideia de "normal" é uma construção social, historicamente utilizada para justificar a exclusão de grupos que fogem à regra.
+</p>
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Em contraponto a essa visão, apresentaremos o modelo sociocultural. Esta abordagem, defendida por ativistas e acadêmicos, entende a surdez não como uma deficiência, mas como uma diferença linguística e cultural.
+</p>
 
-<!-- ============================================= -->
-<!-- ==   INÍCIO: Bloco Callout (Destaque Suave)  == -->
-<!-- ============================================= -->
-<div class="my-12 bg-slate-100/70 p-6 rounded-2xl flex items-start gap-5 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-md">
-    <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-full p-2"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="flex-shrink-0"><path d="M15.09 16.05a2 2 0 0 1-2.18 2.85a2 2 0 0 1-2.18-2.85V14a2 2 0 0 1 2.18-2.85a2 2 0 0 1 2.18 2.85v2.05z"/><path d="M12 2A7 7 0 0 0 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74A7 7 0 0 0 12 2z"/></svg> </div>
-    <div> <h4 class="font-bold text-slate-900 mb-1">Título do Destaque</h4> <p class="text-slate-600">Texto do destaque.</p> </div>
-</div>
-<!-- ============================================= -->
-<!-- ==    FIM: Bloco Callout (Destaque Suave)    == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==        INÍCIO: Bloco de Imagem          == -->
-<!-- ============================================= -->
-<figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
-    <img class="w-full rounded-2xl shadow-xl" src="URL_DA_IMAGEM_AQUI" alt="Descrição da imagem">
-    <figcaption class="text-center text-slate-500 mt-4 text-base">Legenda (opcional).</figcaption>
-</figure>
-<!-- ============================================= -->
-<!-- ==          FIM: Bloco de Imagem           == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==  INÍCIO: Bloco Imagem e Texto Lado a Lado == -->
-<!-- ============================================= -->
-<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-    <div class="flex-1 w-full flex justify-center md:justify-end"> <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl"> <img class="w-full rounded-2xl shadow-xl" src="URL_DA_IMAGEM_AQUI" alt="Descrição da imagem"> <figcaption class="text-center text-slate-500 mt-4 text-base">Legenda (opcional).</figcaption> </figure> </div>
-    <div class="flex-1 w-full flex justify-center md:justify-start"> <div class="max-w-md"> <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">Subtítulo Aqui</h3> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Texto aqui. </p> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Mais texto aqui. </p> </div> </div>
-</div>
-<!-- ============================================= -->
-<!-- ==   FIM: Bloco Imagem e Texto Lado a Lado  == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==      INÍCIO: Bloco Link Externo         == -->
-<!-- ============================================= -->
-<div class="my-12 max-w-3xl mx-auto">
-    <a href="URL_DO_LINK_AQUI" target="_blank" rel="noopener noreferrer" class="block bg-white border border-slate-200/50 p-6 rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-lg">
-        <div class="flex items-start gap-4"> <div class="flex-shrink-0 text-slate-500 mt-1"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> </div>
-            <div> <h4 class="font-semibold text-slate-900 mb-1">Título do Link</h4> <p class="text-slate-600 text-base">Descrição do link.</p> </div>
-            <div class="ml-auto flex-shrink-0 text-slate-400"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> </div>
-        </div>
-    </a>
-</div>
-<!-- ============================================= -->
-<!-- ==       FIM: Bloco Link Externo          == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==      INÍCIO: Bloco Linha Divisória      == -->
-<!-- ============================================= -->
 <hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
-<!-- ============================================= -->
-<!-- ==        FIM: Bloco Linha Divisória       == -->
-<!-- ============================================= -->
 
-<!-- ============================================= -->
-<!-- == INÍCIO: Bloco Objetivos de Aprendizagem  == -->
-<!-- ============================================= -->
+<p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Para entender a base do modelo sociocultural, assista à palestra <strong>Deficiência e Diferenças</strong>, da médica e ativista <strong>Izabel Maior</strong>.
+</p>
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Dificiência e Diferenças
+</h2>
+
+<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
+    <div class="aspect-w-16 aspect-h-9">
+        <iframe class="rounded-2xl shadow-xl" src="https://www.youtube.com/watch?v=jQKD5mIMJsM&t=173s" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
 <div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
-    <h3 class="text-xl font-bold text-slate-900 mb-4">Objetivos de Aprendizagem:</h3>
-    <ul class="list-none space-y-3 text-lg text-slate-600"> <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Objetivo 1.</li> <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Objetivo 2.</li> </ul>
+    <h4 class="text-xl font-semibold text-slate-800 mb-5 text-left">Título da Lista:</h4>
+    <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+        <li>Primeiro item da lista.</li>
+        <li>Segundo item da lista.</li>
+        <li>Terceiro item da lista.</li>
+    </ol>
 </div>
-<!-- ============================================= -->
-<!-- ==  FIM: Bloco Objetivos de Aprendizagem   == -->
-<!-- ============================================= -->
 
-<!-- ============================================= -->
-<!-- ==      INÍCIO: Bloco Vídeo Embebedado      == -->
-<!-- ============================================= -->
-<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
-    <div class="aspect-w-16 aspect-h-9"> <iframe class="rounded-2xl shadow-xl" src="URL_DO_VIDEO_YOUTUBE_OU_VIMEO" frameborder="0" allowfullscreen></iframe> </div>
-</div>
-<!-- ============================================= -->
-<!-- ==       FIM: Bloco Vídeo Embebedado       == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==        INÍCIO: Bloco H5P Embebedado      == -->
-<!-- ============================================= -->
-<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
-    <div class="aspect-w-16 aspect-h-9"> <iframe class="rounded-2xl shadow-xl" src="URL_DO_H5P" frameborder="0" allowfullscreen="allowfullscreen"></iframe> </div>
-    <p class="text-center text-slate-500 mt-4 text-base">Link alternativo: <a href="URL_DO_H5P" target="_blank" class="text-blue-600 hover:underline">abrir H5P</a>.</p>
-</div>
-<!-- ============================================= -->
-<!-- ==         FIM: Bloco H5P Embebedado       == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==        INÍCIO: Bloco Tabela Limpa     == -->
-<!-- ============================================= -->
-<div class="my-12 max-w-3xl mx-auto overflow-x-auto transition-shadow duration-300 hover:shadow-lg">
-    <table class="w-full text-left"> <thead> <tr> <th class="p-4 bg-slate-100 text-slate-800 font-semibold rounded-tl-xl">Cabeçalho 1</th> <th class="p-4 bg-slate-100 text-slate-800 font-semibold rounded-tr-xl">Cabeçalho 2</th> </tr> </thead> <tbody class="bg-white"> <tr> <td class="border-t border-slate-100 p-4 text-slate-600">Dado A1</td> <td class="border-t border-slate-100 p-4 text-slate-600">Dado B1</td> </tr> <tr> <td class="border-t border-slate-100 p-4 text-slate-600 rounded-bl-xl">Dado A2</td> <td class="border-t border-slate-100 p-4 text-slate-600 rounded-br-xl">Dado B2</td> </tr> </tbody> </table>
-</div>
-<!-- ============================================= -->
-<!-- ==         FIM: Bloco Tabela Limpa       == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==     INÍCIO: Bloco Card de Conteúdo       == -->
-<!-- ============================================= -->
-<div class="my-12 bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-xl">
-    <h3 class="text-xl font-bold text-slate-900 mb-2">Título do Card</h3> <p class="text-slate-600">Texto do card.</p>
-</div>
-<!-- ============================================= -->
-<!-- ==       FIM: Bloco Card de Conteúdo       == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==        INÍCIO: Bloco Guia Passo a Passo   == -->
-<!-- ============================================= -->
-<div class="my-12 max-w-3xl mx-auto">
-    <div class="space-y-8"> <div class="flex gap-4"> <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-slate-800 text-white font-bold rounded-full">1</div> <div> <h4 class="font-bold text-lg text-slate-900">Título Passo 1</h4> <p class="text-slate-600 mt-1">Descrição passo 1.</p> </div> </div> <div class="flex gap-4"> <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-slate-800 text-white font-bold rounded-full">2</div> <div> <h4 class="font-bold text-lg text-slate-900">Título Passo 2</h4> <p class="text-slate-600 mt-1">Descrição passo 2.</p> </div> </div> </div>
-</div>
-<!-- ============================================= -->
-<!-- ==          FIM: Bloco Guia Passo a Passo  == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==    INÍCIO: Bloco Botão de Ação (CTA)      == -->
-<!-- ============================================= -->
-<div class="my-12 text-center">
-    <a href="URL_DO_LINK" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105"> Texto do Botão → </a>
-</div>
-<!-- ============================================= -->
-<!-- ==      FIM: Bloco Botão de Ação (CTA)     == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==   INÍCIO: Bloco Acordeão (Expansível)     == -->
-<!-- ============================================= -->
-<div class="my-12 max-w-3xl mx-auto space-y-4">
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md"> <button class="accordion-header w-full flex justify-between items-center p-6 text-left"> <span class="font-semibold text-slate-900 text-lg">Título Expansível 1</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="accordion-chevron text-slate-500 transition-transform duration-300"><polyline points="9 18 15 12 9 6"></polyline></svg> </button> <div class="accordion-content"> <div class="p-6 pt-0 text-slate-600"> <p>Conteúdo expansível 1.</p> </div> </div> </div>
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md"> <button class="accordion-header w-full flex justify-between items-center p-6 text-left"> <span class="font-semibold text-slate-900 text-lg">Título Expansível 2</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="accordion-chevron text-slate-500 transition-transform duration-300"><polyline points="9 18 15 12 9 6"></polyline></svg> </button> <div class="accordion-content"> <div class="p-6 pt-0 text-slate-600"> <p>Conteúdo expansível 2.</p> </div> </div> </div>
-</div>
-<!-- ============================================= -->
-<!-- ==    FIM: Bloco Acordeão (Expansível)      == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==       INÍCIO: Bloco Pop-up (Modal)        == -->
-<!-- ============================================= -->
-<div class="my-12 text-center">
-    <button id="openModalBtn" class="inline-block bg-slate-800 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-900 transition-transform hover:scale-105"> Abrir Pop-up </button>
-</div>
-<!-- ============================================= -->
-<!-- ==        FIM: Bloco Pop-up (Modal)        == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==    INÍCIO: Bloco da Atividade Principal   == -->
-<!-- ============================================= -->
-<main class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-    <div class="flex-1 w-full flex justify-center md:justify-end transition-transform duration-300 hover:-translate-y-1"> <div id="carousel" class="w-full aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl"> <div class="carousel-track h-full flex"> <div class="carousel-slide h-full flex-shrink-0 w-full relative"> <img data-src="URL_GIF_1" alt="GIF 1"> <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Título GIF 1</h3></div> </div> <div class="carousel-slide h-full flex-shrink-0 w-full relative"> <img data-src="URL_GIF_2" alt="GIF 2"> <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Título GIF 2</h3></div> </div> </div> <button id="prevBtn" class="nav-button absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 p-2 rounded-full"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button> <button id="nextBtn" class="nav-button absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 p-2 rounded-full"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button> <div id="dots-container" class="absolute bottom-16 left-1/2 -translate-x-1/2 flex space-x-2"></div> </div> </div>
-    <div class="flex-1 w-full flex justify-center md:justify-start transition-transform duration-300 hover:-translate-y-1"> <div class="w-full h-[700px]"> <iframe class="w-full h-full rounded-2xl shadow-2xl border border-slate-200/50" src="URL_DO_SEU_FORMULARIO_EMBED">Carregando…</iframe> </div> </div>
-</main>
-<!-- ============================================= -->
-<!-- ==      FIM: Bloco da Atividade Principal    == -->
-<!-- ============================================= -->
-
-<!-- ***** FIM DOS BLOCOS DA CAIXA DE FERRAMENTAS ***** -->
-    
-    <!-- ================================================================== -->
-    <!-- ==      CORPO DA PÁGINA - INSIRA OS BLOCOS COPIADOS ACIMA AQUI    == -->
-    <!-- ================================================================== -->
-     <!-- Wrapper com pt-24 para criar espaço abaixo do header fixo. NÃO REMOVA pt-24 se usar o header fixo. -->
-    <div class="pt-24"> 
-        <!-- ***** PARTE EDITÁVEL ***** -->
-        <!-- Container principal onde o conteúdo é centralizado e tem padding. NÃO REMOVA. -->
-        <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
-
-            <!-- EXEMPLO DE PÁGINA MONTADA (COLE SEUS BLOCOS AQUI) -->
-            <!-- Lembre-se: O PRIMEIRO bloco aqui deve ter mt-0 mb-12 -->
-
-            <!-- Bloco Título Principal (Primeiro Bloco -> mt-0 mb-12) -->
-            <h1 class="mt-0 mb-12 text-4xl font-bold text-slate-900 tracking-tight text-center">Título da Sua Página</h1>
-
-             <!-- Bloco de Parágrafo (Segundo Bloco -> my-12) -->
-            <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-                Instruções iniciais ou texto de boas-vindas. Use <strong>negrito</strong> ou <em>itálico</em>.
-            </p>
-
-            <!-- Bloco Imagem e Texto (Terceiro Bloco -> my-12) -->
-            <div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-                <div class="flex-1 w-full flex justify-center md:justify-end"> <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl"> <img class="w-full rounded-2xl shadow-xl" src="https://raw.githubusercontent.com/humbertoman/gifs_notion/56334f667fa10c8ae141b1631a133d2e69b00451/gifs/20250617_2255_Retrato%20em%20Tons%20Past%C3%A9is_remix_01jy0bv3y8fmxbpamjdbfzdc8v.png" alt="Retrato"> </figure> </div>
-                <div class="flex-1 w-full flex justify-center md:justify-start"> <div class="max-w-md"> <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">Subtítulo Exemplo</h3> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Texto sobre a imagem. </p> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Mais texto. </p> </div> </div>
-            </div>
-            
-            <!-- Adicione mais blocos aqui -->
+<!-- ############################################################################
+     ###                                                                      ###
+     ###              PARE DE EDITAR AQUI                                    ###
+     ###                                                                      ###
+     ############################################################################ -->
 
 
-        </div>
-        <!-- ***** FIM DA PARTE EDITÁVEL ***** -->
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
     </div>
+</div>
+<!-- ========================================================================== -->
 
-    <!-- ***** PARTE IMUTÁVEL ***** -->
-    <!-- Conteúdo do Pop-up (colocado fora do container principal para sobrepor tudo) -->
-    <!-- Se você remover o bloco do botão Pop-up, PODE remover esta <div> inteira também -->
-    <div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
-        <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
-            <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-            <!-- PODE editar o título e texto do Pop-up -->
-            <h3 class="text-2xl font-bold text-slate-900 mb-4">Título Padrão Pop-up</h3>
-            <p class="text-slate-600">Conteúdo Padrão Pop-up.</p>
-        </div>
+
+<!-- ========================================================================== -->
+<!-- ===     NÃO MEXA - ESTRUTURA DO MODAL (você edita o conteúdo depois) === -->
+<!-- ========================================================================== -->
+<div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <!-- VOCÊ PODE EDITAR O CONTEÚDO DO MODAL ABAIXO: -->
+        <h3 class="text-2xl font-bold text-slate-900 mb-4">Título do Pop-up</h3>
+        <p class="text-slate-600">Conteúdo do pop-up aqui.</p>
     </div>
+</div>
+<!-- ========================================================================== -->
 
-    <!-- ***** PARTE IMUTÁVEL ***** -->
-    <!-- O <script> no final contém o código que faz os componentes interativos funcionarem. NÃO EDITE. -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const track = document.querySelector('.carousel-track');
-            if (track) { /* Código do Carrossel (imutável) */ const slides = Array.from(track.children); if (slides.length > 0) { const nextButton = document.getElementById('nextBtn'); const prevButton = document.getElementById('prevBtn'); const dotsContainer = document.getElementById('dots-container'); let currentIndex = 0; const loadSlideContent = (index) => { const slide = slides[index]; if (!slide) return; const img = slide.querySelector('img'); if (img && img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); } }; const moveToSlide = (targetIndex) => { if (slides.length === 0) return; const slideWidth = slides[0].getBoundingClientRect().width; if (!slideWidth) return; loadSlideContent(targetIndex); track.style.transform = `translateX(-${slideWidth * targetIndex}px)`; currentIndex = targetIndex; updateUI(); }; const updateUI = () => { if (slides.length === 0 || !dotsContainer) return; const dots = Array.from(dotsContainer.children); dots.forEach((dot, index) => { dot.classList.toggle('bg-white', index === currentIndex); dot.classList.toggle('bg-white/50', index !== currentIndex); }); if (prevButton) prevButton.disabled = (currentIndex === 0); if (nextButton) nextButton.disabled = (currentIndex === slides.length - 1); }; const setupCarousel = () => { if (slides.length === 0 || !dotsContainer) return; dotsContainer.innerHTML = ''; slides.forEach((_, index) => { const dot = document.createElement('button'); dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors'); dotsContainer.appendChild(dot); dot.addEventListener('click', () => moveToSlide(index)); }); const slideWidth = slides[0].getBoundingClientRect().width; if (!slideWidth) return; track.style.transition = 'none'; track.style.transform = `translateX(-${slideWidth * currentIndex}px)`; setTimeout(() => { track.style.transition = 'transform 0.5s ease-in-out'; }, 50); updateUI(); loadSlideContent(currentIndex); }; if (nextButton && prevButton) { nextButton.addEventListener('click', () => { if (currentIndex < slides.length - 1) { moveToSlide(currentIndex + 1); } }); prevButton.addEventListener('click', () => { if (currentIndex > 0) { moveToSlide(currentIndex - 1); } }); } window.addEventListener('resize', setupCarousel); setTimeout(setupCarousel, 100); } }
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            accordionHeaders.forEach(header => { /* Código do Acordeão (imutável) */ header.addEventListener('click', () => { const accordionContent = header.nextElementSibling; header.classList.toggle('active'); if (accordionContent.style.maxHeight) { accordionContent.style.maxHeight = null; } else { accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'; } }); });
-            const openModalBtn = document.getElementById('openModalBtn');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const modal = document.getElementById('modal');
-            const modalContent = document.getElementById('modal-content');
-            if (openModalBtn && modal && closeModalBtn && modalContent) { /* Código do Modal (imutável) */ const openModal = () => { modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.add('opacity-100'); modalContent.classList.add('scale-100'); }; const closeModal = () => { modal.classList.remove('opacity-100'); modalContent.classList.remove('scale-100'); setTimeout(() => { modal.classList.add('hidden'); }, 300); }; openModalBtn.addEventListener('click', openModal); closeModalBtn.addEventListener('click', closeModal); modal.addEventListener('click', (event) => { if (event.target === modal) { closeModal(); } }); }
+
+<!-- ========================================================================== -->
+<!-- ===              NÃO MEXA NESTE SCRIPT                                === -->
+<!-- ========================================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const carouselElement = document.getElementById('carousel');
+    if (carouselElement) {
+        const track = carouselElement.querySelector('.carousel-track');
+        const slides = track ? Array.from(track.children) : [];
+        const nextButton = document.getElementById('nextBtn');
+        const prevButton = document.getElementById('prevBtn');
+        const dotsContainer = document.getElementById('dots-container');
+        let currentIndex = 0;
+        const loadSlideContent = (index) => {
+            const slide = slides[index];
+            if (!slide) return;
+            const img = slide.querySelector('img');
+            if (img && img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            }
+        };
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0 || targetIndex >= slides.length || slides.length === 0) return;
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            if (!slideWidth || !track) return;
+            loadSlideContent(targetIndex);
+            track.style.transform = `translateX(-${slideWidth * targetIndex}px)`;
+            currentIndex = targetIndex;
+            updateUI();
+        };
+        const updateUI = () => {
+            if (!dotsContainer || !prevButton || !nextButton) return;
+            const dots = Array.from(dotsContainer.children);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === currentIndex);
+                dot.classList.toggle('bg-white/50', index !== currentIndex);
+            });
+            prevButton.disabled = (currentIndex === 0);
+            nextButton.disabled = (currentIndex === slides.length - 1);
+        };
+        const setupCarousel = () => {
+            if (slides.length === 0 || !dotsContainer || !track) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors');
+                dotsContainer.appendChild(dot);
+                dot.addEventListener('click', () => moveToSlide(index));
+            });
+            const slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+            if (!slideWidth) return;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            setTimeout(() => { if(track) track.style.transition = 'transform 0.5s ease-in-out'; }, 50);
+            updateUI();
+            loadSlideContent(currentIndex);
+        };
+        if (nextButton && prevButton) {
+            nextButton.addEventListener('click', () => moveToSlide(currentIndex + 1));
+            prevButton.addEventListener('click', () => moveToSlide(currentIndex - 1));
+        }
+        window.addEventListener('resize', setupCarousel);
+        setTimeout(setupCarousel, 100);
+    }
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const accordionItem = header.parentElement;
+            const accordionContent = header.nextElementSibling;
+            if (!accordionItem || !accordionContent) return;
+            header.classList.toggle('active');
+            if (accordionContent.style.maxHeight) {
+                accordionContent.style.maxHeight = null;
+                accordionItem.classList.remove('open');
+            } else {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                accordionItem.classList.add('open');
+            }
         });
-    </script>
+    });
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+    if (openModalBtn && closeModalBtn && modal && modalContent) {
+        const openModal = () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        };
+        const closeModal = () => {
+            modal.classList.remove('opacity-100');
+            modalContent.classList.remove('scale-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        };
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    }
+});
+</script>
+<!-- ========================================================================== -->
+
 </body>
 </html>
 
+
+<!-- 
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                         CAIXA DE FERRAMENTAS                                 ║
+║                     COPIE E COLE OS BLOCOS ABAIXO                            ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+INSTRUÇÕES DE USO:
+1. Role para baixo e encontre o bloco que deseja
+2. Copie TODO o código do bloco (desde o comentário INÍCIO até FIM)
+3. Cole na área de edição da sua página (entre os comentários de início e fim de edição)
+4. Edite o texto, links e imagens dentro do bloco colado
+5. Repita para adicionar mais blocos
+
+IMPORTANTE SOBRE ESPAÇAMENTO:
+- Cada bloco tem "my-12" que adiciona espaço em cima e embaixo
+- O PRIMEIRO bloco da sua página deve usar "mt-0 mb-12" ao invés de "my-12"
+- Isso evita espaço duplo no topo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+█████████████████████████████████████████████████████████████████████████████
+███  1. TÍTULO PRINCIPAL (H1)
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<h1 class="my-12 text-4xl font-bold text-slate-900 tracking-tight text-center">
+    Seu Título Principal Aqui
+</h1>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: Apenas o texto "Seu Título Principal Aqui" -->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  2. SUBTÍTULO (H2)
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Seu Subtítulo Aqui
+</h2>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: Apenas o texto "Seu Subtítulo Aqui" -->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  3. PARÁGRAFO
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Seu texto aqui. Você pode usar <strong>negrito</strong>, <em>itálico</em> e 
+    <a href="https://seulink.com" target="_blank" class="text-blue-600 hover:underline">criar links</a>.
+</p>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- Substitua "Seu texto aqui" pelo seu conteúdo
+- Para negrito: coloque o texto entre <strong> e </strong>
+- Para itálico: coloque o texto entre <em> e </em>
+- Para links: substitua "https://seulink.com" pela URL desejada
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  4. INDICADOR DE DURAÇÃO (Relógio)
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 flex justify-center items-center gap-2 text-slate-500 max-w-3xl mx-auto">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+    <span class="text-base font-medium">Tempo estimado: 2 horas</span>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: Apenas o texto "Tempo estimado: 2 horas" -->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  5. CAIXA DE DESTAQUE (Callout)
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 bg-slate-100/70 p-6 rounded-2xl flex items-start gap-5 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-md">
+    <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-full p-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15.09 16.05a2 2 0 0 1-2.18 2.85a2 2 0 0 1-2.18-2.85V14a2 2 0 0 1 2.18-2.85a2 2 0 0 1 2.18 2.85v2.05z"/>
+            <path d="M12 2A7 7 0 0 0 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74A7 7 0 0 0 12 2z"/>
+        </svg>
+    </div>
+    <div>
+        <h4 class="font-bold text-slate-900 mb-1">Título do Destaque</h4>
+        <p class="text-slate-600">Texto do destaque aqui.</p>
+    </div>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- "Título do Destaque"
+- "Texto do destaque aqui."
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  6. IMAGEM
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
+    <img class="w-full rounded-2xl shadow-xl" src="https://via.placeholder.com/800x450" alt="Descrição da imagem">
+    <figcaption class="text-center text-slate-500 mt-4 text-base">Legenda opcional da imagem.</figcaption>
+</figure>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- Substitua "https://via.placeholder.com/800x450" pela URL da sua imagem
+- "Descrição da imagem" (texto alternativo para acessibilidade)
+- "Legenda opcional da imagem." (ou apague esta linha se não quiser legenda)
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  7. IMAGEM E TEXTO LADO A LADO
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+    <div class="flex-1 w-full flex justify-center md:justify-end">
+        <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl">
+            <img class="w-full rounded-2xl shadow-xl" src="https://via.placeholder.com/400x300" alt="Descrição da imagem">
+            <figcaption class="text-center text-slate-500 mt-4 text-base">Legenda opcional.</figcaption>
+        </figure>
+    </div>
+    <div class="flex-1 w-full flex justify-center md:justify-start">
+        <div class="max-w-md">
+            <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">Subtítulo Aqui</h3>
+            <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left">
+                Primeiro parágrafo de texto aqui.
+            </p>
+            <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left">
+                Segundo parágrafo de texto aqui.
+            </p>
+        </div>
+    </div>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- URL da imagem
+- "Legenda opcional."
+- "Subtítulo Aqui"
+- Os textos dos parágrafos
+- Você pode adicionar mais parágrafos <p>...</p>
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  8. LINK EXTERNO (Card clicável)
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 max-w-3xl mx-auto">
+    <a href="https://seulink.com" target="_blank" rel="noopener noreferrer" class="block bg-white border border-slate-200/50 p-6 rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-lg">
+        <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 text-slate-500 mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+            </div>
+            <div>
+                <h4 class="font-semibold text-slate-900 mb-1">Título do Link</h4>
+                <p class="text-slate-600 text-base">Descrição do que o link abre.</p>
+            </div>
+            <div class="ml-auto flex-shrink-0 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </div>
+        </div>
+    </a>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- Substitua "https://seulink.com" pela URL desejada
+- "Título do Link"
+- "Descrição do que o link abre."
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  9. LINHA DIVISÓRIA
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: Nada! Use apenas para separar seções -->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  10. OBJETIVOS DE APRENDIZAGEM (Lista com ícones de check)
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+    <h3 class="text-xl font-bold text-slate-900 mb-4">Objetivos de Aprendizagem:</h3>
+    <ul class="list-none space-y-3 text-lg text-slate-600">
+        <li class="flex items-center gap-3">
+            <svg class="flex-shrink-0 text-blue-500" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Primeiro objetivo aqui.
+        </li>
+        <li class="flex items-center gap-3">
+            <svg class="flex-shrink-0 text-blue-500" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Segundo objetivo aqui.
+        </li>
+        <li class="flex items-center gap-3">
+            <svg class="flex-shrink-0 text-blue-500" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Terceiro objetivo aqui.
+        </li>
+    </ul>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- "Objetivos de Aprendizagem:" (título)
+- Textos de cada objetivo
+- Para adicionar mais objetivos: copie todo um bloco <li>...</li> e cole abaixo
+- Para remover objetivos: apague todo o bloco <li>...</li> indesejado
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  11. LISTA NUMERADA (Números em círculos)
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+    <h4 class="text-xl font-semibold text-slate-800 mb-5 text-left">Título da Lista:</h4>
+    <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+        <li>Primeiro item da lista.</li>
+        <li>Segundo item da lista.</li>
+        <li>Terceiro item da lista.</li>
+    </ol>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- "Título da Lista:"
+- Textos dos itens
+- Para adicionar itens: adicione <li>Texto aqui.</li>
+- Para remover itens: apague a linha <li>...</li>
+- Os números aparecem automaticamente!
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  12. VÍDEO DO YOUTUBE/VIMEO
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
+    <div class="aspect-w-16 aspect-h-9">
+        <iframe class="rounded-2xl shadow-xl" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- Substitua "VIDEO_ID" pelo código do vídeo do YouTube
+  Exemplo: se o link é https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  Use: https://www.youtube.com/embed/dQw4w9WgXcQ
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  13. H5P EMBEBEDADO
+█████████████████████████████████████████████████████████████████████████████ -->
+
+<!-- COPIE DAQUI ↓ -->
+<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
+    <div class="aspect-w-16 aspect-h-9">
+        <iframe class="rounded-2xl shadow-xl" src="URL_DO_SEU_H5P" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+    </div>
+    <p class="text-center text-slate-500 mt-4 text-base">
+        Link alternativo: <a href="URL_DO_SEU_H5P" target="_blank" class="text-blue-600 hover:underline">abrir H5P</a>.
+    </p>
+</div>
+<!-- ATÉ AQUI ↑ -->
+
+<!-- O QUE EDITAR: 
+- Substitua "URL_DO_SEU_H5P" pela URL completa do H5P (nos 2 lugares)
+-->
+
+
+<!-- █████████████████████████████████████████████████████████████████████████████
+███  14. TABELA
+█████████████████████████████████████████████████████████████████████████

@@ -40,33 +40,123 @@
 </header>
 <!-- ***** FIM DA PARTE IMUTÁVEL ***** -->
 
-<div class="pt-20"> 
-        <!-- ***** PARTE EDITÁVEL ***** -->
-        <!-- Container principal onde o conteúdo é centralizado e tem padding. NÃO REMOVA. -->
-        <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
+<!-- 
+==================================================================================================
+==
+==    INSTRUÇÕES GERAIS E CAIXA DE FERRAMENTAS
+==
+==================================================================================================
 
+**COMO USAR ESTE TEMPLATE:**
+1. Salve este arquivo com um novo nome (ex: `modulo1.html`) na sua pasta `/paginas/` no GitHub.
+2. Edite o `<title>` no início do código se desejar.
+3. Edite o texto do Header se estiver usando um.
+4. Vá até a seção marcada "<!-- ***** INÍCIO DA ÁREA EDITÁVEL DA PÁGINA ***** -->".
+5. Copie os blocos desejados da "Caixa de Ferramentas" abaixo e cole-os DENTRO da área editável.
+6. Edite o conteúdo (textos, links, imagens) de cada bloco colado.
+7. Remova os blocos que você não precisar da área editável.
+8. Lembre-se da regra de espaçamento: O primeiro bloco colado deve ter "mt-0 mb-12", os demais "my-12".
+
+**FORMATAÇÃO DE TEXTO (Dentro das tags <p>, <h4>, <li>, etc.):**
+   - **Negrito:** Envolva o texto com `<strong>texto</strong>`.
+   - **Itálico:** Envolva o texto com `<em>texto</em>`.
+   - **Link:** Use `<a href="URL_DO_LINK" target="_blank" class="text-blue-600 hover:underline">texto do link</a>`. 
+     (O `target="_blank"` faz abrir em nova aba. A `class="..."` dá o estilo azul sublinhado).
+   - **Quebra de Linha (dentro do mesmo parágrafo):** Use `<br>`.
+   - **Novo Parágrafo:** Use uma nova tag `<p class="... mb-4 ...">` (copie de um bloco existente).
+
+**COMO INCORPORAR NO MOODLE / CANVAS:**
+   1. Após salvar esta página no GitHub, copie a URL dela (ex: `https://seu-usuario.github.io/seu-repo/paginas/modulo1.html`).
+   2. No Moodle/Canvas, adicione um recurso "Página" ou "Rótulo".
+   3. No editor de conteúdo, clique no botão de código HTML (`</>`).
+   4. Cole o seguinte código, substituindo a URL:
+      `<iframe src="URL_DA_SUA_PAGINA_GITHUB" style="border:0px; width:100%; height:800px;"></iframe>`
+   5. Ajuste o `height` (altura) conforme necessário para evitar barras de rolagem excessivas ou espaços vazios.
+
+**ESPAÇAMENTO (REGRAS):**
+   - O espaço abaixo do Header Fixo é criado pela `<div class="pt-24">` que envolve o conteúdo principal. NÃO remova essa `div` se usar o header fixo.
+   - Para espaço ENTRE blocos: Use a classe `my-12` na `div` principal de cada bloco. Pode ajustar o número (ex: `my-8`, `my-16`).
+   - Para o PRIMEIRO bloco logo após o header: Substitua `my-12` por `mt-0 mb-12` para evitar espaçamento duplo no topo.
+   - Para espaço ENTRE parágrafos dentro de um bloco: Use a classe `mb-4` (ou `mb-6`) no final da tag `<p>`.
+
+==================================================================================================
+== CAIXA DE FERRAMENTAS - BLOCOS PARA COPIAR E COLAR NA ÁREA EDITÁVEL ABAIXO
+==================================================================================================
+-->
+
+<!-- ============================================= -->
+<!-- ==     INÍCIO: Bloco Título Principal (H1)   == -->
+<!-- ============================================= -->
+<h1 class="my-12 text-4xl font-bold text-slate-900 tracking-tight text-center">Seu Título Principal Aqui</h1>
+<!-- ============================================= -->
+<!-- ==       FIM: Bloco Título Principal (H1)    == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==      INÍCIO: Bloco Subtítulo (H2)        == -->
+<!-- ============================================= -->
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">Seu Subtítulo Aqui</h2>
+<!-- ============================================= -->
+<!-- ==        FIM: Bloco Subtítulo (H2)        == -->
+<!-- ============================================= -->
 
 <!-- ============================================= -->
 <!-- ==        INÍCIO: Bloco de Parágrafo         == -->
 <!-- ============================================= -->
 <p class="my-12 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4"> 
-No fórum anterior, exploramos nossas percepções iniciais sobre a surdez. Agora, vamos aprofundar esse debate.
-</p>
-<p class="my-12 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4"> 
-Historicamente, a visão dominante sobre a surdez é a do <strong>modelo clínico-patológico</strong>. Nessa perspectiva, a surdez é entendida como uma "falta" auditiva, uma patologia que precisa ser "corrigida" ou "consertada" para que a pessoa se aproxime de um padrão "normal" (o ouvinte).
-</p>
-<p class="my-12 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4"> 
-Os textos de apoio deste tópico (sobre a <em>invenção da normalidade</em> e a <em>biopolítica</em>) irão demonstrar como a própria ideia de "normal" é uma construção social, historicamente utilizada para justificar a exclusão de grupos que fogem à regra.
-</p>
-<p class="my-12 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center"> 
-Em contraponto a essa visão, apresentaremos o <strong>modelo sociocultural</strong>. Esta abordagem, defendida por ativistas e acadêmicos, entende a surdez não como uma deficiência, mas como uma <strong>diferença</strong> linguística e cultural.
+    Texto do parágrafo aqui. Lembre-se das tags <strong>negrito</strong>, <em>itálico</em> e <a href="#" target="_blank" class="text-blue-600 hover:underline">links</a>. Use mb-4 para espaço entre parágrafos.
 </p>
 <!-- ============================================= -->
 <!-- ==          FIM: Bloco de Parágrafo          == -->
 <!-- ============================================= -->
 
+<!-- ============================================= -->
+<!-- ==   INÍCIO: Bloco Callout (Destaque Suave)  == -->
+<!-- ============================================= -->
+<div class="my-12 bg-slate-100/70 p-6 rounded-2xl flex items-start gap-5 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-md">
+    <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-full p-2"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="flex-shrink-0"><path d="M15.09 16.05a2 2 0 0 1-2.18 2.85a2 2 0 0 1-2.18-2.85V14a2 2 0 0 1 2.18-2.85a2 2 0 0 1 2.18 2.85v2.05z"/><path d="M12 2A7 7 0 0 0 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74A7 7 0 0 0 12 2z"/></svg> </div>
+    <div> <h4 class="font-bold text-slate-900 mb-1">Título do Destaque</h4> <p class="text-slate-600">Texto do destaque.</p> </div>
 </div>
+<!-- ============================================= -->
+<!-- ==    FIM: Bloco Callout (Destaque Suave)    == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==        INÍCIO: Bloco de Imagem          == -->
+<!-- ============================================= -->
+<figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
+    <img class="w-full rounded-2xl shadow-xl" src="URL_DA_IMAGEM_AQUI" alt="Descrição da imagem">
+    <figcaption class="text-center text-slate-500 mt-4 text-base">Legenda (opcional).</figcaption>
+</figure>
+<!-- ============================================= -->
+<!-- ==          FIM: Bloco de Imagem           == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==  INÍCIO: Bloco Imagem e Texto Lado a Lado == -->
+<!-- ============================================= -->
+<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+    <div class="flex-1 w-full flex justify-center md:justify-end"> <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl"> <img class="w-full rounded-2xl shadow-xl" src="URL_DA_IMAGEM_AQUI" alt="Descrição da imagem"> <figcaption class="text-center text-slate-500 mt-4 text-base">Legenda (opcional).</figcaption> </figure> </div>
+    <div class="flex-1 w-full flex justify-center md:justify-start"> <div class="max-w-md"> <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">Subtítulo Aqui</h3> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Texto aqui. </p> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Mais texto aqui. </p> </div> </div>
 </div>
+<!-- ============================================= -->
+<!-- ==   FIM: Bloco Imagem e Texto Lado a Lado  == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==      INÍCIO: Bloco Link Externo         == -->
+<!-- ============================================= -->
+<div class="my-12 max-w-3xl mx-auto">
+    <a href="URL_DO_LINK_AQUI" target="_blank" rel="noopener noreferrer" class="block bg-white border border-slate-200/50 p-6 rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-lg">
+        <div class="flex items-start gap-4"> <div class="flex-shrink-0 text-slate-500 mt-1"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> </div>
+            <div> <h4 class="font-semibold text-slate-900 mb-1">Título do Link</h4> <p class="text-slate-600 text-base">Descrição do link.</p> </div>
+            <div class="ml-auto flex-shrink-0 text-slate-400"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> </div>
+        </div>
+    </a>
+</div>
+<!-- ============================================= -->
+<!-- ==       FIM: Bloco Link Externo          == -->
+<!-- ============================================= -->
 
 <!-- ============================================= -->
 <!-- ==      INÍCIO: Bloco Linha Divisória      == -->
@@ -77,34 +167,116 @@ Em contraponto a essa visão, apresentaremos o <strong>modelo sociocultural</str
 <!-- ============================================= -->
 
 <!-- ============================================= -->
-<!-- ==        INÍCIO: Bloco de Parágrafo         == -->
+<!-- == INÍCIO: Bloco Objetivos de Aprendizagem  == -->
 <!-- ============================================= -->
-<p class="my-12 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4"> 
-Para entender a base do modelo sociocultural, assista à palestra <strong>Deficiência e Diferenças</strong>, da médica e ativista <strong>Izabel Maior</strong>.
-</p>
+<div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+    <h3 class="text-xl font-bold text-slate-900 mb-4">Objetivos de Aprendizagem:</h3>
+    <ul class="list-none space-y-3 text-lg text-slate-600"> <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Objetivo 1.</li> <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Objetivo 2.</li> </ul>
+</div>
 <!-- ============================================= -->
-<!-- ==          FIM: Bloco de Parágrafo          == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- ==      INÍCIO: Bloco Subtítulo (H2)        == -->
-<!-- ============================================= -->
-<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">Deficiência e Diferenças | Izabel Maior</h2>
-<!-- ============================================= -->
-<!-- ==        FIM: Bloco Subtítulo (H2)        == -->
+<!-- ==  FIM: Bloco Objetivos de Aprendizagem   == -->
 <!-- ============================================= -->
 
 <!-- ============================================= -->
 <!-- ==      INÍCIO: Bloco Vídeo Embebedado      == -->
 <!-- ============================================= -->
 <div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
-    <div class="aspect-w-16 aspect-h-9"> <iframe class="rounded-2xl shadow-xl" src="https://youtu.be/jQKD5mIMJsM?si=GEG_2KnvdbWjhv5o" frameborder="0" allowfullscreen></iframe> </div>
+    <div class="aspect-w-16 aspect-h-9"> <iframe class="rounded-2xl shadow-xl" src="URL_DO_VIDEO_YOUTUBE_OU_VIMEO" frameborder="0" allowfullscreen></iframe> </div>
 </div>
 <!-- ============================================= -->
 <!-- ==       FIM: Bloco Vídeo Embebedado       == -->
 <!-- ============================================= -->
 
-<div class="pt-24"> 
+<!-- ============================================= -->
+<!-- ==        INÍCIO: Bloco H5P Embebedado      == -->
+<!-- ============================================= -->
+<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
+    <div class="aspect-w-16 aspect-h-9"> <iframe class="rounded-2xl shadow-xl" src="URL_DO_H5P" frameborder="0" allowfullscreen="allowfullscreen"></iframe> </div>
+    <p class="text-center text-slate-500 mt-4 text-base">Link alternativo: <a href="URL_DO_H5P" target="_blank" class="text-blue-600 hover:underline">abrir H5P</a>.</p>
+</div>
+<!-- ============================================= -->
+<!-- ==         FIM: Bloco H5P Embebedado       == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==        INÍCIO: Bloco Tabela Limpa     == -->
+<!-- ============================================= -->
+<div class="my-12 max-w-3xl mx-auto overflow-x-auto transition-shadow duration-300 hover:shadow-lg">
+    <table class="w-full text-left"> <thead> <tr> <th class="p-4 bg-slate-100 text-slate-800 font-semibold rounded-tl-xl">Cabeçalho 1</th> <th class="p-4 bg-slate-100 text-slate-800 font-semibold rounded-tr-xl">Cabeçalho 2</th> </tr> </thead> <tbody class="bg-white"> <tr> <td class="border-t border-slate-100 p-4 text-slate-600">Dado A1</td> <td class="border-t border-slate-100 p-4 text-slate-600">Dado B1</td> </tr> <tr> <td class="border-t border-slate-100 p-4 text-slate-600 rounded-bl-xl">Dado A2</td> <td class="border-t border-slate-100 p-4 text-slate-600 rounded-br-xl">Dado B2</td> </tr> </tbody> </table>
+</div>
+<!-- ============================================= -->
+<!-- ==         FIM: Bloco Tabela Limpa       == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==     INÍCIO: Bloco Card de Conteúdo       == -->
+<!-- ============================================= -->
+<div class="my-12 bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-xl">
+    <h3 class="text-xl font-bold text-slate-900 mb-2">Título do Card</h3> <p class="text-slate-600">Texto do card.</p>
+</div>
+<!-- ============================================= -->
+<!-- ==       FIM: Bloco Card de Conteúdo       == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==        INÍCIO: Bloco Guia Passo a Passo   == -->
+<!-- ============================================= -->
+<div class="my-12 max-w-3xl mx-auto">
+    <div class="space-y-8"> <div class="flex gap-4"> <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-slate-800 text-white font-bold rounded-full">1</div> <div> <h4 class="font-bold text-lg text-slate-900">Título Passo 1</h4> <p class="text-slate-600 mt-1">Descrição passo 1.</p> </div> </div> <div class="flex gap-4"> <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-slate-800 text-white font-bold rounded-full">2</div> <div> <h4 class="font-bold text-lg text-slate-900">Título Passo 2</h4> <p class="text-slate-600 mt-1">Descrição passo 2.</p> </div> </div> </div>
+</div>
+<!-- ============================================= -->
+<!-- ==          FIM: Bloco Guia Passo a Passo  == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==    INÍCIO: Bloco Botão de Ação (CTA)      == -->
+<!-- ============================================= -->
+<div class="my-12 text-center">
+    <a href="URL_DO_LINK" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105"> Texto do Botão → </a>
+</div>
+<!-- ============================================= -->
+<!-- ==      FIM: Bloco Botão de Ação (CTA)     == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==   INÍCIO: Bloco Acordeão (Expansível)     == -->
+<!-- ============================================= -->
+<div class="my-12 max-w-3xl mx-auto space-y-4">
+    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md"> <button class="accordion-header w-full flex justify-between items-center p-6 text-left"> <span class="font-semibold text-slate-900 text-lg">Título Expansível 1</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="accordion-chevron text-slate-500 transition-transform duration-300"><polyline points="9 18 15 12 9 6"></polyline></svg> </button> <div class="accordion-content"> <div class="p-6 pt-0 text-slate-600"> <p>Conteúdo expansível 1.</p> </div> </div> </div>
+    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md"> <button class="accordion-header w-full flex justify-between items-center p-6 text-left"> <span class="font-semibold text-slate-900 text-lg">Título Expansível 2</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="accordion-chevron text-slate-500 transition-transform duration-300"><polyline points="9 18 15 12 9 6"></polyline></svg> </button> <div class="accordion-content"> <div class="p-6 pt-0 text-slate-600"> <p>Conteúdo expansível 2.</p> </div> </div> </div>
+</div>
+<!-- ============================================= -->
+<!-- ==    FIM: Bloco Acordeão (Expansível)      == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==       INÍCIO: Bloco Pop-up (Modal)        == -->
+<!-- ============================================= -->
+<div class="my-12 text-center">
+    <button id="openModalBtn" class="inline-block bg-slate-800 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-900 transition-transform hover:scale-105"> Abrir Pop-up </button>
+</div>
+<!-- ============================================= -->
+<!-- ==        FIM: Bloco Pop-up (Modal)        == -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- ==    INÍCIO: Bloco da Atividade Principal   == -->
+<!-- ============================================= -->
+<main class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+    <div class="flex-1 w-full flex justify-center md:justify-end transition-transform duration-300 hover:-translate-y-1"> <div id="carousel" class="w-full aspect-[3/4] relative overflow-hidden rounded-2xl shadow-2xl"> <div class="carousel-track h-full flex"> <div class="carousel-slide h-full flex-shrink-0 w-full relative"> <img data-src="URL_GIF_1" alt="GIF 1"> <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Título GIF 1</h3></div> </div> <div class="carousel-slide h-full flex-shrink-0 w-full relative"> <img data-src="URL_GIF_2" alt="GIF 2"> <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/50 backdrop-blur-sm rounded-b-2xl"><h3 class="text-white text-center font-semibold">Título GIF 2</h3></div> </div> </div> <button id="prevBtn" class="nav-button absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 p-2 rounded-full"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg></button> <button id="nextBtn" class="nav-button absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 p-2 rounded-full"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button> <div id="dots-container" class="absolute bottom-16 left-1/2 -translate-x-1/2 flex space-x-2"></div> </div> </div>
+    <div class="flex-1 w-full flex justify-center md:justify-start transition-transform duration-300 hover:-translate-y-1"> <div class="w-full h-[700px]"> <iframe class="w-full h-full rounded-2xl shadow-2xl border border-slate-200/50" src="URL_DO_SEU_FORMULARIO_EMBED">Carregando…</iframe> </div> </div>
+</main>
+<!-- ============================================= -->
+<!-- ==      FIM: Bloco da Atividade Principal    == -->
+<!-- ============================================= -->
+
+<!-- ***** FIM DOS BLOCOS DA CAIXA DE FERRAMENTAS ***** -->
+    
+    <!-- ================================================================== -->
+    <!-- ==      CORPO DA PÁGINA - INSIRA OS BLOCOS COPIADOS ACIMA AQUI    == -->
+    <!-- ================================================================== -->
+     <!-- Wrapper com pt-24 para criar espaço abaixo do header fixo. NÃO REMOVA pt-24 se usar o header fixo. -->
+    <div class="pt-24"> 
         <!-- ***** PARTE EDITÁVEL ***** -->
         <!-- Container principal onde o conteúdo é centralizado e tem padding. NÃO REMOVA. -->
         <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
@@ -112,21 +284,26 @@ Para entender a base do modelo sociocultural, assista à palestra <strong>Defici
             <!-- EXEMPLO DE PÁGINA MONTADA (COLE SEUS BLOCOS AQUI) -->
             <!-- Lembre-se: O PRIMEIRO bloco aqui deve ter mt-0 mb-12 -->
 
-             <!-- Bloco Lista Numerada (Primeiro Bloco -> mt-0 mb-12) -->
-            <div class="mt-0 mb-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
-                <h4 class="text-xl font-semibold text-slate-800 mb-5 text-left">Enquanto assiste, reflita (questões norteadoras):</h4>
-                <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
-                    <li>O que a palestrante quer dizer com "a deficiência não está na pessoa, mas na sociedade"?</li>
-                    <li>Como o conceito de "barreira" (arquitetônica, atitudinal, comunicacional) é fundamental para o modelo social?</li>
-                    <li>Como podemos aplicar essa ideia (do modelo social) especificamente à comunidade surda no contexto do atendimento ao público?</li>
-                </ol>
+            <!-- Bloco Título Principal (Primeiro Bloco -> mt-0 mb-12) -->
+            <h1 class="mt-0 mb-12 text-4xl font-bold text-slate-900 tracking-tight text-center">Título da Sua Página</h1>
+
+             <!-- Bloco de Parágrafo (Segundo Bloco -> my-12) -->
+            <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
+                Instruções iniciais ou texto de boas-vindas. Use <strong>negrito</strong> ou <em>itálico</em>.
+            </p>
+
+            <!-- Bloco Imagem e Texto (Terceiro Bloco -> my-12) -->
+            <div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+                <div class="flex-1 w-full flex justify-center md:justify-end"> <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl"> <img class="w-full rounded-2xl shadow-xl" src="https://raw.githubusercontent.com/humbertoman/gifs_notion/56334f667fa10c8ae141b1631a133d2e69b00451/gifs/20250617_2255_Retrato%20em%20Tons%20Past%C3%A9is_remix_01jy0bv3y8fmxbpamjdbfzdc8v.png" alt="Retrato"> </figure> </div>
+                <div class="flex-1 w-full flex justify-center md:justify-start"> <div class="max-w-md"> <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">Subtítulo Exemplo</h3> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Texto sobre a imagem. </p> <p class="text-xl text-slate-600 leading-relaxed mb-4 text-left"> Mais texto. </p> </div> </div>
             </div>
+            
+            <!-- Adicione mais blocos aqui -->
 
 
         </div>
         <!-- ***** FIM DA PARTE EDITÁVEL ***** -->
     </div>
-
 
     <!-- ***** PARTE IMUTÁVEL ***** -->
     <!-- Conteúdo do Pop-up (colocado fora do container principal para sobrepor tudo) -->

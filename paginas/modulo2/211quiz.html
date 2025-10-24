@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!-- ========================================================================== -->
+<!-- ===                    NÃO MEXA NESTA SEÇÃO                           === -->
+<!-- ========================================================================== -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Página - Edite Este Título</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .carousel-track { transition: transform 0.5s ease-in-out; }
+        .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+        .aspect-h-9 { padding-bottom: 56.25%; }
+        .aspect-w-16 { position: relative; height: 0; }
+        .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
+        .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
+        #modal.hidden { display: none; }
+        .custom-ordered-list { list-style: none; counter-reset: list-counter; padding-left: 0; }
+        .custom-ordered-list li { counter-increment: list-counter; position: relative; padding-left: 2.5rem; margin-bottom: 0.75rem; }
+        .custom-ordered-list li::before {
+            content: counter(list-counter);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #334155;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+    </style>
+</head>
+<!-- ========================================================================== -->
+<!-- ===                 FIM DA SEÇÃO QUE NÃO DEVE MEXER                   === -->
+<!-- ========================================================================== -->
+
+<body class="bg-slate-50 text-slate-800">
+
+<!-- ========================================================================== -->
+<!-- ===        NÃO MEXA - HEADER FIXO (você pode editar só o texto)      === -->
+<!-- ========================================================================== -->
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-slate-800 to-slate-900 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
+        <div class="py-4">
+            <!-- VOCÊ PODE EDITAR APENAS O TEXTO ABAIXO: -->
+            <span class="font-semibold text-white text-xl">1.2. Surdez e linguagem</span>
+        </div>
+    </div>
+</header>
+<!-- ========================================================================== -->
+<!-- ===                    FIM DO HEADER FIXO                             === -->
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+<div class="pt-24"> 
+    <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
+<!-- ========================================================================== -->
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###   COMECE A EDITAR AQUI - COLE OS BLOCOS DA CAIXA DE FERRAMENTAS     ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+
+
+        <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Veja se consegue advinhar o que é gesto e o que é sinal, nos exemplos abaixo (lembrando que alguns podem se enquadrar em ambas categorias).</p>
+
+<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
+    
+    <div class="aspect-[21/12] rounded-2xl shadow-xl overflow-hidden bg-white p-6"> 
+        
+        <iframe 
+            class="w-full h-full" src="https://app.Lumi.education/run/FAdZ7G" 
+            frameborder="0" 
+            allowfullscreen="allowfullscreen">
+        </iframe>
+
+    </div>
+</div>
+
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###              PARE DE EDITAR AQUI                                    ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===     NÃO MEXA - ESTRUTURA DO MODAL (você edita o conteúdo depois) === -->
+<!-- ========================================================================== -->
+<div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <!-- VOCÊ PODE EDITAR O CONTEÚDO DO MODAL ABAIXO: -->
+        <h3 class="text-2xl font-bold text-slate-900 mb-4">Título do Pop-up</h3>
+        <p class="text-slate-600">Conteúdo do pop-up aqui.</p>
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===              NÃO MEXA NESTE SCRIPT                                === -->
+<!-- ========================================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const carouselElement = document.getElementById('carousel');
+    if (carouselElement) {
+        const track = carouselElement.querySelector('.carousel-track');
+        const slides = track ? Array.from(track.children) : [];
+        const nextButton = document.getElementById('nextBtn');
+        const prevButton = document.getElementById('prevBtn');
+        const dotsContainer = document.getElementById('dots-container');
+        let currentIndex = 0;
+        const loadSlideContent = (index) => {
+            const slide = slides[index];
+            if (!slide) return;
+            const img = slide.querySelector('img');
+            if (img && img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            }
+        };
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0 || targetIndex >= slides.length || slides.length === 0) return;
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            if (!slideWidth || !track) return;
+            loadSlideContent(targetIndex);
+            track.style.transform = `translateX(-${slideWidth * targetIndex}px)`;
+            currentIndex = targetIndex;
+            updateUI();
+        };
+        const updateUI = () => {
+            if (!dotsContainer || !prevButton || !nextButton) return;
+            const dots = Array.from(dotsContainer.children);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === currentIndex);
+                dot.classList.toggle('bg-white/50', index !== currentIndex);
+            });
+            prevButton.disabled = (currentIndex === 0);
+            nextButton.disabled = (currentIndex === slides.length - 1);
+        };
+        const setupCarousel = () => {
+            if (slides.length === 0 || !dotsContainer || !track) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors');
+                dotsContainer.appendChild(dot);
+                dot.addEventListener('click', () => moveToSlide(index));
+            });
+            const slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+            if (!slideWidth) return;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            setTimeout(() => { if(track) track.style.transition = 'transform 0.5s ease-in-out'; }, 50);
+            updateUI();
+            loadSlideContent(currentIndex);
+        };
+        if (nextButton && prevButton) {
+            nextButton.addEventListener('click', () => moveToSlide(currentIndex + 1));
+            prevButton.addEventListener('click', () => moveToSlide(currentIndex - 1));
+        }
+        window.addEventListener('resize', setupCarousel);
+        setTimeout(setupCarousel, 100);
+    }
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const accordionItem = header.parentElement;
+            const accordionContent = header.nextElementSibling;
+            if (!accordionItem || !accordionContent) return;
+            header.classList.toggle('active');
+            if (accordionContent.style.maxHeight) {
+                accordionContent.style.maxHeight = null;
+                accordionItem.classList.remove('open');
+            } else {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                accordionItem.classList.add('open');
+            }
+        });
+    });
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+    if (openModalBtn && closeModalBtn && modal && modalContent) {
+        const openModal = () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        };
+        const closeModal = () => {
+            modal.classList.remove('opacity-100');
+            modalContent.classList.remove('scale-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        };
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    }
+});
+</script>
+<!-- ========================================================================== -->
+
+</body>
+</html>
+
+
+<!-- 
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                         CAIXA DE FERRAMENTAS                                 ║
+║                     COPIE E COLE OS BLOCOS ABAIXO                            ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+INSTRUÇÕES DE USO:
+1. Role para baixo e encontre o bloco que deseja
+2. Copie TODO o código do bloco (desde o comentário INÍCIO até FIM)
+3. Cole na área de edição da sua página (entre os comentários de início e fim de edição)
+4. Edite o texto, links e imagens dentro do bloco colado
+5. Repita para adicionar mais blocos
+
+IMPORTANTE SOBRE ESPAÇAMENTO:
+- Cada bloco tem "my-12" que adiciona espaço em cima e embaixo
+- O PRIMEIRO bloco da sua página deve usar "mt-0 mb-12" ao invés de "my-12"
+- Isso evita espaço duplo no topo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+█████████████████████████████████████████████████████████████████████████████
+███  1. TÍTULO PRINCIPAL (H1)
+█████████████████████████████████████████████████████████████████████████████ -->

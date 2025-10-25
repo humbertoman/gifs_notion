@@ -132,21 +132,104 @@ Caso a pessoa a quem o sinalizante se refere esteja presente, basta apontar para
 <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
 Esta é outra característica "econômica" da Libras. Muitos verbos mudam de direção para mostrar quem faz a ação e quem a recebe. Você não precisa sinalizar "Eu pergunto para você"; o próprio movimento do verbo já diz isso. Veja o exemplo:</p>
 
+<!-- === CARROSSEL DE GIFs === -->
+ 
 <div class="gif-carousel">
   <div class="carousel-slide fade">
+    <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/perguntar.gif?updatedAt=1761344636538" alt="Como perguntar">
     <div class="slide-title">PERGUNTAR-VOCÊ</div>
-    <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/perguntar.gif?updatedAt=1761344636538" alt="PERGUNTAR-VOCÊ">
   </div>
 
   <div class="carousel-slide fade">
+    <img src="https://iili.io/KrKpnvS.gif" alt="Esperando resposta">
     <div class="slide-title">PERGUNTAR-ELE</div>
-    <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/perguntar2.gif?updatedAt=1761344639483" alt="PERGUNTAR-VOCÊ">
   </div>
 
-  
   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
   <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
+
+<style>
+  .gif-carousel {
+    max-width: 400px; /* ajuste conforme quiser */
+    position: relative;
+    margin: auto;
+  }
+
+  .carousel-slide {
+    display: none;
+    position: relative;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .slide-title {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.3s;
+    user-select: none;
+  }
+
+  .next {
+    right: 0;
+  }
+
+  .prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .fade {
+    animation: fade 1s;
+  }
+
+  @keyframes fade {
+    from { opacity: .4; }
+    to { opacity: 1; }
+  }
+</style>
+
+<script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function showSlides(n) {
+    const slides = document.getElementsByClassName("carousel-slide");
+    if (n > slides.length) { slideIndex = 1; }
+    if (n < 1) { slideIndex = slides.length; }
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slides[slideIndex - 1].style.display = "block";
+  }
+</script>
+<!-- === FIM DO CARROSSEL === -->
+
 
 
 

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Página - Edite Este Título</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://tally.so/widgets/embed.js"></script>
     <style>
         body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         .carousel-track { transition: transform 0.5s ease-in-out; }
@@ -250,29 +251,52 @@ VOCÊ DAR-EU
 ELE AVISAR-EU</code></pre>
 </div>
 
-<!-- === BLOCO INCORPORADO DO TALLY === -->
-<!-- === BLOCO POPUP DO TALLY === -->
-<!-- Adicione este script dentro do <head> da sua página -->
-<script async src="https://tally.so/widgets/embed.js"></script>
+<!-- === BLOCO POPUP CENTRALIZADO DO TALLY === -->
 
-<!-- Adicione este botão onde quiser -->
-<button data-tally-open="w7Bda0" 
-        data-tally-emoji-text="👋" 
-        data-tally-emoji-animation="wave"
-        style="
-          background-color:#4f46e5;
-          color:white;
-          padding:12px 24px;
-          border:none;
-          border-radius:6px;
-          font-size:16px;
-          cursor:pointer;
-        ">
-  Foi fácil? Comenta aqui.
-</button>
+<!-- Contêiner centralizado -->
+<div class="tally-popup-container">
+  <button data-tally-open="w7Bda0" 
+          data-tally-emoji-text="👋" 
+          data-tally-emoji-animation="wave"
+          class="tally-popup-button">
+    Foi fácil? Comenta aqui.
+  </button>
+</div>
+
+<style>
+  /* Centraliza o botão na página */
+  .tally-popup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 60px 0; /* espaço acima e abaixo */
+  }
+
+  /* Estilo do botão */
+  .tally-popup-button {
+    background-color: #4f46e5; /* roxo */
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .tally-popup-button:hover {
+    background-color: #4338ca; /* tom mais escuro no hover */
+    transform: scale(1.05);
+  }
+
+  .tally-popup-button:active {
+    transform: scale(0.98);
+  }
+</style>
+
 <!-- === FIM DO BLOCO === -->
 
-<!-- === FIM DO BLOCO === -->
 
 
 <hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">

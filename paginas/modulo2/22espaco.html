@@ -248,21 +248,27 @@ Procure os verbos <strong>AJUDAR</strong>, <strong>DAR</strong>, <strong>RESPOND
 </div>
 
 <!-- === BLOCO INCORPORADO DO TALLY === -->
-<iframe data-tally-src="https://tally.so/r/w7Bda0?transparentBackground=1"
-        width="100%"
-        height="600"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        title="Foi difícil? Comenta aqui"></iframe>
-<script>
-  var d=document, w="https://tally.so/widgets/embed.js";
-  if(!d.querySelector('script[src="'+w+'"]')){
-    var s=d.createElement("script");
-    s.src=w; s.async=true;
-    d.body.appendChild(s);
-  }
-</script>
+<!-- === BLOCO POPUP DO TALLY === -->
+<!-- Adicione este script dentro do <head> da sua página -->
+<script async src="https://tally.so/widgets/embed.js"></script>
+
+<!-- Adicione este botão onde quiser -->
+<button data-tally-open="w7Bda0" 
+        data-tally-emoji-text="👋" 
+        data-tally-emoji-animation="wave"
+        style="
+          background-color:#4f46e5;
+          color:white;
+          padding:12px 24px;
+          border:none;
+          border-radius:6px;
+          font-size:16px;
+          cursor:pointer;
+        ">
+  Foi fácil? Comenta aqui.
+</button>
+<!-- === FIM DO BLOCO === -->
+
 <!-- === FIM DO BLOCO === -->
 
 

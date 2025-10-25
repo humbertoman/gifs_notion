@@ -10,6 +10,7 @@
     <title>Minha Página - Edite Este Título</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script async src="https://tally.so/widgets/embed.js"></script>
+    <script defer src="popup-autores.js"></script>
     <style>
         body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         .carousel-track { transition: transform 0.5s ease-in-out; }
@@ -40,6 +41,30 @@
             justify-content: center;
             line-height: 1;
         }
+        .author-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .author-popup-content {
+      background: #fff;
+      color: #333;
+      border-radius: 10px;
+      padding: 20px 30px;
+      max-width: 420px;
+      text-align: center;
+      position: relative;
+      animation: authorFadeIn 0.25s ease;
+    }
+    .author-close-btn {
+      position: absolute; top: 8px; right: 12px;
+      font-size: 22px; cursor: pointer; color: #555;
+    }
+    @keyframes authorFadeIn { from {opacity:0; transform:scale(.97)} to {opacity:1; transform:scale(1)} }
     </style>
 </head>
 <!-- ========================================================================== -->
@@ -55,7 +80,7 @@
     <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
         <div class="py-4">
             <!-- VOCÊ PODE EDITAR APENAS O TEXTO ABAIXO: -->
-            <span class="font-semibold text-white text-xl">2.2. Apontação e Espaço: A Gramática Visual</span>
+            <span class="font-semibold text-white text-xl">2.3. Iconicidade: Vendo o Significado no Sinal</span>
         </div>
     </div>
 </header>
@@ -82,48 +107,83 @@
 
 
         <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-No tópico anterior, vimos que gestos e mímicas são ferramentas de comunicação imediatas. Agora, vamos dar um passo além e entender como a Libras organiza sua gramática no espaço.
+No Tópico 1, vimos o gesto na expressão humana. No Tópico 2, vimos como o espaço gramaticaliza relações sintáticas nas línguas de sinais. Agora, investigaremos uma das características mais fascinantes e mal compreendidas das línguas sinalizadas: a iconicidade.
 </p>
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Se os gestos são a "intuição", o uso do espaço é a "lógica" da Libras.
+A iconicidade refere-se à relação de semelhança entre a forma linguística e seu referente no mundo. Embora seja frequentemente citada como diferencial das línguas de sinais, é importante compreender que: 
 </p>
+
+<div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+    <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+        <li>A iconicidade não é exclusiva das línguas de sinais;</li>
+        <li>Todas as línguas de sinais combinam elementos icônicos e arbitrários;</li>
+        <li>A percepção da iconicidade é influenciada pela experiência linguística e cultural do sinalizador (Taub, 2001; Perniss et al., 2010).</li>
+    </ol>
+</div>
+
+<div class="my-12 text-center">
+    <button id="openModalBtn" class="inline-block bg-slate-800 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-900 transition-transform hover:scale-105">
+      Dica!
+    </button>
+</div>
+
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-No português, usamos muitas palavras pequenas (preposições, artigos, conjugações) para organizar uma frase. Em Libras, muito disso é resolvido visualmente usando o espaço à sua frente como um "tabuleiro" ou "tela 3D".</p>
-<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Duas das características mais práticas e fáceis de aprender são o uso da apontação (para pronomes) e a direcionalidade (para verbos). Na Libras você usa o espaço (e se envolve nele) para marcar e interagir com os referentes do texto.
+Neste tópico, vamos treinar seu olhar para "ver" o significado nos sinais. Vamos também analisar como o formato da mão (Configuração de Mão) pode, muitas vezes, descrever o mundo.
 </p>
+
 
 <hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
 
 <h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
-    Apontação como pronome
+    Iconicidade x Arbitrariedade
 </h2>
 
 <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Esta é uma das maiores simplificações para quem aprende Libras. Não há necessidade de decorar uma lista de palavras como "eu", "você", "ele", "ela", "meu", "seu", etc., nem de se preocupar com gênero (masculino/feminino).
+Na teoria semiótica de Peirce (1931-1958), um ícone é um signo que mantém relação de semelhança com seu objeto. Nas línguas de sinais, essa relação ocorre quando a estrutura fonológica do sinal (sua forma articulatória) evoca características visuais, espaciais ou motoras do referente.
 </p>
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Tudo é resolvido com o dedo indicador (apontação):
+A iconicidade não é uma propriedade binária (icônico vs. não-icônico), mas um continuum (Taub, 2001). Um sinal pode ser mais ou menos icônico
 </p>
 
-<div class="my-12 bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-xl">
-    <h3 class="text-xl font-bold text-slate-900 mb-2">Pronomes em Libras</h3>
-    <ul class="list-disc list-inside text-slate-600">
-        <li>EU: Apontar para o próprio peito.</li>
-        <li>VOCÊ: Apontar para a pessoa com quem você fala.</li>
-        <li>ELE / ELA / AQUILO: Apontar para a pessoa ou objeto (presente no momento ou não).</li>
-    </ul>
-</div>
+<!--INSERIR IMAGEM DE INCONICIDADE-->
 
-
-<!-- vou inserir o exemplo de ele/ela no vazio-->
 
 
 <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Perceba que no exemplo acima um dos referentes é marcado do lado direito (xxxxxxxxx) e o outro referente fica do lado esquerdo da pessoa que está sinalizando (xxxxxxxxxxx)</p>
+  <strong>
+    <a href="#" onclick="openAuthorPopup('stokoeAuthorPopup')" aria-haspopup="dialog" aria-controls="stokoeAuthorPopup">
+      William Stokoe (1960)
+    </a>
+  </strong>, ao estabelecer que as línguas de sinais são línguas naturais, demonstrou que elas possuem estrutura fonológica (configuração de mão, locação, movimento, orientação e expressões não-manuais). Essa descoberta revelou que, mesmo em sinais aparentemente icônicos, há convencionalização linguística.
+</p>
+
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Caso a pessoa a quem o sinalizante se refere esteja presente, basta apontar para a pessoa.</p>
- 
+  <strong>
+    <a href="#" onclick="openAuthorPopup('quadrosAuthorPopup')" aria-haspopup="dialog" aria-controls="quadrosAuthorPopup">
+      Quadros & Karnopp (2004)
+    </a>
+  </strong> documentam que aproximadamente 60% dos sinais da Libras apresentam algum grau de motivação icônica, mas isso não significa que sejam transparentes para não-sinalizadores.
+</p>
+
+  <!-- Popups (também ficam no BODY, de preferência perto do fim) -->
+  <div id="stokoeAuthorPopup" class="author-popup-overlay" onclick="closeAuthorPopup(event, 'stokoeAuthorPopup')">
+    <div class="author-popup-content">
+      <span class="author-close-btn" onclick="closeAuthorPopup(event, 'stokoeAuthorPopup')">&times;</span>
+      <h2>William Stokoe (1919–2000)</h2>
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/william-stokoe.jpg?updatedAt=1761435472543" alt="William Stokoe" style="width:120px;border-radius:50%;margin:10px 0;">
+      <p>Considerado o pai da linguística das línguas de sinais. Foi o primeiro autor de impacto a tratar as línguas de sinais como línguas naturais, atribuindo a elas o mesmo status das línguas orais.</p>
+    </div>
+  </div>
+
+  <div id="quadrosAuthorPopup" class="author-popup-overlay" onclick="closeAuthorPopup(event, 'quadrosAuthorPopup')">
+    <div class="author-popup-content">
+      <span class="author-close-btn" onclick="closeAuthorPopup(event, 'quadrosAuthorPopup')">&times;</span>
+      <h2>Quadros & Karnopp</h2>
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/ronice.png?updatedAt=1761435472881" alt="Quadros & Karnopp" style="width:120px;border-radius:50%;margin:10px 0;">
+      <p>Ronice Quadros, professora da UFSC, é considerada um nome de peso na área de língua de sinais no Brasil e no mundo. Uma das pioneiras no estudo com Libras e uma das idealizadoras do curso de Letras-Libras no Brasil.</p>
+    </div>
+  </div> 
+
 <hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
 
 <h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
@@ -440,8 +500,8 @@ ELE AVISAR-EU</code></pre>
             </svg>
         </button>
         <!-- VOCÊ PODE EDITAR O CONTEÚDO DO MODAL ABAIXO: -->
-        <h3 class="text-2xl font-bold text-slate-900 mb-4">Título do Pop-up</h3>
-        <p class="text-slate-600">Conteúdo do pop-up aqui.</p>
+        <h3 class="text-2xl font-bold text-slate-900 mb-4">&#9432; Dica!</h3>
+        <p class="text-slate-600">Procure fazer associações entre a forma (aparência) do sinal e o seu significado.</p>
     </div>
 </div>
 <!-- ========================================================================== -->

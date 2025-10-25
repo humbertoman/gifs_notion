@@ -10,7 +10,23 @@
     <title>Minha Página - Edite Este Título</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script async src="https://tally.so/widgets/embed.js"></script>
-    <script defer src="popup-autores.js"></script>
+    <script>
+  function openAuthorPopup(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'flex';
+  }
+  function closeAuthorPopup(event, id) {
+    // fecha ao clicar no fundo escuro ou no "x"
+    if (
+      event.target.classList.contains('author-popup-overlay') ||
+      event.target.classList.contains('author-close-btn')
+    ) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    }
+  }
+</script>
+
     <style>
         body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         .carousel-track { transition: transform 0.5s ease-in-out; }

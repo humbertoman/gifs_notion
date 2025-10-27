@@ -206,77 +206,75 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 
   <!-- Coluna 1 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
-    
-<div class="gif-carousel">
-  <div class="carousel-slide fade">
-    <video src="https://ik.imagekit.io/a02tbgrjz/Videos_Esmal/dialogo_tribunal.mp4?updatedAt=1761524495915" alt="Diálogo 1">
-    <div class="slide-title"></div>
-  </div>
-  <div class="carousel-slide fade">
-    <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/perguntar_cada.gif?updatedAt=1761538990284" alt="DIálogo 2">
-    <div class="slide-title"></div>
-  </div>
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
+    <div class="gif-carousel">
+      <div class="carousel-slide fade">
+        <video src="https://ik.imagekit.io/a02tbgrjz/Videos_Esmal/dialogo_tribunal.mp4?updatedAt=1761524495915" controls alt="Diálogo 1"></video>
+        <div class="slide-title"></div>
+      </div>
 
-</div>
+      <div class="carousel-slide fade">
+        <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/perguntar_cada.gif?updatedAt=1761538990284" alt="Diálogo 2">
+        <div class="slide-title"></div>
+      </div>
+
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+  </div>
 
   <!-- Coluna 2 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
+    <!-- === ATIVIDADE DE DIGITAR E VERIFICAR === -->
+    <div class="atividade-container my-12 max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md text-center transition-shadow duration-300 hover:shadow-lg">
+      <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual o número sinalizado no diálogo 1?</h3>
 
-<!-- === ATIVIDADE DE DIGITAR E VERIFICAR === -->
-<div class="atividade-container my-12 max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md text-center transition-shadow duration-300 hover:shadow-lg">
-  <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual o número sinalizado no diálogo 1?</h3>
-  
-  <input 
-    type="text" 
-    id="resposta" 
-    placeholder="Digite sua resposta aqui" 
-    class="border border-slate-300 rounded-lg p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-  >
-  
-  <button 
-    id="verificarBtn" 
-    class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 transition-transform hover:scale-105"
-  >
-    Verificar
-  </button>
-  
-  <p id="feedback" class="mt-4 text-lg font-semibold"></p>
-</div>
+      <input 
+        type="text" 
+        id="resposta1" 
+        placeholder="Digite sua resposta aqui" 
+        class="border border-slate-300 rounded-lg p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
 
-<script>
-  // === CONFIGURAÇÃO ===
-  const respostaCorreta = "57"; // Altere aqui a resposta certa
-  const botao = document.getElementById("verificarBtn");
-  const input = document.getElementById("resposta");
-  const feedback = document.getElementById("feedback");
+      <button 
+        id="verificarBtn1" 
+        class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 transition-transform hover:scale-105"
+      >
+        Verificar
+      </button>
 
-  botao.addEventListener("click", () => {
-    const resposta = input.value.trim();
-    if (resposta === "") {
-      feedback.textContent = "⚠️ Digite uma resposta antes de verificar!";
-      feedback.style.color = "#f59e0b"; // amarelo
-      return;
-    }
+      <p id="feedback1" class="mt-4 text-lg font-semibold"></p>
+    </div>
 
-    if (resposta.toLowerCase() === respostaCorreta.toLowerCase()) {
-      feedback.textContent = "✅ Correto! Muito bem!";
-      feedback.style.color = "#16a34a"; // verde
-    } else {
-      feedback.textContent = "❌ Resposta incorreta. Tente novamente!";
-      feedback.style.color = "#dc2626"; // vermelho
-    }
-  });
-</script>
-<!-- === FIM DA ATIVIDADE === -->
+    <script>
+      // === CONFIGURAÇÃO ===
+      const respostaCorreta = "57";
+      const botao = document.getElementById("verificarBtn1");
+      const input = document.getElementById("resposta1");
+      const feedback = document.getElementById("feedback1");
 
+      botao.addEventListener("click", () => {
+        const resposta = input.value.trim();
+        if (resposta === "") {
+          feedback.textContent = "⚠️ Digite uma resposta antes de verificar!";
+          feedback.style.color = "#f59e0b"; // amarelo
+          return;
+        }
 
+        if (resposta.toLowerCase() === respostaCorreta.toLowerCase()) {
+          feedback.textContent = "✅ Correto! Muito bem!";
+          feedback.style.color = "#16a34a"; // verde
+        } else {
+          feedback.textContent = "❌ Resposta incorreta. Tente novamente!";
+          feedback.style.color = "#dc2626"; // vermelho
+        }
+      });
+    </script>
+    <!-- === FIM DA ATIVIDADE === -->
+  </div>
 
 </div>
+<!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
 
-  
 
 
 

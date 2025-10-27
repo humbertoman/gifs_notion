@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<!-- ***** PARTE IMUTÁVEL ***** -->
+<!-- O <head> contém configurações essenciais, estilos e o link para o Tailwind CSS. Não edite esta seção. -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Atividade Interativa</title>
+    <title>Página de Atividade Interativa</title> <!-- Você PODE editar o título da página aqui -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Estilos base para uma aparência mais limpa */
@@ -11,110 +13,52 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+        /* Estilos essenciais para os componentes. Não remova. */
         .carousel-track { transition: transform 0.5s ease-in-out; }
         .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
         .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
-        /* Estilo para vídeo responsivo */
         .aspect-h-9 { padding-bottom: 56.25%; }
         .aspect-w-16 { position: relative; height: 0; }
         .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        /* Estilos para o Acordeão */
-        .accordion-content {
-            overflow: hidden;
-            max-height: 0;
-            transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
-        }
-        .accordion-header.active .accordion-chevron {
-            transform: rotate(90deg);
-        }
-        /* Estilos para o Pop-up (Modal) */
-        #modal.hidden {
-            display: none;
-        }
+        .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
+        .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
+        #modal.hidden { display: none; }
     </style>
 </head>
+<!-- ***** FIM DA PARTE IMUTÁVEL ***** -->
+
 <body class="bg-slate-50 text-slate-800">
 
 <!-- 
 ==================================================================================================
 ==
 ==    CAIXA DE FERRAMENTAS: COPIE OS BLOCOS DESTA SEÇÃO PARA MONTAR SUAS PÁGINAS
+==    Esta seção inteira é apenas para referência. Ela não aparece na página final.
 ==    DICA PARA ESPAÇAMENTO: Para ajustar o espaço vertical entre os blocos, encontre a classe
 ==    "my-12" no início de cada bloco e mude o número (ex: para "my-8" para menos espaço ou 
 ==    "my-20" para mais espaço).
 ==
 ==================================================================================================
 
-<!-- ============================================= -->
-<!-- ==           INÍCIO: Bloco Header          == -->
-<!-- ============================================= -->
-<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-emerald-600 to-teal-700 shadow-lg">
-    <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
-        <div class="py-4">
-            <span class="font-semibold text-white text-xl">Introdução ao Módulo 3</span>
-        </div>
-    </div>
-</header>
-<!-- ============================================= -->
-<!-- ==             FIM: Bloco Header           == -->
-<!-- ============================================= -->
+<!-- ***** BLOCOS EDITÁVEIS ABAIXO (Copie e Cole na seção 'CORPO DA PÁGINA') ***** -->
 
 <!-- ============================================= -->
-<!-- ==        INÍCIO: Bloco de Parágrafo         == -->
-<!-- ============================================= -->
-<p class="my-24 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-    <!-- DICA DE FORMATAÇÃO:
-        Para NEGRITO, use a tag <strong>. Ex: uma palavra <strong>importante</strong>.
-        Para ITÁLICO, use a tag <em>. Ex: uma palavra <em>enfatizada</em>.
-        Para LINKS, use a tag <a>. Ex: <a href="https://google.com" target="_blank" class="text-blue-600 hover:underline">clique aqui</a>.
-        (target="_blank" faz o link abrir em uma nova aba)
-    -->
-Você já compreendeu como a comunicação visuogestual opera através de gestos, uso do espaço e iconicidade. Agora é hora de expandir seu repertório com dois recursos fundamentais para qualquer interação em Libras: <strong>números e alfabeto manual</strong>.
-</p>
-<p class="my-22 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Esses elementos são a base para situações práticas de atendimento: solicitar documentos, registrar dados, confirmar senhas, informar valores, agendar datas e soletrar nomes. Dominar os números de 0 a 9 e o alfabeto manual permitirá que você conduza interações básicas com autonomia e precisão.
-</p>
-<p class="my-22 text-base text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
-Além disso, boa parte dos sinais que compõem o léxico da Libras utilizam as configurações de mão do alfabeto e dos números em sua formação, o que torna esses recursos um facilitador na memorização de sinais. </p>
-<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-Mais importante que decorar o A-Z / 0-9, vamos aprender os sinais de apoio essenciais: "NÃO-ENTENDI", "REPETE" e "DEVAGAR". Dominar essas ferramentas é o ótimo passo para uma interação funcional.</p>
-
-<!-- ============================================= -->
-<!-- ==          FIM: Bloco de Parágrafo          == -->
-<!-- ============================================= -->
-
-<!-- ============================================= -->
-<!-- == INÍCIO: Bloco Objetivos de Aprendizagem  == -->
+<!-- ==     INÍCIO: Bloco Card de Conteúdo       == -->
 <!-- Este bloco inteiro PODE ser editado, movido ou removido -->
 <!-- ============================================= -->
-<div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
-    <!-- PODE editar o título -->
-    <h3 class="text-xl font-bold text-slate-900 mb-4">Ao final deste módulo, você será capaz de:</h3>
-    <!-- PODE editar, adicionar ou remover itens da lista (<li>) -->
-    <ul class="list-none space-y-3 text-base text-slate-600">
-        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Configurar as mãos para representar os algarismos de 0 a 9.</li>
-        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Aplicar números em contextos reais: telefone, endereço, documentos, valores monetários.</li>
-        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Reproduzir o alfabeto manual (datilologia) em frases curtas.
-</li>
-        
-    </ul>
+<div class="my-12 bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-xl">
+    <!-- PODE editar o título e texto -->
+    <h3 class="text-xl font-bold text-slate-900 mb-2">Como você memoriza?</h3>
+    <p class="text-slate-600">Para você, qual é a sua maior dificuldade ao memorizar listas (seja em Libras, inglês ou num concurso)?
+
+Compartilhe uma técnica de estudo ou memorização que funciona para você (Ex: Aplicativos de flashcard como Anki, escrever à mão, criar associações visuais, etc.).</p>
 </div>
+
+
 <!-- ============================================= -->
-<!-- ==  FIM: Bloco Objetivos de Aprendizagem   == -->
+<!-- ==       FIM: Bloco Card de Conteúdo       == -->
 <!-- ============================================= -->
 
-<!-- ==   INÍCIO: Bloco Indicador de Duração      == -->
-<!-- NOVO BLOCO! Este bloco inteiro PODE ser editado, movido ou removido -->
-<!-- ============================================= -->
-<div class="my-12 flex justify-center items-center gap-2 text-slate-500 max-w-3xl mx-auto">
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-    <!-- PODE editar o tempo estimado -->
-    <span class="text-base font-medium">Tempo estimado: 1 hora</span>
-</div>
-<!-- ============================================= -->
-<!-- ==    FIM: Bloco Indicador de Duração       == -->
-<!-- ============================================= -->
-   
     <!-- ***** PARTE IMUTÁVEL ***** -->
     <!-- Conteúdo do Pop-up (colocado fora do container principal para sobrepor tudo) -->
     <!-- Se você remover o bloco do botão Pop-up, PODE remover esta <div> inteira também -->

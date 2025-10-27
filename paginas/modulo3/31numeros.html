@@ -148,7 +148,9 @@ Para os números de 0 - 4, nem precisa fazer muito esforço.</p>
   .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
 </style>
 
-Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma escrita desses números, concorda? 
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma escrita desses números, concorda?</p>
+
 
 <div class="flipcard-container">
   <div class="flipcard" onclick="this.classList.toggle('flipped')">
@@ -192,6 +194,53 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
   .flipcard-back { transform: rotateY(180deg); background-color: #000; }
   .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
 </style>
+
+<!-- === ATIVIDADE DE DIGITAR E VERIFICAR === -->
+<div class="atividade-container my-12 max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md text-center transition-shadow duration-300 hover:shadow-lg">
+  <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual o número sinalizado no diálogo 1?</h3>
+  
+  <input 
+    type="text" 
+    id="resposta" 
+    placeholder="Digite sua resposta aqui" 
+    class="border border-slate-300 rounded-lg p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  >
+  
+  <button 
+    id="verificarBtn" 
+    class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 transition-transform hover:scale-105"
+  >
+    Verificar
+  </button>
+  
+  <p id="feedback" class="mt-4 text-lg font-semibold"></p>
+</div>
+
+<script>
+  // === CONFIGURAÇÃO ===
+  const respostaCorreta = "3"; // Altere aqui a resposta certa
+  const botao = document.getElementById("verificarBtn");
+  const input = document.getElementById("resposta");
+  const feedback = document.getElementById("feedback");
+
+  botao.addEventListener("click", () => {
+    const resposta = input.value.trim();
+    if (resposta === "") {
+      feedback.textContent = "⚠️ Digite uma resposta antes de verificar!";
+      feedback.style.color = "#f59e0b"; // amarelo
+      return;
+    }
+
+    if (resposta.toLowerCase() === respostaCorreta.toLowerCase()) {
+      feedback.textContent = "✅ Correto! Muito bem!";
+      feedback.style.color = "#16a34a"; // verde
+    } else {
+      feedback.textContent = "❌ Resposta incorreta. Tente novamente!";
+      feedback.style.color = "#dc2626"; // vermelho
+    }
+  });
+</script>
+<!-- === FIM DA ATIVIDADE === -->
 
 <div class="my-12 text-center">
     <button id="openModalBtn" class="inline-block bg-slate-800 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-slate-900 transition-transform hover:scale-105">

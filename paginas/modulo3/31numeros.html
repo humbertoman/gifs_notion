@@ -364,8 +364,8 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
          let acertos = 0;
      
          for (let i = 1; i <= 6; i++) {
-           const input = document.getElementById(`respostai`);
-           const feedback = document.getElementById(`feedbacki`);
+           const input = document.getElementById(`resposta${i}`);
+           const feedback = document.getElementById(`feedback${i}`);
            const resposta = input.value.trim();
      
            if (resposta === "") {
@@ -384,7 +384,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
            }
          }
      
-         resultadoFinal.textContent = `Você acertou acertos de 6.`;
+         resultadoFinal.textContent = `Você acertou ${acertos} de 6.`;
          resultadoFinal.style.color = acertos === 6 ? "#16a34a" : "#334155";
        });
      </script>

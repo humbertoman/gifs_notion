@@ -236,20 +236,60 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
     
     <div class="gif-carousel" data-start="1">
       <div class="carousel-track">
-        <!-- Slide 1: VÍDEO -->
+        <!-- Slide 1: VÍDEO TELEFONE -->
         <div class="carousel-slide">
           <video controls preload="metadata">
-            <source src="https://ik.imagekit.io/a02tbgrjz/Videos_Esmal/dialogo_tribunal.mp4?updatedAt=1761524495915" type="video/mp4">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_telefone%20(1).mp4?updatedAt=1761607672817" type="video/mp4">
           </video>
           <div class="slide-title">Diálogo 1</div>
         </div>
     
-        <!-- Slide 2: GIF/IMAGEM -->
+        <!-- Slide 2: GIF/IMAGEM casa-->
         <div class="carousel-slide">
-          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/perguntar_cada.gif?updatedAt=1761538990284" alt="Diálogo 2">
+          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_casa_ou_ap%20(1).mp4?updatedAt=1761607673739" alt="Diálogo 2">
           <div class="slide-title">Diálogo 2</div>
         </div>
       </div>
+
+      <!-- Slide 3: GIF/IMAGEM rg-->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_RG%20(1).mp4?updatedAt=1761607669966" type="video/mp4">
+          </video>
+          <div class="slide-title">Diálogo 3</div>
+        </div>
+
+         <!-- Slide 4: GIF/IMAGEM dia-->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_feriado%20(1).mp4?updatedAt=1761607673994" type="video/mp4">
+          </video>
+          <div class="slide-title">Diálogo 4</div>
+        </div>
+
+        <!-- Slide 4: GIF/IMAGEM SENHA -->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_senha%20(1).mp4?updatedAt=1761607664794">
+          </video>
+          <div class="slide-title">Diálogo 5</div>
+        </div>
+
+        <!-- Slide 4: GIF/IMAGEM DINHEIRO -->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_dinheiro%20(1).mp4?updatedAt=1761607663912">
+          </video>
+          <div class="slide-title">Diálogo 6</div>
+        </div>
+
+        <!-- Slide 4: GIF/IMAGEM SALA -->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_sala%20(1).mp4?updatedAt=1761607663701">
+          </video>
+          <div class="slide-title">Diálogo 7</div>
+        </div>
     
       <a class="prev" aria-label="Anterior">&#10094;</a>
       <a class="next" aria-label="Próximo">&#10095;</a>
@@ -346,6 +386,13 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
            <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
            <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
          </div>
+
+         <!-- Questão 7 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">6️⃣ Diálogo 7:</label>
+           <input type="text" id="resposta7" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback7" class="mt-1 text-sm font-semibold"></p>
+         </div>
      
        </div>
      
@@ -358,14 +405,14 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
      
      <!-- === SCRIPT === -->
      <script>
-       const respostasCorretas = ["57", "12", "38", "44", "29", "63"]; // ✅ Altere conforme suas respostas reais
+       const respostasCorretas = ["82996478231", "874", "872105597", "15", "64", "56", "10"]; // ✅ Altere conforme suas respostas reais
        const botao = document.getElementById("verificarBtn");
        const resultadoFinal = document.getElementById("resultadoFinal");
      
        botao.addEventListener("click", () => {
          let acertos = 0;
      
-         for (let i = 1; i <= 6; i++) {
+         for (let i = 1; i <= 7; i++) {
            const input = document.getElementById(`resposta${i}`);
            const feedback = document.getElementById(`feedback${i}`);
            const resposta = input.value.trim();
@@ -386,8 +433,8 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
            }
          }
      
-         resultadoFinal.textContent = `Você acertou ${acertos} de 6.`;
-         resultadoFinal.style.color = acertos === 6 ? "#16a34a" : "#334155";
+         resultadoFinal.textContent = `Você acertou ${acertos} de 7.`;
+         resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
        });
      </script>
      <!-- === FIM DA ATIVIDADE === -->

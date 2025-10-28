@@ -608,34 +608,36 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
        const respostasCorretas = ["57", "12", "38", "44", "29", "63"];
        let questaoAtual = 0;
      
-       function verificarResposta(num) {
+       // === Função para verificar respostas ===
+       window.verificarResposta = function (num) {
          const input = document.getElementById(`respostanum`);
          const feedback = document.getElementById(`feedbacknum`);
-         const resposta = input.value.trim();
+         const resposta = (input?.value || '').trim();
      
-         if (resposta === "") {
-           feedback.textContent = "⚠️ Digite uma resposta!";
-           feedback.style.color = "#f59e0b";
+         if (!resposta) {
+           feedback.textContent = '⚠️ Digite uma resposta!';
+           feedback.style.color = '#f59e0b';
            return;
          }
      
          if (resposta.toLowerCase() === respostasCorretas[num - 1].toLowerCase()) {
-           feedback.textContent = "✅ Correto!";
-           feedback.style.color = "#16a34a";
+           feedback.textContent = '✅ Correto!';
+           feedback.style.color = '#16a34a';
          } else {
            feedback.textContent = `❌ Errado. Resposta: ${respostasCorretas[num - 1]}`;
-           feedback.style.color = "#dc2626";
+           feedback.style.color = '#dc2626';
          }
-       }
+       };
      
-       function mudarQuestao(delta) {
+       // === Função para navegar entre as questões ===
+       window.mudarQuestao = function (delta) {
          const slides = document.querySelectorAll('.questao-slide');
+         const track = document.querySelector('.questoes-track');
          questaoAtual += delta;
          if (questaoAtual < 0) questaoAtual = slides.length - 1;
          if (questaoAtual >= slides.length) questaoAtual = 0;
-         const track = document.querySelector('.questoes-track');
          track.style.transform = `translateX(-${questaoAtual * 100}%)`;
-       }
+       };
      </script>
      <!-- === FIM DA ATIVIDADE === -->
   </div>

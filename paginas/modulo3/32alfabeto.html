@@ -409,228 +409,292 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 </p>
 
 <!-- === BLOCO DE COLUNAS LIVRES === -->
-<div class="my-12 max-w-5xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+<div class="my-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
   <!-- Coluna 1 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
-    
+
     <!-- ===== CARROSSEL MISTO (VÍDEO + GIF) ===== -->
-    
     <style>
-      .gif-carousel { position: relative; max-width: 500px; margin: 0 auto; }
-      .carousel-track { position: relative; }
-      .carousel-slide { display: none; position: relative; }
-      .carousel-slide.active { display: block; }
-      .carousel-slide img, .carousel-slide video, .carousel-slide iframe {
-        width: 100%; height: auto; border-radius: 12px; display: block;
+      .gif-carousel {
+        position: relative;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .carousel-track {
+        position: relative;
+        width: 100%;
+      }
+      .carousel-slide {
+        display: none;
+        position: relative;
+      }
+      .carousel-slide.active {
+        display: block;
+      }
+      .carousel-slide img,
+      .carousel-slide video {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        display: block;
       }
       .slide-title {
-        position: absolute; left: 0; right: 0; bottom: 12px;
-        text-align: center; color: #fff; font-weight: 700;
-        text-shadow: 0 1px 6px rgba(0,0,0,.7);
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 12px;
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
       }
-      .gif-carousel .prev, .gif-carousel .next {
-        cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
-        padding: 12px; font-size: 22px; color: #fff; user-select: none;
-        background: rgba(0,0,0,.35); border-radius: 999px;
+      .gif-carousel .prev,
+      .gif-carousel .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 12px;
+        font-size: 22px;
+        color: #fff;
+        user-select: none;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 999px;
       }
-      .gif-carousel .prev { left: 8px; }
-      .gif-carousel .next { right: 8px; }
+      .gif-carousel .prev {
+        left: 8px;
+      }
+      .gif-carousel .next {
+        right: 8px;
+      }
     </style>
-    
+
     <div class="gif-carousel" data-start="1">
       <div class="carousel-track">
-        <!-- Slide 1: HK -->
-        <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/H_K.gif?updatedAt=1761624359390" type="video/mp4">
-          </video>
+
+        <!-- Slide 1 -->
+        <div class="carousel-slide active">
+          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/H_K.gif?updatedAt=1761624359390" alt="Par 1">
           <div class="slide-title">Par 1</div>
         </div>
-        </div>
-    
-        <!-- Slide 2: CÇ -->
+
+        <!-- Slide 2 -->
         <div class="carousel-slide">
-          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/C_%C3%87.gif?updatedAt=1761624358938" alt="Diálogo 2">
+          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/C_%C3%87.gif?updatedAt=1761624358938" alt="Par 2">
           <div class="slide-title">Par 2</div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-slide">
+          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/I_J.gif?updatedAt=1761624358866" alt="Par 3">
+          <div class="slide-title">Par 3</div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="carousel-slide">
+          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/G_Q.gif?updatedAt=1761624357617" alt="Par 4">
+          <div class="slide-title">Par 4</div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="carousel-slide">
+          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/T_F.gif?updatedAt=1761624357577" alt="Par 5">
+          <div class="slide-title">Par 5</div>
         </div>
       </div>
 
-      <!-- Slide 3: JI -->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/I_J.gif?updatedAt=1761624358866" type="video/mp4">
-          </video>
-          <div class="slide-title">Par 3</div>
-        </div>
-        </div>
-
-         <!-- Slide 4: GQ -->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/G_Q.gif?updatedAt=1761624357617" type="video/mp4">
-          </video>
-          <div class="slide-title">Par 4</div>
-        </div>
-        </div>
-
-        <!-- Slide 5: FT -->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/T_F.gif?updatedAt=1761624357577">
-          </video>
-          <div class="slide-title">Par 5</div>
-        </div>
-        </div>
-
-        
-    
       <a class="prev" aria-label="Anterior">&#10094;</a>
       <a class="next" aria-label="Próximo">&#10095;</a>
     </div>
-    
+
     <script>
-      (function initCarousels(){
-        const carousels = document.querySelectorAll('.gif-carousel');
+      window.addEventListener("DOMContentLoaded", () => {
+        const carousels = document.querySelectorAll(".gif-carousel");
         carousels.forEach((carousel) => {
-          const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-          const prev = carousel.querySelector('.prev');
-          const next = carousel.querySelector('.next');
-          let index = Math.max(1, parseInt(carousel.dataset.start || '1', 10));
-          if (index > slides.length) index = 1;
-    
-          function show(i){
-            slides.forEach((s) => {
-              s.classList.remove('active');
-              const vid = s.querySelector('video');
-              if (vid && !vid.paused) { vid.pause(); vid.currentTime = vid.currentTime; }
-            });
-            if (i < 1) i = slides.length;
-            if (i > slides.length) i = 1;
-            index = i;
-            slides[index-1].classList.add('active');
+          const slides = Array.from(carousel.querySelectorAll(".carousel-slide"));
+          const prev = carousel.querySelector(".prev");
+          const next = carousel.querySelector(".next");
+          let index = 0;
+
+          function show(i) {
+            slides.forEach((s) => s.classList.remove("active"));
+            index = (i + slides.length) % slides.length;
+            slides[index].classList.add("active");
           }
-    
-          function plus(n){ show(index + n); }
-    
-          prev && prev.addEventListener('click', () => plus(-1));
-          next && next.addEventListener('click', () => plus(1));
-    
-          carousel.addEventListener('transitionend', () => {
-            const current = slides[index-1];
-            const vid = current.querySelector('video[autoplay]');
-            if (vid) vid.play().catch(()=>{});
-          });
-    
+
+          prev.addEventListener("click", () => show(index - 1));
+          next.addEventListener("click", () => show(index + 1));
           show(index);
         });
-      })();
+      });
     </script>
     <!-- ===== FIM DO CARROSSEL MISTO ===== -->
 
-    </div>
+  </div>
+
   <!-- Coluna 2 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
-     <!-- === ATIVIDADE: CARROSSEL DE QUESTÕES === -->
-     <div class="atividade-carrossel my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
-       <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade — Identifique os números sinalizados</h2>
-       <p class="text-slate-600 mb-8">Cada questão aparece em uma página. Digite sua resposta "1" ou "2" para cada par e clique em <strong>Verificar</strong>.</p>
-     
-       <div class="questoes-carousel relative overflow-hidden">
-         <div class="questoes-track transition-transform duration-500 ease-in-out flex">
-     
-           <!-- Questão 1 -->
-           <div class="questao-slide min-w-full flex-shrink-0 p-6">
-             <h3 class="text-xl font-semibold text-slate-800 mb-4">No <strong>Par 1</strong>, qual a letra "H"?</h3>
-             <input id="resposta1" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-             <button onclick="verificarResposta(1)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
-             <p id="feedback1" class="mt-4 text-lg font-semibold"></p>
-           </div>
-     
-           <!-- Questão 2 -->
-           <div class="questao-slide min-w-full flex-shrink-0 p-6">
-             <h3 class="text-xl font-semibold text-slate-800 mb-4">No <strong>Par 2</strong>, qual a letra "Ç"?</h3>
-             <input id="resposta2" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-             <button onclick="verificarResposta(2)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
-             <p id="feedback2" class="mt-4 text-lg font-semibold"></p>
-           </div>
-     
-           <!-- Questão 3 -->
-           <div class="questao-slide min-w-full flex-shrink-0 p-6">
-             <h3 class="text-xl font-semibold text-slate-800 mb-4">No <strong>Par 3</strong>, qual a letra "I"?</h3>
-             <input id="resposta3" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-             <button onclick="verificarResposta(3)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
-             <p id="feedback3" class="mt-4 text-lg font-semibold"></p>
-           </div>
-     
-           <!-- Questão 4 -->
-           <div class="questao-slide min-w-full flex-shrink-0 p-6">
-             <h3 class="text-xl font-semibold text-slate-800 mb-4">No <strong>Par 4</strong>, qual a letra "G"?</h3>
-             <input id="resposta4" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-             <button onclick="verificarResposta(4)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
-             <p id="feedback4" class="mt-4 text-lg font-semibold"></p>
-           </div>
-     
-           <!-- Questão 5 -->
-           <div class="questao-slide min-w-full flex-shrink-0 p-6">
-             <h3 class="text-xl font-semibold text-slate-800 mb-4">No <strong>Par 5</strong>, qual a letra "T"?</h3>
-             <input id="resposta5" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-             <button onclick="verificarResposta(5)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
-             <p id="feedback5" class="mt-4 text-lg font-semibold"></p>
-           </div>
-     
-           
-         </div>
-     
-         <!-- Botões de navegação -->
-         <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarQuestao(-1)">&#10094;</button>
-         <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarQuestao(1)">&#10095;</button>
-       </div>
-     </div>
-     
-     <script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const respostasCorretas = ["1", "2", "2", "1", "1"];
-    let questaoAtual = 0;
 
-    // === Função para verificar respostas ===
-    window.verificarResposta = function (num) {
-      const input = document.getElementById(`resposta${num}`);
-      const feedback = document.getElementById(`feedback${num}`);
-      const resposta = (input?.value || '').trim();
-
-      if (!resposta) {
-        feedback.textContent = '⚠️ Digite uma resposta!';
-        feedback.style.color = '#f59e0b';
-        return;
+    <!-- === ATIVIDADE: CARROSSEL DE QUESTÕES === -->
+    <style>
+      .questoes-carousel {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
       }
-
-      if (resposta.toLowerCase() === respostasCorretas[num - 1].toLowerCase()) {
-        feedback.textContent = '✅ Correto!';
-        feedback.style.color = '#16a34a';
-      } else {
-        feedback.textContent = `❌ Errado.`;
-        feedback.style.color = '#dc2626';
+      .questoes-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
       }
-    };
+      .questao-slide {
+        flex: 0 0 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
 
-    // === Função para navegar entre as questões ===
-    window.mudarQuestao = function (delta) {
-      const slides = document.querySelectorAll('.questao-slide');
-      const track = document.querySelector('.questoes-track');
-      questaoAtual += delta;
-      if (questaoAtual < 0) questaoAtual = slides.length - 1;
-      if (questaoAtual >= slides.length) questaoAtual = 0;
-      track.style.transform = `translateX(-${questaoAtual * 100}%)`;
-    };
-  });
-</script>
+    <div class="atividade-carrossel my-6 text-center">
+      <h2 class="text-2xl font-bold text-slate-800 mb-6">
+        Atividade — Identifique os números sinalizados
+      </h2>
+      <p class="text-slate-600 mb-8">
+        Cada questão aparece em uma página. Digite sua resposta "1" ou "2" para cada par e clique em
+        <strong>Verificar</strong>.
+      </p>
 
-     <!-- === FIM DA ATIVIDADE === -->
+      <div class="questoes-carousel">
+        <div class="questoes-track">
+
+          <!-- Questão 1 -->
+          <div class="questao-slide p-6">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">
+              No <strong>Par 1</strong>, qual a letra "H"?
+            </h3>
+            <input id="resposta1" type="text"
+              placeholder="Digite sua resposta..."
+              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+            <button onclick="verificarResposta(1)"
+              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+              Verificar
+            </button>
+            <p id="feedback1" class="mt-4 text-lg font-semibold"></p>
+          </div>
+
+          <!-- Questão 2 -->
+          <div class="questao-slide p-6">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">
+              No <strong>Par 2</strong>, qual a letra "Ç"?
+            </h3>
+            <input id="resposta2" type="text"
+              placeholder="Digite sua resposta..."
+              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+            <button onclick="verificarResposta(2)"
+              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+              Verificar
+            </button>
+            <p id="feedback2" class="mt-4 text-lg font-semibold"></p>
+          </div>
+
+          <!-- Questão 3 -->
+          <div class="questao-slide p-6">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">
+              No <strong>Par 3</strong>, qual a letra "I"?
+            </h3>
+            <input id="resposta3" type="text"
+              placeholder="Digite sua resposta..."
+              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+            <button onclick="verificarResposta(3)"
+              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+              Verificar
+            </button>
+            <p id="feedback3" class="mt-4 text-lg font-semibold"></p>
+          </div>
+
+          <!-- Questão 4 -->
+          <div class="questao-slide p-6">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">
+              No <strong>Par 4</strong>, qual a letra "G"?
+            </h3>
+            <input id="resposta4" type="text"
+              placeholder="Digite sua resposta..."
+              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+            <button onclick="verificarResposta(4)"
+              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+              Verificar
+            </button>
+            <p id="feedback4" class="mt-4 text-lg font-semibold"></p>
+          </div>
+
+          <!-- Questão 5 -->
+          <div class="questao-slide p-6">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">
+              No <strong>Par 5</strong>, qual a letra "T"?
+            </h3>
+            <input id="resposta5" type="text"
+              placeholder="Digite sua resposta..."
+              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+            <button onclick="verificarResposta(5)"
+              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+              Verificar
+            </button>
+            <p id="feedback5" class="mt-4 text-lg font-semibold"></p>
+          </div>
+        </div>
+
+        <!-- Navegação -->
+        <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700"
+          onclick="mudarQuestao(-1)">&#10094;</button>
+        <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700"
+          onclick="mudarQuestao(1)">&#10095;</button>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const respostasCorretas = ["1", "2", "2", "1", "1"];
+        let questaoAtual = 0;
+
+        window.verificarResposta = function (num) {
+          const input = document.getElementById(`resposta${num}`);
+          const feedback = document.getElementById(`feedback${num}`);
+          const resposta = (input?.value || "").trim();
+
+          if (!resposta) {
+            feedback.textContent = "⚠️ Digite uma resposta!";
+            feedback.style.color = "#f59e0b";
+            return;
+          }
+
+          if (resposta.toLowerCase() === respostasCorretas[num - 1].toLowerCase()) {
+            feedback.textContent = "✅ Correto!";
+            feedback.style.color = "#16a34a";
+          } else {
+            feedback.textContent = "❌ Errado.";
+            feedback.style.color = "#dc2626";
+          }
+        };
+
+        window.mudarQuestao = function (delta) {
+          const slides = document.querySelectorAll(".questao-slide");
+          const track = document.querySelector(".questoes-track");
+          questaoAtual += delta;
+          if (questaoAtual < 0) questaoAtual = slides.length - 1;
+          if (questaoAtual >= slides.length) questaoAtual = 0;
+          track.style.transform = `translateX(-${questaoAtual * 100}%)`;
+        };
+      });
+    </script>
+    <!-- === FIM DA ATIVIDADE === -->
   </div>
 
 </div>
 <!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
+
 
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
     Conseguiu identificar o significado de mais algum sinal nos vídeos sem buscar num glossário? Comece a anotar os sinais que está descobrindo.

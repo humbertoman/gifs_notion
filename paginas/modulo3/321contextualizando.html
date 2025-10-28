@@ -88,11 +88,28 @@ Agora, vamos ver o alfabeto e o vocabulário de apoio em ação nos recursos aba
 
 <div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
   <div class="aspect-w-16 aspect-h-9">
-    <video class="rounded-2xl shadow-xl w-full" autoplay muted playsinline loop>
+    <video class="rounded-2xl shadow-xl w-full" controls muted playsinline>
       <source src="https://ik.imagekit.io/a02tbgrjz/Videos_Esmal/pedro_telma.mp4?updatedAt=1761687462443" type="video/mp4">
+      Seu navegador não suporta a reprodução de vídeo.
     </video>
   </div>
 </div>
+
+<style>
+  /* Remove o botão de áudio/volume dos controles nativos */
+  video::-webkit-media-controls-volume-slider,
+  video::-webkit-media-controls-mute-button {
+    display: none !important;
+  }
+  video::-webkit-media-controls-toggle-closed-captions-button {
+    display: none !important;
+  }
+
+  /* Em alguns navegadores, força o áudio permanentemente mudo */
+  video {
+    pointer-events: auto;
+  }
+</style>
 
 
 

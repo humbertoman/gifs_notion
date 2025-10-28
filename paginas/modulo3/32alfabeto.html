@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!-- ========================================================================== -->
+<!-- ===                    NÃO MEXA NESTA SEÇÃO                           === -->
+<!-- ========================================================================== -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALFABETO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .carousel-track { transition: transform 0.5s ease-in-out; }
+        .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+        .aspect-h-9 { padding-bottom: 56.25%; }
+        .aspect-w-16 { position: relative; height: 0; }
+        .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
+        .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
+        #modal.hidden { display: none; }
+        .custom-ordered-list { list-style: none; counter-reset: list-counter; padding-left: 0; }
+        .custom-ordered-list li { counter-increment: list-counter; position: relative; padding-left: 2.5rem; margin-bottom: 0.75rem; }
+        .custom-ordered-list li::before {
+            content: counter(list-counter);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #334155;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+    </style>
+</head>
+<!-- ========================================================================== -->
+<!-- ===                 FIM DA SEÇÃO QUE NÃO DEVE MEXER                   === -->
+<!-- ========================================================================== -->
+
+<body class="bg-slate-50 text-slate-800">
+
+<!-- ========================================================================== -->
+<!-- ===        NÃO MEXA - HEADER FIXO (você pode editar só o texto)      === -->
+<!-- ========================================================================== -->
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-emerald-600 to-teal-700 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
+        <div class="py-4">
+            <span class="font-semibold text-white text-xl">3.2. Alfabeto</span>
+        </div>
+    </div>
+</header>
+<!-- ========================================================================== -->
+<!-- ===                    FIM DO HEADER FIXO                             === -->
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+<div class="pt-24"> 
+    <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
+<!-- ========================================================================== -->
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###   COMECE A EDITAR AQUI - COLE OS BLOCOS DA CAIXA DE FERRAMENTAS     ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+
+
+        <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos mais essenciais da Libras. Ela é usada em situações específicas, principalmente para "soletrar" palavras que não têm um sinal (como nomes próprios: "MARIA", "JOÃO") ou siglas ("RG", "CPF").</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Este tópico é de memorização. Mas, mais importante do que decorar o A-Z, é aprender a usá-lo em uma conversa.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Além disso, você perceberá que aprender o alfabeto tem uma vantagem extra: muitos sinais em Libras usam a Configuração de Mão (CM) correspondente à letra inicial da palavra em português. Por exemplo, o sinal de REUNIÃO usa a letra 'R', o sinal de PROFESSOR usa a letra 'P', os sinais de DIA e DOMINGO, usam a letra 'D'. Dominar o alfabeto, portanto, acelera muito o seu aprendizado de vocabulário.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    É normal e esperado que, no início, você não entenda uma soletração rápida. Por isso, junto com o alfabeto, vamos aprender o vocabulário de "sobrevivência" mais importante para o atendimento: "NÃO-ENTENDI", "REPETE" e "DEVAGAR". 
+</p>
+
+<div class="my-12 bg-slate-100/70 p-6 rounded-2xl flex items-start gap-5 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-md">
+    <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-full p-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15.09 16.05a2 2 0 0 1-2.18 2.85a2 2 0 0 1-2.18-2.85V14a2 2 0 0 1 2.18-2.85a2 2 0 0 1 2.18 2.85v2.05z"/>
+            <path d="M12 2A7 7 0 0 0 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74A7 7 0 0 0 12 2z"/>
+        </svg>
+    </div>
+    <div>
+        <h2 class="font-bold text-slate-900 text-lg mb-1">Atenção:</h2>
+        <p class="text-slate-600">Muitas pessoas pensam que para aprender Libras, basta aprender o alfabeto manual. Já deu pra perceber que não é bem assim, certo? A <strong>datilologia</strong> é apenas uma parte da língua. Há um léxico extenso de sinais a serem aprendidos. 
+
+</p>
+    </div>
+</div>
+
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Alfabeto
+</h2>
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Vamos aprender as letras em Libras? Clique nas letras para ver o sinal. 
+</p>
+
+<!-- Botão que abre o popup -->
+<div class="my-12 text-center">
+  <button class="popup-btn bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105">
+    Dica!
+  </button>
+</div>
+
+<!-- Estrutura do popup -->
+<div class="popup-overlay hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="popup-content bg-white rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl relative">
+    <button class="popup-close absolute top-3 right-4 text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+    <h3 class="text-2xl font-semibold text-slate-900 mb-4">Dica!</h3>
+    <p class="text-slate-600 text-lg leading-relaxed">Depois de memorizar o alfabeto, tente fazer um teste: verifique se lembra o sinal daquela letra antes mesmo de virar o card. </p>
+  </div>
+</div>
+
+<style>
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+  }
+  .popup-overlay.active { display: flex; }
+  .popup-content {
+    animation: popupFade 0.3s ease;
+  }
+  @keyframes popupFade {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
+
+<script>
+  const popupBtn = document.querySelector('.popup-btn');
+  const popupOverlay = document.querySelector('.popup-overlay');
+  const popupClose = document.querySelector('.popup-close');
+
+  popupBtn.addEventListener('click', () => {
+    popupOverlay.classList.add('active');
+    popupOverlay.classList.remove('hidden');
+  });
+
+  popupClose.addEventListener('click', () => {
+    popupOverlay.classList.remove('active');
+    setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+  });
+
+  popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) {
+      popupOverlay.classList.remove('active');
+      setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+    }
+  });
+</script>
+
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Há diferentes formas de sinalizar os números em Libras, mas aqui apresentaremos a mais próxima do que já costumamos utilizar nos gestos.</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Para os números de 0 - 4, nem precisa fazer muito esforço.</p>
+
+<div class="flipcard-container">
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>0</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="0"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>1</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="1"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>2</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="2"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>3</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="3"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>4</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="4"></div>
+    </div>
+  </div>
+</div>
+<style>
+  .flipcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 40px auto; }
+  .flipcard { background: transparent; width: 200px; height: 200px; perspective: 1000px; cursor: pointer; }
+  .flipcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
+  .flipcard-front, .flipcard-back { position: absolute; width: 100%; height: 100%; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
+  .flipcard-front { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
+  .flipcard-back { transform: rotateY(180deg); background-color: #000; }
+  .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
+</style>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma escrita desses números, concorda?</p>
+
+
+<div class="flipcard-container">
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>5</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="5"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>6</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="6"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>7</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="7"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>8</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="8"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>9</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="9"></div>
+    </div>
+  </div>
+</div>
+<style>
+  .flipcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 40px auto; }
+  .flipcard { background: transparent; width: 200px; height: 200px; perspective: 1000px; cursor: pointer; }
+  .flipcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
+  .flipcard-front, .flipcard-back { position: absolute; width: 100%; height: 100%; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
+  .flipcard-front { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; }
+  .flipcard-back { transform: rotateY(180deg); background-color: #000; }
+  .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
+</style>
+
+<!-- === ATIVIDADE DE DIGITAR E VERIFICAR === -->
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Identifique o número sinalizado em cada diálogo abaixo e responda o quiz.
+</h2>
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    <em>(Tente identificar também os significados dos sinais)</em>
+</p>
+
+<!-- === BLOCO DE COLUNAS LIVRES === -->
+<div class="my-12 max-w-5xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+
+  <!-- Coluna 1 -->
+  <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
+    
+    <!-- ===== CARROSSEL MISTO (VÍDEO + GIF) ===== -->
+    
+    <style>
+      .gif-carousel { position: relative; max-width: 500px; margin: 0 auto; }
+      .carousel-track { position: relative; }
+      .carousel-slide { display: none; position: relative; }
+      .carousel-slide.active { display: block; }
+      .carousel-slide img, .carousel-slide video, .carousel-slide iframe {
+        width: 100%; height: auto; border-radius: 12px; display: block;
+      }
+      .slide-title {
+        position: absolute; left: 0; right: 0; bottom: 12px;
+        text-align: center; color: #fff; font-weight: 700;
+        text-shadow: 0 1px 6px rgba(0,0,0,.7);
+      }
+      .gif-carousel .prev, .gif-carousel .next {
+        cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+        padding: 12px; font-size: 22px; color: #fff; user-select: none;
+        background: rgba(0,0,0,.35); border-radius: 999px;
+      }
+      .gif-carousel .prev { left: 8px; }
+      .gif-carousel .next { right: 8px; }
+    </style>
+    
+    <div class="gif-carousel" data-start="1">
+      <div class="carousel-track">
+        <!-- Slide 1: VÍDEO TELEFONE -->
+        <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_telefone%20(1).mp4?updatedAt=1761607672817" type="video/mp4">
+          </video>
+          <div class="slide-title">Diálogo 1</div>
+        </div>
+    
+        <!-- Slide 2: GIF/IMAGEM casa-->
+        <div class="carousel-slide">
+          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_casa_ou_ap%20(1).mp4?updatedAt=1761607673739" alt="Diálogo 2">
+          <div class="slide-title">Diálogo 2</div>
+        </div>
+      </div>
+
+      <!-- Slide 3: GIF/IMAGEM rg-->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_RG%20(1).mp4?updatedAt=1761607669966" type="video/mp4">
+          </video>
+          <div class="slide-title">Diálogo 3</div>
+        </div>
+
+         <!-- Slide 4: GIF/IMAGEM dia-->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_feriado%20(1).mp4?updatedAt=1761607673994" type="video/mp4">
+          </video>
+          <div class="slide-title">Diálogo 4</div>
+        </div>
+
+        <!-- Slide 4: GIF/IMAGEM SENHA -->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_senha%20(1).mp4?updatedAt=1761607664794">
+          </video>
+          <div class="slide-title">Diálogo 5</div>
+        </div>
+
+        <!-- Slide 4: GIF/IMAGEM DINHEIRO -->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_dinheiro%20(1).mp4?updatedAt=1761607663912">
+          </video>
+          <div class="slide-title">Diálogo 6</div>
+        </div>
+
+        <!-- Slide 4: GIF/IMAGEM SALA -->
+      <div class="carousel-slide">
+          <video controls preload="metadata">
+            <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/dialogo_sala%20(1).mp4?updatedAt=1761607663701">
+          </video>
+          <div class="slide-title">Diálogo 7</div>
+        </div>
+    
+      <a class="prev" aria-label="Anterior">&#10094;</a>
+      <a class="next" aria-label="Próximo">&#10095;</a>
+    </div>
+    
+    <script>
+      (function initCarousels(){
+        const carousels = document.querySelectorAll('.gif-carousel');
+        carousels.forEach((carousel) => {
+          const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+          const prev = carousel.querySelector('.prev');
+          const next = carousel.querySelector('.next');
+          let index = Math.max(1, parseInt(carousel.dataset.start || '1', 10));
+          if (index > slides.length) index = 1;
+    
+          function show(i){
+            slides.forEach((s) => {
+              s.classList.remove('active');
+              const vid = s.querySelector('video');
+              if (vid && !vid.paused) { vid.pause(); vid.currentTime = vid.currentTime; }
+            });
+            if (i < 1) i = slides.length;
+            if (i > slides.length) i = 1;
+            index = i;
+            slides[index-1].classList.add('active');
+          }
+    
+          function plus(n){ show(index + n); }
+    
+          prev && prev.addEventListener('click', () => plus(-1));
+          next && next.addEventListener('click', () => plus(1));
+    
+          carousel.addEventListener('transitionend', () => {
+            const current = slides[index-1];
+            const vid = current.querySelector('video[autoplay]');
+            if (vid) vid.play().catch(()=>{});
+          });
+    
+          show(index);
+        });
+      })();
+    </script>
+    <!-- ===== FIM DO CARROSSEL MISTO ===== -->
+
+    </div>
+  <!-- Coluna 2 -->
+  <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
+     <!-- === ATIVIDADE DE 6 QUESTÕES === -->
+     <div class="atividade-container my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
+     
+       
+       <p class="text-slate-600 mb-8">Digite a resposta para cada diálogo e clique em <strong>Verificar</strong>.</p>
+     
+       <div class="space-y-6 text-left">
+     
+         <!-- Questão 1 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">1️⃣ Diálogo 1:</label>
+           <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
+         </div>
+     
+         <!-- Questão 2 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">2️⃣ Diálogo 2:</label>
+           <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
+         </div>
+     
+         <!-- Questão 3 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">3️⃣ Diálogo 3:</label>
+           <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
+         </div>
+     
+         <!-- Questão 4 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">4️⃣ Diálogo 4:</label>
+           <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback4" class="mt-1 text-sm font-semibold"></p>
+         </div>
+     
+         <!-- Questão 5 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">5️⃣ Diálogo 5:</label>
+           <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback5" class="mt-1 text-sm font-semibold"></p>
+         </div>
+     
+         <!-- Questão 6 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">6️⃣ Diálogo 6:</label>
+           <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
+         </div>
+
+         <!-- Questão 7 -->
+         <div>
+           <label class="block text-slate-700 font-medium mb-2">6️⃣ Diálogo 7:</label>
+           <input type="text" id="resposta7" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+           <p id="feedback7" class="mt-1 text-sm font-semibold"></p>
+         </div>
+     
+       </div>
+     
+       <button id="verificarBtn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+         Verificar todas as respostas
+       </button>
+     
+       <p id="resultadoFinal" class="mt-6 text-lg font-bold"></p>
+     </div>
+     
+     <!-- === SCRIPT === -->
+     <script>
+       const respostasCorretas = ["82996478231", "874", "872105597", "15", "64", "56", "10"]; // ✅ Altere conforme suas respostas reais
+       const botao = document.getElementById("verificarBtn");
+       const resultadoFinal = document.getElementById("resultadoFinal");
+     
+       botao.addEventListener("click", () => {
+         let acertos = 0;
+     
+         for (let i = 1; i <= 7; i++) {
+           const input = document.getElementById(`resposta${i}`);
+           const feedback = document.getElementById(`feedback${i}`);
+           const resposta = input.value.trim();
+     
+           if (resposta === "") {
+             feedback.textContent = "⚠️ Campo vazio.";
+             feedback.style.color = "#f59e0b";
+             continue;
+           }
+     
+           if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
+             feedback.textContent = "✅ Correto!";
+             feedback.style.color = "#16a34a";
+             acertos++;
+           } else {
+             feedback.textContent = `❌ Errado. Resposta: ${respostasCorretas[i - 1]}`;
+             feedback.style.color = "#dc2626";
+           }
+         }
+     
+         resultadoFinal.textContent = `Você acertou ${acertos} de 7.`;
+         resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
+       });
+     </script>
+     <!-- === FIM DA ATIVIDADE === -->
+  </div>
+
+</div>
+<!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Conseguiu identificar o significado de mais algum sinal nos vídeos sem buscar num glossário? Comece a anotar os sinais que está descobrindo.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Essa é a <strong>base</strong> para utilizar números. Para sinalizar números maiores, basta "soletrar" cada um dos números.<br> Há outras formas de sinalizar números maiores ou mesmo "contrações", mas vamos deixar esse conteúdo para outro momento.
+</p>
+
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###              PARE DE EDITAR AQUI                                    ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===     NÃO MEXA - ESTRUTURA DO MODAL (você edita o conteúdo depois) === -->
+<!-- ========================================================================== -->
+<div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <!-- VOCÊ PODE EDITAR O CONTEÚDO DO MODAL ABAIXO: -->
+        <h3 class="text-2xl font-bold text-slate-900 mb-4">Exemplo prático</h3>
+        <p class="text-slate-600">Imagine que você precisa perguntar a um usuário surdo se ele precisa "ASSINAR" um documento. Você ainda não sabe o sinal de ASSINAR.
+<p class="text-slate-600">
+Ação Incorporada (Mímica): Pegue uma folha de papel e uma caneta (ou imagine) e faça o movimento claro de escrever seu nome/rubrica no papel, olhando para o usuário como quem pede pra assinar e apontando para o local da assinatura.
+</p>
+<p class="text-slate-600">
+Essa ação é compreensível e resolve a comunicação imediata. O gesto e a mímica são suas ferramentas de "primeiros socorros" na comunicação.</p>
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===              NÃO MEXA NESTE SCRIPT                                === -->
+<!-- ========================================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const carouselElement = document.getElementById('carousel');
+    if (carouselElement) {
+        const track = carouselElement.querySelector('.carousel-track');
+        const slides = track ? Array.from(track.children) : [];
+        const nextButton = document.getElementById('nextBtn');
+        const prevButton = document.getElementById('prevBtn');
+        const dotsContainer = document.getElementById('dots-container');
+        let currentIndex = 0;
+        const loadSlideContent = (index) => {
+            const slide = slides[index];
+            if (!slide) return;
+            const img = slide.querySelector('img');
+            if (img && img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            }
+        };
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0 || targetIndex >= slides.length || slides.length === 0) return;
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            if (!slideWidth || !track) return;
+            loadSlideContent(targetIndex);
+            track.style.transform = `translateX(-${slideWidth * targetIndex}px)`;
+            currentIndex = targetIndex;
+            updateUI();
+        };
+        const updateUI = () => {
+            if (!dotsContainer || !prevButton || !nextButton) return;
+            const dots = Array.from(dotsContainer.children);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === currentIndex);
+                dot.classList.toggle('bg-white/50', index !== currentIndex);
+            });
+            prevButton.disabled = (currentIndex === 0);
+            nextButton.disabled = (currentIndex === slides.length - 1);
+        };
+        const setupCarousel = () => {
+            if (slides.length === 0 || !dotsContainer || !track) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors');
+                dotsContainer.appendChild(dot);
+                dot.addEventListener('click', () => moveToSlide(index));
+            });
+            const slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+            if (!slideWidth) return;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            setTimeout(() => { if(track) track.style.transition = 'transform 0.5s ease-in-out'; }, 50);
+            updateUI();
+            loadSlideContent(currentIndex);
+        };
+        if (nextButton && prevButton) {
+            nextButton.addEventListener('click', () => moveToSlide(currentIndex + 1));
+            prevButton.addEventListener('click', () => moveToSlide(currentIndex - 1));
+        }
+        window.addEventListener('resize', setupCarousel);
+        setTimeout(setupCarousel, 100);
+    }
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const accordionItem = header.parentElement;
+            const accordionContent = header.nextElementSibling;
+            if (!accordionItem || !accordionContent) return;
+            header.classList.toggle('active');
+            if (accordionContent.style.maxHeight) {
+                accordionContent.style.maxHeight = null;
+                accordionItem.classList.remove('open');
+            } else {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                accordionItem.classList.add('open');
+            }
+        });
+    });
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+    if (openModalBtn && closeModalBtn && modal && modalContent) {
+        const openModal = () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        };
+        const closeModal = () => {
+            modal.classList.remove('opacity-100');
+            modalContent.classList.remove('scale-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        };
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    }
+});
+</script>
+<!-- ========================================================================== -->
+
+</body>
+</html>
+
+
+<!-- 
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                         CAIXA DE FERRAMENTAS                                 ║
+║                     COPIE E COLE OS BLOCOS ABAIXO                            ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+INSTRUÇÕES DE USO:
+1. Role para baixo e encontre o bloco que deseja
+2. Copie TODO o código do bloco (desde o comentário INÍCIO até FIM)
+3. Cole na área de edição da sua página (entre os comentários de início e fim de edição)
+4. Edite o texto, links e imagens dentro do bloco colado
+5. Repita para adicionar mais blocos
+
+IMPORTANTE SOBRE ESPAÇAMENTO:
+- Cada bloco tem "my-12" que adiciona espaço em cima e embaixo
+- O PRIMEIRO bloco da sua página deve usar "mt-0 mb-12" ao invés de "my-12"
+- Isso evita espaço duplo no topo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+█████████████████████████████████████████████████████████████████████████████
+███  1. TÍTULO PRINCIPAL (H1)
+█████████████████████████████████████████████████████████████████████████████ -->

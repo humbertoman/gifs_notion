@@ -541,105 +541,101 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
     </div>
   <!-- Coluna 2 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
-     <!-- === ATIVIDADE DE 6 QUESTÕES === -->
-     <div class="atividade-container my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
+     <!-- === ATIVIDADE: CARROSSEL DE QUESTÕES === -->
+     <div class="atividade-carrossel my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
+       <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade — Identifique os números sinalizados</h2>
+       <p class="text-slate-600 mb-8">Cada questão aparece em uma página. Digite sua resposta e clique em <strong>Verificar</strong>.</p>
      
-       
-       <p class="text-slate-600 mb-8">Digite a resposta para cada diálogo e clique em <strong>Verificar</strong>.</p>
+       <div class="questoes-carousel relative overflow-hidden">
+         <div class="questoes-track transition-transform duration-500 ease-in-out flex">
      
-       <div class="space-y-6 text-left">
+           <!-- Questão 1 -->
+           <div class="questao-slide min-w-full flex-shrink-0 p-6">
+             <h3 class="text-xl font-semibold text-slate-800 mb-4">1️⃣ Diálogo 1</h3>
+             <input id="resposta1" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+             <button onclick="verificarResposta(1)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+             <p id="feedback1" class="mt-4 text-lg font-semibold"></p>
+           </div>
      
-         <!-- Questão 1 -->
-         <div>
-           <label class="block text-slate-700 font-medium mb-2">1️⃣ Diálogo 1:</label>
-           <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-           <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
+           <!-- Questão 2 -->
+           <div class="questao-slide min-w-full flex-shrink-0 p-6">
+             <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Diálogo 2</h3>
+             <input id="resposta2" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+             <button onclick="verificarResposta(2)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+             <p id="feedback2" class="mt-4 text-lg font-semibold"></p>
+           </div>
+     
+           <!-- Questão 3 -->
+           <div class="questao-slide min-w-full flex-shrink-0 p-6">
+             <h3 class="text-xl font-semibold text-slate-800 mb-4">3️⃣ Diálogo 3</h3>
+             <input id="resposta3" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+             <button onclick="verificarResposta(3)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+             <p id="feedback3" class="mt-4 text-lg font-semibold"></p>
+           </div>
+     
+           <!-- Questão 4 -->
+           <div class="questao-slide min-w-full flex-shrink-0 p-6">
+             <h3 class="text-xl font-semibold text-slate-800 mb-4">4️⃣ Diálogo 4</h3>
+             <input id="resposta4" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+             <button onclick="verificarResposta(4)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+             <p id="feedback4" class="mt-4 text-lg font-semibold"></p>
+           </div>
+     
+           <!-- Questão 5 -->
+           <div class="questao-slide min-w-full flex-shrink-0 p-6">
+             <h3 class="text-xl font-semibold text-slate-800 mb-4">5️⃣ Diálogo 5</h3>
+             <input id="resposta5" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+             <button onclick="verificarResposta(5)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+             <p id="feedback5" class="mt-4 text-lg font-semibold"></p>
+           </div>
+     
+           <!-- Questão 6 -->
+           <div class="questao-slide min-w-full flex-shrink-0 p-6">
+             <h3 class="text-xl font-semibold text-slate-800 mb-4">6️⃣ Diálogo 6</h3>
+             <input id="resposta6" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+             <button onclick="verificarResposta(6)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+             <p id="feedback6" class="mt-4 text-lg font-semibold"></p>
+           </div>
          </div>
      
-         <!-- Questão 2 -->
-         <div>
-           <label class="block text-slate-700 font-medium mb-2">2️⃣ Diálogo 2:</label>
-           <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-           <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
-         </div>
-     
-         <!-- Questão 3 -->
-         <div>
-           <label class="block text-slate-700 font-medium mb-2">3️⃣ Diálogo 3:</label>
-           <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-           <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
-         </div>
-     
-         <!-- Questão 4 -->
-         <div>
-           <label class="block text-slate-700 font-medium mb-2">4️⃣ Diálogo 4:</label>
-           <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-           <p id="feedback4" class="mt-1 text-sm font-semibold"></p>
-         </div>
-     
-         <!-- Questão 5 -->
-         <div>
-           <label class="block text-slate-700 font-medium mb-2">5️⃣ Diálogo 5:</label>
-           <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-           <p id="feedback5" class="mt-1 text-sm font-semibold"></p>
-         </div>
-     
-         <!-- Questão 6 -->
-         <div>
-           <label class="block text-slate-700 font-medium mb-2">6️⃣ Diálogo 6:</label>
-           <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-           <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
-         </div>
-
-         <!-- Questão 7 -->
-         <div>
-           <label class="block text-slate-700 font-medium mb-2">6️⃣ Diálogo 7:</label>
-           <input type="text" id="resposta7" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-           <p id="feedback7" class="mt-1 text-sm font-semibold"></p>
-         </div>
-     
+         <!-- Botões de navegação -->
+         <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarQuestao(-1)">&#10094;</button>
+         <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarQuestao(1)">&#10095;</button>
        </div>
-     
-       <button id="verificarBtn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-         Verificar todas as respostas
-       </button>
-     
-       <p id="resultadoFinal" class="mt-6 text-lg font-bold"></p>
      </div>
      
-     <!-- === SCRIPT === -->
      <script>
-       const respostasCorretas = ["82996478231", "874", "872105597", "15", "64", "56", "10"]; // ✅ Altere conforme suas respostas reais
-       const botao = document.getElementById("verificarBtn");
-       const resultadoFinal = document.getElementById("resultadoFinal");
+       const respostasCorretas = ["57", "12", "38", "44", "29", "63"];
+       let questaoAtual = 0;
      
-       botao.addEventListener("click", () => {
-         let acertos = 0;
+       function verificarResposta(num) {
+         const input = document.getElementById(`respostanum`);
+         const feedback = document.getElementById(`feedbacknum`);
+         const resposta = input.value.trim();
      
-         for (let i = 1; i <= 7; i++) {
-           const input = document.getElementById(`resposta${i}`);
-           const feedback = document.getElementById(`feedback${i}`);
-           const resposta = input.value.trim();
-     
-           if (resposta === "") {
-             feedback.textContent = "⚠️ Campo vazio.";
-             feedback.style.color = "#f59e0b";
-             continue;
-           }
-     
-           if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
-             feedback.textContent = "✅ Correto!";
-             feedback.style.color = "#16a34a";
-             acertos++;
-           } else {
-             feedback.textContent = `❌ Errado. Resposta: ${respostasCorretas[i - 1]}`;
-             feedback.style.color = "#dc2626";
-           }
+         if (resposta === "") {
+           feedback.textContent = "⚠️ Digite uma resposta!";
+           feedback.style.color = "#f59e0b";
+           return;
          }
      
-         resultadoFinal.textContent = `Você acertou ${acertos} de 7.`;
-         resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
-       });
+         if (resposta.toLowerCase() === respostasCorretas[num - 1].toLowerCase()) {
+           feedback.textContent = "✅ Correto!";
+           feedback.style.color = "#16a34a";
+         } else {
+           feedback.textContent = `❌ Errado. Resposta: ${respostasCorretas[num - 1]}`;
+           feedback.style.color = "#dc2626";
+         }
+       }
+     
+       function mudarQuestao(delta) {
+         const slides = document.querySelectorAll('.questao-slide');
+         questaoAtual += delta;
+         if (questaoAtual < 0) questaoAtual = slides.length - 1;
+         if (questaoAtual >= slides.length) questaoAtual = 0;
+         const track = document.querySelector('.questoes-track');
+         track.style.transform = `translateX(-${questaoAtual * 100}%)`;
+       }
      </script>
      <!-- === FIM DA ATIVIDADE === -->
   </div>

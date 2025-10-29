@@ -424,7 +424,119 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
       <!-- Questão 2 -->
       <div class="questao-slide p-6">
         <video autoplay loop muted playsinline>
-          <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/C_%C3%87.gif?upda_
+          <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/C_%C3%87.gif?updatedAt=1761624358938" type="video/mp4">
+        </video>
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">
+          No <strong>Par 2</strong>, qual a letra "Ç"?
+        </h3>
+        <input id="resposta2" type="text" placeholder="Digite sua resposta..."
+          class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(2)"
+          class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+          Verificar
+        </button>
+        <p id="feedback2" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 3 -->
+      <div class="questao-slide p-6">
+        <video autoplay loop muted playsinline>
+          <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/I_J.gif?updatedAt=1761624358866" type="video/mp4">
+        </video>
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">
+          No <strong>Par 3</strong>, qual a letra "I"?
+        </h3>
+        <input id="resposta3" type="text" placeholder="Digite sua resposta..."
+          class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(3)"
+          class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+          Verificar
+        </button>
+        <p id="feedback3" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 4 -->
+      <div class="questao-slide p-6">
+        <video autoplay loop muted playsinline>
+          <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/G_Q.gif?updatedAt=1761624357617" type="video/mp4">
+        </video>
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">
+          No <strong>Par 4</strong>, qual a letra "G"?
+        </h3>
+        <input id="resposta4" type="text" placeholder="Digite sua resposta..."
+          class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(4)"
+          class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+          Verificar
+        </button>
+        <p id="feedback4" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 5 -->
+      <div class="questao-slide p-6">
+        <video autoplay loop muted playsinline>
+          <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/T_F.gif?updatedAt=1761624357577" type="video/mp4">
+        </video>
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">
+          No <strong>Par 5</strong>, qual a letra "T"?
+        </h3>
+        <input id="resposta5" type="text" placeholder="Digite sua resposta..."
+          class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(5)"
+          class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+          Verificar
+        </button>
+        <p id="feedback5" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+    </div>
+
+    <!-- Navegação -->
+    <button
+      class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700"
+      onclick="mudarQuestao(-1)">&#10094;</button>
+    <button
+      class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700"
+      onclick="mudarQuestao(1)">&#10095;</button>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const respostasCorretas = ["1", "2", "2", "1", "1"];
+    let questaoAtual = 0;
+
+    window.verificarResposta = function (num) {
+      const input = document.getElementById(`resposta${num}`);
+      const feedback = document.getElementById(`feedback${num}`);
+      const resposta = (input?.value || "").trim();
+
+      if (!resposta) {
+        feedback.textContent = "⚠️ Digite uma resposta!";
+        feedback.style.color = "#f59e0b";
+        return;
+      }
+
+      if (resposta.toLowerCase() === respostasCorretas[num - 1].toLowerCase()) {
+        feedback.textContent = "✅ Correto!";
+        feedback.style.color = "#16a34a";
+      } else {
+        feedback.textContent = "❌ Errado.";
+        feedback.style.color = "#dc2626";
+      }
+    };
+
+    window.mudarQuestao = function (delta) {
+      const slides = document.querySelectorAll(".questao-slide");
+      const track = document.querySelector(".questoes-track");
+      questaoAtual += delta;
+      if (questaoAtual < 0) questaoAtual = slides.length - 1;
+      if (questaoAtual >= slides.length) questaoAtual = 0;
+      track.style.transform = `translateX(-${questaoAtual * 100}%)`;
+    };
+  });
+</script>
+<!-- === FIM DA ATIVIDADE === -->
 
 
 

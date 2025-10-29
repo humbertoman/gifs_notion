@@ -111,34 +111,223 @@ Agora, vamos ver o alfabeto e o vocabulário de apoio em ação nos recursos aba
   }
 </style>
 
+<!-- === ATIVIDADE DE 6 QUESTÕES === -->
+<div class="atividade-container my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
 
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade de compreensão</h2>
+  <p class="text-slate-600 mb-8">Digite a resposta para cada pergunta e clique em <strong>Verificar</strong>.</p>
 
+  <div class="space-y-6 text-left">
 
-
-<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    Além disso, você perceberá que aprender o alfabeto tem uma vantagem extra: muitos sinais em Libras usam a Configuração de Mão (CM) correspondente à letra inicial da palavra em português. Por exemplo, o sinal de REUNIÃO usa a letra 'R', o sinal de PROFESSOR usa a letra 'P', os sinais de DIA e DOMINGO, usam a letra 'D'. Dominar o alfabeto, portanto, acelera muito o seu aprendizado de vocabulário.
-</p>
-
-<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    É normal e esperado que, no início, você não entenda uma soletração rápida. Por isso, junto com o alfabeto, vamos aprender o vocabulário de "sobrevivência" mais importante para o atendimento: "NÃO-ENTENDI", "REPETE" e "DEVAGAR". 
-</p>
-
-<div class="my-12 bg-slate-100/70 p-6 rounded-2xl flex items-start gap-5 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-md">
-    <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-full p-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M15.09 16.05a2 2 0 0 1-2.18 2.85a2 2 0 0 1-2.18-2.85V14a2 2 0 0 1 2.18-2.85a2 2 0 0 1 2.18 2.85v2.05z"/>
-            <path d="M12 2A7 7 0 0 0 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74A7 7 0 0 0 12 2z"/>
-        </svg>
-    </div>
+    <!-- Questão 1 -->
     <div>
-        <h2 class="font-bold text-slate-900 text-lg mb-1">Atenção:</h2>
-        <p class="text-slate-600">Muitas pessoas pensam que para aprender Libras, basta aprender o alfabeto manual. Já deu pra perceber que não é bem assim, certo? A <strong>datilologia</strong> é apenas uma parte da língua. Há um léxico extenso de sinais a serem aprendidos. 
-
-</p>
+      <label class="block text-slate-700 font-medium mb-2">1️⃣ Qual o nome do rapaz do vídeo?</label>
+      <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
     </div>
+
+    <!-- Questão 2 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">2️⃣ A garota do vídeo entendeu o nome do rapaz errado. Qual nome ela pensou ter visto?  </label>
+      <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
+    </div>
+
+    <!-- Questão 3 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">3️⃣ Qual o nome dela?</label>
+      <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
+    </div>
+
+
+  </div>
+
+  <button id="verificarBtn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+    Verificar todas as respostas
+  </button>
+
+  <p id="resultadoFinal" class="mt-6 text-lg font-bold"></p>
 </div>
 
+<!-- === SCRIPT === -->
+<!-- === SCRIPT === -->
+     <script>
+       const respostasCorretas = ["Pedro", "Paulo", "Telma"]; // ✅ Altere conforme suas respostas reais
+       const botao = document.getElementById("verificarBtn");
+       const resultadoFinal = document.getElementById("resultadoFinal");
+     
+       botao.addEventListener("click", () => {
+         let acertos = 0;
+     
+         for (let i = 1; i <= 3; i++) {
+           const input = document.getElementById(`resposta${i}`);
+           const feedback = document.getElementById(`feedback${i}`);
+           const resposta = input.value.trim();
+     
+           if (resposta === "") {
+             feedback.textContent = "⚠️ Campo vazio.";
+             feedback.style.color = "#f59e0b";
+             continue;
+           }
+     
+           if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
+             feedback.textContent = "✅ Correto!";
+             feedback.style.color = "#16a34a";
+             acertos++;
+           } else {
+             feedback.textContent = `❌ Errado.`;
+             feedback.style.color = "#dc2626";
+           }
+         }
+     
+         resultadoFinal.textContent = `Você acertou ${acertos} de 3.`;
+         resultadoFinal.style.color = acertos === 3 ? "#16a34a" : "#334155";
+       });
+     </script>
+<!-- === FIM DA ATIVIDADE === -->
+
+
+
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Além das letras, observamos alguns sinais que aparecem no vídeo. Consegue advinhar o significado desses sinais? Tente fazer isso sem olhar a resposta abaixo.</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Agora vamos verificar se você acertou:</p>
+
+
+<!-- === BLOCO DE ATIVIDADE: ASSOCIAÇÃO GIF ↔ PALAVRA === -->
+<div class="my-12 max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-lg transition-shadow hover:shadow-xl">
+  <h2 class="text-2xl font-bold text-slate-800 text-center mb-8">Atividade — Associe o sinal ao significado correto</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+
+    <!-- Coluna de GIFs -->
+    <div class="space-y-6">
+      <div class="gif-item text-center" data-correspondencia="conhecer">
+        <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/conhecer.gif?updatedAt=1761418263727" alt="conhecer" class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+        <select class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecione...</option>
+          <option value="nome">nome</option>
+          <option value="conhecer">conhecer</option>
+          <option value="certo">certo</option>
+          <option value="prazer/gostar">prazer/gostar</option>
+          <option value="tambem">também</option>
+        </select>
+      </div>
+
+      <div class="gif-item text-center" data-correspondencia="tambem">
+        <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/tambem.gif?updatedAt=1761344643504" alt="conhecer" class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+        <select class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecione...</option>
+          <option value="nome">nome</option>
+          <option value="conhecer">conhecer</option>
+          <option value="certo">certo</option>
+          <option value="prazer/gostar">prazer/gostar</option>
+          <option value="tambem">também</option>
+        </select>
+      </div>
+
+      <div class="gif-item text-center" data-correspondencia="prazer/gostar">
+        <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/gostar_prazer.gif?updatedAt=1761344639277" alt="conhecer" class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+        <select class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecione...</option>
+          <option value="nome">nome</option>
+          <option value="conhecer">conhecer</option>
+          <option value="certo">certo</option>
+          <option value="prazer/gostar">prazer/gostar</option>
+          <option value="tambem">também</option>
+        </select>
+      </div>
+
+      <div class="gif-item text-center" data-correspondencia="nome">
+        <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/nome.gif?updatedAt=1761344626594" alt="conhecer" class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+        <select class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecione...</option>
+          <option value="nome">nome</option>
+          <option value="conhecer">conhecer</option>
+          <option value="certo">certo</option>
+          <option value="prazer/gostar">prazer/gostar</option>
+          <option value="tambem">também</option>
+        </select>
+      </div>
+
+      <div class="gif-item text-center" data-correspondencia="certo">
+        <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/certo.gif?updatedAt=1761418264205" alt="conhecer" class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+        <select class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecione...</option>
+          <option value="nome">nome</option>
+          <option value="conhecer">conhecer</option>
+          <option value="certo">certo</option>
+          <option value="prazer/gostar">prazer/gostar</option>
+          <option value="tambem">também</option>
+        </select>
+      </div>
+
+
+
+    </div>
+
+    <!-- Coluna com instrução e botão -->
+    <div class="flex flex-col justify-center items-center text-center">
+      <p class="text-slate-600 mb-6 max-w-xs">
+        Escolha, para cada sinal, o significado correspondente e clique em <strong>Verificar</strong>.
+      </p>
+      <button id="verificarAssociacao"
+        class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+        Verificar
+      </button>
+      <p id="feedbackGeral" class="mt-6 text-lg font-semibold"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const btnVerificar = document.getElementById("verificarAssociacao");
+    const itens = document.querySelectorAll(".gif-item");
+    const feedbackGeral = document.getElementById("feedbackGeral");
+
+    btnVerificar.addEventListener("click", () => {
+      let acertos = 0;
+      let total = itens.length;
+
+      itens.forEach((item) => {
+        const respostaCorreta = item.dataset.correspondencia;
+        const select = item.querySelector("select");
+        const respostaSelecionada = select.value.trim();
+
+        if (respostaSelecionada === "") {
+          select.classList.remove("border-green-500", "border-red-500");
+          select.classList.add("border-slate-300");
+          return;
+        }
+
+        if (respostaSelecionada === respostaCorreta) {
+          select.classList.remove("border-slate-300", "border-red-500");
+          select.classList.add("border-green-500");
+          acertos++;
+        } else {
+          select.classList.remove("border-slate-300", "border-green-500");
+          select.classList.add("border-red-500");
+        }
+      });
+
+      if (acertos === total) {
+        feedbackGeral.textContent = "✅ Todas as associações estão corretas! Parabéns!";
+        feedbackGeral.style.color = "#16a34a";
+      } else {
+        feedbackGeral.textContent = "Tente novamente!";
+        feedbackGeral.style.color = "#dc2626";
+      }
+    });
+  });
+</script>
+<!-- === FIM DO BLOCO DE ATIVIDADE: ASSOCIAÇÃO === -->
+
 <hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
 
 <h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
     Alfabeto

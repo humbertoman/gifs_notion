@@ -362,292 +362,71 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
 </p>
 
 
-<!-- === BLOCO DE COLUNAS LIVRES === -->
-<div class="my-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
-  <!-- Coluna 1 -->
-  <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
+<!-- === ATIVIDADE: CARROSSEL DE QUESTÕES COM GIFS === -->
+<style>
+  .questoes-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  .questoes-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+  }
+  .questao-slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .questao-slide img,
+  .questao-slide video {
+    width: 320px;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+</style>
 
-    <!-- ===== CARROSSEL MISTO (VÍDEO + GIF) ===== -->
-    <style>
-      .gif-carousel {
-        position: relative;
-        max-width: 100%;
-        margin: 0 auto;
-      }
-      .carousel-track {
-        position: relative;
-        width: 100%;
-      }
-      .carousel-slide {
-        display: none;
-        position: relative;
-      }
-      .carousel-slide.active {
-        display: block;
-      }
-      .carousel-slide img,
-      .carousel-slide video {
-        width: 100%;
-        height: auto;
-        border-radius: 12px;
-        display: block;
-      }
-      .slide-title {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 12px;
-        text-align: center;
-        color: #fff;
-        font-weight: 700;
-        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
-      }
-      .gif-carousel .prev,
-      .gif-carousel .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        padding: 12px;
-        font-size: 32px;
-        color: #fff;
-        user-select: none;
-        background: rgba(0, 0, 0, 0.35);
-        border-radius: 999px;
-      }
-      .gif-carousel .prev {
-        left: 8px;
-      }
-      .gif-carousel .next {
-        right: 8px;
-      }
-    </style>
+<div class="atividade-carrossel my-6 text-center">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">
+    Identifique as letras corretas
+  </h2>
+  <p class="text-slate-600 mb-8">
+    Cada questão aparece em uma página. Observe o sinal e digite a resposta "1" ou "2" para cada par, depois clique em <strong>Verificar</strong>.
+  </p>
 
-    <div class="gif-carousel" data-start="1">
-      <div class="carousel-track">
+  <div class="questoes-carousel relative">
+    <div class="questoes-track">
 
-        <!-- Slide 1 -->
-        <div class="carousel-slide active">
-          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/H_K.gif?updatedAt=1761624359390" alt="Par 1">
-          <div class="slide-title">Par 1</div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-slide">
-          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/C_%C3%87.gif?updatedAt=1761624358938" alt="Par 2">
-          <div class="slide-title">Par 2</div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="carousel-slide">
-          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/I_J.gif?updatedAt=1761624358866" alt="Par 3">
-          <div class="slide-title">Par 3</div>
-        </div>
-
-        <!-- Slide 4 -->
-        <div class="carousel-slide">
-          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/G_Q.gif?updatedAt=1761624357617" alt="Par 4">
-          <div class="slide-title">Par 4</div>
-        </div>
-
-        <!-- Slide 5 -->
-        <div class="carousel-slide">
-          <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/T_F.gif?updatedAt=1761624357577" alt="Par 5">
-          <div class="slide-title">Par 5</div>
-        </div>
+      <!-- Questão 1 -->
+      <div class="questao-slide p-6">
+        <video autoplay loop muted playsinline>
+          <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/H_K.gif?updatedAt=1761624359390" type="video/mp4">
+        </video>
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">
+          No <strong>Par 1</strong>, qual a letra "H"?
+        </h3>
+        <input id="resposta1" type="text" placeholder="Digite sua resposta..."
+          class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(1)"
+          class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+          Verificar
+        </button>
+        <p id="feedback1" class="mt-4 text-lg font-semibold"></p>
       </div>
 
-      <a class="prev" aria-label="Anterior">&#10094;</a>
-      <a class="next" aria-label="Próximo">&#10095;</a>
-    </div>
+      <!-- Questão 2 -->
+      <div class="questao-slide p-6">
+        <video autoplay loop muted playsinline>
+          <source src="https://ik.imagekit.io/a02tbgrjz/Gifs/C_%C3%87.gif?upda_
 
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const carousels = document.querySelectorAll(".gif-carousel");
-        carousels.forEach((carousel) => {
-          const slides = Array.from(carousel.querySelectorAll(".carousel-slide"));
-          const prev = carousel.querySelector(".prev");
-          const next = carousel.querySelector(".next");
-          let index = 0;
 
-          function show(i) {
-            slides.forEach((s) => s.classList.remove("active"));
-            index = (i + slides.length) % slides.length;
-            slides[index].classList.add("active");
-          }
-
-          prev.addEventListener("click", () => show(index - 1));
-          next.addEventListener("click", () => show(index + 1));
-          show(index);
-        });
-      });
-    </script>
-    <!-- ===== FIM DO CARROSSEL MISTO ===== -->
-
-  </div>
-
-  <!-- Coluna 2 -->
-  <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
-
-    <!-- === ATIVIDADE: CARROSSEL DE QUESTÕES === -->
-    <style>
-      .questoes-carousel {
-        position: relative;
-        overflow: hidden;
-        width: 100%;
-      }
-      .questoes-track {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-        width: 100%;
-      }
-      .questao-slide {
-        flex: 0 0 100%;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-    </style>
-
-    <div class="atividade-carrossel my-6 text-center">
-      <h2 class="text-2xl font-bold text-slate-800 mb-6">
-        Identifique as letras corretas
-      </h2>
-      <p class="text-slate-600 mb-8">
-        Cada questão aparece em uma página. Digite a resposta "1" ou "2" para cada par e clique em
-        <strong>Verificar</strong>.
-      </p>
-
-      <div class="questoes-carousel">
-        <div class="questoes-track">
-
-          <!-- Questão 1 -->
-          <div class="questao-slide p-6">
-            <h3 class="text-xl font-semibold text-slate-800 mb-4">
-              No <strong>Par 1</strong>, qual a letra "H"?
-            </h3>
-            <input id="resposta1" type="text"
-              placeholder="Digite sua resposta..."
-              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-            <button onclick="verificarResposta(1)"
-              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-              Verificar
-            </button>
-            <p id="feedback1" class="mt-4 text-lg font-semibold"></p>
-          </div>
-
-          <!-- Questão 2 -->
-          <div class="questao-slide p-6">
-            <h3 class="text-xl font-semibold text-slate-800 mb-4">
-              No <strong>Par 2</strong>, qual a letra "Ç"?
-            </h3>
-            <input id="resposta2" type="text"
-              placeholder="Digite sua resposta..."
-              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-            <button onclick="verificarResposta(2)"
-              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-              Verificar
-            </button>
-            <p id="feedback2" class="mt-4 text-lg font-semibold"></p>
-          </div>
-
-          <!-- Questão 3 -->
-          <div class="questao-slide p-6">
-            <h3 class="text-xl font-semibold text-slate-800 mb-4">
-              No <strong>Par 3</strong>, qual a letra "I"?
-            </h3>
-            <input id="resposta3" type="text"
-              placeholder="Digite sua resposta..."
-              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-            <button onclick="verificarResposta(3)"
-              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-              Verificar
-            </button>
-            <p id="feedback3" class="mt-4 text-lg font-semibold"></p>
-          </div>
-
-          <!-- Questão 4 -->
-          <div class="questao-slide p-6">
-            <h3 class="text-xl font-semibold text-slate-800 mb-4">
-              No <strong>Par 4</strong>, qual a letra "G"?
-            </h3>
-            <input id="resposta4" type="text"
-              placeholder="Digite sua resposta..."
-              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-            <button onclick="verificarResposta(4)"
-              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-              Verificar
-            </button>
-            <p id="feedback4" class="mt-4 text-lg font-semibold"></p>
-          </div>
-
-          <!-- Questão 5 -->
-          <div class="questao-slide p-6">
-            <h3 class="text-xl font-semibold text-slate-800 mb-4">
-              No <strong>Par 5</strong>, qual a letra "T"?
-            </h3>
-            <input id="resposta5" type="text"
-              placeholder="Digite sua resposta..."
-              class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
-            <button onclick="verificarResposta(5)"
-              class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-              Verificar
-            </button>
-            <p id="feedback5" class="mt-4 text-lg font-semibold"></p>
-          </div>
-        </div>
-
-        <!-- Navegação -->
-        <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700"
-          onclick="mudarQuestao(-1)">&#10094;</button>
-        <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700"
-          onclick="mudarQuestao(1)">&#10095;</button>
-      </div>
-    </div>
-
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const respostasCorretas = ["1", "2", "2", "1", "1"];
-        let questaoAtual = 0;
-
-        window.verificarResposta = function (num) {
-          const input = document.getElementById(`resposta${num}`);
-          const feedback = document.getElementById(`feedback${num}`);
-          const resposta = (input?.value || "").trim();
-
-          if (!resposta) {
-            feedback.textContent = "⚠️ Digite uma resposta!";
-            feedback.style.color = "#f59e0b";
-            return;
-          }
-
-          if (resposta.toLowerCase() === respostasCorretas[num - 1].toLowerCase()) {
-            feedback.textContent = "✅ Correto!";
-            feedback.style.color = "#16a34a";
-          } else {
-            feedback.textContent = "❌ Errado.";
-            feedback.style.color = "#dc2626";
-          }
-        };
-
-        window.mudarQuestao = function (delta) {
-          const slides = document.querySelectorAll(".questao-slide");
-          const track = document.querySelector(".questoes-track");
-          questaoAtual += delta;
-          if (questaoAtual < 0) questaoAtual = slides.length - 1;
-          if (questaoAtual >= slides.length) questaoAtual = 0;
-          track.style.transform = `translateX(-${questaoAtual * 100}%)`;
-        };
-      });
-    </script>
-    <!-- === FIM DA ATIVIDADE === -->
-  </div>
-
-</div>
-<!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
 
 <div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
   <h4 class="text-xl font-semibold text-slate-800 mb-5 text-left">Para fixar melhor:</h4>

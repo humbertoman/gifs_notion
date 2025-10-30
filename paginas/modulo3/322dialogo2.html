@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!fb) return;
     var valor = (input && input.value ? input.value : '').trim().toLowerCase();
     if(!valor){ fb.textContent='⚠️ Digite uma resposta!'; fb.style.color='#f59e0b'; return; }
-    var ok = (valor==='Habelardo' || valor==='Habelardo');
+    var ok = (valor==='Habelardo' || valor==='habelardo');
     fb.textContent = ok ? '✅ Correto!' : '❌ Errado. Tente novamente!';
     fb.style.color = ok ? '#16a34a' : '#dc2626';
   };

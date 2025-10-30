@@ -156,160 +156,153 @@ exemplo:</p>
   }
 </style>
 
-"atividadehibrida": {
-  "prefix": "atividadehibrida",
-  "body": [
-    "<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO (BOTÃO AJUSTADO) === -->",
-    "<style>",
-    "  .atividade-carousel { position: relative; overflow: hidden; width: 100%; }",
-    "  .atividade-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }",
-    "  .atividade-slide { flex: 0 0 100%; max-width: 100%; padding: 2rem; text-align: center; }",
-    "  .atividade-slide input[type=\"text\"] { width: 100%; max-width: 300px; margin: 0 auto; display: block; }",
-    "  .verificar-btn { margin-top: 1rem; display: inline-block; }",
-    "  .opcao { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0; }",
-    "  .ordem-container { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 1rem 0; min-height: 60px; border: 2px dashed #cbd5e1; padding: 10px; border-radius: 10px; }",
-    "  .ordem-palavra { background: #e2e8f0; padding: 0.5rem 1rem; border-radius: 8px; cursor: grab; user-select: none; transition: background 0.2s; }",
-    "  .ordem-palavra.selecionada { background: #3b82f6; color: white; }",
-    "  .pool-container { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }",
-    "</style>",
-    "",
-    "<div class=\"atividade-hibrida my-12 text-center\">",
-    "  <h2 class=\"text-2xl font-bold text-slate-800 mb-6\">Atividade — Tipos mistos</h2>",
-    "  <p class=\"text-slate-600 mb-8\">Cada página traz um tipo de questão diferente. Responda e clique em <strong>Verificar</strong>.</p>",
-    "",
-    "  <div class=\"atividade-carousel relative\">",
-    "    <div class=\"atividade-track\">",
-    "",
-    "      <!-- === SLIDE 1: RESPOSTA ABERTA === -->",
-    "      <div class=\"atividade-slide\">",
-    "        <h3 class=\"text-xl font-semibold text-slate-800 mb-4\">1️⃣ Qual é a capital do Brasil?</h3>",
-    "        <input id=\"resp1\" type=\"text\" placeholder=\"Digite sua resposta...\" class=\"border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500\">",
-    "        <div class=\"verificar-btn\">",
-    "          <button onclick=\"verificarAberta(1)\" class=\"bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform\">Verificar</button>",
-    "        </div>",
-    "        <p id=\"fb1\" class=\"mt-4 text-lg font-semibold\"></p>",
-    "      </div>",
-    "",
-    "      <!-- === SLIDE 2: MÚLTIPLA ESCOLHA (UMA CORRETA) === -->",
-    "      <div class=\"atividade-slide\">",
-    "        <h3 class=\"text-xl font-semibold text-slate-800 mb-4\">2️⃣ Qual dessas palavras é um verbo?</h3>",
-    "        <div class=\"text-left inline-block text-lg mb-4\">",
-    "          <label class=\"opcao\"><input type=\"radio\" name=\"q2\" value=\"mesa\">Mesa</label>",
-    "          <label class=\"opcao\"><input type=\"radio\" name=\"q2\" value=\"correr\">Correr</label>",
-    "          <label class=\"opcao\"><input type=\"radio\" name=\"q2\" value=\"azul\">Azul</label>",
-    "        </div>",
-    "        <div class=\"verificar-btn\">",
-    "          <button onclick=\"verificarUnica(2, 'correr')\" class=\"bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform\">Verificar</button>",
-    "        </div>",
-    "        <p id=\"fb2\" class=\"mt-4 text-lg font-semibold\"></p>",
-    "      </div>",
-    "",
-    "      <!-- === SLIDE 3: ESCOLHER E ORDENAR PALAVRAS CERTAS === -->",
-    "      <div class=\"atividade-slide\">",
-    "        <h3 class=\"text-xl font-semibold text-slate-800 mb-4\">3️⃣ Escolha apenas as palavras corretas e coloque-as na ordem certa para formar a frase:</h3>",
-    "        <p class=\"text-slate-600 mb-4\">Frase esperada: <em>\"Eu gosto de aprender Libras\"</em></p>",
-    "        <p class=\"text-slate-500 mb-2\">Toque para selecionar e arraste para ordenar.</p>",
-    "        <div id=\"pool3\" class=\"pool-container\">",
-    "          <div class=\"ordem-palavra\">Eu</div>",
-    "          <div class=\"ordem-palavra\">Libras</div>",
-    "          <div class=\"ordem-palavra\">ontem</div>",
-    "          <div class=\"ordem-palavra\">gosto</div>",
-    "          <div class=\"ordem-palavra\">comer</div>",
-    "          <div class=\"ordem-palavra\">de</div>",
-    "          <div class=\"ordem-palavra\">aprender</div>",
-    "        </div>",
-    "        <div id=\"ordem3\" class=\"ordem-container\"></div>",
-    "        <div class=\"verificar-btn\">",
-    "          <button onclick=\"verificarEscolherOrdenar(3, ['Eu','gosto','de','aprender','Libras'])\" class=\"bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform\">Verificar</button>",
-    "        </div>",
-    "        <p id=\"fb3\" class=\"mt-4 text-lg font-semibold\"></p>",
-    "      </div>",
-    "",
-    "      <!-- === SLIDE 4: MÚLTIPLA ESCOLHA (VÁRIAS CORRETAS) === -->",
-    "      <div class=\"atividade-slide\">",
-    "        <h3 class=\"text-xl font-semibold text-slate-800 mb-4\">4️⃣ Quais dessas são cores primárias?</h3>",
-    "        <div class=\"text-left inline-block text-lg mb-4\">",
-    "          <label class=\"opcao\"><input type=\"checkbox\" value=\"vermelho\">Vermelho</label>",
-    "          <label class=\"opcao\"><input type=\"checkbox\" value=\"azul\">Azul</label>",
-    "          <label class=\"opcao\"><input type=\"checkbox\" value=\"verde\">Verde</label>",
-    "          <label class=\"opcao\"><input type=\"checkbox\" value=\"amarelo\">Amarelo</label>",
-    "        </div>",
-    "        <div class=\"verificar-btn\">",
-    "          <button onclick=\"verificarMultiplas(4, ['vermelho','azul','amarelo'])\" class=\"bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform\">Verificar</button>",
-    "        </div>",
-    "        <p id=\"fb4\" class=\"mt-4 text-lg font-semibold\"></p>",
-    "      </div>",
-    "",
-    "    </div>",
-    "",
-    "    <!-- Navegação -->",
-    "    <button class=\"prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700\" onclick=\"mudarSlide(-1)\">&#10094;</button>",
-    "    <button class=\"next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700\" onclick=\"mudarSlide(1)\">&#10095;</button>",
-    "  </div>",
-    "</div>",
-    "",
-    "<script>",
-    "  let slideAtual = 0;",
-    "  function mudarSlide(delta) {",
-    "    const slides = document.querySelectorAll('.atividade-slide');",
-    "    const track = document.querySelector('.atividade-track');",
-    "    slideAtual = (slideAtual + delta + slides.length) % slides.length;",
-    "    track.style.transform = `translateX(-${slideAtual * 100}%)`;",
-    "  }",
-    "",
-    "  function verificarAberta(num) {",
-    "    const resp = document.getElementById(`resp${num}`).value.trim().toLowerCase();",
-    "    const fb = document.getElementById(`fb${num}`);",
-    "    fb.textContent = (resp === 'brasília' || resp === 'brasilia') ? '✅ Correto!' : '❌ Errado. Tente novamente!';",
-    "    fb.style.color = (resp === 'brasília' || resp === 'brasilia') ? '#16a34a' : '#dc2626';",
-    "  }",
-    "",
-    "  function verificarUnica(num, correta) {",
-    "    const sel = document.querySelector(`input[name='q${num}']:checked`);",
-    "    const fb = document.getElementById(`fb${num}`);",
-    "    if (!sel) { fb.textContent = '⚠️ Escolha uma opção!'; fb.style.color = '#f59e0b'; return; }",
-    "    fb.textContent = sel.value === correta ? '✅ Correto!' : '❌ Errado!';",
-    "    fb.style.color = sel.value === correta ? '#16a34a' : '#dc2626';",
-    "  }",
-    "",
-    "  function verificarMultiplas(num, corretas) {",
-    "    const selecionadas = Array.from(document.querySelectorAll(`.atividade-slide:nth-child(${num}) input[type='checkbox']:checked`)).map(el => el.value);",
-    "    const fb = document.getElementById(`fb${num}`);",
-    "    const certo = selecionadas.length === corretas.length && selecionadas.every(v => corretas.includes(v));",
-    "    fb.textContent = certo ? '✅ Correto!' : '❌ Tente novamente!';",
-    "    fb.style.color = certo ? '#16a34a' : '#dc2626';",
-    "  }",
-    "",
-    "  document.querySelectorAll('.ordem-palavra').forEach(el => {",
-    "    el.addEventListener('click', () => el.classList.toggle('selecionada'));",
-    "    el.draggable = true;",
-    "    el.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', e.target.textContent));",
-    "  });",
-    "",
-    "  document.querySelectorAll('.ordem-container').forEach(container => {",
-    "    container.addEventListener('dragover', e => e.preventDefault());",
-    "    container.addEventListener('drop', e => {",
-    "      e.preventDefault();",
-    "      const palavra = e.dataTransfer.getData('text/plain');",
-    "      const dragged = document.querySelector(`.ordem-palavra:contains('${palavra}')`);",
-    "      if (dragged && !container.contains(dragged)) container.appendChild(dragged);",
-    "    });",
-    "  });",
-    "",
-    "  function verificarEscolherOrdenar(num, ordemCorreta) {",
-    "    const container = document.getElementById(`ordem${num}`);",
-    "    const selecionadas = Array.from(container.querySelectorAll('.ordem-palavra')).map(el => el.textContent.trim());",
-    "    const fb = document.getElementById(`fb${num}`);",
-    "    const certo = JSON.stringify(selecionadas) === JSON.stringify(ordemCorreta);",
-    "    fb.textContent = certo ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';",
-    "    fb.style.color = certo ? '#16a34a' : '#dc2626';",
-    "  }",
-    "</script>",
-    "<!-- === FIM DO CARROSSEL DE ATIVIDADES HÍBRIDO === -->"
-  ],
-  "description": "Carrossel de atividades híbrido com botão verificar centralizado abaixo da questão"
-}
+<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO (BOTÃO AJUSTADO) === -->
+<style>
+  .atividade-carousel { position: relative; overflow: hidden; width: 100%; }
+  .atividade-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
+  .atividade-slide { flex: 0 0 100%; max-width: 100%; padding: 2rem; text-align: center; }
+  .atividade-slide input[type="text"] { width: 100%; max-width: 300px; margin: 0 auto; display: block; }
+  .verificar-btn { margin-top: 1rem; display: inline-block; }
+  .opcao { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0; }
+  .ordem-container { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 1rem 0; min-height: 60px; border: 2px dashed #cbd5e1; padding: 10px; border-radius: 10px; }
+  .ordem-palavra { background: #e2e8f0; padding: 0.5rem 1rem; border-radius: 8px; cursor: grab; user-select: none; transition: background 0.2s; }
+  .ordem-palavra.selecionada { background: #3b82f6; color: white; }
+  .pool-container { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+</style>
 
+<div class="atividade-hibrida my-12 text-center">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade — Tipos mistos</h2>
+  <p class="text-slate-600 mb-8">Cada página traz um tipo de questão diferente. Responda e clique em <strong>Verificar</strong>.</p>
+
+  <div class="atividade-carousel relative">
+    <div class="atividade-track">
+
+      <!-- === SLIDE 1: RESPOSTA ABERTA === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">1️⃣ Qual é a capital do Brasil?</h3>
+        <input id="resp1" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+        <div class="verificar-btn">
+          <button onclick="verificarAberta(1)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        </div>
+        <p id="fb1" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 2: MÚLTIPLA ESCOLHA (UMA CORRETA) === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Qual dessas palavras é um verbo?</h3>
+        <div class="text-left inline-block text-lg mb-4">
+          <label class="opcao"><input type="radio" name="q2" value="mesa">Mesa</label>
+          <label class="opcao"><input type="radio" name="q2" value="correr">Correr</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">Azul</label>
+        </div>
+        <div class="verificar-btn">
+          <button onclick="verificarUnica(2, 'correr')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        </div>
+        <p id="fb2" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 3: ESCOLHER E ORDENAR PALAVRAS CERTAS === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">3️⃣ Escolha apenas as palavras corretas e coloque-as na ordem certa para formar a frase:</h3>
+        <p class="text-slate-600 mb-4">Frase esperada: <em>"Eu gosto de aprender Libras"</em></p>
+        <p class="text-slate-500 mb-2">Toque para selecionar e arraste para ordenar.</p>
+        <div id="pool3" class="pool-container">
+          <div class="ordem-palavra">Eu</div>
+          <div class="ordem-palavra">Libras</div>
+          <div class="ordem-palavra">ontem</div>
+          <div class="ordem-palavra">gosto</div>
+          <div class="ordem-palavra">comer</div>
+          <div class="ordem-palavra">de</div>
+          <div class="ordem-palavra">aprender</div>
+        </div>
+        <div id="ordem3" class="ordem-container"></div>
+        <div class="verificar-btn">
+          <button onclick="verificarEscolherOrdenar(3, ['Eu','gosto','de','aprender','Libras'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        </div>
+        <p id="fb3" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 4: MÚLTIPLA ESCOLHA (VÁRIAS CORRETAS) === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">4️⃣ Quais dessas são cores primárias?</h3>
+        <div class="text-left inline-block text-lg mb-4">
+          <label class="opcao"><input type="checkbox" value="vermelho">Vermelho</label>
+          <label class="opcao"><input type="checkbox" value="azul">Azul</label>
+          <label class="opcao"><input type="checkbox" value="verde">Verde</label>
+          <label class="opcao"><input type="checkbox" value="amarelo">Amarelo</label>
+        </div>
+        <div class="verificar-btn">
+          <button onclick="verificarMultiplas(4, ['vermelho','azul','amarelo'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        </div>
+        <p id="fb4" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+    </div>
+
+    <!-- Navegação -->
+    <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
+    <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(1)">&#10095;</button>
+  </div>
+</div>
+
+<script>
+  let slideAtual = 0;
+  function mudarSlide(delta) {
+    const slides = document.querySelectorAll('.atividade-slide');
+    const track = document.querySelector('.atividade-track');
+    slideAtual = (slideAtual + delta + slides.length) % slides.length;
+    track.style.transform = `translateX(-${slideAtual * 100}%)`;
+  }
+
+  function verificarAberta(num) {
+    const resp = document.getElementById(`respnum`).value.trim().toLowerCase();
+    const fb = document.getElementById(`fbnum`);
+    fb.textContent = (resp === 'brasília' || resp === 'brasilia') ? '✅ Correto!' : '❌ Errado. Tente novamente!';
+    fb.style.color = (resp === 'brasília' || resp === 'brasilia') ? '#16a34a' : '#dc2626';
+  }
+
+  function verificarUnica(num, correta) {
+    const sel = document.querySelector(`input[name='qnum']:checked`);
+    const fb = document.getElementById(`fbnum`);
+    if (!sel) { fb.textContent = '⚠️ Escolha uma opção!'; fb.style.color = '#f59e0b'; return; }
+    fb.textContent = sel.value === correta ? '✅ Correto!' : '❌ Errado!';
+    fb.style.color = sel.value === correta ? '#16a34a' : '#dc2626';
+  }
+
+  function verificarMultiplas(num, corretas) {
+    const selecionadas = Array.from(document.querySelectorAll(`.atividade-slide:nth-child(num) input[type='checkbox']:checked`)).map(el => el.value);
+    const fb = document.getElementById(`fbnum`);
+    const certo = selecionadas.length === corretas.length && selecionadas.every(v => corretas.includes(v));
+    fb.textContent = certo ? '✅ Correto!' : '❌ Tente novamente!';
+    fb.style.color = certo ? '#16a34a' : '#dc2626';
+  }
+
+  document.querySelectorAll('.ordem-palavra').forEach(el => {
+    el.addEventListener('click', () => el.classList.toggle('selecionada'));
+    el.draggable = true;
+    el.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', e.target.textContent));
+  });
+
+  document.querySelectorAll('.ordem-container').forEach(container => {
+    container.addEventListener('dragover', e => e.preventDefault());
+    container.addEventListener('drop', e => {
+      e.preventDefault();
+      const palavra = e.dataTransfer.getData('text/plain');
+      const dragged = document.querySelector(`.ordem-palavra:contains('palavra')`);
+      if (dragged && !container.contains(dragged)) container.appendChild(dragged);
+    });
+  });
+
+  function verificarEscolherOrdenar(num, ordemCorreta) {
+    const container = document.getElementById(`ordemnum`);
+    const selecionadas = Array.from(container.querySelectorAll('.ordem-palavra')).map(el => el.textContent.trim());
+    const fb = document.getElementById(`fbnum`);
+    const certo = JSON.stringify(selecionadas) === JSON.stringify(ordemCorreta);
+    fb.textContent = certo ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';
+    fb.style.color = certo ? '#16a34a' : '#dc2626';
+  }
+</script>
+<!-- === FIM DO CARROSSEL DE ATIVIDADES HÍBRIDO === -->
 
 
 

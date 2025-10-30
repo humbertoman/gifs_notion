@@ -204,7 +204,6 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
     <em>(Tente identificar também os significados dos sinais, como por exemplo, o sinal de <STRONG>NÚMERO</STRONG>)</em>
 </p>
 
-
 <!-- === BLOCO DE COLUNAS LIVRES === -->
 <div class="my-12 max-w-5xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
 
@@ -220,15 +219,22 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 
       .carousel-slide img, .carousel-slide video { width: 100%; height: auto; border-radius: 12px; display: block; }
 
-      /* 9:16 (vertical) */
+      /* 9:16 (vertical) - ajustado às dimensões do vídeo */
       .embed-wrap {
-        position: relative; width: 100%;
+        position: relative; 
+        width: 100%;
         padding-top: 177.78%; /* 9:16 */
-        border-radius: 12px; overflow: hidden; background: #000;
+        border-radius: 12px; 
+        overflow: hidden; 
+        background: #000;
       }
       .embed-wrap iframe {
-        position: absolute; inset: 0; width: 100%; height: 100%;
-        border: 0; display: block;
+        position: absolute; 
+        inset: 0; 
+        width: 100%; 
+        height: 100%;
+        border: 0; 
+        display: block;
       }
 
       .slide-title {
@@ -240,7 +246,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
         cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
         padding: 12px; font-size: 22px; color: #fff; user-select: none;
         background: rgba(0,0,0,.5); border-radius: 999px; line-height: 1;
-        transition: background 0.2s;
+        transition: background 0.2s; z-index: 10;
       }
       .gif-carousel .prev:hover, .gif-carousel .next:hover {
         background: rgba(0,0,0,.7);
@@ -252,15 +258,14 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
     <div class="gif-carousel" data-start="1" aria-roledescription="carousel">
       <div class="carousel-track">
 
-        <!-- Slide 1: agora com classe active -->
+        <!-- Slide 1 -->
         <div class="carousel-slide active" aria-hidden="false">
           <div class="embed-wrap">
             <iframe
               title="Diálogo 1"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              loading="eager"
-              src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b">
+              src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 1</div>
@@ -273,8 +278,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               title="Diálogo 2"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              loading="lazy"
-              data-src="https://iframe.mediadelivery.net/embed/520267/f4037b46-29f0-499a-ab15-c0faf9f65823">
+              data-src="https://iframe.mediadelivery.net/embed/520267/f4037b46-29f0-499a-ab15-c0faf9f65823?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 2</div>
@@ -287,8 +291,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               title="Diálogo 3"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              loading="lazy"
-              data-src="https://iframe.mediadelivery.net/embed/520267/c239e420-d760-4026-8bd3-dd4ee7de1613">
+              data-src="https://iframe.mediadelivery.net/embed/520267/c239e420-d760-4026-8bd3-dd4ee7de1613?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 3</div>
@@ -301,8 +304,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               title="Diálogo 4"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              loading="lazy"
-              data-src="https://iframe.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa">
+              data-src="https://iframe.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 4</div>
@@ -315,8 +317,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               title="Diálogo 5"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              loading="lazy"
-              data-src="https://iframe.mediadelivery.net/embed/520267/SUBSTITUA_PELO_ID_CORRETO_DO_VIDEO_5">
+              data-src="https://iframe.mediadelivery.net/embed/520267/SUBSTITUA_PELO_ID_CORRETO_DO_VIDEO_5?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 5</div>
@@ -329,8 +330,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               title="Diálogo 6"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              loading="lazy"
-              data-src="https://iframe.mediadelivery.net/embed/520267/0ed1fa7a-1f4f-4102-b2c4-c4dc5df5340b">
+              data-src="https://iframe.mediadelivery.net/embed/520267/0ed1fa7a-1f4f-4102-b2c4-c4dc5df5340b?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 6</div>
@@ -343,8 +343,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               title="Diálogo 7"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              loading="lazy"
-              data-src="https://iframe.mediadelivery.net/embed/520267/dd30298f-57ff-4877-965c-2f3368dff80d">
+              data-src="https://iframe.mediadelivery.net/embed/520267/dd30298f-57ff-4877-965c-2f3368dff80d?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 7</div>
@@ -362,8 +361,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
           const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
           const prev = carousel.querySelector('.prev');
           const next = carousel.querySelector('.next');
-          let index = Math.max(1, parseInt(carousel.dataset.start || '1', 10));
-          if (index > slides.length) index = 1;
+          let index = 1; // Sempre começa no slide 1
 
           function unloadSlideMedia(slide){
             const vid = slide.querySelector('video');
@@ -372,17 +370,25 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               vid.currentTime = 0; 
             }
             const ifr = slide.querySelector('iframe');
-            if (ifr && ifr.src) {
-              const url = ifr.src;
-              ifr.src = '';
-              ifr.setAttribute('data-src', url);
+            if (ifr) {
+              // Salva o src atual no data-src
+              const currentSrc = ifr.src || ifr.getAttribute('data-src');
+              if (currentSrc) {
+                ifr.setAttribute('data-src', currentSrc);
+              }
+              // Remove o src para descarregar o vídeo
+              ifr.removeAttribute('src');
             }
           }
 
           function loadSlideMedia(slide){
-            const ifr = slide.querySelector('iframe[data-src]');
-            if (ifr && !ifr.src) { 
-              ifr.src = ifr.dataset.src; 
+            const ifr = slide.querySelector('iframe');
+            if (ifr) {
+              const dataSrc = ifr.getAttribute('data-src');
+              // Só carrega se não tiver src E tiver data-src
+              if (!ifr.src && dataSrc) {
+                ifr.src = dataSrc;
+              }
             }
           }
 
@@ -390,12 +396,14 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
             if (i < 1) i = slides.length;
             if (i > slides.length) i = 1;
 
+            // Remove active de todos
             slides.forEach((s) => {
               s.classList.remove('active');
               s.setAttribute('aria-hidden', 'true');
               unloadSlideMedia(s);
             });
 
+            // Ativa o slide atual
             index = i;
             const current = slides[index - 1];
             current.classList.add('active');
@@ -422,7 +430,8 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
             }
           });
 
-          show(index);
+          // Inicializa no primeiro slide
+          show(1);
         });
       })();
     </script>
@@ -481,48 +490,56 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
     </div>
 
     <script>
-      const respostasCorretas = ["82996478231", "874", "872105597", "15", "64", "56", "10"];
-      const botao = document.getElementById("verificarBtn");
-      const resultadoFinal = document.getElementById("resultadoFinal");
+      (function() {
+        const respostasCorretas = ["82996478231", "874", "872105597", "15", "64", "56", "10"];
+        const botao = document.getElementById("verificarBtn");
+        const resultadoFinal = document.getElementById("resultadoFinal");
 
-      botao.addEventListener("click", () => {
-        let acertos = 0;
-        let vazios = 0;
-        
-        for (let i = 1; i <= 7; i++) {
-          const input = document.getElementById(`resposta${i}`);
-          const feedback = document.getElementById(`feedback${i}`);
-          const resposta = (input.value || "").trim();
+        if (!botao || !resultadoFinal) return;
+
+        botao.addEventListener("click", () => {
+          let acertos = 0;
+          let vazios = 0;
           
-          if (!resposta) {
-            feedback.textContent = "⚠️ Campo vazio.";
-            feedback.style.color = "#f59e0b";
-            vazios++;
-            continue;
+          for (let i = 1; i <= 7; i++) {
+            const input = document.getElementById(`resposta${i}`);
+            const feedback = document.getElementById(`feedback${i}`);
+            
+            if (!input || !feedback) continue;
+            
+            const resposta = (input.value || "").trim();
+            
+            if (!resposta) {
+              feedback.textContent = "⚠️ Campo vazio.";
+              feedback.style.color = "#f59e0b";
+              input.classList.remove('border-green-500', 'border-red-500');
+              vazios++;
+              continue;
+            }
+            
+            if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
+              feedback.textContent = "✅ Correto!";
+              feedback.style.color = "#16a34a";
+              input.classList.add('border-green-500');
+              input.classList.remove('border-red-500');
+              acertos++;
+            } else {
+              feedback.textContent = "❌ Incorreto.";
+              feedback.style.color = "#dc2626";
+              input.classList.add('border-red-500');
+              input.classList.remove('border-green-500');
+            }
           }
           
-          if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
-            feedback.textContent = "✅ Correto!";
-            feedback.style.color = "#16a34a";
-            input.classList.add('border-green-500');
-            input.classList.remove('border-red-500');
-            acertos++;
+          if (vazios === 7) {
+            resultadoFinal.textContent = "⚠️ Preencha pelo menos uma resposta!";
+            resultadoFinal.style.color = "#f59e0b";
           } else {
-            feedback.textContent = "❌ Incorreto.";
-            feedback.style.color = "#dc2626";
-            input.classList.add('border-red-500');
-            input.classList.remove('border-green-500');
+            resultadoFinal.textContent = `Você acertou ${acertos} de 7 ${acertos === 7 ? '🎉' : ''}`;
+            resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
           }
-        }
-        
-        if (vazios === 7) {
-          resultadoFinal.textContent = "⚠️ Preencha pelo menos uma resposta!";
-          resultadoFinal.style.color = "#f59e0b";
-        } else {
-          resultadoFinal.textContent = `Você acertou ${acertos} de 7 ${acertos === 7 ? '🎉' : ''}`;
-          resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
-        }
-      });
+        });
+      })();
     </script>
     <!-- === FIM DA ATIVIDADE === -->
   </div>
@@ -530,7 +547,6 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 
 </div>
 <!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
-
 
 
 

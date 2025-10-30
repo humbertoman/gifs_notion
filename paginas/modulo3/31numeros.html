@@ -205,7 +205,6 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 </p>
 
 
-
 <!-- === BLOCO DE COLUNAS LIVRES === -->
 <div class="my-12 max-w-5xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
 
@@ -218,8 +217,6 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
       .carousel-track { position: relative; }
       .carousel-slide { display: none; position: relative; }
       .carousel-slide.active { display: block; }
-      /* Fallback sem JS: garante o 1º slide visível */
-      .gif-carousel .carousel-slide:first-child { display: block; }
 
       .carousel-slide img, .carousel-slide video { width: 100%; height: auto; border-radius: 12px; display: block; }
 
@@ -236,13 +233,17 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 
       .slide-title {
         position: absolute; left: 0; right: 0; bottom: 12px;
-        text-align: center; color: #fff; font-weight: 700;
+        text-align: center; color: #fff; font-weight: 700; font-size: 1.125rem;
         text-shadow: 0 1px 6px rgba(0,0,0,.7); pointer-events: none;
       }
       .gif-carousel .prev, .gif-carousel .next {
         cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
         padding: 12px; font-size: 22px; color: #fff; user-select: none;
-        background: rgba(0,0,0,.35); border-radius: 999px; line-height: 1;
+        background: rgba(0,0,0,.5); border-radius: 999px; line-height: 1;
+        transition: background 0.2s;
+      }
+      .gif-carousel .prev:hover, .gif-carousel .next:hover {
+        background: rgba(0,0,0,.7);
       }
       .gif-carousel .prev { left: 8px; }
       .gif-carousel .next { right: 8px; }
@@ -251,16 +252,15 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
     <div class="gif-carousel" data-start="1" aria-roledescription="carousel">
       <div class="carousel-track">
 
-        <!-- Slide 1: carrega já com src -->
-        <div class="carousel-slide" aria-hidden="true">
+        <!-- Slide 1: agora com classe active -->
+        <div class="carousel-slide active" aria-hidden="false">
           <div class="embed-wrap">
             <iframe
               title="Diálogo 1"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
               loading="eager"
-              src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b"
-              data-src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b">
+              src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 1</div>
@@ -308,7 +308,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
           <div class="slide-title">Diálogo 4</div>
         </div>
 
-        <!-- Slide 5 -->
+        <!-- Slide 5 - CORRIJA O URL AQUI -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="embed-wrap">
             <iframe
@@ -316,7 +316,7 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
               loading="lazy"
-              data-src="https://iframe.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa">
+              data-src="https://iframe.mediadelivery.net/embed/520267/SUBSTITUA_PELO_ID_CORRETO_DO_VIDEO_5">
             </iframe>
           </div>
           <div class="slide-title">Diálogo 5</div>
@@ -350,8 +350,8 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
           <div class="slide-title">Diálogo 7</div>
         </div>
 
-        <a class="prev" aria-label="Anterior" role="button">&#10094;</a>
-        <a class="next" aria-label="Próximo" role="button">&#10095;</a>
+        <a class="prev" aria-label="Vídeo anterior" role="button" tabindex="0">&#10094;</a>
+        <a class="next" aria-label="Próximo vídeo" role="button" tabindex="0">&#10095;</a>
       </div>
     </div>
 
@@ -367,18 +367,23 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 
           function unloadSlideMedia(slide){
             const vid = slide.querySelector('video');
-            if (vid) { try { vid.pause(); } catch(e){} vid.currentTime = 0; }
+            if (vid) { 
+              try { vid.pause(); } catch(e){} 
+              vid.currentTime = 0; 
+            }
             const ifr = slide.querySelector('iframe');
-            if (ifr) {
-              const url = ifr.dataset.src || ifr.src;
-              ifr.src = '';            // descarrega para pausar
-              ifr.setAttribute('data-src', url); // garante data-src para recarregar
+            if (ifr && ifr.src) {
+              const url = ifr.src;
+              ifr.src = '';
+              ifr.setAttribute('data-src', url);
             }
           }
 
           function loadSlideMedia(slide){
             const ifr = slide.querySelector('iframe[data-src]');
-            if (ifr && !ifr.src) { ifr.src = ifr.dataset.src; }
+            if (ifr && !ifr.src) { 
+              ifr.src = ifr.dataset.src; 
+            }
           }
 
           function show(i){
@@ -403,6 +408,20 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
           prev && prev.addEventListener('click', () => plus(-1));
           next && next.addEventListener('click', () => plus(1));
 
+          // Suporte para navegação por teclado
+          prev && prev.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              plus(-1);
+            }
+          });
+          next && next.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              plus(1);
+            }
+          });
+
           show(index);
         });
       })();
@@ -414,51 +433,51 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
   <!-- Coluna 2 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
     <!-- === ATIVIDADE DE 7 QUESTÕES === -->
-    <div class="atividade-container my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
-      <p class="text-slate-600 mb-8">Digite a resposta para cada diálogo e clique em <strong>Verificar</strong>.</p>
+    <div class="atividade-container">
+      <p class="text-slate-600 mb-6 text-center">Digite a resposta para cada diálogo e clique em <strong>Verificar</strong>.</p>
 
-      <div class="space-y-6 text-left">
+      <div class="space-y-4 text-left">
         <div>
           <label class="block text-slate-700 font-medium mb-2">1️⃣ Diálogo 1:</label>
-          <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+          <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">2️⃣ Diálogo 2:</label>
-          <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+          <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">3️⃣ Diálogo 3:</label>
-          <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+          <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">4️⃣ Diálogo 4:</label>
-          <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+          <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback4" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">5️⃣ Diálogo 5:</label>
-          <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+          <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback5" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">6️⃣ Diálogo 6:</label>
-          <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+          <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">7️⃣ Diálogo 7:</label>
-          <input type="text" id="resposta7" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+          <input type="text" id="resposta7" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback7" class="mt-1 text-sm font-semibold"></p>
         </div>
       </div>
 
-      <button id="verificarBtn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-        Verificar todas as respostas
+      <button id="verificarBtn" class="mt-6 w-full bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all">
+        🔍 Verificar todas as respostas
       </button>
-      <p id="resultadoFinal" class="mt-6 text-lg font-bold"></p>
+      <p id="resultadoFinal" class="mt-4 text-lg font-bold text-center"></p>
     </div>
 
     <script>
@@ -468,26 +487,41 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
 
       botao.addEventListener("click", () => {
         let acertos = 0;
+        let vazios = 0;
+        
         for (let i = 1; i <= 7; i++) {
           const input = document.getElementById(`resposta${i}`);
           const feedback = document.getElementById(`feedback${i}`);
           const resposta = (input.value || "").trim();
+          
           if (!resposta) {
             feedback.textContent = "⚠️ Campo vazio.";
             feedback.style.color = "#f59e0b";
+            vazios++;
             continue;
           }
+          
           if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
             feedback.textContent = "✅ Correto!";
             feedback.style.color = "#16a34a";
+            input.classList.add('border-green-500');
+            input.classList.remove('border-red-500');
             acertos++;
           } else {
-            feedback.textContent = "❌ Errado.";
+            feedback.textContent = "❌ Incorreto.";
             feedback.style.color = "#dc2626";
+            input.classList.add('border-red-500');
+            input.classList.remove('border-green-500');
           }
         }
-        resultadoFinal.textContent = `Você acertou ${acertos} de 7.`;
-        resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
+        
+        if (vazios === 7) {
+          resultadoFinal.textContent = "⚠️ Preencha pelo menos uma resposta!";
+          resultadoFinal.style.color = "#f59e0b";
+        } else {
+          resultadoFinal.textContent = `Você acertou ${acertos} de 7 ${acertos === 7 ? '🎉' : ''}`;
+          resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
+        }
       });
     </script>
     <!-- === FIM DA ATIVIDADE === -->

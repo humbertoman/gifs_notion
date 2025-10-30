@@ -84,8 +84,7 @@ Quando não entendemos algum sinal ou soletração, utilizamos algumas expressõ
 exemplo:</p>
 
 <div class="my-12 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-lg code-block">
-  <pre class="bg-slate-800 text-slate-200 p-6 rounded-2xl overflow-x-auto"><code class="language-javascript">
-  DESCULPA, NÃO ENTENDI.
+  <pre class="bg-slate-800 text-slate-200 p-6 rounded-2xl overflow-x-auto"><code class="language-javascript"> DESCULPA, NÃO ENTENDI.
   PODE REPETIR?
   FALA DEVAGAR, OBRIGADO.
   QUE SINAL É ESSE?
@@ -170,15 +169,15 @@ exemplo:</p>
 </style>
 
 <div class="atividade-hibrida my-12 text-center">
-  <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade — Tipos mistos</h2>
-  <p class="text-slate-600 mb-8">Cada página traz um tipo de questão diferente. Responda e clique em <strong>Verificar</strong>.</p>
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Exercício de Compreensão</h2>
+  <p class="text-slate-600 mb-8">Digite a resposta para cada pergunta e clique em <strong>Verificar</strong>.</p>
 
   <div class="atividade-carousel relative">
     <div class="atividade-track">
 
       <!-- === SLIDE 1: RESPOSTA ABERTA === -->
       <div class="atividade-slide">
-        <h3 class="text-xl font-semibold text-slate-800 mb-4">1️⃣ Qual é a capital do Brasil?</h3>
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">1️⃣ Qual o nome do rapaz?</h3>
         <input id="resp1" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
         <button onclick="verificarAberta(1)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
         <p id="fb1" class="mt-4 text-lg font-semibold"></p>
@@ -186,11 +185,13 @@ exemplo:</p>
 
       <!-- === SLIDE 2: MÚLTIPLA ESCOLHA (UMA CORRETA) === -->
       <div class="atividade-slide">
-        <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Qual dessas palavras é um verbo?</h3>
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Qual dos sinais abaixo <strong>NÃO</strong> aparece no vídeo?</h3>
         <div class="text-left inline-block">
-          <label class="opcao"><input type="radio" name="q2" value="mesa">Mesa</label>
-          <label class="opcao"><input type="radio" name="q2" value="correr">Correr</label>
-          <label class="opcao"><input type="radio" name="q2" value="azul">Azul</label>
+          <label class="opcao"><input type="radio" name="q2" value="mesa">LEGAL</label>
+          <label class="opcao"><input type="radio" name="q2" value="correr">OBRIGADO</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">DESCULPA</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">REPETIR</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">NÃO-ENTENDER</label>
         </div>
         <button onclick="verificarUnica(2, 'correr')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
         <p id="fb2" class="mt-4 text-lg font-semibold"></p>

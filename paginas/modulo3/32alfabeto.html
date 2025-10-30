@@ -529,8 +529,124 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
 </script>
 <!-- === FIM DA ATIVIDADE CARROSSEL GIF + QUESTÃO === -->
 
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Além de muitos sinais da Libras utilizarem configurações de mão que correspondem à primeira letra da palavra escrita, existe também o que chamamos de <strong>sinal soletrado</strong>.</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Um sinal soletrado é aquele que se originou da soletração manual de uma palavra, mas que, com o uso frequente, passou a ser produzido de forma mais fluida e integrada, adquirindo características próprias do <strong>sistema fonológico da Libras</strong>. Assim, ele deixa de ser uma simples sequência de letras e passa a funcionar como um <strong>sinal lexicalizado</strong> dentro da língua.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Com o processo de fluidez articulatória, alguns desses sinais soletrados sofrem reduções nas configurações de mão (CM) e nos movimentos originais da soletração. Isso significa que nem todas as letras são articuladas de forma clara ou completa, pois o sinal passa a ser produzido de maneira mais rápida e natural. Assim, o que antes era uma sequência visível de letras torna-se um movimento mais contínuo e coeso, adequado ao ritmo e à estrutura fonológica da Libras.
+
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    No exercício abaixo, o desafio será você identificar o significado dos sinais soletrados, reconhecendo como a soletração original se transformou em um sinal mais fluido e integrado à Libras.
+</p>
 
 
+<!-- === ATIVIDADE: CARROSSEL DE QUESTÕES === -->
+<div class="atividade-carrossel my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade — Identifique os números sinalizados</h2>
+  <p class="text-slate-600 mb-8">Cada questão aparece em uma página. Digite sua resposta e clique em <strong>Verificar</strong>.</p>
+
+  <div class="questoes-carousel relative overflow-hidden">
+    <div class="questoes-track transition-transform duration-500 ease-in-out flex">
+
+      <!-- Questão 1 -->
+      <div class="questao-slide min-w-full flex-shrink-0 p-6">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">1️⃣ Diálogo 1</h3>
+        <input id="resposta1" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(1)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="feedback1" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 2 -->
+      <div class="questao-slide min-w-full flex-shrink-0 p-6">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Diálogo 2</h3>
+        <input id="resposta2" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(2)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="feedback2" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 3 -->
+      <div class="questao-slide min-w-full flex-shrink-0 p-6">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">3️⃣ Diálogo 3</h3>
+        <input id="resposta3" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(3)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="feedback3" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 4 -->
+      <div class="questao-slide min-w-full flex-shrink-0 p-6">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">4️⃣ Diálogo 4</h3>
+        <input id="resposta4" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(4)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="feedback4" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 5 -->
+      <div class="questao-slide min-w-full flex-shrink-0 p-6">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">5️⃣ Diálogo 5</h3>
+        <input id="resposta5" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(5)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="feedback5" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 6 -->
+      <div class="questao-slide min-w-full flex-shrink-0 p-6">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">6️⃣ Diálogo 6</h3>
+        <input id="resposta6" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full max-w-sm mb-4 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarResposta(6)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="feedback6" class="mt-4 text-lg font-semibold"></p>
+      </div>
+    </div>
+
+    <!-- Botões de navegação -->
+    <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarQuestao(-1)">&#10094;</button>
+    <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarQuestao(1)">&#10095;</button>
+  </div>
+</div>
+
+<script>
+  const respostasCorretas = ["57", "12", "38", "44", "29", "63"];
+  let questaoAtual = 0;
+
+  // === Função para verificar respostas ===
+  window.verificarResposta = function (num) {
+    const input = document.getElementById(`respostanum`);
+    const feedback = document.getElementById(`feedbacknum`);
+    const resposta = (input?.value || '').trim();
+
+    if (!resposta) {
+      feedback.textContent = '⚠️ Digite uma resposta!';
+      feedback.style.color = '#f59e0b';
+      return;
+    }
+
+    if (resposta.toLowerCase() === respostasCorretas[num - 1].toLowerCase()) {
+      feedback.textContent = '✅ Correto!';
+      feedback.style.color = '#16a34a';
+    } else {
+      feedback.textContent = `❌ Errado. Resposta: ${respostasCorretas[num - 1]}`;
+      feedback.style.color = '#dc2626';
+    }
+  };
+
+  // === Função para navegar entre as questões ===
+  window.mudarQuestao = function (delta) {
+    const slides = document.querySelectorAll('.questao-slide');
+    const track = document.querySelector('.questoes-track');
+    questaoAtual += delta;
+    if (questaoAtual < 0) questaoAtual = slides.length - 1;
+    if (questaoAtual >= slides.length) questaoAtual = 0;
+    track.style.transform = `translateX(-${questaoAtual * 100}%)`;
+  };
+</script>
+<!-- === FIM DA ATIVIDADE === -->
 
 <div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
   <h4 class="text-xl font-semibold text-slate-800 mb-5 text-left">Para fixar melhor:</h4>

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!-- ========================================================================== -->
+<!-- ===                    NÃO MEXA NESTA SEÇÃO                           === -->
+<!-- ========================================================================== -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALFABETO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .carousel-track { transition: transform 0.5s ease-in-out; }
+        .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+        .aspect-h-9 { padding-bottom: 56.25%; }
+        .aspect-w-16 { position: relative; height: 0; }
+        .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
+        .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
+        #modal.hidden { display: none; }
+        .custom-ordered-list { list-style: none; counter-reset: list-counter; padding-left: 0; }
+        .custom-ordered-list li { counter-increment: list-counter; position: relative; padding-left: 2.5rem; margin-bottom: 0.75rem; }
+        .custom-ordered-list li::before {
+            content: counter(list-counter);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #334155;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        /* ====== Estilo comum dos carrosséis ====== */
+        .atividade-card {
+          background: white;
+          border-radius: 1rem;
+          padding: 2rem;
+          box-shadow: 0 10px 25px rgba(2,6,23,.08);
+        }
+        .carousel-shell {
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+        }
+        .carousel-track {
+          display: flex;
+          transition: transform 0.5s ease-in-out;
+          width: 100%;
+        }
+        .slide {
+          flex: 0 0 100%;
+          max-width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+        }
+        .slide img {
+          width: 320px;
+          max-width: 80vw;
+          height: auto;
+          border-radius: 12px;
+          margin-bottom: 1rem;
+          box-shadow: 0 8px 24px rgba(0,0,0,.15);
+        }
+        .nav-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: #0f172a;
+          color: white;
+          padding: .75rem;
+          border-radius: 9999px;
+          box-shadow: 0 8px 24px rgba(0,0,0,.25);
+        }
+        .nav-arrow:hover { background: #1f2937; }
+        .nav-prev { left: .5rem; }
+        .nav-next { right: .5rem; }
+        .dots { display: flex; gap: .5rem; justify-content: center; margin-top: .75rem; }
+        .dot { width: .5rem; height: .5rem; border-radius: 9999px; background: #cbd5e1; }
+        .dot.active { background: #0ea5e9; }
+
+        /* Inputs visíveis e acessíveis */
+        .resp-input {
+          width: 100%;
+          max-width: 28rem;
+          padding: .75rem 1rem;
+          border: 1.5px solid #cbd5e1;
+          border-radius: .75rem;
+          outline: none;
+          box-shadow: inset 0 1px 0 rgba(2,6,23,.02);
+        }
+        .resp-input:focus {
+          border-color: #3b82f6;
+          box-shadow: 0 0 0 4px rgba(59,130,246,.15);
+        }
+
+        /* Botão "Verificar" destacado, central e fora do slide */
+        .verify-btn {
+          display: inline-block;
+          margin: 1rem auto 0;
+          background: #2563eb;
+          color: white;
+          font-weight: 700;
+          padding: .875rem 2.25rem;
+          border-radius: 9999px;
+          box-shadow: 0 12px 24px rgba(37,99,235,.25);
+        }
+        .verify-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .verify-btn:active { transform: translateY(0); box-shadow: 0 8px 18px rgba(37,99,235,.25); }
+      </style>
+</head>
+<!-- ========================================================================== -->
+<!-- ===                 FIM DA SEÇÃO QUE NÃO DEVE MEXER                   === -->
+<!-- ========================================================================== -->
+
+<body class="bg-slate-50 text-slate-800">
+
+<!-- ========================================================================== -->
+<!-- ===        NÃO MEXA - HEADER FIXO (você pode editar só o texto)      === -->
+<!-- ========================================================================== -->
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-emerald-600 to-teal-700 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
+        <div class="py-4">
+            <span class="font-semibold text-white text-xl">3.2. Alfabeto</span>
+        </div>
+    </div>
+</header>
+<!-- ========================================================================== -->
+<!-- ===                    FIM DO HEADER FIXO                             === -->
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+<div class="pt-24"> 
+    <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
+<!-- ========================================================================== -->
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###   COMECE A EDITAR AQUI - CONTEÚDO                                   ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+        <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos mais essenciais da Libras. Ela é usada em situações específicas, principalmente para "soletrar" palavras que não têm um sinal (como nomes próprios: "MARIA", "JOÃO") ou siglas ("RG", "CPF").</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Este tópico é de memorização. Mas, mais importante do que decorar o A-Z, é aprender a usá-lo em uma conversa.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Além disso, você perceberá que aprender o alfabeto tem uma vantagem extra: muitos sinais em Libras usam a Configuração de Mão (CM) correspondente à letra inicial da palavra em português. Por exemplo, o sinal de REUNIÃO usa a letra 'R', o sinal de PROFESSOR usa a letra 'P', os sinais de DIA e DOMINGO, usam a letra 'D'. Dominar o alfabeto, portanto, acelera muito o seu aprendizado de vocabulário.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    É normal e esperado que, no início, você não entenda uma soletração rápida. Por isso, junto com o alfabeto, vamos aprender o vocabulário de "sobrevivência" mais importante para o atendimento: "NÃO-ENTENDI", "REPETE" e "DEVAGAR". 
+</p>
+
+<div class="my-12 bg-slate-100/70 p-6 rounded-2xl flex items-start gap-5 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-md">
+    <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-full p-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15.09 16.05a2 2 0 0 1-2.18 2.85a2 2 0 0 1-2.18-2.85V14a2 2 0 0 1 2.18-2.85a2 2 0 0 1 2.18 2.85v2.05z"/>
+            <path d="M12 2A7 7 0 0 0 5 9c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74A7 7 0 0 0 12 2z"/>
+        </svg>
+    </div>
+    <div>
+        <h2 class="font-bold text-slate-900 text-lg mb-1">Atenção:</h2>
+        <p class="text-slate-600">Muitas pessoas pensam que para aprender Libras, basta aprender o alfabeto manual. Já deu pra perceber que não é bem assim, certo? A <strong>datilologia</strong> é apenas uma parte da língua. Há um léxico extenso de sinais a serem aprendidos. </p>
+    </div>
+</div>
+
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Alfabeto
+</h2>
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Vamos aprender as letras em Libras? Clique nas letras para ver o sinal. 
+</p>
+
+<!-- Botão que abre o popup (Dica!) -->
+<div class="my-10 text-center">
+  <button class="popup-btn bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105">
+    Dica!
+  </button>
+</div>
+
+<!-- Estrutura do popup -->
+<div class="popup-overlay hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="popup-content bg-white rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl relative">
+    <button class="popup-close absolute top-3 right-4 text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+    <h3 class="text-2xl font-semibold text-slate-900 mb-4">Dica!</h3>
+    <p class="text-slate-600 text-lg leading-relaxed">Depois de memorizar o alfabeto, tente fazer um teste: verifique se lembra o sinal daquela letra antes mesmo de virar o card. </p>
+  </div>
+</div>
+
+<style>
+  .popup-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+  .popup-overlay.active { display: flex; }
+  .popup-content { animation: popupFade 0.3s ease; }
+  @keyframes popupFade { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+</style>
+
+<script>
+  const popupBtn = document.querySelector('.popup-btn');
+  const popupOverlay = document.querySelector('.popup-overlay');
+  const popupClose = document.querySelector('.popup-close');
+  popupBtn.addEventListener('click', () => { popupOverlay.classList.add('active'); popupOverlay.classList.remove('hidden'); });
+  popupClose.addEventListener('click', () => { popupOverlay.classList.remove('active'); setTimeout(() => popupOverlay.classList.add('hidden'), 200); });
+  popupOverlay.addEventListener('click', (e) => { if (e.target === popupOverlay) { popupOverlay.classList.remove('active'); setTimeout(() => popupOverlay.classList.add('hidden'), 200); }});
+</script>
+
+<!-- === FLIPCARD DO ALFABETO (preservado) === -->
+<div class="flipcard-container">
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>A</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/A.jpg?updatedAt=1761537311714" alt="A"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>B</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/B.jpg?updatedAt=1761537311896" alt="B"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>C</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/C.jpg?updatedAt=1761537311378" alt="C"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>Ç</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/%C3%A7.gif?updatedAt=1761537336531" alt="Ç"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>D</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/D.jpg?updatedAt=1761537311683" alt="D"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>E</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/E.jpg?updatedAt=1761537311706" alt="E"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>F</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/F.jpg?updatedAt=1761537311568" alt="F"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>G</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/G.jpg?updatedAt=1761537311539" alt="G"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>H</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/H.gif?updatedAt=1761537336911" alt="H"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>I</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/I.jpg?updatedAt=1761537311442" alt="I"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>J</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/J.gif?updatedAt=1761537337629" alt="J"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>K</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/K.gif?updatedAt=1761537337133" alt="K"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>L</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/L.jpg?updatedAt=1761537311855" alt="L"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>M</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/M.jpg?updatedAt=1761537311769" alt="M"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>N</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/N.jpg?updatedAt=1761537310958" alt="N"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>O</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/O.jpg?updatedAt=1761537311492" alt="O"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>P</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/P.jpg?updatedAt=1761537311971" alt="P"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>Q</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/Q.jpg?updatedAt=1761537311695" alt="Q"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>R</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/R.jpg?updatedAt=1761537311734" alt="R"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>S</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/S.jpg?updatedAt=1761537311750" alt="S"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>T</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/T.jpg?updatedAt=1761537311650" alt="T"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>U</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/U.jpg?updatedAt=1761537311728" alt="U"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>V</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/V.jpg?updatedAt=1761537311591" alt="V"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>W</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/w.jpg?updatedAt=1761685986092" alt="W"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>X</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/X.gif?updatedAt=1761537336868" alt="X"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>Y</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/Y.gif?updatedAt=1761537336911" alt="Y"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>Z</p></div>
+      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/Z.gif?updatedAt=1761537336827" alt="Z"></div>
+    </div>
+  </div>
+</div>
+<style>
+  .flipcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 40px auto; }
+  .flipcard { background: transparent; width: 200px; height: 200px; perspective: 1000px; cursor: pointer; }
+  .flipcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
+  .flipcard-front, .flipcard-back { position: absolute; width: 100%; height: 100%; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
+  .flipcard-front { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
+  .flipcard-back { transform: rotateY(180deg); background-color: #000; }
+  .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
+</style>
+
+
+<!-- === ATIVIDADE 1: CARROSSEL COM PARES DE LETRAS === -->
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Conseguiu memorizar todas as letras? Percebeu que algumas letras se parecem ou compartilham da mesma configuração de mão, mudando apenas o movimento? Vamos ver se você acertas estas distinções no exercício abaixo.
+</p>
+
+<div class="atividade-card my-6 max-w-4xl mx-auto">
+  <h2 class="text-2xl font-bold text-slate-800 text-center mb-2">Identifique as letras corretas</h2>
+  <p class="text-slate-600 text-center mb-6">Veja o sinal, digite “1” ou “2” e depois clique em <strong>Verificar</strong>.</p>
+
+  <div class="carousel-shell questoes-carousel-1">
+    <div class="carousel-track questoes-track-1">
+      <!-- Questão 1 -->
+      <div class="slide questao-slide-1">
+        <img src="https://gifscursopullzone.b-cdn.net/H_K.gif" alt="Par 1">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual a letra "H"?</h3>
+        <input id="resposta1_1" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback1_1" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 2 -->
+      <div class="slide questao-slide-1">
+        <img src="https://gifscursopullzone.b-cdn.net/C_%C3%87.gif" alt="Par 2">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual a letra "Ç"?</h3>
+        <input id="resposta1_2" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback1_2" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 3 -->
+      <div class="slide questao-slide-1">
+        <img src="https://gifscursopullzone.b-cdn.net/I_J.gif" alt="Par 3">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual a letra "I"?</h3>
+        <input id="resposta1_3" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback1_3" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 4 -->
+      <div class="slide questao-slide-1">
+        <img src="https://gifscursopullzone.b-cdn.net/G_Q.gif" alt="Par 4">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual a letra "G"?</h3>
+        <input id="resposta1_4" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback1_4" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+
+      <!-- Questão 5 -->
+      <div class="slide questao-slide-1">
+        <img src="https://gifscursopullzone.b-cdn.net/T_F.gif" alt="Par 5">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual a letra "T"?</h3>
+        <input id="resposta1_5" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback1_5" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+    </div>
+
+    <!-- Navegação -->
+    <button class="nav-arrow nav-prev" onclick="mudarQuestao1(-1)">&#10094;</button>
+    <button class="nav-arrow nav-next" onclick="mudarQuestao1(1)">&#10095;</button>
+  </div>
+
+  <!-- Dots + Botão Verificar (fora do slide, central) -->
+  <div class="dots mt-4" id="dots1"></div>
+  <div class="text-center">
+    <button class="verify-btn" onclick="verificarAtual1()">Verificar</button>
+  </div>
+</div>
+
+<script>
+  const respostasCorretas1 = ["1","2","2","1","1"];
+  let questaoAtual1 = 0;
+
+  function atualizarDots1(){
+    const dots = document.getElementById('dots1');
+    const total = document.querySelectorAll('.questao-slide-1').length;
+    dots.innerHTML = '';
+    for(let i=0;i<total;i++){
+      const b = document.createElement('span');
+      b.className = 'dot' + (i===questaoAtual1?' active':'');
+      dots.appendChild(b);
+    }
+  }
+  function verificarResposta1(num){
+    const input = document.getElementById(`resposta1_${num}`);
+    const feedback = document.getElementById(`feedback1_${num}`);
+    const resposta = (input?.value || '').trim().toLowerCase();
+    if(!resposta){ feedback.textContent='⚠️ Digite uma resposta!'; feedback.style.color='#f59e0b'; return; }
+    if(resposta === respostasCorretas1[num-1]){
+      feedback.textContent='✅ Correto!'; feedback.style.color='#16a34a';
+    } else {
+      feedback.textContent='❌ Errado.'; feedback.style.color='#dc2626';
+    }
+  }
+  function verificarAtual1(){ verificarResposta1(questaoAtual1+1); }
+  function mudarQuestao1(delta){
+    const slides = document.querySelectorAll('.questao-slide-1');
+    const track = document.querySelector('.questoes-track-1');
+    questaoAtual1 += delta;
+    if(questaoAtual1<0) questaoAtual1 = slides.length-1;
+    if(questaoAtual1>=slides.length) questaoAtual1 = 0;
+    track.style.transform = `translateX(-${questaoAtual1*100}%)`;
+    atualizarDots1();
+  }
+  // init
+  atualizarDots1();
+</script>
+<!-- === FIM ATIVIDADE 1 === -->
+
+
+<!-- === ATIVIDADE 2: SINAIS SOLETRADOS (carrossel) === -->
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Além de muitos sinais da Libras utilizarem configurações de mão que correspondem à primeira letra da palavra escrita, existe também o que chamamos de <strong>sinal soletrado</strong>.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Um sinal soletrado é aquele que se originou da soletração manual de uma palavra, mas que, com o uso frequente, passou a ser produzido de forma mais fluida e integrada, adquirindo características próprias do <strong>sistema fonológico da Libras</strong>. Assim, ele deixa de ser uma simples sequência de letras e passa a funcionar como um <strong>sinal lexicalizado</strong> dentro da língua.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    No exercício abaixo, o desafio será você identificar o significado dos sinais soletrados, reconhecendo como a soletração original se transformou em um sinal mais fluido e integrado à Libras.
+</p>
+
+<div class="atividade-card my-12 max-w-4xl mx-auto">
+  <h2 class="text-2xl font-bold text-slate-800 text-center mb-2">Desafio — Identifique o significado do sinal soletrado</h2>
+  <p class="text-slate-600 text-center mb-6">Digite sua resposta e clique em <strong>Verificar</strong>.</p>
+
+  <div class="carousel-shell questoes-carousel-2">
+    <div class="carousel-track questoes-track-2">
+      <!-- Q1 -->
+      <div class="slide questao-slide-2">
+        <img class="w-full rounded-2xl shadow-xl max-w-2xl" src="https://gifscursopullzone.b-cdn.net/bar.gif" alt="bar">
+        <input id="resposta2_1" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback2_1" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+      <!-- Q2 -->
+      <div class="slide questao-slide-2">
+        <img class="w-full rounded-2xl shadow-xl max-w-2xl" src="https://gifscursopullzone.b-cdn.net/maio.gif" alt="maio">
+        <input id="resposta2_2" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback2_2" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+      <!-- Q3 -->
+      <div class="slide questao-slide-2">
+        <img class="w-full rounded-2xl shadow-xl max-w-2xl" src="https://gifscursopullzone.b-cdn.net/pai.gif" alt="pai">
+        <input id="resposta2_3" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback2_3" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+      <!-- Q4 -->
+      <div class="slide questao-slide-2">
+        <img class="w-full rounded-2xl shadow-xl max-w-2xl" src="https://gifscursopullzone.b-cdn.net/nunca.gif" alt="nunca">
+        <input id="resposta2_4" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback2_4" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+      <!-- Q5 -->
+      <div class="slide questao-slide-2">
+        <img class="w-full rounded-2xl shadow-xl max-w-2xl" src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="oi">
+        <input id="resposta2_5" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback2_5" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+      <!-- Q6 -->
+      <div class="slide questao-slide-2">
+        <img class="w-full rounded-2xl shadow-xl max-w-2xl" src="https://gifscursopullzone.b-cdn.net/ok.gif" alt="ok">
+        <input id="resposta2_6" type="text" placeholder="Digite sua resposta..." class="resp-input">
+        <p id="feedback2_6" class="mt-3 text-center text-lg font-semibold"></p>
+      </div>
+    </div>
+
+    <!-- Navegação -->
+    <button class="nav-arrow nav-prev" onclick="mudarQuestao2(-1)">&#10094;</button>
+    <button class="nav-arrow nav-next" onclick="mudarQuestao2(1)">&#10095;</button>
+  </div>
+
+  <!-- Dots + Botão Verificar (fora do slide, central) -->
+  <div class="dots mt-4" id="dots2"></div>
+  <div class="text-center">
+    <button class="verify-btn" onclick="verificarAtual2()">Verificar</button>
+  </div>
+</div>
+
+<script>
+  const respostasCorretas2 = ["bar","maio","pai","nunca","oi","ok"];
+  let questaoAtual2 = 0;
+
+  function atualizarDots2(){
+    const dots = document.getElementById('dots2');
+    const total = document.querySelectorAll('.questao-slide-2').length;
+    dots.innerHTML = '';
+    for(let i=0;i<total;i++){
+      const b = document.createElement('span');
+      b.className = 'dot' + (i===questaoAtual2?' active':'');
+      dots.appendChild(b);
+    }
+  }
+  function verificarResposta2(num){
+    const input = document.getElementById(`resposta2_${num}`);
+    const feedback = document.getElementById(`feedback2_${num}`);
+    const resposta = (input?.value || '').trim().toLowerCase();
+    if(!resposta){ feedback.textContent='⚠️ Digite sua resposta!'; feedback.style.color='#f59e0b'; return; }
+    if(resposta === respostasCorretas2[num-1]){
+      feedback.textContent='✅ Correto!'; feedback.style.color='#16a34a';
+    } else {
+      feedback.textContent='❌ Errado.'; feedback.style.color='#dc2626';
+    }
+  }
+  function verificarAtual2(){ verificarResposta2(questaoAtual2+1); }
+  function mudarQuestao2(delta){
+    const slides = document.querySelectorAll('.questao-slide-2');
+    const track = document.querySelector('.questoes-track-2');
+    questaoAtual2 += delta;
+    if(questaoAtual2<0) questaoAtual2 = slides.length-1;
+    if(questaoAtual2>=slides.length) questaoAtual2 = 0;
+    track.style.transform = `translateX(-${questaoAtual2*100}%)`;
+    atualizarDots2();
+  }
+  // init
+  atualizarDots2();
+</script>
+<!-- === FIM ATIVIDADE 2 === -->
+
+
+<div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+  <h4 class="text-xl font-semibold text-slate-800 mb-5 text-left">Para fixar melhor:</h4>
+  <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+    <li>Aprenda a soletrar seu nome e o de outras pessoas próximas.</li>
+    <li>Use a <strong>iconicidade</strong> a seu favor. Observe se há semelhança entre a forma da escrita e a CM.</li>
+    <li>Use os quizzes deste módulo para praticar.</li>
+  </ol>
+</div>
+
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###              PARE DE EDITAR AQUI                                    ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===     NÃO MEXA - ESTRUTURA DO MODAL (você edita o conteúdo depois) === -->
+<!-- ========================================================================== -->
+<div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <!-- VOCÊ PODE EDITAR O CONTEÚDO DO MODAL ABAIXO: -->
+        <h3 class="text-2xl font-bold text-slate-900 mb-4">Exemplo prático</h3>
+        <p class="text-slate-600">Imagine que você precisa perguntar a um usuário surdo se ele precisa "ASSINAR" um documento. Você ainda não sabe o sinal de ASSINAR.</p>
+        <p class="text-slate-600 mt-2">Ação Incorporada (Mímica): Pegue uma folha de papel e uma caneta (ou imagine) e faça o movimento claro de escrever seu nome/rubrica no papel, olhando para o usuário como quem pede pra assinar e apontando para o local da assinatura.</p>
+        <p class="text-slate-600 mt-2">Essa ação é compreensível e resolve a comunicação imediata. O gesto e a mímica são suas ferramentas de "primeiros socorros" na comunicação.</p>
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===              NÃO MEXA NESTE SCRIPT                                === -->
+<!-- ========================================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Script genérico (mantido)
+    const carouselElement = document.getElementById('carousel');
+    if (carouselElement) {
+        const track = carouselElement.querySelector('.carousel-track');
+        const slides = track ? Array.from(track.children) : [];
+        const nextButton = document.getElementById('nextBtn');
+        const prevButton = document.getElementById('prevBtn');
+        const dotsContainer = document.getElementById('dots-container');
+        let currentIndex = 0;
+        const loadSlideContent = (index) => {
+            const slide = slides[index];
+            if (!slide) return;
+            const img = slide.querySelector('img');
+            if (img && img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            }
+        };
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0 || targetIndex >= slides.length || slides.length === 0) return;
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            if (!slideWidth || !track) return;
+            loadSlideContent(targetIndex);
+            track.style.transform = `translateX(-${slideWidth * targetIndex}px)`;
+            currentIndex = targetIndex;
+            updateUI();
+        };
+        const updateUI = () => {
+            if (!dotsContainer || !prevButton || !nextButton) return;
+            const dots = Array.from(dotsContainer.children);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === currentIndex);
+                dot.classList.toggle('bg-white/50', index !== currentIndex);
+            });
+            prevButton.disabled = (currentIndex === 0);
+            nextButton.disabled = (currentIndex === slides.length - 1);
+        };
+        const setupCarousel = () => {
+            if (slides.length === 0 || !dotsContainer || !track) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors');
+                dotsContainer.appendChild(dot);
+                dot.addEventListener('click', () => moveToSlide(index));
+            });
+            const slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+            if (!slideWidth) return;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            setTimeout(() => { if(track) track.style.transition = 'transform 0.5s ease-in-out'; }, 50);
+            updateUI();
+            loadSlideContent(currentIndex);
+        };
+        if (nextButton && prevButton) {
+            nextButton.addEventListener('click', () => moveToSlide(currentIndex + 1));
+            prevButton.addEventListener('click', () => moveToSlide(currentIndex - 1));
+        }
+        window.addEventListener('resize', setupCarousel);
+        setTimeout(setupCarousel, 100);
+    }
+
+    // Acordeon (mantido)
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const accordionItem = header.parentElement;
+            const accordionContent = header.nextElementSibling;
+            if (!accordionItem || !accordionContent) return;
+            header.classList.toggle('active');
+            if (accordionContent.style.maxHeight) {
+                accordionContent.style.maxHeight = null;
+                accordionItem.classList.remove('open');
+            } else {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                accordionItem.classList.add('open');
+            }
+        });
+    });
+
+    // Modal (mantido)
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+    if (openModalBtn && closeModalBtn && modal && modalContent) {
+        const openModal = () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        };
+        const closeModal = () => {
+            modal.classList.remove('opacity-100');
+            modalContent.classList.remove('scale-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        };
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    }
+});
+</script>
+<!-- ========================================================================== -->
+
+</body>
+</html>

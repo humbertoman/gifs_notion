@@ -94,12 +94,6 @@
   </div>
   <div class="flipcard" onclick="this.classList.toggle('flipped')">
     <div class="flipcard-inner">
-      <div class="flipcard-front"><p>7</p></div>
-      <div class="flipcard-back"><img src="https://ik.imagekit.io/a02tbgrjz/Gifs/07.jpg?updatedAt=1761685268859" alt="7"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
       <div class="flipcard-front"><p>BOA NOITE</p></div>
       <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/boanoite.gif" alt="8"></div>
     </div>
@@ -120,7 +114,188 @@
 
 
 
+<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO === -->
+<style>
+  .atividade-carousel{position:relative;overflow:hidden;width:100%}
+  .atividade-track{display:flex;transition:transform .5s ease-in-out;width:100%}
+  .atividade-slide{flex:0 0 100%;max-width:100%;padding:2rem;text-align:center}
+  .atividade-slide input[type=text]{width:100%;max-width:300px;margin:0 auto;display:block}
+  .verificar-btn{margin-top:1rem;display:inline-block}
+  .opcao{display:flex;align-items:center;gap:.5rem;margin:.5rem 0}
+  .pool-container,.ordem-container{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+  .ordem-container{margin:1rem 0;min-height:64px;border:2px dashed #cbd5e1;padding:10px;border-radius:10px}
+  .word{background:#e2e8f0;padding:.5rem 1rem;border-radius:8px;cursor:grab;user-select:none}
+  .drag-over{outline:2px dashed #60a5fa;outline-offset:2px}
+</style>
 
+<div class="atividade-hibrida my-12 text-center">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Exercício</h2>
+  <p class="text-slate-600 mb-8">Cada página traz uma questão diferente. Responda e clique em <strong>Verificar</strong>.</p>
+
+  <div class="atividade-carousel relative">
+    <div class="atividade-track">
+
+      
+
+
+      <!-- === SLIDE 3: DRAG & DROP === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">Escolha e ordene as palavras:</h3>
+        
+        <figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
+          <img class="w-full rounded-2xl shadow-xl" src="URL_IMAGEM" alt="Descrição">
+        </figure>
+
+        <div id="pool3" class="pool-container">
+          <div class="word" draggable="true" data-id="w1">Eu</div>
+          <div class="word" draggable="true" data-id="w2">Libras</div>
+          <div class="word" draggable="true" data-id="w3">estudar</div>
+          <div class="word" draggable="true" data-id="w4">gosto</div>
+          <div class="word" draggable="true" data-id="w5">quero</div>
+          <div class="word" draggable="true" data-id="w6">brincar</div>
+          <div class="word" draggable="true" data-id="w7">de</div>
+          <div class="word" draggable="true" data-id="w8">aprender</div>
+        </div>
+        <div id="ordem3" class="ordem-container" aria-label="Monte aqui a frase"></div>
+        <div class="verificar-btn"><button onclick="verificarEscolherOrdenar(3, ['Eu','gosto','de','aprender','Libras'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <p id="fb3" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+    </div>
+    <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
+    <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(1)">&#10095;</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var slideAtual = 0;
+  window.mudarSlide = function(delta){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var track  = document.querySelector('.atividade-track');
+    if(!slides.length || !track) return;
+    slideAtual = (slideAtual + delta + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
+  };
+
+  window.verificarAberta = function(n){
+    var input = document.getElementById('resp' + n);
+    var fb    = document.getElementById('fb' + n);
+    if(!fb) return;
+    var valor = (input && input.value ? input.value : '').trim().toLowerCase();
+    if(!valor){ fb.textContent='⚠️ Digite uma resposta!'; fb.style.color='#f59e0b'; return; }
+    var ok = (valor==='habelardo' || valor==='Habelardo');
+    fb.textContent = ok ? '✅ Correto!' : '❌ Errado. Tente novamente!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+
+  window.verificarUnica = function(n, correta){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var fb     = document.getElementById('fb' + n);
+    if(!slides.length || !fb) return;
+    var slide  = slides[n-1];
+    var opcao  = slide ? slide.querySelector('input[type=\"radio\"]:checked') : null;
+    if(!opcao){ fb.textContent='⚠️ Escolha uma opção!'; fb.style.color='#f59e0b'; return; }
+    var ok = (opcao.value === correta);
+    fb.textContent = ok ? '✅ Correto!' : '❌ Errado!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+
+  window.verificarMultiplas = function(n, corretas){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var fb     = document.getElementById('fb' + n);
+    if(!slides.length || !fb) return;
+    var slide  = slides[n-1];
+    var marcadasEls = slide ? slide.querySelectorAll('input[type=\"checkbox\"]:checked') : [];
+    var marcadas = [];
+    for(var i=0;i<marcadasEls.length;i++){ marcadas.push(marcadasEls[i].value); }
+    var ok = (marcadas.length === corretas.length);
+    if(ok){
+      for(var j=0;j<marcadas.length;j++){
+        if(corretas.indexOf(marcadas[j]) === -1){ ok=false; break; }
+      }
+    }
+    fb.textContent = ok ? '✅ Correto!' : '❌ Tente novamente!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+
+  function setupDnD(poolId, ordemId){
+    var pool  = document.getElementById(poolId);
+    var ordem = document.getElementById(ordemId);
+    if(!pool || !ordem) return;
+
+    function onDragStart(e){
+      var w = e.target && e.target.classList ? e.target : null;
+      if(!w || !w.classList.contains('word')) return;
+      e.dataTransfer.setData('text/plain', w.getAttribute('data-id'));
+    }
+    function onDragOver(e){
+      e.preventDefault();
+      var tgt = e.target && e.target.classList ? e.target : null;
+      var cont = (tgt && tgt.classList.contains('word')) ? tgt.parentElement : e.currentTarget;
+      cont.classList.add('drag-over');
+    }
+    function onDragLeave(e){
+      var cont = e.currentTarget;
+      cont.classList.remove('drag-over');
+    }
+    function onDrop(e){
+      e.preventDefault();
+      var cont = e.currentTarget;
+      cont.classList.remove('drag-over');
+      var id = e.dataTransfer.getData('text/plain');
+      var dragged = document.querySelector('.word[data-id=\"' + id + '\"]');
+      if(!dragged) return;
+      var targetWord = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
+      if(targetWord && targetWord.parentElement === cont){
+        if(targetWord.nextSibling){
+          cont.insertBefore(dragged, targetWord.nextSibling);
+        } else {
+          cont.appendChild(dragged);
+        }
+      } else {
+        cont.appendChild(dragged);
+      }
+    }
+
+    [pool, ordem].forEach(function(container){
+      container.addEventListener('dragstart', onDragStart);
+      container.addEventListener('dragover', onDragOver);
+      container.addEventListener('dragleave', onDragLeave);
+      container.addEventListener('drop', onDrop);
+    });
+
+    document.addEventListener('click', function(e){
+      var w = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
+      if(!w) return;
+      var parent = w.parentElement;
+      if(parent === pool){ ordem.appendChild(w); } else if(parent === ordem){ pool.appendChild(w); }
+    });
+  }
+
+  var words = document.querySelectorAll('.word');
+  for(var z=0; z<words.length; z++){ words[z].setAttribute('draggable','true'); }
+  setupDnD('pool3','ordem3');
+
+  window.verificarEscolherOrdenar = function(n, ordemCorreta){
+    var container = document.getElementById('ordem' + n);
+    var fb = document.getElementById('fb' + n);
+    if(!container || !fb) return;
+    var els = container.querySelectorAll('.word');
+    var palavras = [];
+    for(var i=0;i<els.length;i++){ palavras.push(els[i].textContent.trim()); }
+    var ok = (palavras.length === ordemCorreta.length);
+    if(ok){
+      for(var j=0;j<palavras.length;j++){
+        if(palavras[j] !== ordemCorreta[j]){ ok=false; break; }
+      }
+    }
+    fb.textContent = ok ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+});
+</script>
+<!-- === FIM DO CARROSSEL === -->
 
 
 

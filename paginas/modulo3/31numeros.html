@@ -210,132 +210,219 @@ Agora veja os números de 5 - 9. Observe que a maioria deles lembram a forma esc
   <!-- Coluna 1 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
     
-    <!-- ===== CARROSSEL MISTO (VÍDEO + GIF) ===== -->
-    
-    <style>
-      .gif-carousel { position: relative; max-width: 500px; margin: 0 auto; }
-      .carousel-track { position: relative; }
-      .carousel-slide { display: none; position: relative; }
-      .carousel-slide.active { display: block; }
-      .carousel-slide img, .carousel-slide video, .carousel-slide iframe {
-        width: 100%; height: auto; border-radius: 12px; display: block;
-      }
-      .slide-title {
-        position: absolute; left: 0; right: 0; bottom: 12px;
-        text-align: center; color: #fff; font-weight: 700;
-        text-shadow: 0 1px 6px rgba(0,0,0,.7);
-      }
-      .gif-carousel .prev, .gif-carousel .next {
-        cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
-        padding: 12px; font-size: 22px; color: #fff; user-select: none;
-        background: rgba(0,0,0,.35); border-radius: 999px;
-      }
-      .gif-carousel .prev { left: 8px; }
-      .gif-carousel .next { right: 8px; }
-    </style>
-    
-    <div class="gif-carousel" data-start="1">
-      <div class="carousel-track">
-        <!-- Slide 1: VÍDEO TELEFONE -->
-        <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://player.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b" type="video/mp4">
-          </video>
-          <div class="slide-title">Diálogo 1</div>
-        </div>
-    
-<!-- Slide 2: VÍDEO CASA -->
-        <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://player.mediadelivery.net/embed/520267/f4037b46-29f0-499a-ab15-c0faf9f65823" type="video/mp4">
-          </video>
-          <div class="slide-title">Diálogo 2</div>
-        </div>
+    <!-- ===== CARROSSEL MISTO (VÍDEO via IFRAME + GIF/IMAGEM) ===== -->
 
-    
+<style>
+  .gif-carousel { position: relative; max-width: 640px; margin: 0 auto; }
+  .carousel-track { position: relative; }
+  .carousel-slide { display: none; position: relative; }
+  .carousel-slide.active { display: block; }
+  .carousel-slide img, .carousel-slide video {
+    width: 100%; height: auto; border-radius: 12px; display: block;
+  }
 
-      <!-- Slide 3: GIF/IMAGEM rg-->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://player.mediadelivery.net/embed/520267/c239e420-d760-4026-8bd3-dd4ee7de1613" type="video/mp4">
-          </video>
-          <div class="slide-title">Diálogo 3</div>
-        </div>
+  /* Wrapper 16:9 para iframes de vídeo */
+  .embed-wrap {
+    position: relative; width: 100%; padding-top: 56.25%; border-radius: 12px; overflow: hidden;
+    background: #000;
+  }
+  .embed-wrap iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;
+  }
 
-         <!-- Slide 4: GIF/IMAGEM dia-->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://player.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa" type="video/mp4">
-          </video>
-          <div class="slide-title">Diálogo 4</div>
-        </div>
+  .slide-title {
+    position: absolute; left: 0; right: 0; bottom: 12px;
+    text-align: center; color: #fff; font-weight: 700;
+    text-shadow: 0 1px 6px rgba(0,0,0,.7); pointer-events: none;
+  }
+  .gif-carousel .prev, .gif-carousel .next {
+    cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+    padding: 12px; font-size: 22px; color: #fff; user-select: none;
+    background: rgba(0,0,0,.35); border-radius: 999px; line-height: 1;
+  }
+  .gif-carousel .prev { left: 8px; }
+  .gif-carousel .next { right: 8px; }
+</style>
 
-        <!-- Slide 4: GIF/IMAGEM SENHA -->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://player.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa">
-          </video>
-          <div class="slide-title">Diálogo 5</div>
-        </div>
+<div class="gif-carousel" data-start="1" aria-roledescription="carousel">
+  <div class="carousel-track">
 
-        <!-- Slide 4: GIF/IMAGEM DINHEIRO -->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://player.mediadelivery.net/embed/520267/0ed1fa7a-1f4f-4102-b2c4-c4dc5df5340b">
-          </video>
-          <div class="slide-title">Diálogo 6</div>
-        </div>
-
-        <!-- Slide 4: GIF/IMAGEM SALA -->
-      <div class="carousel-slide">
-          <video controls preload="metadata">
-            <source src="https://player.mediadelivery.net/embed/520267/dd30298f-57ff-4877-965c-2f3368dff80d">
-          </video>
-          <div class="slide-title">Diálogo 7</div>
-        </div>
-    
-      <a class="prev" aria-label="Anterior">&#10094;</a>
-      <a class="next" aria-label="Próximo">&#10095;</a>
+    <!-- Slide 1: VÍDEO (iframe embed) -->
+    <div class="carousel-slide" aria-hidden="true">
+      <div class="embed-wrap">
+        <iframe
+          title="Diálogo 1"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          data-src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b">
+        </iframe>
+      </div>
+      <div class="slide-title">Diálogo 1</div>
     </div>
-    
-    <script>
-      (function initCarousels(){
-        const carousels = document.querySelectorAll('.gif-carousel');
-        carousels.forEach((carousel) => {
-          const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-          const prev = carousel.querySelector('.prev');
-          const next = carousel.querySelector('.next');
-          let index = Math.max(1, parseInt(carousel.dataset.start || '1', 10));
-          if (index > slides.length) index = 1;
-    
-          function show(i){
-            slides.forEach((s) => {
-              s.classList.remove('active');
-              const vid = s.querySelector('video');
-              if (vid && !vid.paused) { vid.pause(); vid.currentTime = vid.currentTime; }
-            });
-            if (i < 1) i = slides.length;
-            if (i > slides.length) i = 1;
-            index = i;
-            slides[index-1].classList.add('active');
-          }
-    
-          function plus(n){ show(index + n); }
-    
-          prev && prev.addEventListener('click', () => plus(-1));
-          next && next.addEventListener('click', () => plus(1));
-    
-          carousel.addEventListener('transitionend', () => {
-            const current = slides[index-1];
-            const vid = current.querySelector('video[autoplay]');
-            if (vid) vid.play().catch(()=>{});
-          });
-    
-          show(index);
+
+    <!-- Slide 2: VÍDEO (iframe embed) -->
+    <div class="carousel-slide" aria-hidden="true">
+      <div class="embed-wrap">
+        <iframe
+          title="Diálogo 2"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          data-src="https://iframe.mediadelivery.net/embed/520267/f4037b46-29f0-499a-ab15-c0faf9f65823">
+        </iframe>
+      </div>
+      <div class="slide-title">Diálogo 2</div>
+    </div>
+
+    <!-- Slide 3: VÍDEO (iframe embed) -->
+    <div class="carousel-slide" aria-hidden="true">
+      <div class="embed-wrap">
+        <iframe
+          title="Diálogo 3"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          data-src="https://iframe.mediadelivery.net/embed/520267/c239e420-d760-4026-8bd3-dd4ee7de1613">
+        </iframe>
+      </div>
+      <div class="slide-title">Diálogo 3</div>
+    </div>
+
+    <!-- Slide 4: VÍDEO (iframe embed) -->
+    <div class="carousel-slide" aria-hidden="true">
+      <div class="embed-wrap">
+        <iframe
+          title="Diálogo 4"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          data-src="https://iframe.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa">
+        </iframe>
+      </div>
+      <div class="slide-title">Diálogo 4</div>
+    </div>
+
+    <!-- Slide 5: VÍDEO (iframe embed) -->
+    <div class="carousel-slide" aria-hidden="true">
+      <div class="embed-wrap">
+        <iframe
+          title="Diálogo 5"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          data-src="https://iframe.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa">
+        </iframe>
+      </div>
+      <div class="slide-title">Diálogo 5</div>
+    </div>
+
+    <!-- Slide 6: VÍDEO (iframe embed) -->
+    <div class="carousel-slide" aria-hidden="true">
+      <div class="embed-wrap">
+        <iframe
+          title="Diálogo 6"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          data-src="https://iframe.mediadelivery.net/embed/520267/0ed1fa7a-1f4f-4102-b2c4-c4dc5df5340b">
+        </iframe>
+      </div>
+      <div class="slide-title">Diálogo 6</div>
+    </div>
+
+    <!-- Slide 7: VÍDEO (iframe embed) -->
+    <div class="carousel-slide" aria-hidden="true">
+      <div class="embed-wrap">
+        <iframe
+          title="Diálogo 7"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          data-src="https://iframe.mediadelivery.net/embed/520267/dd30298f-57ff-4877-965c-2f3368dff80d">
+        </iframe>
+      </div>
+      <div class="slide-title">Diálogo 7</div>
+    </div>
+
+    <!-- Exemplo opcional de GIF/IMAGEM -->
+    <!--
+    <div class="carousel-slide" aria-hidden="true">
+      <img src="minha-imagem.gif" alt="Descrição do gif">
+      <div class="slide-title">GIF de exemplo</div>
+    </div>
+    -->
+
+    <a class="prev" aria-label="Anterior" role="button">&#10094;</a>
+    <a class="next" aria-label="Próximo" role="button">&#10095;</a>
+  </div>
+</div>
+
+<script>
+  (function initCarousels(){
+    const carousels = document.querySelectorAll('.gif-carousel');
+    carousels.forEach((carousel) => {
+      const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+      const prev = carousel.querySelector('.prev');
+      const next = carousel.querySelector('.next');
+      let index = Math.max(1, parseInt(carousel.dataset.start || '1', 10));
+      if (index > slides.length) index = 1;
+
+      function unloadSlideMedia(slide){
+        // Pausa <video>, se existir
+        const vid = slide.querySelector('video');
+        if (vid) { try { vid.pause(); } catch(e){} vid.currentTime = 0; }
+        // Descarrega <iframe> para parar o vídeo incorporado
+        const ifr = slide.querySelector('iframe[data-src]');
+        if (ifr) { ifr.src = ''; }
+      }
+
+      function loadSlideMedia(slide){
+        // Recarrega o <iframe> somente quando o slide está ativo
+        const ifr = slide.querySelector('iframe[data-src]');
+        if (ifr && !ifr.src) { ifr.src = ifr.dataset.src; }
+      }
+
+      function show(i){
+        // Normaliza índice
+        if (i < 1) i = slides.length;
+        if (i > slides.length) i = 1;
+
+        // Esconde todos e descarrega mídia
+        slides.forEach((s) => {
+          s.classList.remove('active');
+          s.setAttribute('aria-hidden', 'true');
+          unloadSlideMedia(s);
         });
-      })();
-    </script>
-    <!-- ===== FIM DO CARROSSEL MISTO ===== -->
+
+        // Mostra slide ativo e carrega mídia
+        index = i;
+        const current = slides[index - 1];
+        current.classList.add('active');
+        current.setAttribute('aria-hidden', 'false');
+        loadSlideMedia(current);
+      }
+
+      function plus(n){ show(index + n); }
+
+      prev && prev.addEventListener('click', () => plus(-1));
+      next && next.addEventListener('click', () => plus(1));
+
+      // Inicializa
+      show(index);
+    });
+  })();
+</script>
+<!-- ===== FIM DO CARROSSEL MISTO ===== -->
+
+
 </div>
     </div>
   <!-- Coluna 2 -->

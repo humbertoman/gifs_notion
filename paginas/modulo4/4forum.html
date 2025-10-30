@@ -65,13 +65,42 @@
       </ol>
     </div>
 
-    <h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
-        Como fazer?
-    </h2>
 
-    <!-- PASSOS -->
+<!-- CSS das bolinhas numeradas (inclua uma vez na página) -->
+<style>
+  .custom-ordered-list { list-style: none; counter-reset: list-counter; padding-left: 0; }
+  .custom-ordered-list li {
+    counter-increment: list-counter;
+    position: relative;
+    padding-left: 2.75rem; /* espaço para a bolinha */
+    margin-bottom: 0.75rem;
+  }
+  .custom-ordered-list li::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    width: 1.75rem;
+    height: 1.75rem;
+    background-color: #334155; /* slate-700 */
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+</style>
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+  Como fazer?
+</h2>
+
+<!-- PASSOS (com números visíveis) -->
 <div class="my-12 max-w-3xl mx-auto">
-  <ol class="custom-ordered-list">
+  <ol class="custom-ordered-list list-decimal pl-6">
     <li>
       <h4 class="font-bold text-lg text-slate-900">Planeje sua gravação</h4>
       <p class="text-slate-600 mt-1">Estude como sinalizar cada informação. Faça testes antes de gravar.</p>
@@ -98,6 +127,8 @@
     </li>
   </ol>
 </div>
+
+
 
 <!-- VÍDEO (mantido, pode ficar logo após os passos) -->
 <div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">

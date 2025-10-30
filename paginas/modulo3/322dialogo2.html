@@ -157,7 +157,7 @@ exemplo:</p>
 </style>
 
 
-<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO FUNCIONAL === -->
+<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO (SEM TEMPLATE LITERALS) === -->
 <style>
   .atividade-carousel{position:relative;overflow:hidden;width:100%}
   .atividade-track{display:flex;transition:transform .5s ease-in-out;width:100%}
@@ -236,103 +236,134 @@ exemplo:</p>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  let slideAtual = 0;
-  window.mudarSlide = function(delta) {
-    const slides = document.querySelectorAll('.atividade-slide');
-    const track = document.querySelector('.atividade-track');
+document.addEventListener('DOMContentLoaded', function(){
+  // ========= Navegação sem template literals =========
+  var slideAtual = 0;
+  window.mudarSlide = function(delta){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var track  = document.querySelector('.atividade-track');
+    if(!slides.length || !track) return;
     slideAtual = (slideAtual + delta + slides.length) % slides.length;
-    track.style.transform = `translateX(-${slideAtual * 100}%)`;
+    track.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
   };
 
-  window.verificarAberta = function(num) {
-    const input = document.getElementById(`respnum`);
-    const fb = document.getElementById(`fbnum`);
-    const valor = input?.value.trim().toLowerCase();
-    if (!valor) {
-      fb.textContent = '⚠️ Digite uma resposta!';
-      fb.style.color = '#f59e0b';
-      return;
-    }
-    const correta = valor === 'brasília' || valor === 'brasilia';
-    fb.textContent = correta ? '✅ Correto!' : '❌ Errado. Tente novamente!';
-    fb.style.color = correta ? '#16a34a' : '#dc2626';
+  // ========= Verificações =========
+  window.verificarAberta = function(n){
+    var input = document.getElementById('resp' + n);
+    var fb    = document.getElementById('fb' + n);
+    if(!fb) return;
+    var valor = (input && input.value ? input.value : '').trim().toLowerCase();
+    if(!valor){ fb.textContent='⚠️ Digite uma resposta!'; fb.style.color='#f59e0b'; return; }
+    var ok = (valor==='brasília' || valor==='brasilia');
+    fb.textContent = ok ? '✅ Correto!' : '❌ Errado. Tente novamente!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
   };
 
-  window.verificarUnica = function(num, correta) {
-    const opcao = document.querySelector(`input[name='qnum']:checked`);
-    const fb = document.getElementById(`fbnum`);
-    if (!opcao) {
-      fb.textContent = '⚠️ Escolha uma opção!';
-      fb.style.color = '#f59e0b';
-      return;
-    }
-    const ok = opcao.value === correta;
+  window.verificarUnica = function(n, correta){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var fb     = document.getElementById('fb' + n);
+    if(!slides.length || !fb) return;
+    var slide  = slides[n-1];
+    var opcao  = slide ? slide.querySelector('input[type="radio"]:checked') : null;
+    if(!opcao){ fb.textContent='⚠️ Escolha uma opção!'; fb.style.color='#f59e0b'; return; }
+    var ok = (opcao.value === correta);
     fb.textContent = ok ? '✅ Correto!' : '❌ Errado!';
     fb.style.color = ok ? '#16a34a' : '#dc2626';
   };
 
-  window.verificarMultiplas = function(num, corretas) {
-    const marcadas = Array.from(
-      document.querySelectorAll(`.atividade-slide:nth-child(num) input[type='checkbox']:checked`)
-    ).map(e => e.value);
-    const fb = document.getElementById(`fbnum`);
-    const certo =
-      marcadas.length === corretas.length &&
-      marcadas.every(v => corretas.includes(v));
-    fb.textContent = certo ? '✅ Correto!' : '❌ Tente novamente!';
-    fb.style.color = certo ? '#16a34a' : '#dc2626';
+  window.verificarMultiplas = function(n, corretas){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var fb     = document.getElementById('fb' + n);
+    if(!slides.length || !fb) return;
+    var slide  = slides[n-1];
+    var marcadasEls = slide ? slide.querySelectorAll('input[type="checkbox"]:checked') : [];
+    var marcadas = [];
+    for(var i=0;i<marcadasEls.length;i++){ marcadas.push(marcadasEls[i].value); }
+    var ok = (marcadas.length === corretas.length);
+    if(ok){
+      for(var j=0;j<marcadas.length;j++){
+        if(corretas.indexOf(marcadas[j]) === -1){ ok=false; break; }
+      }
+    }
+    fb.textContent = ok ? '✅ Correto!' : '❌ Tente novamente!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
   };
 
-  function setupDnD(poolId, ordemId) {
-    const pool = document.getElementById(poolId);
-    const ordem = document.getElementById(ordemId);
+  // ========= Drag & Drop (Slide 3) =========
+  function setupDnD(poolId, ordemId){
+    var pool  = document.getElementById(poolId);
+    var ordem = document.getElementById(ordemId);
+    if(!pool || !ordem) return;
 
-    [pool, ordem].forEach(container => {
-      container.addEventListener('dragstart', e => {
-        if (!e.target.classList.contains('word')) return;
-        e.dataTransfer.setData('text/plain', e.target.dataset.id);
-      });
-
-      container.addEventListener('dragover', e => {
-        e.preventDefault();
-        container.classList.add('drag-over');
-      });
-
-      container.addEventListener('dragleave', () => {
-        container.classList.remove('drag-over');
-      });
-
-      container.addEventListener('drop', e => {
-        e.preventDefault();
-        container.classList.remove('drag-over');
-        const id = e.dataTransfer.getData('text/plain');
-        const dragged = document.querySelector(`.word[data-id='id']`);
-        if (!dragged) return;
-        if (container !== dragged.parentElement) {
-          container.appendChild(dragged);
+    function onDragStart(e){
+      var w = e.target && e.target.classList ? e.target : null;
+      if(!w || !w.classList.contains('word')) return;
+      e.dataTransfer.setData('text/plain', w.getAttribute('data-id'));
+    }
+    function onDragOver(e){
+      e.preventDefault();
+      var tgt = e.target && e.target.classList ? e.target : null;
+      var cont = (tgt && tgt.classList.contains('word')) ? tgt.parentElement : e.currentTarget;
+      cont.classList.add('drag-over');
+    }
+    function onDragLeave(e){
+      var cont = e.currentTarget;
+      cont.classList.remove('drag-over');
+    }
+    function onDrop(e){
+      e.preventDefault();
+      var cont = e.currentTarget;
+      cont.classList.remove('drag-over');
+      var id = e.dataTransfer.getData('text/plain');
+      var dragged = document.querySelector('.word[data-id="' + id + '"]');
+      if(!dragged) return;
+      var targetWord = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
+      if(targetWord && targetWord.parentElement === cont){
+        // Inserir após o alvo para facilitar reordenação
+        if(targetWord.nextSibling){
+          cont.insertBefore(dragged, targetWord.nextSibling);
+        } else {
+          cont.appendChild(dragged);
         }
-      });
+      } else {
+        cont.appendChild(dragged);
+      }
+    }
+
+    [pool, ordem].forEach(function(container){
+      container.addEventListener('dragstart', onDragStart);
+      container.addEventListener('dragover', onDragOver);
+      container.addEventListener('dragleave', onDragLeave);
+      container.addEventListener('drop', onDrop);
     });
 
-    document.querySelectorAll(`#poolId .word, #ordemId .word`).forEach(el => {
-      el.addEventListener('click', () => {
-        const parent = el.parentElement;
-        if (parent === pool) ordem.appendChild(el);
-        else pool.appendChild(el);
-      });
+    // Tap/click para mover (mobile) entre pool <-> ordem
+    document.addEventListener('click', function(e){
+      var w = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
+      if(!w) return;
+      var parent = w.parentElement;
+      if(parent === pool){ ordem.appendChild(w); } else if(parent === ordem){ pool.appendChild(w); }
     });
   }
 
-  setupDnD('pool3', 'ordem3');
+  // Tornar palavras arrastáveis (garantia)
+  var words = document.querySelectorAll('.word');
+  for(var z=0; z<words.length; z++){ words[z].setAttribute('draggable','true'); }
+  setupDnD('pool3','ordem3');
 
-  window.verificarEscolherOrdenar = function(num, ordemCorreta) {
-    const container = document.getElementById(`ordemnum`);
-    const palavras = Array.from(container.querySelectorAll('.word')).map(el =>
-      el.textContent.trim()
-    );
-    const fb = document.getElementById(`fbnum`);
-    const ok = JSON.stringify(palavras) === JSON.stringify(ordemCorreta);
+  window.verificarEscolherOrdenar = function(n, ordemCorreta){
+    var container = document.getElementById('ordem' + n);
+    var fb = document.getElementById('fb' + n);
+    if(!container || !fb) return;
+    var els = container.querySelectorAll('.word');
+    var palavras = [];
+    for(var i=0;i<els.length;i++){ palavras.push(els[i].textContent.trim()); }
+    var ok = (palavras.length === ordemCorreta.length);
+    if(ok){
+      for(var j=0;j<palavras.length;j++){
+        if(palavras[j] !== ordemCorreta[j]){ ok=false; break; }
+      }
+    }
     fb.textContent = ok ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';
     fb.style.color = ok ? '#16a34a' : '#dc2626';
   };

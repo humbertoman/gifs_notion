@@ -120,7 +120,7 @@ exemplo:</p>
 </div>
 
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    Vamos assistir a mais um diálogo em Libras. Tente compreender os nomes soletrados e os sinais que aparecem nesse contexto.
+    Vamos assistir a mais um diálogo em Libras. Tente compreender o nome soletrado e os sinais que aparecem nesse contexto.
 </p>
 
 
@@ -157,81 +157,142 @@ exemplo:</p>
   }
 </style>
 
-<!-- === ATIVIDADE DE 6 QUESTÕES === -->
-<div class="atividade-container my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
+<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO === -->
+<style>
+  .atividade-carousel { position: relative; overflow: hidden; width: 100%; }
+  .atividade-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
+  .atividade-slide { flex: 0 0 100%; max-width: 100%; padding: 2rem; text-align: center; }
+  .atividade-slide input[type="text"] { width: 100%; max-width: 300px; }
+  .atividade-slide button { margin-top: 1rem; }
+  .opcao { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0; }
+  .ordem-container { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 1rem 0; }
+  .ordem-palavra { background: #e2e8f0; padding: 0.5rem 1rem; border-radius: 8px; cursor: grab; user-select: none; }
+</style>
 
-  <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade de compreensão</h2>
-  <p class="text-slate-600 mb-8">Digite a resposta para cada pergunta e clique em <strong>Verificar</strong>.</p>
+<div class="atividade-hibrida my-12 text-center">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade — Tipos mistos</h2>
+  <p class="text-slate-600 mb-8">Cada página traz um tipo de questão diferente. Responda e clique em <strong>Verificar</strong>.</p>
 
-  <div class="space-y-6 text-left">
+  <div class="atividade-carousel relative">
+    <div class="atividade-track">
 
-    <!-- Questão 1 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">1️⃣ Qual o nome do rapaz do vídeo?</label>
-      <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
+      <!-- === SLIDE 1: RESPOSTA ABERTA === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">1️⃣ Qual é a capital do Brasil?</h3>
+        <input id="resp1" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+        <button onclick="verificarAberta(1)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="fb1" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 2: MÚLTIPLA ESCOLHA (UMA CORRETA) === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Qual dessas palavras é um verbo?</h3>
+        <div class="text-left inline-block">
+          <label class="opcao"><input type="radio" name="q2" value="mesa">Mesa</label>
+          <label class="opcao"><input type="radio" name="q2" value="correr">Correr</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">Azul</label>
+        </div>
+        <button onclick="verificarUnica(2, 'correr')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="fb2" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 3: ORDENAR PALAVRAS === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">3️⃣ Coloque as palavras na ordem correta:</h3>
+        <p class="text-slate-600 mb-4">("Gosto", "de", "aprender", "Libras")</p>
+        <div id="ordem3" class="ordem-container">
+          <div class="ordem-palavra">Libras</div>
+          <div class="ordem-palavra">de</div>
+          <div class="ordem-palavra">Gosto</div>
+          <div class="ordem-palavra">aprender</div>
+        </div>
+        <button onclick="verificarOrdem(3, ['Gosto','de','aprender','Libras'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="fb3" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 4: MÚLTIPLA ESCOLHA (VÁRIAS CORRETAS) === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">4️⃣ Quais dessas são cores primárias?</h3>
+        <div class="text-left inline-block">
+          <label class="opcao"><input type="checkbox" value="vermelho">Vermelho</label>
+          <label class="opcao"><input type="checkbox" value="azul">Azul</label>
+          <label class="opcao"><input type="checkbox" value="verde">Verde</label>
+          <label class="opcao"><input type="checkbox" value="amarelo">Amarelo</label>
+        </div>
+        <button onclick="verificarMultiplas(4, ['vermelho','azul','amarelo'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        <p id="fb4" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
     </div>
 
-    <!-- Questão 2 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">2️⃣ A garota do vídeo entendeu o nome do rapaz errado. Qual nome ela pensou ter visto?  </label>
-      <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-    <!-- Questão 3 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">3️⃣ Qual o nome dela?</label>
-      <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-
+    <!-- Navegação -->
+    <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
+    <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(1)">&#10095;</button>
   </div>
-
-  <button id="verificarBtn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-    Verificar todas as respostas
-  </button>
-
-  <p id="resultadoFinal" class="mt-6 text-lg font-bold"></p>
 </div>
 
-<!-- === SCRIPT === -->
-<!-- === SCRIPT === -->
-     <script>
-       const respostasCorretas = ["Pedro", "Paulo", "Telma"]; // ✅ Altere conforme suas respostas reais
-       const botao = document.getElementById("verificarBtn");
-       const resultadoFinal = document.getElementById("resultadoFinal");
-     
-       botao.addEventListener("click", () => {
-         let acertos = 0;
-     
-         for (let i = 1; i <= 3; i++) {
-           const input = document.getElementById(`resposta${i}`);
-           const feedback = document.getElementById(`feedback${i}`);
-           const resposta = input.value.trim();
-     
-           if (resposta === "") {
-             feedback.textContent = "⚠️ Campo vazio.";
-             feedback.style.color = "#f59e0b";
-             continue;
-           }
-     
-           if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
-             feedback.textContent = "✅ Correto!";
-             feedback.style.color = "#16a34a";
-             acertos++;
-           } else {
-             feedback.textContent = `❌ Errado.`;
-             feedback.style.color = "#dc2626";
-           }
-         }
-     
-         resultadoFinal.textContent = `Você acertou ${acertos} de 3.`;
-         resultadoFinal.style.color = acertos === 3 ? "#16a34a" : "#334155";
-       });
-     </script>
-<!-- === FIM DA ATIVIDADE === -->
+<script>
+  let slideAtual = 0;
+  function mudarSlide(delta) {
+    const slides = document.querySelectorAll('.atividade-slide');
+    const track = document.querySelector('.atividade-track');
+    slideAtual += delta;
+    if (slideAtual < 0) slideAtual = slides.length - 1;
+    if (slideAtual >= slides.length) slideAtual = 0;
+    track.style.transform = `translateX(-${slideAtual * 100}%)`;
+  }
+
+  function verificarAberta(num) {
+    const resp = document.getElementById(`respnum`).value.trim().toLowerCase();
+    const fb = document.getElementById(`fbnum`);
+    if (resp === 'brasília' || resp === 'brasilia') { fb.textContent = '✅ Correto!'; fb.style.color = '#16a34a'; }
+    else { fb.textContent = '❌ Errado. Tente novamente!'; fb.style.color = '#dc2626'; }
+  }
+
+  function verificarUnica(num, correta) {
+    const sel = document.querySelector(`input[name='qnum']:checked`);
+    const fb = document.getElementById(`fbnum`);
+    if (!sel) { fb.textContent = '⚠️ Escolha uma opção!'; fb.style.color = '#f59e0b'; return; }
+    fb.textContent = sel.value === correta ? '✅ Correto!' : '❌ Errado!';
+    fb.style.color = sel.value === correta ? '#16a34a' : '#dc2626';
+  }
+
+  function verificarMultiplas(num, corretas) {
+    const selecionadas = Array.from(document.querySelectorAll(`.atividade-slide:nth-child(num) input[type='checkbox']:checked`)).map(el => el.value);
+    const fb = document.getElementById(`fbnum`);
+    const certo = selecionadas.length === corretas.length && selecionadas.every(v => corretas.includes(v));
+    fb.textContent = certo ? '✅ Correto!' : '❌ Tente novamente!';
+    fb.style.color = certo ? '#16a34a' : '#dc2626';
+  }
+
+  function verificarOrdem(num, ordemCorreta) {
+    const container = document.getElementById(`ordemnum`);
+    const palavras = Array.from(container.querySelectorAll('.ordem-palavra')).map(el => el.textContent.trim());
+    const fb = document.getElementById(`fbnum`);
+    const certo = JSON.stringify(palavras) === JSON.stringify(ordemCorreta);
+    fb.textContent = certo ? '✅ Ordem correta!' : '❌ Ordem incorreta!';
+    fb.style.color = certo ? '#16a34a' : '#dc2626';
+  }
+
+  document.querySelectorAll('.ordem-palavra').forEach(el => {
+    el.draggable = true;
+    el.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', e.target.textContent));
+  });
+
+  document.querySelectorAll('.ordem-container').forEach(container => {
+    container.addEventListener('dragover', e => e.preventDefault());
+    container.addEventListener('drop', e => {
+      e.preventDefault();
+      const palavra = e.dataTransfer.getData('text/plain');
+      const dragged = Array.from(container.children).find(el => el.textContent === palavra);
+      const target = e.target.closest('.ordem-palavra');
+      if (dragged && target && dragged !== target) {
+        container.insertBefore(dragged, target.nextSibling);
+      }
+    });
+  });
+</script>
+<!-- === FIM DO CARROSSEL DE ATIVIDADES HÍBRIDO === -->
 
 
 

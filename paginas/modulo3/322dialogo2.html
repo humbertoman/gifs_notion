@@ -156,7 +156,8 @@ exemplo:</p>
   }
 </style>
 
-<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO (DRAG & DROP FIX) === -->
+
+<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO FUNCIONAL === -->
 <style>
   .atividade-carousel{position:relative;overflow:hidden;width:100%}
   .atividade-track{display:flex;transition:transform .5s ease-in-out;width:100%}
@@ -201,7 +202,6 @@ exemplo:</p>
       <div class="atividade-slide">
         <h3 class="text-xl font-semibold text-slate-800 mb-2">3️⃣ Escolha apenas as palavras corretas e ordene para formar:</h3>
         <p class="text-slate-600 mb-4"><em>"Eu gosto de aprender Libras"</em></p>
-        <!-- Pool (opções) -->
         <div id="pool3" class="pool-container">
           <div class="word" draggable="true" data-id="w1">Eu</div>
           <div class="word" draggable="true" data-id="w2">Libras</div>
@@ -211,24 +211,23 @@ exemplo:</p>
           <div class="word" draggable="true" data-id="w6">de</div>
           <div class="word" draggable="true" data-id="w7">aprender</div>
         </div>
-        <!-- Área de montagem da frase -->
         <div id="ordem3" class="ordem-container" aria-label="Monte aqui a frase"></div>
         <div class="verificar-btn"><button onclick="verificarEscolherOrdenar(3, ['Eu','gosto','de','aprender','Libras'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
         <p id="fb3" class="mt-4 text-lg font-semibold"></p>
       </div>
 
       <!-- === SLIDE 4: MÚLTIPLA ESCOLHA (VÁRIAS CORRETAS) === -->
-        <div class="atividade-slide">
-          <h3 class="text-xl font-semibold text-slate-800 mb-4">4️⃣ Quais dessas são cores primárias?</h3>
-          <div class="text-left inline-block text-lg mb-4">
-            <label class="opcao"><input type="checkbox" value="vermelho">Vermelho</label>
-            <label class="opcao"><input type="checkbox" value="azul">Azul</label>
-            <label class="opcao"><input type="checkbox" value="verde">Verde</label>
-            <label class="opcao"><input type="checkbox" value="amarelo">Amarelo</label>
-          </div>
-          <div class="verificar-btn"><button onclick="verificarMultiplas(4, ['vermelho','azul','amarelo'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
-          <p id="fb4" class="mt-4 text-lg font-semibold"></p>
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">4️⃣ Quais dessas são cores primárias?</h3>
+        <div class="text-left inline-block text-lg mb-4">
+          <label class="opcao"><input type="checkbox" value="vermelho">Vermelho</label>
+          <label class="opcao"><input type="checkbox" value="azul">Azul</label>
+          <label class="opcao"><input type="checkbox" value="verde">Verde</label>
+          <label class="opcao"><input type="checkbox" value="amarelo">Amarelo</label>
         </div>
+        <div class="verificar-btn"><button onclick="verificarMultiplas(4, ['vermelho','azul','amarelo'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <p id="fb4" class="mt-4 text-lg font-semibold"></p>
+      </div>
 
     </div>
     <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
@@ -237,49 +236,107 @@ exemplo:</p>
 </div>
 
 <script>
-  // Navegação
-  let slideAtual=0;
-  function mudarSlide(d){const s=document.querySelectorAll('.atividade-slide');const t=document.querySelector('.atividade-track');slideAtual=(slideAtual+d+s.length)%s.length;t.style.transform=`translateX(-${slideAtual*100}%)`} 
+document.addEventListener('DOMContentLoaded', () => {
+  let slideAtual = 0;
+  window.mudarSlide = function(delta) {
+    const slides = document.querySelectorAll('.atividade-slide');
+    const track = document.querySelector('.atividade-track');
+    slideAtual = (slideAtual + delta + slides.length) % slides.length;
+    track.style.transform = `translateX(-${slideAtual * 100}%)`;
+  };
 
-  // Verificações
-  function verificarAberta(n){const v=document.getElementById(`respn`).value.trim().toLowerCase();const fb=document.getElementById(`fbn`);const ok=(v==='brasília'||v==='brasilia');fb.textContent=ok?'✅ Correto!':'❌ Errado. Tente novamente!';fb.style.color=ok?'#16a34a':'#dc2626'}
-  function verificarUnica(n,c){const sel=document.querySelector(`input[name='qn']:checked`);const fb=document.getElementById(`fbn`);if(!sel){fb.textContent='⚠️ Escolha uma opção!';fb.style.color='#f59e0b';return}const ok=sel.value===c;fb.textContent=ok?'✅ Correto!':'❌ Errado!';fb.style.color=ok?'#16a34a':'#dc2626'}
-  function verificarMultiplas(n,cor){const sel=Array.from(document.querySelectorAll(`.atividade-slide:nth-child(n) input[type='checkbox']:checked`)).map(e=>e.value);const fb=document.getElementById(`fbn`);const ok=(sel.length===cor.length&&sel.every(v=>cor.includes(v)));fb.textContent=ok?'✅ Correto!':'❌ Tente novamente!';fb.style.color=ok?'#16a34a':'#dc2626'}
+  window.verificarAberta = function(num) {
+    const input = document.getElementById(`respnum`);
+    const fb = document.getElementById(`fbnum`);
+    const valor = input?.value.trim().toLowerCase();
+    if (!valor) {
+      fb.textContent = '⚠️ Digite uma resposta!';
+      fb.style.color = '#f59e0b';
+      return;
+    }
+    const correta = valor === 'brasília' || valor === 'brasilia';
+    fb.textContent = correta ? '✅ Correto!' : '❌ Errado. Tente novamente!';
+    fb.style.color = correta ? '#16a34a' : '#dc2626';
+  };
 
-  // === Drag & Drop utilitário ===
-  function setupDnD(poolId, ordemId){
-    const pool=document.getElementById(poolId);
-    const ordem=document.getElementById(ordemId);
-    // Delegação: iniciar drag
-    [pool,ordem].forEach(cont=>{
-      cont.addEventListener('dragstart',e=>{const w=e.target.closest('.word');if(!w)return;e.dataTransfer.setData('text/plain',w.dataset.id);});
-      cont.addEventListener('dragover',e=>{e.preventDefault();const tgt=e.target.closest('.word');(tgt||cont).classList.add('drag-over');});
-      cont.addEventListener('dragleave',e=>{const tgt=e.target.closest('.word');(tgt||cont).classList.remove('drag-over');});
-      cont.addEventListener('drop',e=>{e.preventDefault();const id=e.dataTransfer.getData('text/plain');const dragged=document.querySelector(`.word[data-id='id']`);const tgt=e.target.closest('.word');
-        [pool,ordem].forEach(c=>c.classList.remove('drag-over'));
-        if(!dragged)return;
-        if(tgt&&tgt.parentElement===cont){ cont.insertBefore(dragged, tgt.nextSibling);} else { cont.appendChild(dragged);} });
+  window.verificarUnica = function(num, correta) {
+    const opcao = document.querySelector(`input[name='qnum']:checked`);
+    const fb = document.getElementById(`fbnum`);
+    if (!opcao) {
+      fb.textContent = '⚠️ Escolha uma opção!';
+      fb.style.color = '#f59e0b';
+      return;
+    }
+    const ok = opcao.value === correta;
+    fb.textContent = ok ? '✅ Correto!' : '❌ Errado!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+
+  window.verificarMultiplas = function(num, corretas) {
+    const marcadas = Array.from(
+      document.querySelectorAll(`.atividade-slide:nth-child(num) input[type='checkbox']:checked`)
+    ).map(e => e.value);
+    const fb = document.getElementById(`fbnum`);
+    const certo =
+      marcadas.length === corretas.length &&
+      marcadas.every(v => corretas.includes(v));
+    fb.textContent = certo ? '✅ Correto!' : '❌ Tente novamente!';
+    fb.style.color = certo ? '#16a34a' : '#dc2626';
+  };
+
+  function setupDnD(poolId, ordemId) {
+    const pool = document.getElementById(poolId);
+    const ordem = document.getElementById(ordemId);
+
+    [pool, ordem].forEach(container => {
+      container.addEventListener('dragstart', e => {
+        if (!e.target.classList.contains('word')) return;
+        e.dataTransfer.setData('text/plain', e.target.dataset.id);
+      });
+
+      container.addEventListener('dragover', e => {
+        e.preventDefault();
+        container.classList.add('drag-over');
+      });
+
+      container.addEventListener('dragleave', () => {
+        container.classList.remove('drag-over');
+      });
+
+      container.addEventListener('drop', e => {
+        e.preventDefault();
+        container.classList.remove('drag-over');
+        const id = e.dataTransfer.getData('text/plain');
+        const dragged = document.querySelector(`.word[data-id='id']`);
+        if (!dragged) return;
+        if (container !== dragged.parentElement) {
+          container.appendChild(dragged);
+        }
+      });
+    });
+
+    document.querySelectorAll(`#poolId .word, #ordemId .word`).forEach(el => {
+      el.addEventListener('click', () => {
+        const parent = el.parentElement;
+        if (parent === pool) ordem.appendChild(el);
+        else pool.appendChild(el);
+      });
     });
   }
-  // Atalhos para toque: toque move do pool -> ordem e vice-versa
-  function enableTapMove(poolId, ordemId){
-    const pool=document.getElementById(poolId),ordem=document.getElementById(ordemId);
-    document.addEventListener('click',e=>{const w=e.target.closest('.word');if(!w)return;const parent=w.parentElement;if(parent===pool){ordem.appendChild(w)} else if(parent===ordem){pool.appendChild(w)}});
-  }
 
-  // Inicializar DnD para o Slide 3
-  setupDnD('pool3','ordem3');
-  enableTapMove('pool3','ordem3');
+  setupDnD('pool3', 'ordem3');
 
-  // Verificação do Slide 3
-  function verificarEscolherOrdenar(n, ordemCorreta){
-    const cont=document.getElementById(`ordemn`);
-    const palavras=Array.from(cont.querySelectorAll('.word')).map(el=>el.textContent.trim());
-    const fb=document.getElementById(`fbn`);
-    const ok=JSON.stringify(palavras)===JSON.stringify(ordemCorreta);
-    fb.textContent=ok?'✅ Frase correta!':'❌ Verifique a seleção e a ordem!';
-    fb.style.color=ok?'#16a34a':'#dc2626';
-  }
+  window.verificarEscolherOrdenar = function(num, ordemCorreta) {
+    const container = document.getElementById(`ordemnum`);
+    const palavras = Array.from(container.querySelectorAll('.word')).map(el =>
+      el.textContent.trim()
+    );
+    const fb = document.getElementById(`fbnum`);
+    const ok = JSON.stringify(palavras) === JSON.stringify(ordemCorreta);
+    fb.textContent = ok ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+});
 </script>
 <!-- === FIM DO CARROSSEL DE ATIVIDADES HÍBRIDO === -->
 

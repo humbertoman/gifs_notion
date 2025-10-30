@@ -190,13 +190,13 @@ exemplo:</p>
       <div class="atividade-slide">
         <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Qual desses sinais <STRONG>NÃO</STRONG> aparece no verbo?</h3>
         <div class="text-left inline-block text-lg mb-4">
-          <label class="opcao"><input type="radio" name="q2" value="mesa">LEGAL</label>
-          <label class="opcao"><input type="radio" name="q2" value="correr">OBRIGADO</label>
-          <label class="opcao"><input type="radio" name="q2" value="azul">NÃO-ENTENDER</label>
-          <label class="opcao"><input type="radio" name="q2" value="azul">REPETIR</label>
-          <label class="opcao"><input type="radio" name="q2" value="azul">OBRIGADO</label>
+          <label class="opcao"><input type="radio" name="q2" value="legal">LEGAL</label>
+          <label class="opcao"><input type="radio" name="q2" value="obrigado">OBRIGADO</label>
+          <label class="opcao"><input type="radio" name="q2" value="não-entender">NÃO-ENTENDER</label>
+          <label class="opcao"><input type="radio" name="q2" value="repetir">REPETIR</label>
+          <label class="opcao"><input type="radio" name="q2" value="desculpa">DESCULPA</label>
         </div>
-        <div class="verificar-btn"><button onclick="verificarUnica(2, 'correr')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <div class="verificar-btn"><button onclick="verificarUnica(2, 'obrigado')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
         <p id="fb2" class="mt-4 text-lg font-semibold"></p>
       </div>
 
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!fb) return;
     var valor = (input && input.value ? input.value : '').trim().toLowerCase();
     if(!valor){ fb.textContent='⚠️ Digite uma resposta!'; fb.style.color='#f59e0b'; return; }
-    var ok = (valor==='brasília' || valor==='brasilia');
+    var ok = (valor==='Habelardo' || valor==='Habelardo');
     fb.textContent = ok ? '✅ Correto!' : '❌ Errado. Tente novamente!';
     fb.style.color = ok ? '#16a34a' : '#dc2626';
   };

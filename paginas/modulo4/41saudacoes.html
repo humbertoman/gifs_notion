@@ -114,6 +114,7 @@
 
 
 
+
 <!-- === CARROSSEL DE ATIVIDADES HÍBRIDO === -->
 <style>
   .atividade-carousel{position:relative;overflow:hidden;width:100%}
@@ -135,13 +136,9 @@
   <div class="atividade-carousel relative">
     <div class="atividade-track">
 
-      
-
-
       <!-- === SLIDE 1: DRAG & DROP === -->
       <div class="atividade-slide">
         <h3 class="text-xl font-semibold text-slate-800 mb-2">Escolha e ordene as palavras:</h3>
-        
         <figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
           <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/eu_gosto_aprender_libras.gif" alt="eu gosto aprender libras">
         </figure>
@@ -157,15 +154,15 @@
           <div class="word" draggable="true" data-id="w8">aprender</div>
         </div>
         <div id="ordem3" class="ordem-container" aria-label="Monte aqui a frase"></div>
-        <div class="verificar-btn"><button onclick="verificarEscolherOrdenar(3, ['w1','w4','w7','w8','w2'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <div class="verificar-btn">
+          <button onclick="verificarEscolherOrdenar(3, ['w1','w4','w7','w8','w2'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        </div>
         <p id="fb3" class="mt-4 text-lg font-semibold"></p>
       </div>
 
-
-       <!-- === SLIDE 2: DRAG & DROP === -->
+      <!-- === SLIDE 2: DRAG & DROP === -->
       <div class="atividade-slide">
         <h3 class="text-xl font-semibold text-slate-800 mb-2">Escolha e ordene as palavras:</h3>
-        
         <figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
           <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/oi_bomdia_nome.gif" alt="bom dia qual seu nome">
         </figure>
@@ -182,11 +179,14 @@
           <div class="word" draggable="true" data-id="ww9">Tudo</div>
         </div>
         <div id="ordem4" class="ordem-container" aria-label="Monte aqui a frase"></div>
-        <div class="verificar-btn"><button onclick="verificarEscolherOrdenar(3, ['ww4','ww1','ww8','ww3','ww5','ww6'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
-        <p id="fb3" class="mt-4 text-lg font-semibold"></p>
+        <div class="verificar-btn">
+          <button onclick="verificarEscolherOrdenar(4, ['ww4','ww1','ww8','ww3','ww5','ww6'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
+        </div>
+        <p id="fb4" class="mt-4 text-lg font-semibold"></p>
       </div>
 
     </div>
+
     <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
     <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(1)">&#10095;</button>
   </div>
@@ -195,6 +195,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   var slideAtual = 0;
+
   window.mudarSlide = function(delta){
     var slides = document.querySelectorAll('.atividade-slide');
     var track  = document.querySelector('.atividade-track');
@@ -203,6 +204,7 @@ document.addEventListener('DOMContentLoaded', function(){
     track.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
   };
 
+  // ===== Verificações genéricas (mantidas caso use em outros slides) =====
   window.verificarAberta = function(n){
     var input = document.getElementById('resp' + n);
     var fb    = document.getElementById('fb' + n);
@@ -219,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var fb     = document.getElementById('fb' + n);
     if(!slides.length || !fb) return;
     var slide  = slides[n-1];
-    var opcao  = slide ? slide.querySelector('input[type=\"radio\"]:checked') : null;
+    var opcao  = slide ? slide.querySelector('input[type="radio"]:checked') : null;
     if(!opcao){ fb.textContent='⚠️ Escolha uma opção!'; fb.style.color='#f59e0b'; return; }
     var ok = (opcao.value === correta);
     fb.textContent = ok ? '✅ Correto!' : '❌ Errado!';
@@ -231,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var fb     = document.getElementById('fb' + n);
     if(!slides.length || !fb) return;
     var slide  = slides[n-1];
-    var marcadasEls = slide ? slide.querySelectorAll('input[type=\"checkbox\"]:checked') : [];
+    var marcadasEls = slide ? slide.querySelectorAll('input[type="checkbox"]:checked') : [];
     var marcadas = [];
     for(var i=0;i<marcadasEls.length;i++){ marcadas.push(marcadasEls[i].value); }
     var ok = (marcadas.length === corretas.length);
@@ -244,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fb.style.color = ok ? '#16a34a' : '#dc2626';
   };
 
+  // ===== Drag & Drop (comparando por data-id) =====
   function setupDnD(poolId, ordemId){
     var pool  = document.getElementById(poolId);
     var ordem = document.getElementById(ordemId);
@@ -256,21 +259,20 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     function onDragOver(e){
       e.preventDefault();
-      var tgt = e.target && e.target.classList ? e.target : null;
-      var cont = (tgt && tgt.classList.contains('word')) ? tgt.parentElement : e.currentTarget;
+      var cont = e.currentTarget;
       cont.classList.add('drag-over');
     }
     function onDragLeave(e){
-      var cont = e.currentTarget;
-      cont.classList.remove('drag-over');
+      e.currentTarget.classList.remove('drag-over');
     }
     function onDrop(e){
       e.preventDefault();
       var cont = e.currentTarget;
       cont.classList.remove('drag-over');
       var id = e.dataTransfer.getData('text/plain');
-      var dragged = document.querySelector('.word[data-id=\"' + id + '\"]');
+      var dragged = document.querySelector('.word[data-id="' + id + '"]');
       if(!dragged) return;
+
       var targetWord = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
       if(targetWord && targetWord.parentElement === cont){
         if(targetWord.nextSibling){
@@ -290,29 +292,38 @@ document.addEventListener('DOMContentLoaded', function(){
       container.addEventListener('drop', onDrop);
     });
 
+    // Clique alterna entre pool e ordem (útil para mobile)
     document.addEventListener('click', function(e){
       var w = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
       if(!w) return;
       var parent = w.parentElement;
-      if(parent === pool){ ordem.appendChild(w); } else if(parent === ordem){ pool.appendChild(w); }
+      if(parent === pool){ ordem.appendChild(w); } 
+      else if(parent === ordem){ pool.appendChild(w); }
     });
   }
 
+  // Garantir que todas as palavras sejam arrastáveis
   var words = document.querySelectorAll('.word');
   for(var z=0; z<words.length; z++){ words[z].setAttribute('draggable','true'); }
-  setupDnD('pool3','ordem3');
 
+  // Ativar DnD para ambos os slides
+  setupDnD('pool3','ordem3');
+  setupDnD('pool4','ordem4');
+
+  // Verificação por ORDEM DE IDs (data-id)
   window.verificarEscolherOrdenar = function(n, ordemCorreta){
     var container = document.getElementById('ordem' + n);
     var fb = document.getElementById('fb' + n);
     if(!container || !fb) return;
+
     var els = container.querySelectorAll('.word');
-    var palavras = [];
-    for(var i=0;i<els.length;i++){ palavras.push(els[i].textContent.trim()); }
-    var ok = (palavras.length === ordemCorreta.length);
+    var ids = [];
+    for(var i=0;i<els.length;i++){ ids.push(els[i].getAttribute('data-id')); }
+
+    var ok = (ids.length === ordemCorreta.length);
     if(ok){
-      for(var j=0;j<palavras.length;j++){
-        if(palavras[j] !== ordemCorreta[j]){ ok=false; break; }
+      for(var j=0;j<ids.length;j++){
+        if(ids[j] !== ordemCorreta[j]){ ok=false; break; }
       }
     }
     fb.textContent = ok ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';
@@ -321,8 +332,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <!-- === FIM DO CARROSSEL === -->
-
-
 
 
 

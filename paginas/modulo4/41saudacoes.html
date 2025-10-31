@@ -328,6 +328,24 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
     </div>
   </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>OI (TUDO BOM)</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>OBRIGADO</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/obrigado.gif" alt="8"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>NADA / DE NADA</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/nada.gif" alt="8"></div>
+    </div>
+  </div>
 
   </div>
 </div>
@@ -343,9 +361,67 @@ document.addEventListener('DOMContentLoaded', function(){
 </style>
 
 
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Mais alguns sinais importantes nesse primeiro encontro:
+</p>
 
 
+<div class="flipcard-container">
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>SURDO</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/surdo.gif" alt="5"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>OUVINTE</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/ouvinte.gif" alt="6"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>SINAL</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/sinal.gif" alt="8"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>LIBRAS 1</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/libras.gif" alt="8"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>LIBRAS 2</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>SABER</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/saber.gif" alt="8"></div>
+    </div>
+  </div>
+  <div class="flipcard" onclick="this.classList.toggle('flipped')">
+    <div class="flipcard-inner">
+      <div class="flipcard-front"><p>APRENDER</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/aprender.gif" alt="8"></div>
+    </div>
+  </div>
 
+  </div>
+</div>
+<style>
+  .flipcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 40px auto; }
+  .flipcard { background: transparent; width: 200px; height: 200px; perspective: 1000px; cursor: pointer; }
+  .flipcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
+  .flipcard-front, .flipcard-back { position: absolute; width: 100%; height: 100%; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
+  .flipcard-front { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; }
+  .flipcard-back { transform: rotateY(180deg); background-color: #000; }
+  .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
+</style>
 
 
 

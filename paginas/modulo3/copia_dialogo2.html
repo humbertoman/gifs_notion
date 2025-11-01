@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<!-- ========================================================================== -->
+<!-- ===                    NÃO MEXA NESTA SEÇÃO                           === -->
+<!-- ========================================================================== -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALFABETO contextualizado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .carousel-track { transition: transform 0.5s ease-in-out; }
+        .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+        .aspect-h-9 { padding-bottom: 56.25%; }
+        .aspect-w-16 { position: relative; height: 0; }
+        .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
+        .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
+        #modal.hidden { display: none; }
+        .custom-ordered-list { list-style: none; counter-reset: list-counter; padding-left: 0; }
+        .custom-ordered-list li { counter-increment: list-counter; position: relative; padding-left: 2.5rem; margin-bottom: 0.75rem; }
+        .custom-ordered-list li::before {
+            content: counter(list-counter);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #334155;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+    </style>
+</head>
+<!-- ========================================================================== -->
+<!-- ===                 FIM DA SEÇÃO QUE NÃO DEVE MEXER                   === -->
+<!-- ========================================================================== -->
+
+<body class="bg-slate-50 text-slate-800">
+
+<!-- ========================================================================== -->
+<!-- ===        NÃO MEXA - HEADER FIXO (você pode editar só o texto)      === -->
+<!-- ========================================================================== -->
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-emerald-600 to-teal-700 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
+        <div class="py-4">
+            <span class="font-semibold text-white text-xl">3.2.1 Contextualizando (Diálogo 1)</span>
+        </div>
+    </div>
+</header>
+<!-- ========================================================================== -->
+<!-- ===                    FIM DO HEADER FIXO                             === -->
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+<div class="pt-24"> 
+    <div class="container mx-auto p-4 sm:p-8 lg:p-12 max-w-screen-2xl">
+<!-- ========================================================================== -->
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###   COMECE A EDITAR AQUI - COLE OS BLOCOS DA CAIXA DE FERRAMENTAS     ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+
+
+        <p class="mt-0 mb-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Quando não entendemos algum sinal ou soletração, utilizamos algumas expressões chamadas de <em>Clarifiers</em> ou Esclarecedoras, por
+exemplo:</p>
+
+<div class="my-12 max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-lg code-block">
+  <pre class="bg-slate-800 text-slate-200 p-6 rounded-2xl overflow-x-auto"><code class="language-javascript"> DESCULPA, NÃO ENTENDI.
+  PODE REPETIR?
+  FALA DEVAGAR, OBRIGADO.
+  QUE SINAL É ESSE?
+  COMO SE DIZ ISSO EM LIBRAS?</code></pre>
+</div>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Você pode consultar essas e mais algumas expressões no link abaixo:
+</p>
+
+<div class="my-12 max-w-3xl mx-auto">
+    <a href="https://rattle-iguana-3e2.notion.site/Express-es-Esclarecedoras-551974e4b4f34aaf8fd4e380f7579d15" target="_blank" rel="noopener noreferrer" class="block bg-white border border-slate-200/50 p-6 rounded-2xl shadow-sm transition-shadow duration-300 hover:shadow-lg">
+        <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 text-slate-500 mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+            </div>
+            <div>
+                <h4 class="font-semibold text-slate-900 mb-1">Expressões esclarecedoras</h4>
+                <p class="text-slate-600 text-base">Recorte da Coleção "Libras em 150 sinais".</p>
+            </div>
+            <div class="ml-auto flex-shrink-0 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </div>
+        </div>
+    </a>
+</div>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Vamos assistir a mais um diálogo em Libras. Tente compreender o nome soletrado e os sinais que aparecem nesse contexto.
+</p>
+
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Diálogo 2
+</h2>
+
+<!-- === PLAYER EMBED RESPONSIVO === -->
+<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe
+      class="rounded-2xl shadow-xl w-full h-full"
+      src="https://player.mediadelivery.net/embed/520267/da19a4ef-b611-4254-b8ea-01f810c4a414"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+<!-- === FIM DO PLAYER EMBED === -->
+
+<style>
+  /* Remove o botão de áudio/volume dos controles nativos */
+  video::-webkit-media-controls-volume-slider,
+  video::-webkit-media-controls-mute-button {
+    display: none !important;
+  }
+  video::-webkit-media-controls-toggle-closed-captions-button {
+    display: none !important;
+  }
+
+  /* Em alguns navegadores, força o áudio permanentemente mudo */
+  video {
+    pointer-events: auto;
+  }
+</style>
+
+
+<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO (SEM TEMPLATE LITERALS) === -->
+<style>
+  .atividade-carousel{position:relative;overflow:hidden;width:100%}
+  .atividade-track{display:flex;transition:transform .5s ease-in-out;width:100%}
+  .atividade-slide{flex:0 0 100%;max-width:100%;padding:2rem;text-align:center}
+  .atividade-slide input[type=text]{width:100%;max-width:300px;margin:0 auto;display:block}
+  .verificar-btn{margin-top:1rem;display:inline-block}
+  .opcao{display:flex;align-items:center;gap:.5rem;margin:.5rem 0}
+  .pool-container,.ordem-container{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+  .ordem-container{margin:1rem 0;min-height:64px;border:2px dashed #cbd5e1;padding:10px;border-radius:10px}
+  .word{background:#e2e8f0;padding:.5rem 1rem;border-radius:8px;cursor:grab;user-select:none}
+  .drag-over{outline:2px dashed #60a5fa;outline-offset:2px}
+</style>
+
+<div class="atividade-hibrida my-12 text-center">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Atividade de compreensão</h2>
+  <p class="text-slate-600 mb-8">Cada página traz um tipo de questão diferente. Responda e clique em <strong>Verificar</strong>.</p>
+
+  <div class="atividade-carousel relative">
+    <div class="atividade-track">
+
+      <!-- === SLIDE 1: RESPOSTA ABERTA === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">1️⃣ Qual o nome do rapaz?</h3>
+        <input id="resp1" type="text" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+        <div class="verificar-btn"><button onclick="verificarAberta(1)" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <p id="fb1" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 2: MÚLTIPLA ESCOLHA (UMA CORRETA) === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">2️⃣ Qual desses sinais <STRONG>NÃO</STRONG> aparece no verbo?</h3>
+        <div class="text-left inline-block text-lg mb-4">
+          <label class="opcao"><input type="radio" name="q2" value="mesa">LEGAL</label>
+          <label class="opcao"><input type="radio" name="q2" value="correr">OBRIGADO</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">NÃO-ENTENDER</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">REPETIR</label>
+          <label class="opcao"><input type="radio" name="q2" value="azul">OBRIGADO</label>
+        </div>
+        <div class="verificar-btn"><button onclick="verificarUnica(2, 'correr')" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <p id="fb2" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 3: ESCOLHER E ORDENAR PALAVRAS CERTAS (DRAG & DROP) === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">3️⃣ Escolha apenas as palavras corretas e ordene para formar:</h3>
+        <p class="text-slate-600 mb-4"><em>"Eu gosto de aprender Libras"</em></p>
+        <div id="pool3" class="pool-container">
+          <div class="word" draggable="true" data-id="w1">Eu</div>
+          <div class="word" draggable="true" data-id="w2">Libras</div>
+          <div class="word" draggable="true" data-id="w3">ontem</div>
+          <div class="word" draggable="true" data-id="w4">gosto</div>
+          <div class="word" draggable="true" data-id="w5">comer</div>
+          <div class="word" draggable="true" data-id="w6">de</div>
+          <div class="word" draggable="true" data-id="w7">aprender</div>
+        </div>
+        <div id="ordem3" class="ordem-container" aria-label="Monte aqui a frase"></div>
+        <div class="verificar-btn"><button onclick="verificarEscolherOrdenar(3, ['Eu','gosto','de','aprender','Libras'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <p id="fb3" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 4: MÚLTIPLA ESCOLHA (VÁRIAS CORRETAS) === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">4️⃣ Quais dessas são cores primárias?</h3>
+        <div class="text-left inline-block text-lg mb-4">
+          <label class="opcao"><input type="checkbox" value="vermelho">Vermelho</label>
+          <label class="opcao"><input type="checkbox" value="azul">Azul</label>
+          <label class="opcao"><input type="checkbox" value="verde">Verde</label>
+          <label class="opcao"><input type="checkbox" value="amarelo">Amarelo</label>
+        </div>
+        <div class="verificar-btn"><button onclick="verificarMultiplas(4, ['vermelho','azul','amarelo'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button></div>
+        <p id="fb4" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+    </div>
+    <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
+    <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(1)">&#10095;</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // ========= Navegação sem template literals =========
+  var slideAtual = 0;
+  window.mudarSlide = function(delta){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var track  = document.querySelector('.atividade-track');
+    if(!slides.length || !track) return;
+    slideAtual = (slideAtual + delta + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
+  };
+
+  // ========= Verificações =========
+  window.verificarAberta = function(n){
+    var input = document.getElementById('resp' + n);
+    var fb    = document.getElementById('fb' + n);
+    if(!fb) return;
+    var valor = (input && input.value ? input.value : '').trim().toLowerCase();
+    if(!valor){ fb.textContent='⚠️ Digite uma resposta!'; fb.style.color='#f59e0b'; return; }
+    var ok = (valor==='brasília' || valor==='brasilia');
+    fb.textContent = ok ? '✅ Correto!' : '❌ Errado. Tente novamente!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+
+  window.verificarUnica = function(n, correta){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var fb     = document.getElementById('fb' + n);
+    if(!slides.length || !fb) return;
+    var slide  = slides[n-1];
+    var opcao  = slide ? slide.querySelector('input[type="radio"]:checked') : null;
+    if(!opcao){ fb.textContent='⚠️ Escolha uma opção!'; fb.style.color='#f59e0b'; return; }
+    var ok = (opcao.value === correta);
+    fb.textContent = ok ? '✅ Correto!' : '❌ Errado!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+
+  window.verificarMultiplas = function(n, corretas){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var fb     = document.getElementById('fb' + n);
+    if(!slides.length || !fb) return;
+    var slide  = slides[n-1];
+    var marcadasEls = slide ? slide.querySelectorAll('input[type="checkbox"]:checked') : [];
+    var marcadas = [];
+    for(var i=0;i<marcadasEls.length;i++){ marcadas.push(marcadasEls[i].value); }
+    var ok = (marcadas.length === corretas.length);
+    if(ok){
+      for(var j=0;j<marcadas.length;j++){
+        if(corretas.indexOf(marcadas[j]) === -1){ ok=false; break; }
+      }
+    }
+    fb.textContent = ok ? '✅ Correto!' : '❌ Tente novamente!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+
+  // ========= Drag & Drop (Slide 3) =========
+  function setupDnD(poolId, ordemId){
+    var pool  = document.getElementById(poolId);
+    var ordem = document.getElementById(ordemId);
+    if(!pool || !ordem) return;
+
+    function onDragStart(e){
+      var w = e.target && e.target.classList ? e.target : null;
+      if(!w || !w.classList.contains('word')) return;
+      e.dataTransfer.setData('text/plain', w.getAttribute('data-id'));
+    }
+    function onDragOver(e){
+      e.preventDefault();
+      var tgt = e.target && e.target.classList ? e.target : null;
+      var cont = (tgt && tgt.classList.contains('word')) ? tgt.parentElement : e.currentTarget;
+      cont.classList.add('drag-over');
+    }
+    function onDragLeave(e){
+      var cont = e.currentTarget;
+      cont.classList.remove('drag-over');
+    }
+    function onDrop(e){
+      e.preventDefault();
+      var cont = e.currentTarget;
+      cont.classList.remove('drag-over');
+      var id = e.dataTransfer.getData('text/plain');
+      var dragged = document.querySelector('.word[data-id="' + id + '"]');
+      if(!dragged) return;
+      var targetWord = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
+      if(targetWord && targetWord.parentElement === cont){
+        // Inserir após o alvo para facilitar reordenação
+        if(targetWord.nextSibling){
+          cont.insertBefore(dragged, targetWord.nextSibling);
+        } else {
+          cont.appendChild(dragged);
+        }
+      } else {
+        cont.appendChild(dragged);
+      }
+    }
+
+    [pool, ordem].forEach(function(container){
+      container.addEventListener('dragstart', onDragStart);
+      container.addEventListener('dragover', onDragOver);
+      container.addEventListener('dragleave', onDragLeave);
+      container.addEventListener('drop', onDrop);
+    });
+
+    // Tap/click para mover (mobile) entre pool <-> ordem
+    document.addEventListener('click', function(e){
+      var w = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
+      if(!w) return;
+      var parent = w.parentElement;
+      if(parent === pool){ ordem.appendChild(w); } else if(parent === ordem){ pool.appendChild(w); }
+    });
+  }
+
+  // Tornar palavras arrastáveis (garantia)
+  var words = document.querySelectorAll('.word');
+  for(var z=0; z<words.length; z++){ words[z].setAttribute('draggable','true'); }
+  setupDnD('pool3','ordem3');
+
+  window.verificarEscolherOrdenar = function(n, ordemCorreta){
+    var container = document.getElementById('ordem' + n);
+    var fb = document.getElementById('fb' + n);
+    if(!container || !fb) return;
+    var els = container.querySelectorAll('.word');
+    var palavras = [];
+    for(var i=0;i<els.length;i++){ palavras.push(els[i].textContent.trim()); }
+    var ok = (palavras.length === ordemCorreta.length);
+    if(ok){
+      for(var j=0;j<palavras.length;j++){
+        if(palavras[j] !== ordemCorreta[j]){ ok=false; break; }
+      }
+    }
+    fb.textContent = ok ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+});
+</script>
+<!-- === FIM DO CARROSSEL DE ATIVIDADES HÍBRIDO === -->
+
+
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Além das letras, observamos alguns sinais que aparecem no vídeo. Consegue advinhar o significado desses sinais? Tente fazer isso sem olhar a resposta abaixo.</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Agora vamos verificar se você acertou:</p>
+
+<!-- === BLOCO DE ATIVIDADE: ASSOCIAÇÃO GIF ↔ PALAVRA === -->
+<div class="my-12 max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg transition-shadow hover:shadow-xl">
+  <h2 class="text-2xl font-bold text-slate-800 text-center mb-8">Atividade — Associe o sinal ao significado correto</h2>
+
+  <!-- Grid de GIFs -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+    <div class="gif-item text-center" data-correspondencia="conhecer">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/conhecer.gif?updatedAt=1761418263727" alt="conhecer"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="tambem">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/tambem.gif?updatedAt=1761344643504" alt="tambem"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="prazer/gostar">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/gostar_prazer.gif?updatedAt=1761344639277" alt="prazer/gostar"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="nome">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/nome.gif?updatedAt=1761344626594" alt="nome"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="certo">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/certo.gif?updatedAt=1761418264205" alt="certo"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Botão Verificar -->
+  <div class="text-center mt-10">
+    <button id="verificarAssociacao"
+      class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+      Verificar
+    </button>
+    <p id="feedbackGeral" class="mt-6 text-lg font-semibold"></p>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const btnVerificar = document.getElementById("verificarAssociacao");
+    const itens = document.querySelectorAll(".gif-item");
+    const feedbackGeral = document.getElementById("feedbackGeral");
+
+    btnVerificar.addEventListener("click", () => {
+      let acertos = 0;
+      const total = itens.length;
+
+      itens.forEach((item) => {
+        const respostaCorreta = item.dataset.correspondencia;
+        const select = item.querySelector("select");
+        const respostaSelecionada = select.value.trim();
+
+        if (respostaSelecionada === "") {
+          select.classList.remove("border-green-500", "border-red-500");
+          select.classList.add("border-slate-300");
+          return;
+        }
+
+        if (respostaSelecionada === respostaCorreta) {
+          select.classList.remove("border-slate-300", "border-red-500");
+          select.classList.add("border-green-500");
+          acertos++;
+        } else {
+          select.classList.remove("border-slate-300", "border-green-500");
+          select.classList.add("border-red-500");
+        }
+      });
+
+      if (acertos === total) {
+        feedbackGeral.textContent = "✅ Todas as associações estão corretas! Parabéns!";
+        feedbackGeral.style.color = "#16a34a";
+      } else {
+        feedbackGeral.textContent = "Tente novamente!";
+        feedbackGeral.style.color = "#dc2626";
+      }
+    });
+  });
+</script>
+<!-- === FIM DO BLOCO DE ATIVIDADE: ASSOCIAÇÃO === -->
+
+
+
+
+
+<!-- ############################################################################
+     ###                                                                      ###
+     ###              PARE DE EDITAR AQUI                                    ###
+     ###                                                                      ###
+     ############################################################################ -->
+
+
+<!-- ========================================================================== -->
+<!-- ===                NÃO MEXA NESTAS DUAS LINHAS ABAIXO                 === -->
+<!-- ========================================================================== -->
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===     NÃO MEXA - ESTRUTURA DO MODAL (você edita o conteúdo depois) === -->
+<!-- ========================================================================== -->
+<div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <!-- VOCÊ PODE EDITAR O CONTEÚDO DO MODAL ABAIXO: -->
+        <h3 class="text-2xl font-bold text-slate-900 mb-4">Exemplo prático</h3>
+        <p class="text-slate-600">Imagine que você precisa perguntar a um usuário surdo se ele precisa "ASSINAR" um documento. Você ainda não sabe o sinal de ASSINAR.
+<p class="text-slate-600">
+Ação Incorporada (Mímica): Pegue uma folha de papel e uma caneta (ou imagine) e faça o movimento claro de escrever seu nome/rubrica no papel, olhando para o usuário como quem pede pra assinar e apontando para o local da assinatura.
+</p>
+<p class="text-slate-600">
+Essa ação é compreensível e resolve a comunicação imediata. O gesto e a mímica são suas ferramentas de "primeiros socorros" na comunicação.</p>
+    </div>
+</div>
+<!-- ========================================================================== -->
+
+
+<!-- ========================================================================== -->
+<!-- ===              NÃO MEXA NESTE SCRIPT                                === -->
+<!-- ========================================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const carouselElement = document.getElementById('carousel');
+    if (carouselElement) {
+        const track = carouselElement.querySelector('.carousel-track');
+        const slides = track ? Array.from(track.children) : [];
+        const nextButton = document.getElementById('nextBtn');
+        const prevButton = document.getElementById('prevBtn');
+        const dotsContainer = document.getElementById('dots-container');
+        let currentIndex = 0;
+        const loadSlideContent = (index) => {
+            const slide = slides[index];
+            if (!slide) return;
+            const img = slide.querySelector('img');
+            if (img && img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+            }
+        };
+        const moveToSlide = (targetIndex) => {
+            if (targetIndex < 0 || targetIndex >= slides.length || slides.length === 0) return;
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            if (!slideWidth || !track) return;
+            loadSlideContent(targetIndex);
+            track.style.transform = `translateX(-${slideWidth * targetIndex}px)`;
+            currentIndex = targetIndex;
+            updateUI();
+        };
+        const updateUI = () => {
+            if (!dotsContainer || !prevButton || !nextButton) return;
+            const dots = Array.from(dotsContainer.children);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === currentIndex);
+                dot.classList.toggle('bg-white/50', index !== currentIndex);
+            });
+            prevButton.disabled = (currentIndex === 0);
+            nextButton.disabled = (currentIndex === slides.length - 1);
+        };
+        const setupCarousel = () => {
+            if (slides.length === 0 || !dotsContainer || !track) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors');
+                dotsContainer.appendChild(dot);
+                dot.addEventListener('click', () => moveToSlide(index));
+            });
+            const slideWidth = slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+            if (!slideWidth) return;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            setTimeout(() => { if(track) track.style.transition = 'transform 0.5s ease-in-out'; }, 50);
+            updateUI();
+            loadSlideContent(currentIndex);
+        };
+        if (nextButton && prevButton) {
+            nextButton.addEventListener('click', () => moveToSlide(currentIndex + 1));
+            prevButton.addEventListener('click', () => moveToSlide(currentIndex - 1));
+        }
+        window.addEventListener('resize', setupCarousel);
+        setTimeout(setupCarousel, 100);
+    }
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const accordionItem = header.parentElement;
+            const accordionContent = header.nextElementSibling;
+            if (!accordionItem || !accordionContent) return;
+            header.classList.toggle('active');
+            if (accordionContent.style.maxHeight) {
+                accordionContent.style.maxHeight = null;
+                accordionItem.classList.remove('open');
+            } else {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                accordionItem.classList.add('open');
+            }
+        });
+    });
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+    if (openModalBtn && closeModalBtn && modal && modalContent) {
+        const openModal = () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        };
+        const closeModal = () => {
+            modal.classList.remove('opacity-100');
+            modalContent.classList.remove('scale-100');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        };
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    }
+});
+</script>
+<!-- ========================================================================== -->
+
+</body>
+</html>
+
+
+<!-- 
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                         CAIXA DE FERRAMENTAS                                 ║
+║                     COPIE E COLE OS BLOCOS ABAIXO                            ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+INSTRUÇÕES DE USO:
+1. Role para baixo e encontre o bloco que deseja
+2. Copie TODO o código do bloco (desde o comentário INÍCIO até FIM)
+3. Cole na área de edição da sua página (entre os comentários de início e fim de edição)
+4. Edite o texto, links e imagens dentro do bloco colado
+5. Repita para adicionar mais blocos
+
+IMPORTANTE SOBRE ESPAÇAMENTO:
+- Cada bloco tem "my-12" que adiciona espaço em cima e embaixo
+- O PRIMEIRO bloco da sua página deve usar "mt-0 mb-12" ao invés de "my-12"
+- Isso evita espaço duplo no topo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+█████████████████████████████████████████████████████████████████████████████
+███  1. TÍTULO PRINCIPAL (H1)
+█████████████████████████████████████████████████████████████████████████████ -->

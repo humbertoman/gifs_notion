@@ -91,339 +91,384 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
     Agora veja a sinalização dos vídeos abaixo e encontre o destino indicado. 
 </p>
 
-<!-- === ATIVIDADE DE 6 QUESTÕES === -->
-<div class="atividade-container my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
-
-  <h2 class="text-2xl font-bold text-slate-800 mb-6">Exercício</h2>
-  <p class="text-slate-600 mb-8">Veja cada vídeo e preencha o local de destino indicado.</p>
-
-  <div class="space-y-6 text-left">
-
-    <!-- Vídeo 1 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">1️⃣ Vídeo 1:</label>
-      <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-    <!-- Questão 2 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">2️⃣ Vídeo 2:</label>
-      <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-    <!-- Questão 3 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">3️⃣ Vídeo 3:</label>
-      <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-    <!-- Questão 4 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">4️⃣ Vídeo 4:</label>
-      <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback4" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-    <!-- Questão 5 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">5️⃣ Vídeo 5:</label>
-      <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback5" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-    <!-- Questão 6 -->
-    <div>
-      <label class="block text-slate-700 font-medium mb-2">6️⃣ Vídeo 6:</label>
-      <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
-      <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
-    </div>
-
-  </div>
-
-  <button id="verificarBtn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
-    Verificar todas as respostas
-  </button>
-
-  <p id="resultadoFinal" class="mt-6 text-lg font-bold"></p>
-</div>
-
-<!-- === SCRIPT === -->
-<script>
-  const respostasCorretas = ["57", "12", "38", "44", "29", "63"]; // ✅ Altere conforme suas respostas reais
-  const botao = document.getElementById("verificarBtn");
-  const resultadoFinal = document.getElementById("resultadoFinal");
-
-  botao.addEventListener("click", () => {
-    let acertos = 0;
-
-    for (let i = 1; i <= 6; i++) {
-      const input = document.getElementById(`respostai`);
-      const feedback = document.getElementById(`feedbacki`);
-      const resposta = input.value.trim();
-
-      if (resposta === "") {
-        feedback.textContent = "⚠️ Campo vazio.";
-        feedback.style.color = "#f59e0b";
-        continue;
-      }
-
-      if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
-        feedback.textContent = "✅ Correto!";
-        feedback.style.color = "#16a34a";
-        acertos++;
-      } else {
-        feedback.textContent = `❌ Errado. Resposta: ${respostasCorretas[i - 1]}`;
-        feedback.style.color = "#dc2626";
-      }
-    }
-
-    resultadoFinal.textContent = `Você acertou acertos de 6.`;
-    resultadoFinal.style.color = acertos === 6 ? "#16a34a" : "#334155";
-  });
-</script>
-<!-- === FIM DA ATIVIDADE === -->
-
-
-
-<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
-
-<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
-    Cumprimentos
-</h2>
-
-
-
-<div class="flipcard-container">
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>BOM DIA</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/bomdia.gif" alt="5"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>BOA TARDE</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/boatarde.gif" alt="6"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>BOA NOITE</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/boanoite.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>OI</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>OI (TUDO BOM)</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>OBRIGADO</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/obrigado.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>NADA / DE NADA</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/nada.gif" alt="8"></div>
-    </div>
-  </div>
-
-  </div>
-</div>
-<style>
-  .flipcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 40px auto; }
-  .flipcard { background: transparent; width: 200px; height: 200px; perspective: 1000px; cursor: pointer; }
-  .flipcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
-  .flipcard-front, .flipcard-back { position: absolute; width: 100%; height: 100%; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
-  .flipcard-front { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; }
-  .flipcard-back { transform: rotateY(180deg); background-color: #000; }
-  .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
-</style>
-
-
-<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    Mais alguns sinais importantes nesse primeiro encontro:
-</p>
-
-
-<div class="flipcard-container">
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>SURDO</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/surdo.gif" alt="5"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>OUVINTE</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/ouvinte.gif" alt="6"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>SINAL</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/sinal.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>LIBRAS 1</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/libras.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>LIBRAS 2</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>SABER</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/saber.gif" alt="8"></div>
-    </div>
-  </div>
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>APRENDER</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/aprender.gif" alt="8"></div>
-    </div>
-  </div>
-
-  </div>
-</div>
-<style>
-  .flipcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 40px auto; }
-  .flipcard { background: transparent; width: 200px; height: 200px; perspective: 1000px; cursor: pointer; }
-  .flipcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
-  .flipcard-front, .flipcard-back { position: absolute; width: 100%; height: 100%; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
-  .flipcard-front { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; }
-  .flipcard-back { transform: rotateY(180deg); background-color: #000; }
-  .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
-</style>
-
-<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
-
-<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
-    Diálogo 3
-</h2>
-
-<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    Assista ao diálogo abaixo e responda às perguntas.
-</p>
-
-<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
-  <div class="aspect-[4/3]">
-    <iframe class="w-full h-full rounded-2xl shadow-xl" src="https://app.Lumi.education/run/4GY5CF" frameborder="0" allowfullscreen></iframe>
-  </div>
-  <p class="text-center text-slate-500 mt-4 text-base">
-    Link alternativo: <a href="https://app.Lumi.education/run/4GY5CF" target="_blank" class="text-blue-600 hover:underline">abrir H5P</a>.
-  </p>
-</div>
-
-<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    Assista ao Diálogo 3 mais uma vez e tente identificar o significado do sinal abaixo:
-</p>
-
-
 <!-- === BLOCO DE COLUNAS LIVRES === -->
 <div class="my-12 max-w-5xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
 
   <!-- Coluna 1 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
 
-<div class="flipcard-container">
-  <div class="flipcard" onclick="this.classList.toggle('flipped')">
-    <div class="flipcard-inner">
-      <div class="flipcard-front"><p>?</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/querer.gif" alt=""></div>
+    <!-- ===== CARROSSEL MISTO (VÍDEO via IFRAME) ===== -->
+    <style>
+      .gif-carousel { position: relative; width: 100%; margin: 0 auto; }
+      .carousel-track { position: relative; }
+      .carousel-slide { display: none; position: relative; }
+      .carousel-slide.active { display: block; }
+
+      .carousel-slide img, .carousel-slide video { width: 100%; height: auto; border-radius: 12px; display: block; }
+
+      /* 9:16 (vertical) - ajustado às dimensões do vídeo */
+      .embed-wrap {
+        position: relative; 
+        width: 100%;
+        padding-top: 177.78%; /* 9:16 */
+        border-radius: 12px; 
+        overflow: hidden; 
+        background: #000;
+      }
+      .embed-wrap iframe {
+        position: absolute; 
+        inset: 0; 
+        width: 100%; 
+        height: 100%;
+        border: 0; 
+        display: block;
+      }
+
+      .slide-title {
+        position: absolute; left: 0; right: 0; bottom: 12px;
+        text-align: center; color: #fff; font-weight: 700; font-size: 1.125rem;
+        text-shadow: 0 1px 6px rgba(0,0,0,.7); pointer-events: none;
+      }
+      .gif-carousel .prev, .gif-carousel .next {
+        cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+        padding: 12px; font-size: 22px; color: #fff; user-select: none;
+        background: rgba(0,0,0,.5); border-radius: 999px; line-height: 1;
+        transition: background 0.2s; z-index: 10;
+      }
+      .gif-carousel .prev:hover, .gif-carousel .next:hover {
+        background: rgba(0,0,0,.7);
+      }
+      .gif-carousel .prev { left: 8px; }
+      .gif-carousel .next { right: 8px; }
+    </style>
+
+    <div class="gif-carousel" data-start="1" aria-roledescription="carousel">
+      <div class="carousel-track">
+
+        <!-- Video 1 -->
+        <div class="carousel-slide active" aria-hidden="false">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 1"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b?autoplay=false&loop=false&muted=false&preload=true">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 1</div>
+        </div>
+
+        <!-- Video 2  -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 2"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              data-src="https://iframe.mediadelivery.net/embed/520267/c9f43290-8b86-441a-a4b5-d5d070f19eac?autoplay=false&loop=false&muted=false&preload=true">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 2</div>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 3"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              data-src="https://iframe.mediadelivery.net/embed/520267/c239e420-d760-4026-8bd3-dd4ee7de1613?autoplay=false&loop=false&muted=false&preload=true">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 3</div>
+        </div>
+
+        <!-- Video 4 dia -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 4"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              data-src="https://iframe.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa?autoplay=false&loop=false&muted=false&preload=true">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 4</div>
+        </div>
+
+        <!-- Video 5 - senha CORRIJA O URL AQUI -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 5"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              data-src="https://iframe.mediadelivery.net/embed/520267/7fadf585-df8f-40b4-8790-25ff16617060?autoplay=false&loop=false&muted=false&preload=true">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 5</div>
+        </div>
+
+        <!-- Video 6 dinheiro -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 6"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              data-src="https://iframe.mediadelivery.net/embed/520267/0ed1fa7a-1f4f-4102-b2c4-c4dc5df5340b?autoplay=false&loop=false&muted=false&preload=true
+">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 6</div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 7"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              data-src="https://iframe.mediadelivery.net/embed/520267/dd30298f-57ff-4877-965c-2f3368dff80d?autoplay=false&loop=false&muted=false&preload=true">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 7</div>
+        </div>
+
+         <!-- Slide 8 processo  -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="embed-wrap">
+            <iframe
+              title="Diálogo 8"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              data-src="https://iframe.mediadelivery.net/embed/520267/3b2e46f6-c411-4e19-b5fc-028e42b8f63a?autoplay=false&loop=false&muted=false&preload=true">
+            </iframe>
+          </div>
+          <div class="slide-title">Vídeo 8</div>
+        </div>
+
+        <a class="prev" aria-label="Vídeo anterior" role="button" tabindex="0">&#10094;</a>
+        <a class="next" aria-label="Próximo vídeo" role="button" tabindex="0">&#10095;</a>
+      </div>
     </div>
-  </div>
-</div>
-<style>
-  .flipcard-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 40px auto; }
-  .flipcard { background: transparent; width: 200px; height: 200px; perspective: 1000px; cursor: pointer; }
-  .flipcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
-  .flipcard-front, .flipcard-back { position: absolute; width: 100%; height: 100%; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
-  .flipcard-front { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
-  .flipcard-back { transform: rotateY(180deg); background-color: #000; }
-  .flipcard-back img { width: 100%; height: 100%; object-fit: cover; }
-</style>
 
+    <script>
+      (function initCarousels(){
+        const carousels = document.querySelectorAll('.gif-carousel');
+        carousels.forEach((carousel) => {
+          const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+          const prev = carousel.querySelector('.prev');
+          const next = carousel.querySelector('.next');
+          let index = 1; // Sempre começa no slide 1
 
+          function unloadSlideMedia(slide){
+            const vid = slide.querySelector('video');
+            if (vid) { 
+              try { vid.pause(); } catch(e){} 
+              vid.currentTime = 0; 
+            }
+            const ifr = slide.querySelector('iframe');
+            if (ifr) {
+              // Salva o src atual no data-src
+              const currentSrc = ifr.src || ifr.getAttribute('data-src');
+              if (currentSrc) {
+                ifr.setAttribute('data-src', currentSrc);
+              }
+              // Remove o src para descarregar o vídeo
+              ifr.removeAttribute('src');
+            }
+          }
+
+          function loadSlideMedia(slide){
+            const ifr = slide.querySelector('iframe');
+            if (ifr) {
+              const dataSrc = ifr.getAttribute('data-src');
+              // Só carrega se não tiver src E tiver data-src
+              if (!ifr.src && dataSrc) {
+                ifr.src = dataSrc;
+              }
+            }
+          }
+
+          function show(i){
+            if (i < 1) i = slides.length;
+            if (i > slides.length) i = 1;
+
+            // Remove active de todos
+            slides.forEach((s) => {
+              s.classList.remove('active');
+              s.setAttribute('aria-hidden', 'true');
+              unloadSlideMedia(s);
+            });
+
+            // Ativa o slide atual
+            index = i;
+            const current = slides[index - 1];
+            current.classList.add('active');
+            current.setAttribute('aria-hidden', 'false');
+            loadSlideMedia(current);
+          }
+
+          function plus(n){ show(index + n); }
+
+          prev && prev.addEventListener('click', () => plus(-1));
+          next && next.addEventListener('click', () => plus(1));
+
+          // Suporte para navegação por teclado
+          prev && prev.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              plus(-1);
+            }
+          });
+          next && next.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              plus(1);
+            }
+          });
+
+          // Inicializa no primeiro slide
+          show(1);
+        });
+      })();
+    </script>
+    <!-- ===== FIM DO CARROSSEL MISTO ===== -->
   </div>
+  <!-- Fim da Coluna 1 -->
 
   <!-- Coluna 2 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
+    <!-- === ATIVIDADE DE 7 QUESTÕES === -->
+    <div class="atividade-container">
+      <p class="text-slate-600 mb-6 text-center">Veja cada vídeo e preencha o local de destino indicado.</p>
 
-    <!-- === ATIVIDADE DE DIGITAR E VERIFICAR === -->
-    <div class="atividade-container my-12 max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md text-center transition-shadow duration-300 hover:shadow-lg">
-      <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual o significado do sinal?</h3>
-      
-      <input 
-        type="text" 
-        id="resposta" 
-        placeholder="Digite sua resposta aqui" 
-        class="border border-slate-300 rounded-lg p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-      
-      <button 
-        id="verificarBtn" 
-        class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 transition-transform hover:scale-105"
-      >
-        Verificar
+      <div class="space-y-4 text-left">
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">1️⃣ Vídeo 1:</label>
+          <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
+        </div>
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">2️⃣ Vídeo 2:</label>
+          <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
+        </div>
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">3️⃣ Vídeo 3:</label>
+          <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
+        </div>
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">4️⃣ Vídeo 4:</label>
+          <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback4" class="mt-1 text-sm font-semibold"></p>
+        </div>
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">5️⃣ Vídeo 5:</label>
+          <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback5" class="mt-1 text-sm font-semibold"></p>
+        </div>
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">6️⃣ Vídeo 6:</label>
+          <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
+        </div>
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">7️⃣ Vídeo 7:</label>
+          <input type="text" id="resposta7" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback7" class="mt-1 text-sm font-semibold"></p>
+        </div>
+        <div>
+          <label class="block text-slate-700 font-medium mb-2">2️⃣ Vídeo 8:</label>
+          <input type="text" id="resposta8" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
+        </div>
+      </div>
+
+      <button id="verificarBtn" class="mt-6 w-full bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all">
+        🔍 Verificar todas as respostas
       </button>
-      
-      <p id="feedback" class="mt-4 text-lg font-semibold"></p>
+      <p id="resultadoFinal" class="mt-4 text-lg font-bold text-center"></p>
     </div>
-    
+
     <script>
-      // === CONFIGURAÇÃO ===
-      const respostaCorreta = "Querer"; // Altere aqui a resposta certa
-      const botao = document.getElementById("verificarBtn");
-      const input = document.getElementById("resposta");
-      const feedback = document.getElementById("feedback");
-    
-      botao.addEventListener("click", () => {
-        const resposta = input.value.trim();
-        if (resposta === "") {
-          feedback.textContent = "⚠️ Digite uma resposta antes de verificar!";
-          feedback.style.color = "#f59e0b"; // amarelo
-          return;
-        }
-    
-        if (resposta.toLowerCase() === respostaCorreta.toLowerCase()) {
-          feedback.textContent = "✅ Correto! Muito bem!";
-          feedback.style.color = "#16a34a"; // verde
-        } else {
-          feedback.textContent = "❌ Resposta incorreta. Tente novamente!";
-          feedback.style.color = "#dc2626"; // vermelho
-        }
-      });
+      (function() {
+        const respostasCorretas = ["82996478231", "874", "872105597", "15", "64", "56", "10", "2025817/13-97"];
+        const botao = document.getElementById("verificarBtn");
+        const resultadoFinal = document.getElementById("resultadoFinal");
+
+        if (!botao || !resultadoFinal) return;
+
+        botao.addEventListener("click", () => {
+          let acertos = 0;
+          let vazios = 0;
+          
+          for (let i = 1; i <= 8; i++) {
+            const input = document.getElementById(`resposta${i}`);
+            const feedback = document.getElementById(`feedback${i}`);
+            
+            if (!input || !feedback) continue;
+            
+            const resposta = (input.value || "").trim();
+            
+            if (!resposta) {
+              feedback.textContent = "⚠️ Campo vazio.";
+              feedback.style.color = "#f59e0b";
+              input.classList.remove('border-green-500', 'border-red-500');
+              vazios++;
+              continue;
+            }
+            
+            if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
+              feedback.textContent = "✅ Correto!";
+              feedback.style.color = "#16a34a";
+              input.classList.add('border-green-500');
+              input.classList.remove('border-red-500');
+              acertos++;
+            } else {
+              feedback.textContent = "❌ Incorreto.";
+              feedback.style.color = "#dc2626";
+              input.classList.add('border-red-500');
+              input.classList.remove('border-green-500');
+            }
+          }
+          
+          if (vazios === 7) {
+            resultadoFinal.textContent = "⚠️ Preencha pelo menos uma resposta!";
+            resultadoFinal.style.color = "#f59e0b";
+          } else {
+            resultadoFinal.textContent = `Você acertou ${acertos} de 7 ${acertos === 7 ? '🎉' : ''}`;
+            resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
+          }
+        });
+      })();
     </script>
     <!-- === FIM DA ATIVIDADE === -->
-
   </div>
-
-  
+  <!-- Fim da Coluna 2 -->
 
 </div>
 <!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
+
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Vamos ver se você encontrou o significado dos sinais abaixo. 
+</p>
+
+
+
+
+
+
+
+
+
+
 
   </main>
   <script>

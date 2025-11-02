@@ -460,7 +460,135 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
     Vamos ver se você encontrou o significado dos sinais abaixo. 
 </p>
 
+<!-- === BLOCO DE ATIVIDADE: ASSOCIAÇÃO GIF ↔ PALAVRA === -->
+<div class="my-12 max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg transition-shadow hover:shadow-xl">
+  <h2 class="text-2xl font-bold text-slate-800 text-center mb-8">Atividade — Associe o sinal ao significado correto</h2>
 
+  <!-- Grid de GIFs -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+    <div class="gif-item text-center" data-correspondencia="conhecer">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/conhecer.gif?updatedAt=1761418263727" alt="conhecer"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="tambem">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/tambem.gif?updatedAt=1761344643504" alt="tambem"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="prazer/gostar">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/gostar_prazer.gif?updatedAt=1761344639277" alt="prazer/gostar"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="nome">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/nome.gif?updatedAt=1761344626594" alt="nome"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="certo">
+      <img src="https://ik.imagekit.io/a02tbgrjz/Gifs/certo.gif?updatedAt=1761418264205" alt="certo"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="nome">nome</option>
+        <option value="conhecer">conhecer</option>
+        <option value="certo">certo</option>
+        <option value="prazer/gostar">prazer/gostar</option>
+        <option value="tambem">também</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Botão Verificar -->
+  <div class="text-center mt-10">
+    <button id="verificarAssociacao"
+      class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+      Verificar
+    </button>
+    <p id="feedbackGeral" class="mt-6 text-lg font-semibold"></p>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const btnVerificar = document.getElementById("verificarAssociacao");
+    const itens = document.querySelectorAll(".gif-item");
+    const feedbackGeral = document.getElementById("feedbackGeral");
+
+    btnVerificar.addEventListener("click", () => {
+      let acertos = 0;
+      const total = itens.length;
+
+      itens.forEach((item) => {
+        const respostaCorreta = item.dataset.correspondencia;
+        const select = item.querySelector("select");
+        const respostaSelecionada = select.value.trim();
+
+        if (respostaSelecionada === "") {
+          select.classList.remove("border-green-500", "border-red-500");
+          select.classList.add("border-slate-300");
+          return;
+        }
+
+        if (respostaSelecionada === respostaCorreta) {
+          select.classList.remove("border-slate-300", "border-red-500");
+          select.classList.add("border-green-500");
+          acertos++;
+        } else {
+          select.classList.remove("border-slate-300", "border-green-500");
+          select.classList.add("border-red-500");
+        }
+      });
+
+      if (acertos === total) {
+        feedbackGeral.textContent = "✅ Todas as associações estão corretas! Parabéns!";
+        feedbackGeral.style.color = "#16a34a";
+      } else {
+        feedbackGeral.textContent = "Tente novamente!";
+        feedbackGeral.style.color = "#dc2626";
+      }
+    });
+  });
+</script>
+<!-- === FIM DO BLOCO DE ATIVIDADE: ASSOCIAÇÃO === -->
 
 
 

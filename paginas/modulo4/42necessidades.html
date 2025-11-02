@@ -91,223 +91,100 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
     Agora veja a sinalização dos vídeos abaixo e encontre o destino indicado. 
 </p>
 
-<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO === -->
-<style>
-  .atividade-carousel{position:relative;overflow:hidden;width:100%}
-  .atividade-track{display:flex;transition:transform .5s ease-in-out;width:100%}
-  .atividade-slide{flex:0 0 100%;max-width:100%;padding:2rem;text-align:center}
-  .atividade-slide input[type=text]{width:100%;max-width:300px;margin:0 auto;display:block}
-  .verificar-btn{margin-top:1rem;display:inline-block}
-  .opcao{display:flex;align-items:center;gap:.5rem;margin:.5rem 0}
-  .pool-container,.ordem-container{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
-  .ordem-container{margin:1rem 0;min-height:64px;border:2px dashed #cbd5e1;padding:10px;border-radius:10px}
-  .word{background:#e2e8f0;padding:.5rem 1rem;border-radius:8px;cursor:grab;user-select:none}
-  .drag-over{outline:2px dashed #60a5fa;outline-offset:2px}
-</style>
+<!-- === ATIVIDADE DE 6 QUESTÕES === -->
+<div class="atividade-container my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg text-center transition-shadow hover:shadow-xl">
 
-<div class="atividade-hibrida my-12 text-center">
   <h2 class="text-2xl font-bold text-slate-800 mb-6">Exercício</h2>
-  <p class="text-slate-600 mb-8">Cada página traz uma questão diferente. Escolha e ordene as palavras, tentando identificar os significados dos sinais. Na sequência, clique em <strong>Verificar</strong>.</p>
+  <p class="text-slate-600 mb-8">Veja cada vídeo e preencha o local de destino indicado.</p>
 
-  <div class="atividade-carousel relative">
-    <div class="atividade-track">
+  <div class="space-y-6 text-left">
 
-      <!-- === SLIDE 1: DRAG & DROP === -->
-      <div class="atividade-slide">
-        <h3 class="text-xl font-semibold text-slate-800 mb-2">Escolha e ordene as palavras de acordo com a frase:</h3>
-        <figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
-          <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/eu_gosto_aprender_libras.gif" alt="eu gosto aprender libras">
-        </figure>
-
-        <div id="pool3" class="pool-container">
-          <div class="word" draggable="true" data-id="w1">Eu</div>
-          <div class="word" draggable="true" data-id="w2">Libras</div>
-          <div class="word" draggable="true" data-id="w3">estudar</div>
-          <div class="word" draggable="true" data-id="w4">gosto</div>
-          <div class="word" draggable="true" data-id="w5">quero</div>
-          <div class="word" draggable="true" data-id="w6">brincar</div>
-          <div class="word" draggable="true" data-id="w7">de</div>
-          <div class="word" draggable="true" data-id="w8">aprender</div>
-        </div>
-        <div id="ordem3" class="ordem-container" aria-label="Monte aqui a frase"></div>
-        <div class="verificar-btn">
-          <button onclick="verificarEscolherOrdenar(3, ['w1','w4','w7','w8','w2'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
-        </div>
-        <p id="fb3" class="mt-4 text-lg font-semibold"></p>
-      </div>
-
-      <!-- === SLIDE 2: DRAG & DROP === -->
-      <div class="atividade-slide">
-        <h3 class="text-xl font-semibold text-slate-800 mb-2">Escolha e ordene as palavras:</h3>
-        <figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
-          <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/oi_bomdia_nome.gif" alt="bom dia qual seu nome">
-        </figure>
-
-        <div id="pool4" class="pool-container">
-          <div class="word" draggable="true" data-id="ww1">Bom/boa</div>
-          <div class="word" draggable="true" data-id="ww2">Meu</div>
-          <div class="word" draggable="true" data-id="ww3">Qual</div>
-          <div class="word" draggable="true" data-id="ww4">Oi</div>
-          <div class="word" draggable="true" data-id="ww5">Seu</div>
-          <div class="word" draggable="true" data-id="ww6">Nome</div>
-          <div class="word" draggable="true" data-id="ww7">Tarde</div>
-          <div class="word" draggable="true" data-id="ww8">Dia</div>
-          <div class="word" draggable="true" data-id="ww9">Tudo</div>
-        </div>
-        <div id="ordem4" class="ordem-container" aria-label="Monte aqui a frase"></div>
-        <div class="verificar-btn">
-          <button onclick="verificarEscolherOrdenar(4, ['ww4','ww1','ww8','ww3','ww5','ww6'])" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">Verificar</button>
-        </div>
-        <p id="fb4" class="mt-4 text-lg font-semibold"></p>
-      </div>
-
+    <!-- Vídeo 1 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">1️⃣ Vídeo 1:</label>
+      <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
     </div>
 
-    <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
-    <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(1)">&#10095;</button>
+    <!-- Questão 2 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">2️⃣ Vídeo 2:</label>
+      <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
+    </div>
+
+    <!-- Questão 3 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">3️⃣ Vídeo 3:</label>
+      <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
+    </div>
+
+    <!-- Questão 4 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">4️⃣ Vídeo 4:</label>
+      <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback4" class="mt-1 text-sm font-semibold"></p>
+    </div>
+
+    <!-- Questão 5 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">5️⃣ Vídeo 5:</label>
+      <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback5" class="mt-1 text-sm font-semibold"></p>
+    </div>
+
+    <!-- Questão 6 -->
+    <div>
+      <label class="block text-slate-700 font-medium mb-2">6️⃣ Vídeo 6:</label>
+      <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500">
+      <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
+    </div>
+
   </div>
+
+  <button id="verificarBtn" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+    Verificar todas as respostas
+  </button>
+
+  <p id="resultadoFinal" class="mt-6 text-lg font-bold"></p>
 </div>
 
+<!-- === SCRIPT === -->
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-  var slideAtual = 0;
+  const respostasCorretas = ["57", "12", "38", "44", "29", "63"]; // ✅ Altere conforme suas respostas reais
+  const botao = document.getElementById("verificarBtn");
+  const resultadoFinal = document.getElementById("resultadoFinal");
 
-  window.mudarSlide = function(delta){
-    var slides = document.querySelectorAll('.atividade-slide');
-    var track  = document.querySelector('.atividade-track');
-    if(!slides.length || !track) return;
-    slideAtual = (slideAtual + delta + slides.length) % slides.length;
-    track.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
-  };
+  botao.addEventListener("click", () => {
+    let acertos = 0;
 
-  // ===== Verificações genéricas (mantidas caso use em outros slides) =====
-  window.verificarAberta = function(n){
-    var input = document.getElementById('resp' + n);
-    var fb    = document.getElementById('fb' + n);
-    if(!fb) return;
-    var valor = (input && input.value ? input.value : '').trim().toLowerCase();
-    if(!valor){ fb.textContent='⚠️ Digite uma resposta!'; fb.style.color='#f59e0b'; return; }
-    var ok = (valor==='habelardo' || valor==='Habelardo');
-    fb.textContent = ok ? '✅ Correto!' : '❌ Errado. Tente novamente!';
-    fb.style.color = ok ? '#16a34a' : '#dc2626';
-  };
+    for (let i = 1; i <= 6; i++) {
+      const input = document.getElementById(`respostai`);
+      const feedback = document.getElementById(`feedbacki`);
+      const resposta = input.value.trim();
 
-  window.verificarUnica = function(n, correta){
-    var slides = document.querySelectorAll('.atividade-slide');
-    var fb     = document.getElementById('fb' + n);
-    if(!slides.length || !fb) return;
-    var slide  = slides[n-1];
-    var opcao  = slide ? slide.querySelector('input[type="radio"]:checked') : null;
-    if(!opcao){ fb.textContent='⚠️ Escolha uma opção!'; fb.style.color='#f59e0b'; return; }
-    var ok = (opcao.value === correta);
-    fb.textContent = ok ? '✅ Correto!' : '❌ Errado!';
-    fb.style.color = ok ? '#16a34a' : '#dc2626';
-  };
-
-  window.verificarMultiplas = function(n, corretas){
-    var slides = document.querySelectorAll('.atividade-slide');
-    var fb     = document.getElementById('fb' + n);
-    if(!slides.length || !fb) return;
-    var slide  = slides[n-1];
-    var marcadasEls = slide ? slide.querySelectorAll('input[type="checkbox"]:checked') : [];
-    var marcadas = [];
-    for(var i=0;i<marcadasEls.length;i++){ marcadas.push(marcadasEls[i].value); }
-    var ok = (marcadas.length === corretas.length);
-    if(ok){
-      for(var j=0;j<marcadas.length;j++){
-        if(corretas.indexOf(marcadas[j]) === -1){ ok=false; break; }
+      if (resposta === "") {
+        feedback.textContent = "⚠️ Campo vazio.";
+        feedback.style.color = "#f59e0b";
+        continue;
       }
-    }
-    fb.textContent = ok ? '✅ Correto!' : '❌ Tente novamente!';
-    fb.style.color = ok ? '#16a34a' : '#dc2626';
-  };
 
-  // ===== Drag & Drop (comparando por data-id) =====
-  function setupDnD(poolId, ordemId){
-    var pool  = document.getElementById(poolId);
-    var ordem = document.getElementById(ordemId);
-    if(!pool || !ordem) return;
-
-    function onDragStart(e){
-      var w = e.target && e.target.classList ? e.target : null;
-      if(!w || !w.classList.contains('word')) return;
-      e.dataTransfer.setData('text/plain', w.getAttribute('data-id'));
-    }
-    function onDragOver(e){
-      e.preventDefault();
-      var cont = e.currentTarget;
-      cont.classList.add('drag-over');
-    }
-    function onDragLeave(e){
-      e.currentTarget.classList.remove('drag-over');
-    }
-    function onDrop(e){
-      e.preventDefault();
-      var cont = e.currentTarget;
-      cont.classList.remove('drag-over');
-      var id = e.dataTransfer.getData('text/plain');
-      var dragged = document.querySelector('.word[data-id="' + id + '"]');
-      if(!dragged) return;
-
-      var targetWord = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
-      if(targetWord && targetWord.parentElement === cont){
-        if(targetWord.nextSibling){
-          cont.insertBefore(dragged, targetWord.nextSibling);
-        } else {
-          cont.appendChild(dragged);
-        }
+      if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
+        feedback.textContent = "✅ Correto!";
+        feedback.style.color = "#16a34a";
+        acertos++;
       } else {
-        cont.appendChild(dragged);
+        feedback.textContent = `❌ Errado. Resposta: ${respostasCorretas[i - 1]}`;
+        feedback.style.color = "#dc2626";
       }
     }
 
-    [pool, ordem].forEach(function(container){
-      container.addEventListener('dragstart', onDragStart);
-      container.addEventListener('dragover', onDragOver);
-      container.addEventListener('dragleave', onDragLeave);
-      container.addEventListener('drop', onDrop);
-    });
-
-    // Clique alterna entre pool e ordem (útil para mobile)
-    document.addEventListener('click', function(e){
-      var w = e.target && e.target.classList && e.target.classList.contains('word') ? e.target : null;
-      if(!w) return;
-      var parent = w.parentElement;
-      if(parent === pool){ ordem.appendChild(w); } 
-      else if(parent === ordem){ pool.appendChild(w); }
-    });
-  }
-
-  // Garantir que todas as palavras sejam arrastáveis
-  var words = document.querySelectorAll('.word');
-  for(var z=0; z<words.length; z++){ words[z].setAttribute('draggable','true'); }
-
-  // Ativar DnD para ambos os slides
-  setupDnD('pool3','ordem3');
-  setupDnD('pool4','ordem4');
-
-  // Verificação por ORDEM DE IDs (data-id)
-  window.verificarEscolherOrdenar = function(n, ordemCorreta){
-    var container = document.getElementById('ordem' + n);
-    var fb = document.getElementById('fb' + n);
-    if(!container || !fb) return;
-
-    var els = container.querySelectorAll('.word');
-    var ids = [];
-    for(var i=0;i<els.length;i++){ ids.push(els[i].getAttribute('data-id')); }
-
-    var ok = (ids.length === ordemCorreta.length);
-    if(ok){
-      for(var j=0;j<ids.length;j++){
-        if(ids[j] !== ordemCorreta[j]){ ok=false; break; }
-      }
-    }
-    fb.textContent = ok ? '✅ Frase correta!' : '❌ Verifique a seleção e a ordem!';
-    fb.style.color = ok ? '#16a34a' : '#dc2626';
-  };
-});
+    resultadoFinal.textContent = `Você acertou acertos de 6.`;
+    resultadoFinal.style.color = acertos === 6 ? "#16a34a" : "#334155";
+  });
 </script>
-<!-- === FIM DO CARROSSEL === -->
+<!-- === FIM DA ATIVIDADE === -->
 
 
 

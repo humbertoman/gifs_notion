@@ -196,7 +196,11 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
 
 <!-- Botão que abre o popup (Dica!) -->
 <div class="my-10 text-center">
-  <button class="popup-btn bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105">
+  <button
+    class="popup-btn bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105"
+    data-title="Dica!"
+    data-text="Depois de memorizar o alfabeto, tente fazer um teste: verifique se lembra o sinal daquela letra antes mesmo de virar o card."
+  >
     Dica!
   </button>
 </div>
@@ -205,8 +209,10 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
 <div class="popup-overlay hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
   <div class="popup-content bg-white rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl relative">
     <button class="popup-close absolute top-3 right-4 text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
-    <h3 class="text-2xl font-semibold text-slate-900 mb-4">Dica!</h3>
-    <p class="text-slate-600 text-lg leading-relaxed">Depois de memorizar o alfabeto, tente fazer um teste: verifique se lembra o sinal daquela letra antes mesmo de virar o card. </p>
+    <h3 id="popup-title" class="text-2xl font-semibold text-slate-900 mb-4">Dica!</h3>
+    <p id="popup-text" class="text-slate-600 text-lg leading-relaxed">
+      Depois de memorizar o alfabeto, tente fazer um teste: verifique se lembra o sinal daquela letra antes mesmo de virar o card.
+    </p>
   </div>
 </div>
 
@@ -218,12 +224,40 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
 </style>
 
 <script>
-  const popupBtn = document.querySelector('.popup-btn');
-  const popupOverlay = document.querySelector('.popup-overlay');
-  const popupClose = document.querySelector('.popup-close');
-  popupBtn.addEventListener('click', () => { popupOverlay.classList.add('active'); popupOverlay.classList.remove('hidden'); });
-  popupClose.addEventListener('click', () => { popupOverlay.classList.remove('active'); setTimeout(() => popupOverlay.classList.add('hidden'), 200); });
-  popupOverlay.addEventListener('click', (e) => { if (e.target === popupOverlay) { popupOverlay.classList.remove('active'); setTimeout(() => popupOverlay.classList.add('hidden'), 200); }});
+  document.addEventListener('DOMContentLoaded', () => {
+    const popupButtons = document.querySelectorAll('.popup-btn');
+    const popupOverlay = document.querySelector('.popup-overlay');
+    const popupClose = document.querySelector('.popup-close');
+    const popupTitle = document.getElementById('popup-title');
+    const popupText = document.getElementById('popup-text');
+
+    if (popupButtons.length && popupOverlay && popupClose && popupTitle && popupText) {
+      popupButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const title = btn.dataset.title || 'Dica';
+          const text = btn.dataset.text || '';
+
+          popupTitle.textContent = title;
+          popupText.textContent = text;
+
+          popupOverlay.classList.add('active');
+          popupOverlay.classList.remove('hidden');
+        });
+      });
+
+      popupClose.addEventListener('click', () => {
+        popupOverlay.classList.remove('active');
+        setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+      });
+
+      popupOverlay.addEventListener('click', (e) => {
+        if (e.target === popupOverlay) {
+          popupOverlay.classList.remove('active');
+          setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+        }
+      });
+    }
+  });
 </script>
 
 <!-- === FLIPCARD DO ALFABETO (preservado) === -->
@@ -407,7 +441,7 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
 <hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
 
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    Conseguiu memorizar todas as letras? Percebeu que algumas letras se parecem ou compartilham da mesma configuração de mão, mudando apenas o movimento? Vamos ver se você acertas estas distinções no exercício abaixo.
+    Conseguiu memorizar todas as letras? Percebeu que algumas letras se parecem ou compartilham da mesma configuração de mão, mudando apenas o movimento? Vamos ver se você acerta estas distinções no exercício abaixo.
 </p>
 
 <div class="atividade-card my-6 max-w-4xl mx-auto">
@@ -480,6 +514,7 @@ A Datilologia, popularmente conhecida como Alfabeto Manual, é um dos recursos m
     for(let i=0;i<total;i++){
       const b = document.createElement('span');
       b.className = 'dot' + (i===questaoAtual1?' active':'');
+
       dots.appendChild(b);
     }
   }
@@ -592,6 +627,7 @@ Um sinal soletrado é aquele que se originou da soletração manual de uma palav
     for(let i=0;i<total;i++){
       const b = document.createElement('span');
       b.className = 'dot' + (i===questaoAtual2?' active':'');
+
       dots.appendChild(b);
     }
   }
@@ -631,6 +667,16 @@ Um sinal soletrado é aquele que se originou da soletração manual de uma palav
   </ol>
 </div>
 
+<!-- Botão Gabarito no fim da página -->
+<div class="my-10 text-center">
+  <button
+    class="popup-btn bg-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-emerald-700 transition-transform hover:scale-105"
+    data-title="Gabarito"
+    data-text="Atividade 1 — Respostas: 1) 1, 2) 2, 3) 2, 4) 1, 5) 1.  Atividade 2 — Respostas: bar, maio, pai, nunca, oi, ok."
+  >
+    Gabarito
+  </button>
+</div>
 
 
 <!-- ############################################################################

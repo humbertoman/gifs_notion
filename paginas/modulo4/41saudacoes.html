@@ -330,8 +330,8 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
   <div class="flipcard" onclick="this.classList.toggle('flipped')">
     <div class="flipcard-inner">
-      <div class="flipcard-front"><p>OI (TUDO BOM)</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
+      <div class="flipcard-front"><p>TUDO BOM</p></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/tudo_bom.gif" alt="8"></div>
     </div>
   </div>
   <div class="flipcard" onclick="this.classList.toggle('flipped')">
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="flipcard" onclick="this.classList.toggle('flipped')">
     <div class="flipcard-inner">
       <div class="flipcard-front"><p>LIBRAS 2</p></div>
-      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/oi.gif" alt="8"></div>
+      <div class="flipcard-back"><img src="https://gifscursopullzone.b-cdn.net/libras2.gif" alt="8"></div>
     </div>
   </div>
   <div class="flipcard" onclick="this.classList.toggle('flipped')">
@@ -498,6 +498,8 @@ document.addEventListener('DOMContentLoaded', function(){
       
       <p id="feedback" class="mt-4 text-lg font-semibold"></p>
     </div>
+
+    
     
     <script>
       // === CONFIGURAÇÃO ===
@@ -531,6 +533,64 @@ document.addEventListener('DOMContentLoaded', function(){
 
 </div>
 <!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
+
+<!-- Botão que abre o popup -->
+<div class="my-12 text-center">
+  <button class="popup-btn bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105">
+    Gabarito
+  </button>
+</div>
+
+<!-- Estrutura do popup -->
+<div class="popup-overlay hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="popup-content bg-white rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl relative">
+    <button class="popup-close absolute top-3 right-4 text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+    <h3 class="text-2xl font-semibold text-slate-900 mb-4">Gabarito</h3>
+    <p class="text-slate-600 text-lg leading-relaxed">Resposta: Querer</p>
+  </div>
+</div>
+
+<style>
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+  }
+  .popup-overlay.active { display: flex; }
+  .popup-content {
+    animation: popupFade 0.3s ease;
+  }
+  @keyframes popupFade {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
+
+<script>
+  const popupBtn = document.querySelector('.popup-btn');
+  const popupOverlay = document.querySelector('.popup-overlay');
+  const popupClose = document.querySelector('.popup-close');
+
+  popupBtn.addEventListener('click', () => {
+    popupOverlay.classList.add('active');
+    popupOverlay.classList.remove('hidden');
+  });
+
+  popupClose.addEventListener('click', () => {
+    popupOverlay.classList.remove('active');
+    setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+  });
+
+  popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) {
+      popupOverlay.classList.remove('active');
+      setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+    }
+  });
+</script>
 
   </main>
   <script>

@@ -1,0 +1,764 @@
+
+
+
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  <title>modulo 4 interrogativas</title>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <style>
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    .carousel-track { transition: transform 0.5s ease-in-out; }
+    .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+    .aspect-h-9 { padding-bottom: 56.25%; }
+    .aspect-w-16 { position: relative; height: 0; }
+    .aspect-w-16 > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .accordion-content { overflow: hidden; max-height: 0; transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
+    .accordion-header.active .accordion-chevron { transform: rotate(90deg); }
+  </style>
+</head>
+<body class='bg-slate-50 text-slate-800'>
+  <header class='fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-rose-700 to-pink-600 shadow-lg'>
+    <div class='container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl'>
+      <div class='py-4'>
+        <span class='font-semibold text-white text-xl'>4.2. Interrogativas</span>
+      </div>
+    </div>
+  </header>
+  <div class='h-20'></div>
+  <!-- AREA 100% EDITAVEL: insira seus blocos somente dentro de <main id='AREA-EDITAVEL'> -->
+  <main id='AREA-EDITAVEL' class='container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl'>
+
+
+
+<!-- ============================================= -->
+<!-- ==  Atividade entrevista coletando de vdd as respostas
+ qual seu nome
+ qual sua idade
+ voce é surda ou ouvinte
+ você trabalha onde
+ voce mora onde
+ qual meu nome?
+ qual o nome desse sinal?
+   == -->
+<!-- ============================================= -->
+
+
+
+<!-- ============================================= -->
+<!-- ==  Outro possível entrevista coletando de vdd as respostas
+ Que sinal é esse
+ qual o sinal de lalalala
+ sinal x, qual o nome?
+ (foto do dia no calendario no gif) que dia eh hoje (ou amanha)
+   == -->
+<!-- ============================================= -->
+
+
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Já sabemos dizer "Oi" e "Bom dia". Mas para fazer a triagem e descobrir o que o usuário precisa, precisamos fazer perguntas.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Em Libras, a gramática da pergunta é um pouco diferente do português. Não basta saber o sinal de "QUAL" ou "ONDE". O segredo está em três regras de ouro:
+</p>
+
+
+
+<div class="my-12 max-w-3xl mx-auto">
+    <div class="space-y-8">
+        <div class="flex gap-4">
+            <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-slate-800 text-white font-bold rounded-full">1</div>
+            <div>
+                <h4 class="font-bold text-lg text-slate-900">Expressão facial</h4>
+                <p class="text-slate-600 mt-1">O ponto de interrogação está no seu rosto.</p>
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-slate-800 text-white font-bold rounded-full">2</div>
+            <div>
+                <h4 class="font-bold text-lg text-slate-900">Economia</h4>
+                <p class="text-slate-600 mt-1">Menos sinais pode significar mais sentido.</p>
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <div class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-slate-800 text-white font-bold rounded-full">3</div>
+            <div>
+                <h4 class="font-bold text-lg text-slate-900">Posição</h4>
+                <p class="text-slate-600 mt-1">A pergunta em si normalmente vai para o final da frase.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+Vamos dominar essas regras para que você se sinta seguro ao perguntar "O que você precisa?" ou "posso ajudar?".</p>
+
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    No português, usamos muitas palavras para ser educados: "Por favor, você poderia me dizer qual é o seu nome?".
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Em Libras, o foco é direto e visual. Muitas vezes, o próprio pronome interrogativo (QUAL, O QUE) é dispensável se o contexto já deixa claro que é uma pergunta.
+</p>
+
+
+
+<div class="my-12 bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-xl">
+    <h3 class="text-xl font-bold text-slate-900 mb-2">Expressão facial</h3>
+    <ul class="list-none space-y-3 text-base text-slate-600">
+        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Sobrancelhas franzidas (para perguntas de "O que/Quem").</li>
+        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Sobrancelhas levantadas (para perguntas de "Sim/Não").</li>
+        <li class="flex items-center gap-3"><svg class="flex-shrink-0 text-blue-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Cabeça levemente projetada para frente.
+</li>
+      
+    </ul>
+  
+</div>
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Exemplos
+</h2>
+
+<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+  <div class="flex-1 w-full flex justify-center md:justify-end">
+    <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl">
+      <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/voce_nome.gif" alt="">
+      <figcaption class="text-center text-slate-500 mt-4 text-base"></figcaption>
+    </figure>
+  </div>
+  <div class="flex-1 w-full flex justify-center md:justify-start">
+    <div class="max-w-md">
+      <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">VOCÊ NOME?<br>(<em>Qual o seu nome?</em>)</h3>
+     <div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+       <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+         <li>Expressão de pergunta acontece, principalmente, no momento do sinal NOME. Mas pode ser distribuída na frase inteira.</li>
+         <li>O sinal QUAL existe, mas aqui ele é desnecessário.</li>
+       </ol>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+  <div class="flex-1 w-full flex justify-center md:justify-end">
+    <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl">
+      <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/voce_idade.gif" alt="">
+      <figcaption class="text-center text-slate-500 mt-4 text-base"></figcaption>
+    </figure>
+  </div>
+  <div class="flex-1 w-full flex justify-center md:justify-start">
+    <div class="max-w-md">
+      <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">VOCÊ IDADE?<br>(<em>Quantos anos você tem?</em>)</h3>
+     <div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+       <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+         <li>Expressão de pergunta acontece, principalmente, no momento do sinal IDADE. Mas pode ser distribuída na frase inteira.</li>
+         <li>Existe sinal para QUANTOS e ANOS, mas não se usa nesse caso.</li>
+       </ol>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+  <div class="flex-1 w-full flex justify-center md:justify-end">
+    <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl">
+      <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/interprete_cade.gif" alt="">
+      <figcaption class="text-center text-slate-500 mt-4 text-base"></figcaption>
+    </figure>
+  </div>
+  <div class="flex-1 w-full flex justify-center md:justify-start">
+    <div class="max-w-md">
+      <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">INTÉRPRETE CADÊ?<br>(<em>Tem intérprete?</em>)</h3>
+     <div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+       <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+         <li>Aqui bastava usar o sinal <strong>INTÉRPRETE + Expressão facial interrogativa</strong> que o sentido estaria posto.</li>
+         <li>Em português, poderíamos traduzir essa frase de diferentes maneiras: E o intérprete? cadê o intérprete? Onde está o intérprete? No fim, todas dizem a mesma coisa.</li>
+       </ol>
+     </div>
+    </div>
+  </div>
+</div>
+
+<hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Quando precisamos usar o pronome interrogativo (ONDE, QUEM, O-QUE), onde ele fica na frase? Coloque a pergunta no <strong>FINAL</strong> da frase.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Por quê? É difícil manter a "cara de pergunta" durante uma frase inteira. Se você deixa a palavra interrogativa para o final, você concentra a expressão nela. Isso deixa sua sinalização mais clara e menos cansativa, principalmente se sua frase for longa.
+</p>
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+    Exemplo
+</h2>
+
+<div class="my-12 w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+  <div class="flex-1 w-full flex justify-center md:justify-end">
+    <figure class="w-full max-w-md transition-shadow duration-300 hover:shadow-2xl">
+      <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/voce_mora_onde.gif" alt="">
+      <figcaption class="text-center text-slate-500 mt-4 text-base"></figcaption>
+    </figure>
+  </div>
+  <div class="flex-1 w-full flex justify-center md:justify-start">
+    <div class="max-w-md">
+      <h3 class="text-2xl font-semibold text-slate-800 mb-4 text-left">VOCÊ CASA ONDE?<br>(<em>Onde você mora?</em>)</h3>
+     <div class="my-12 bg-white border border-slate-200/50 p-8 rounded-2xl max-w-3xl mx-auto shadow-sm transition-shadow duration-300 hover:shadow-lg">
+       <ol class="custom-ordered-list space-y-3 text-lg text-slate-600 leading-relaxed text-left">
+         <li>Observe que neste exemplo a expressão facial muda exatamente no sinal <strong>ONDE</strong>.</li>
+         <li>Veja que o sinal CASA pode ser substantivo ou verbo, depende do contexto. Aqui virou o verbo MORAR</li>
+       </ol>
+     </div>
+    </div>
+  </div>
+</div>
+
+<!-- Botão que abre o popup -->
+<div class="my-12 text-center">
+  <button class="popup-btn bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:scale-105">
+    Observação
+  </button>
+</div>
+
+<!-- Estrutura do popup -->
+<div class="popup-overlay hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="popup-content bg-white rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl relative">
+    <button class="popup-close absolute top-3 right-4 text-slate-500 hover:text-slate-800 text-2xl">&times;</button>
+    <h3 class="text-2xl font-semibold text-slate-900 mb-4">O Sanduíche</h3>
+    <p class="text-slate-600 text-lg leading-relaxed">Às vezes, para dar ênfase, podemos repetir a partícula interrogativa no começo e no fim da frase.<br>Ex: ONDE VOCÊ TRABALHAR ONDE?</p>
+  </div>
+</div>
+
+<style>
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+  }
+  .popup-overlay.active { display: flex; }
+  .popup-content {
+    animation: popupFade 0.3s ease;
+  }
+  @keyframes popupFade {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
+
+<script>
+  const popupBtn = document.querySelector('.popup-btn');
+  const popupOverlay = document.querySelector('.popup-overlay');
+  const popupClose = document.querySelector('.popup-close');
+
+  popupBtn.addEventListener('click', () => {
+    popupOverlay.classList.add('active');
+    popupOverlay.classList.remove('hidden');
+  });
+
+  popupClose.addEventListener('click', () => {
+    popupOverlay.classList.remove('active');
+    setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+  });
+
+  popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) {
+      popupOverlay.classList.remove('active');
+      setTimeout(() => popupOverlay.classList.add('hidden'), 200);
+    }
+  });
+</script>
+
+<!-- === CARROSSEL DE ATIVIDADES HÍBRIDO (GIFs) === -->
+<style>
+  .atividade-carousel{position:relative;overflow:hidden;width:100%}
+  .atividade-track{display:flex;transition:transform .5s ease-in-out;width:100%}
+  .atividade-slide{flex:0 0 100%;max-width:100%;padding:2rem;text-align:center}
+  .verificar-btn{margin-top:1rem;display:inline-block}
+
+  .pool-container,.ordem-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.75rem;
+    justify-content:center;
+  }
+
+  .ordem-container{
+    margin:1rem 0;
+    min-height:180px; /* comporta GIFs maiores */
+    border:2px dashed #cbd5e1;
+    padding:12px;
+    border-radius:12px;
+  }
+
+  .word{
+    background:#e2e8f0;
+    padding:.5rem;
+    border-radius:10px;
+    cursor:grab;
+    user-select:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 10px rgba(15,23,42,.12);
+  }
+
+  .word img.gif-sinal{
+    max-width:280px;
+    max-height:240px;
+    border-radius:8px;
+    display:block;
+  }
+
+  .drag-over{
+    outline:2px dashed #60a5fa;
+    outline-offset:4px;
+  }
+</style>
+
+<div class="atividade-hibrida my-12 text-center">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">Exercício</h2>
+    <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+      Leia a frase em português e arraste os GIFs para montar a frase em Libras na ordem correta.
+    Depois clique em <strong>Verificar</strong>.
+  </p>
+
+  <div class="atividade-carousel relative">
+    <div class="atividade-track">
+
+      <!-- === SLIDE 1 === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">
+          Frase em português: <span class="font-bold">"O que você quer?"</span>
+        </h3>
+        <p class="text-slate-600 mb-4">
+          Arraste os sinais em Libras na ordem correta.
+        </p>
+
+        <div id="pool1" class="pool-container">
+          <!-- VOCÊ -->
+          <div class="word" draggable="true" data-id="s1_voce">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/voce.png"
+                 alt="Sinal em Libras para VOCÊ">
+          </div>
+          <!-- QUERER -->
+          <div class="word" draggable="true" data-id="s1_querer">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/querer.gif"
+                 alt="Sinal em Libras para QUERER">
+          </div>
+          <!-- O-QUE -->
+          <div class="word" draggable="true" data-id="s1_oque">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/o_que.gif"
+                 alt="Sinal em Libras para O-QUE">
+          </div>
+          <!-- QUAL -->
+          <div class="word" draggable="true" data-id="s1_qual">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/qual.gif"
+                 alt="Sinal em Libras para QUAL">
+          </div>
+          <!-- PRECISAR -->
+          <div class="word" draggable="true" data-id="s1_precisar">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/precisar.gif"
+                 alt="Sinal em Libras para PRECISAR">
+          </div>
+        </div>
+
+        <div id="ordem1" class="ordem-container" aria-label="Monte aqui a frase em Libras"></div>
+
+        <div class="verificar-btn">
+          <button
+            onclick="verificarEscolherOrdenar(1, ['s1_voce','s1_querer','s1_oque'])"
+            class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+            Verificar
+          </button>
+        </div>
+        <p id="fb1" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 2 === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">
+          Frase em português: <span class="font-bold">"Você tem WhatsApp?"</span>
+        </h3>
+        <p class="text-slate-600 mb-4">
+          Arraste os sinais em Libras na ordem correta.
+        </p>
+
+        <div id="pool2" class="pool-container">
+          <!-- WHATSAPP -->
+          <div class="word" draggable="true" data-id="s2_whatsapp">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/whatsapp.gif"
+                 alt="Sinal em Libras para WHATSAPP">
+          </div>
+          <!-- TEM (usando GIF de TER) -->
+          <div class="word" draggable="true" data-id="s2_tem">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/ter.gif"
+                 alt="Sinal em Libras para TER/TEM">
+          </div>
+          <!-- TELEFONE -->
+          <div class="word" draggable="true" data-id="s2_telefone">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/telefone.gif"
+                 alt="Sinal em Libras para TELEFONE">
+          </div>
+          <!-- NÚMERO -->
+          <div class="word" draggable="true" data-id="s2_numero">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/numero.gif"
+                 alt="Sinal em Libras para NÚMERO">
+          </div>
+          <!-- O-QUE -->
+          <div class="word" draggable="true" data-id="s2_oque">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/o_que.gif"
+                 alt="Sinal em Libras para O-QUE">
+          </div>
+        </div>
+
+        <div id="ordem2" class="ordem-container" aria-label="Monte aqui a frase em Libras"></div>
+
+        <div class="verificar-btn">
+          <button
+            onclick="verificarEscolherOrdenar(2, ['s2_whatsapp','s2_tem'])"
+            class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+            Verificar
+          </button>
+        </div>
+        <p id="fb2" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 3 === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">
+          Frase em português: <span class="font-bold">"Qual é o problema?"</span>
+        </h3>
+        <p class="text-slate-600 mb-4">
+          Arraste os sinais em Libras na ordem correta.
+        </p>
+
+        <div id="pool3" class="pool-container">
+          <!-- PROBLEMA -->
+          <div class="word" draggable="true" data-id="s3_problema">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/problema.gif"
+                 alt="Sinal em Libras para PROBLEMA">
+          </div>
+          <!-- O-QUE -->
+          <div class="word" draggable="true" data-id="s3_oque">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/o_que.gif"
+                 alt="Sinal em Libras para O-QUE">
+          </div>
+          <!-- ONDE -->
+          <div class="word" draggable="true" data-id="s3_onde">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/onde.gif"
+                 alt="Sinal em Libras para ONDE">
+          </div>
+          <!-- TER -->
+          <div class="word" draggable="true" data-id="s3_ter">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/ter.gif"
+                 alt="Sinal em Libras para TER">
+          </div>
+        </div>
+
+        <div id="ordem3" class="ordem-container" aria-label="Monte aqui a frase em Libras"></div>
+
+        <div class="verificar-btn">
+          <button
+            onclick="verificarEscolherOrdenar(3, ['s3_problema','s3_oque'])"
+            class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+            Verificar
+          </button>
+        </div>
+        <p id="fb3" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+      <!-- === SLIDE 4 === -->
+      <div class="atividade-slide">
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">
+          Frase em português: <span class="font-bold">"Onde tem água?"</span>
+        </h3>
+        <p class="text-slate-600 mb-4">
+          Arraste os sinais em Libras na ordem correta.
+        </p>
+
+        <div id="pool4" class="pool-container">
+          <!-- ÁGUA -->
+          <div class="word" draggable="true" data-id="s4_agua">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/agua.gif"
+                 alt="Sinal em Libras para ÁGUA">
+          </div>
+          <!-- ONDE -->
+          <div class="word" draggable="true" data-id="s4_onde">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/onde.gif"
+                 alt="Sinal em Libras para ONDE">
+          </div>
+          <!-- TER -->
+          <div class="word" draggable="true" data-id="s4_ter">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/ter.gif"
+                 alt="Sinal em Libras para TER">
+          </div>
+          <!-- QUAL -->
+          <div class="word" draggable="true" data-id="s4_qual">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/qual.gif"
+                 alt="Sinal em Libras para QUAL">
+          </div>
+          <!-- O-QUE -->
+          <div class="word" draggable="true" data-id="s4_oque">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/o_que.gif"
+                 alt="Sinal em Libras para O-QUE">
+          </div>
+          <!-- BEBER (novo distrator) -->
+          <div class="word" draggable="true" data-id="s4_beber">
+            <img class="gif-sinal"
+                 src="https://gifscursopullzone.b-cdn.net/beber.gif"
+                 alt="Sinal em Libras para BEBER">
+          </div>
+        </div>
+
+        <div id="ordem4" class="ordem-container" aria-label="Monte aqui a frase em Libras"></div>
+
+        <div class="verificar-btn">
+          <button
+            onclick="verificarEscolherOrdenar(4, ['s4_agua','s4_onde'])"
+            class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+            Verificar
+          </button>
+        </div>
+        <p id="fb4" class="mt-4 text-lg font-semibold"></p>
+      </div>
+
+    </div>
+
+    <button class="prev absolute left-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(-1)">&#10094;</button>
+    <button class="next absolute right-0 top-1/2 -translate-y-1/2 bg-slate-800 text-white p-3 rounded-full shadow hover:bg-slate-700" onclick="mudarSlide(1)">&#10095;</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var slideAtual = 0;
+
+  window.mudarSlide = function(delta){
+    var slides = document.querySelectorAll('.atividade-slide');
+    var track  = document.querySelector('.atividade-track');
+    if(!slides.length || !track) return;
+    slideAtual = (slideAtual + delta + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
+  };
+
+  // === Drag & Drop (comparando por data-id) ===
+  function setupDnD(poolId, ordemId){
+    var pool  = document.getElementById(poolId);
+    var ordem = document.getElementById(ordemId);
+    if(!pool || !ordem) return;
+
+    function onDragStart(e){
+      var w = e.target.closest('.word');
+      if(!w) return;
+      e.dataTransfer.setData('text/plain', w.getAttribute('data-id'));
+    }
+    function onDragOver(e){
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-over');
+    }
+    function onDragLeave(e){
+      e.currentTarget.classList.remove('drag-over');
+    }
+    function onDrop(e){
+      e.preventDefault();
+      var cont = e.currentTarget;
+      cont.classList.remove('drag-over');
+      var id = e.dataTransfer.getData('text/plain');
+      var dragged = document.querySelector('.word[data-id="' + id + '"]');
+      if(!dragged) return;
+
+      var targetWord = e.target.closest('.word');
+      if(targetWord && targetWord.parentElement === cont){
+        if(targetWord.nextSibling){
+          cont.insertBefore(dragged, targetWord.nextSibling);
+        } else {
+          cont.appendChild(dragged);
+        }
+      } else {
+        cont.appendChild(dragged);
+      }
+    }
+
+    [pool, ordem].forEach(function(container){
+      container.addEventListener('dragstart', onDragStart);
+      container.addEventListener('dragover', onDragOver);
+      container.addEventListener('dragleave', onDragLeave);
+      container.addEventListener('drop', onDrop);
+    });
+
+    // Clique alterna entre pool e ordem (bom para mobile)
+    document.addEventListener('click', function(e){
+      var w = e.target.closest('.word');
+      if(!w) return;
+      var parent = w.parentElement;
+      if(parent === pool){ ordem.appendChild(w); }
+      else if(parent === ordem){ pool.appendChild(w); }
+    });
+  }
+
+  // Garantir que todas as palavras/GIFs sejam arrastáveis
+  var words = document.querySelectorAll('.word');
+  for(var z=0; z<words.length; z++){
+    words[z].setAttribute('draggable','true');
+  }
+
+  // Ativar DnD para os quatro slides
+  setupDnD('pool1','ordem1');
+  setupDnD('pool2','ordem2');
+  setupDnD('pool3','ordem3');
+  setupDnD('pool4','ordem4');
+
+  // Embaralhar (randomizar) a ordem inicial dos GIFs em cada pool
+  document.querySelectorAll('.pool-container').forEach(function(pool){
+    var itens = Array.from(pool.children);
+    // Fisher-Yates
+    for (var i = itens.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = itens[i];
+      itens[i] = itens[j];
+      itens[j] = tmp;
+    }
+    itens.forEach(function(el){ pool.appendChild(el); });
+  });
+
+  // Verificação por ORDEM DE IDs (data-id)
+  window.verificarEscolherOrdenar = function(n, ordemCorreta){
+    var container = document.getElementById('ordem' + n);
+    var fb = document.getElementById('fb' + n);
+    if(!container || !fb) return;
+
+    var els = container.querySelectorAll('.word');
+    var ids = [];
+    for(var i=0;i<els.length;i++){
+      ids.push(els[i].getAttribute('data-id'));
+    }
+
+    var ok = (ids.length === ordemCorreta.length);
+    if(ok){
+      for(var j=0;j<ids.length;j++){
+        if(ids[j] !== ordemCorreta[j]){ ok=false; break; }
+      }
+    }
+    fb.textContent = ok ? '✅ Sequência correta!' : '❌ Verifique a seleção e a ordem!';
+    fb.style.color = ok ? '#16a34a' : '#dc2626';
+  };
+});
+</script>
+
+
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var track = document.querySelector('.carousel-track');
+      if (track) {
+        var slides = Array.prototype.slice.call(track.children);
+        if (slides.length > 0) {
+          var nextButton = document.getElementById('nextBtn');
+          var prevButton = document.getElementById('prevBtn');
+          var dotsContainer = document.getElementById('dots-container');
+          var currentIndex = 0;
+          function loadSlideContent(index) {
+            var slide = slides[index]; if (!slide) return;
+            var img = slide.querySelector('img');
+            if (img && img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
+          }
+          function moveToSlide(targetIndex) {
+            if (slides.length === 0) return;
+            var slideWidth = slides[0].getBoundingClientRect().width; if (!slideWidth) return;
+            loadSlideContent(targetIndex);
+            track.style.transform = 'translateX(-' + (slideWidth * targetIndex) + 'px)';
+            currentIndex = targetIndex; updateUI();
+          }
+          function updateUI() {
+            if (slides.length === 0 || !dotsContainer) return;
+            var dots = Array.prototype.slice.call(dotsContainer.children);
+            dots.forEach(function(dot, index) {
+              dot.classList.toggle('bg-white', index === currentIndex);
+              dot.classList.toggle('bg-white/50', index !== currentIndex);
+            });
+            if (prevButton) prevButton.disabled = (currentIndex === 0);
+            if (nextButton) nextButton.disabled = (currentIndex === slides.length - 1);
+          }
+          function setupCarousel() {
+            if (slides.length === 0 || !dotsContainer) return;
+            dotsContainer.innerHTML = '';
+            slides.forEach(function(_, index) {
+              var dot = document.createElement('button');
+              dot.classList.add('w-3','h-3','rounded-full','transition-colors');
+              dotsContainer.appendChild(dot);
+              dot.addEventListener('click', function() { moveToSlide(index); });
+            });
+            var slideWidth = slides[0].getBoundingClientRect().width; if (!slideWidth) return;
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(-' + (slideWidth * currentIndex) + 'px)';
+            setTimeout(function(){ track.style.transition = 'transform 0.5s ease-in-out'; }, 50);
+            updateUI(); loadSlideContent(currentIndex);
+          }
+          if (nextButton && prevButton) {
+            nextButton.addEventListener('click', function(){ if (currentIndex < slides.length - 1) moveToSlide(currentIndex + 1); });
+            prevButton.addEventListener('click', function(){ if (currentIndex > 0) moveToSlide(currentIndex - 1); });
+          }
+          window.addEventListener('resize', setupCarousel);
+          setTimeout(setupCarousel, 100);
+        }
+      }
+      var accordionHeaders = document.querySelectorAll('.accordion-header');
+      accordionHeaders.forEach(function(header){
+        header.addEventListener('click', function(){
+          var c = header.nextElementSibling;
+          header.classList.toggle('active');
+          c.style.maxHeight = c.style.maxHeight ? null : (c.scrollHeight + 'px');
+        });
+      });
+      var openModalBtn = document.getElementById('openModalBtn');
+      var closeModalBtn = document.getElementById('closeModalBtn');
+      var modal = document.getElementById('modal');
+      var modalContent = document.getElementById('modal-content');
+      if (openModalBtn && modal && closeModalBtn && modalContent) {
+        function openModal(){ modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.add('opacity-100'); modalContent.classList.add('scale-100'); }
+        function closeModal(){ modal.classList.remove('opacity-100'); modalContent.classList.remove('scale-100'); setTimeout(function(){ modal.classList.add('hidden'); }, 300); }
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e){ if (e.target === modal) { closeModal(); } });
+      }
+    });
+  </script>
+</body>
+</html>
+

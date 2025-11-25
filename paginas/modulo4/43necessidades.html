@@ -24,7 +24,7 @@
   <header class='fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-rose-700 to-pink-600 shadow-lg'>
     <div class='container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl'>
       <div class='py-4'>
-        <span class='font-semibold text-white text-xl'>4.2. Necessidades e localidades</span>
+        <span class='font-semibold text-white text-xl'>4.3. Necessidades e localidades</span>
       </div>
     </div>
   </header>
@@ -83,12 +83,12 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
 </p>
 
 <figure class="my-12 max-w-4xl mx-auto transition-shadow duration-300 hover:shadow-2xl">
-  <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/Mapinha%20(1).png" alt="">
+  <img class="w-full rounded-2xl shadow-xl" src="https://gifscursopullzone.b-cdn.net/Mapinha.png" alt="">
   <figcaption class="text-center text-slate-500 mt-4 text-base"></figcaption>
 </figure>
 
 <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
-    Agora veja a sinalização dos vídeos abaixo e encontre o destino indicado. 
+    Agora veja a sinalização dos vídeos abaixo e encontre o destino indicado. <em>Considere que todas as informações estão sendo dadas na <strong>recepção</strong></em>.
 </p>
 
 <!-- === BLOCO DE COLUNAS LIVRES === -->
@@ -106,14 +106,14 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
 
       .carousel-slide img, .carousel-slide video { width: 100%; height: auto; border-radius: 12px; display: block; }
 
-      /* 9:16 (vertical) - ajustado às dimensões do vídeo */
+      /* Contêiner responsivo do vídeo */
       .embed-wrap {
         position: relative; 
         width: 100%;
         padding-top: 177.78%; /* 9:16 */
         border-radius: 12px; 
         overflow: hidden; 
-        background: #000;
+        /* background: #000;  REMOVIDO para não aparecer margem preta */
       }
       .embed-wrap iframe {
         position: absolute; 
@@ -145,109 +145,69 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
     <div class="gif-carousel" data-start="1" aria-roledescription="carousel">
       <div class="carousel-track">
 
-        <!-- Video 1 -->
+        <!-- Vídeo 1 - COPA -->
         <div class="carousel-slide active" aria-hidden="false">
           <div class="embed-wrap">
             <iframe
-              title="Diálogo 1"
+              title="Diálogo 1 - Copa"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              src="https://iframe.mediadelivery.net/embed/520267/c3c40de2-2e74-4eae-8c4d-2c3cd94a114b?autoplay=false&loop=false&muted=false&preload=true">
+              src="https://player.mediadelivery.net/embed/520267/bf9c1239-9da9-4138-8a80-eb05bb5cfb27?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Vídeo 1</div>
         </div>
 
-        <!-- Video 2  -->
+        <!-- Vídeo 2 - SALA DO JUIZ -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="embed-wrap">
             <iframe
-              title="Diálogo 2"
+              title="Diálogo 2 - Sala do juiz"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              data-src="https://iframe.mediadelivery.net/embed/520267/c9f43290-8b86-441a-a4b5-d5d070f19eac?autoplay=false&loop=false&muted=false&preload=true">
+              data-src="https://player.mediadelivery.net/embed/520267/e7c19223-33f8-4ab8-87a0-ec2fdc47a217?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Vídeo 2</div>
         </div>
 
-        <!-- Video 3 -->
+        <!-- Vídeo 3 - BANHEIRO -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="embed-wrap">
             <iframe
-              title="Diálogo 3"
+              title="Diálogo 3 - Banheiro"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              data-src="https://iframe.mediadelivery.net/embed/520267/c239e420-d760-4026-8bd3-dd4ee7de1613?autoplay=false&loop=false&muted=false&preload=true">
+              data-src="https://player.mediadelivery.net/embed/520267/d53e3f25-fe89-4cae-9fc0-63a6a651cb5b?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Vídeo 3</div>
         </div>
 
-        <!-- Video 4 dia -->
+        <!-- Vídeo 4 - SALA DE ESPERA -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="embed-wrap">
             <iframe
-              title="Diálogo 4"
+              title="Diálogo 4 - Sala de espera"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              data-src="https://iframe.mediadelivery.net/embed/520267/8b0639d7-d779-49bd-ab3b-f3ae7a6e45fa?autoplay=false&loop=false&muted=false&preload=true">
+              data-src="https://player.mediadelivery.net/embed/520267/0563833e-483e-44f0-9c54-c177e4a00b52?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Vídeo 4</div>
         </div>
 
-        <!-- Video 5 - senha CORRIJA O URL AQUI -->
+        <!-- Vídeo 5 - SALA DE REUNIÕES -->
         <div class="carousel-slide" aria-hidden="true">
           <div class="embed-wrap">
             <iframe
-              title="Diálogo 5"
+              title="Diálogo 5 - Sala de reuniões"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
-              data-src="https://iframe.mediadelivery.net/embed/520267/7fadf585-df8f-40b4-8790-25ff16617060?autoplay=false&loop=false&muted=false&preload=true">
+              data-src="https://player.mediadelivery.net/embed/520267/13d4368f-1567-4517-b402-ef735d741b8c?autoplay=false&loop=false&muted=false&preload=true">
             </iframe>
           </div>
           <div class="slide-title">Vídeo 5</div>
-        </div>
-
-        <!-- Video 6 dinheiro -->
-        <div class="carousel-slide" aria-hidden="true">
-          <div class="embed-wrap">
-            <iframe
-              title="Diálogo 6"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowfullscreen
-              data-src="https://iframe.mediadelivery.net/embed/520267/0ed1fa7a-1f4f-4102-b2c4-c4dc5df5340b?autoplay=false&loop=false&muted=false&preload=true
-">
-            </iframe>
-          </div>
-          <div class="slide-title">Vídeo 6</div>
-        </div>
-
-        <!-- Slide 7 -->
-        <div class="carousel-slide" aria-hidden="true">
-          <div class="embed-wrap">
-            <iframe
-              title="Diálogo 7"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowfullscreen
-              data-src="https://iframe.mediadelivery.net/embed/520267/dd30298f-57ff-4877-965c-2f3368dff80d?autoplay=false&loop=false&muted=false&preload=true">
-            </iframe>
-          </div>
-          <div class="slide-title">Vídeo 7</div>
-        </div>
-
-         <!-- Slide 8 processo  -->
-        <div class="carousel-slide" aria-hidden="true">
-          <div class="embed-wrap">
-            <iframe
-              title="Diálogo 8"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowfullscreen
-              data-src="https://iframe.mediadelivery.net/embed/520267/3b2e46f6-c411-4e19-b5fc-028e42b8f63a?autoplay=false&loop=false&muted=false&preload=true">
-            </iframe>
-          </div>
-          <div class="slide-title">Vídeo 8</div>
         </div>
 
         <a class="prev" aria-label="Vídeo anterior" role="button" tabindex="0">&#10094;</a>
@@ -272,12 +232,10 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
             }
             const ifr = slide.querySelector('iframe');
             if (ifr) {
-              // Salva o src atual no data-src
               const currentSrc = ifr.src || ifr.getAttribute('data-src');
               if (currentSrc) {
                 ifr.setAttribute('data-src', currentSrc);
               }
-              // Remove o src para descarregar o vídeo
               ifr.removeAttribute('src');
             }
           }
@@ -286,7 +244,6 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
             const ifr = slide.querySelector('iframe');
             if (ifr) {
               const dataSrc = ifr.getAttribute('data-src');
-              // Só carrega se não tiver src E tiver data-src
               if (!ifr.src && dataSrc) {
                 ifr.src = dataSrc;
               }
@@ -297,14 +254,12 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
             if (i < 1) i = slides.length;
             if (i > slides.length) i = 1;
 
-            // Remove active de todos
             slides.forEach((s) => {
               s.classList.remove('active');
               s.setAttribute('aria-hidden', 'true');
               unloadSlideMedia(s);
             });
 
-            // Ativa o slide atual
             index = i;
             const current = slides[index - 1];
             current.classList.add('active');
@@ -342,50 +297,37 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
 
   <!-- Coluna 2 -->
   <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
-    <!-- === ATIVIDADE DE 7 QUESTÕES === -->
+    <!-- === ATIVIDADE DE 5 QUESTÕES === -->
     <div class="atividade-container">
-      <p class="text-slate-600 mb-6 text-center">Veja cada vídeo e preencha o local de destino indicado.</p>
+      <p class="text-slate-600 mb-6 text-center">
+        Veja cada vídeo e preencha o local de destino indicado (ex.: Copa, Sala do juiz...).
+      </p>
 
       <div class="space-y-4 text-left">
         <div>
           <label class="block text-slate-700 font-medium mb-2">1️⃣ Vídeo 1:</label>
-          <input type="text" id="resposta1" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <input type="text" id="resposta1" placeholder="Digite o local..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback1" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">2️⃣ Vídeo 2:</label>
-          <input type="text" id="resposta2" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <input type="text" id="resposta2" placeholder="Digite o local..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">3️⃣ Vídeo 3:</label>
-          <input type="text" id="resposta3" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <input type="text" id="resposta3" placeholder="Digite o local..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback3" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">4️⃣ Vídeo 4:</label>
-          <input type="text" id="resposta4" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <input type="text" id="resposta4" placeholder="Digite o local..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback4" class="mt-1 text-sm font-semibold"></p>
         </div>
         <div>
           <label class="block text-slate-700 font-medium mb-2">5️⃣ Vídeo 5:</label>
-          <input type="text" id="resposta5" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+          <input type="text" id="resposta5" placeholder="Digite o local..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
           <p id="feedback5" class="mt-1 text-sm font-semibold"></p>
-        </div>
-        <div>
-          <label class="block text-slate-700 font-medium mb-2">6️⃣ Vídeo 6:</label>
-          <input type="text" id="resposta6" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
-          <p id="feedback6" class="mt-1 text-sm font-semibold"></p>
-        </div>
-        <div>
-          <label class="block text-slate-700 font-medium mb-2">7️⃣ Vídeo 7:</label>
-          <input type="text" id="resposta7" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
-          <p id="feedback7" class="mt-1 text-sm font-semibold"></p>
-        </div>
-        <div>
-          <label class="block text-slate-700 font-medium mb-2">2️⃣ Vídeo 8:</label>
-          <input type="text" id="resposta8" placeholder="Digite sua resposta..." class="border border-slate-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
-          <p id="feedback2" class="mt-1 text-sm font-semibold"></p>
         </div>
       </div>
 
@@ -397,17 +339,34 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
 
     <script>
       (function() {
-        const respostasCorretas = ["82996478231", "874", "872105597", "15", "64", "56", "10", "2025817/13-97"];
+        const totalQuestoes = 5;
+        const respostasCorretas = [
+          "Copa",
+          "Sala do juiz",
+          "Banheiro",
+          "Sala de espera",
+          "Sala de reuniões"
+        ];
+
         const botao = document.getElementById("verificarBtn");
         const resultadoFinal = document.getElementById("resultadoFinal");
 
         if (!botao || !resultadoFinal) return;
 
+        function normalizar(texto) {
+          return (texto || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") // remove acentos
+            .replace(/\s+/g, " ")
+            .trim()
+            .toLowerCase();
+        }
+
         botao.addEventListener("click", () => {
           let acertos = 0;
           let vazios = 0;
           
-          for (let i = 1; i <= 8; i++) {
+          for (let i = 1; i <= totalQuestoes; i++) {
             const input = document.getElementById(`resposta${i}`);
             const feedback = document.getElementById(`feedback${i}`);
             
@@ -422,8 +381,11 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
               vazios++;
               continue;
             }
+
+            const respostaAluno = normalizar(resposta);
+            const respostaCerta = normalizar(respostasCorretas[i - 1]);
             
-            if (resposta.toLowerCase() === respostasCorretas[i - 1].toLowerCase()) {
+            if (respostaAluno === respostaCerta) {
               feedback.textContent = "✅ Correto!";
               feedback.style.color = "#16a34a";
               input.classList.add('border-green-500');
@@ -437,12 +399,12 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
             }
           }
           
-          if (vazios === 7) {
+          if (vazios === totalQuestoes) {
             resultadoFinal.textContent = "⚠️ Preencha pelo menos uma resposta!";
             resultadoFinal.style.color = "#f59e0b";
           } else {
-            resultadoFinal.textContent = `Você acertou ${acertos} de 7 ${acertos === 7 ? '🎉' : ''}`;
-            resultadoFinal.style.color = acertos === 7 ? "#16a34a" : "#334155";
+            resultadoFinal.textContent = `Você acertou ${acertos} de ${totalQuestoes} ${acertos === totalQuestoes ? '🎉' : ''}`;
+            resultadoFinal.style.color = acertos === totalQuestoes ? "#16a34a" : "#334155";
           }
         });
       })();
@@ -453,6 +415,8 @@ Vamos aproveitar e por em prática o uso da espacialidade/direcionalidade e apre
 
 </div>
 <!-- === FIM DO BLOCO DE COLUNAS LIVRES === -->
+
+
 
 <hr class="my-12 border-t border-slate-200 max-w-2xl mx-auto">
 

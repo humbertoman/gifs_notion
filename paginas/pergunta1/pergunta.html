@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Atendimento Acessível - 9 Passos</title>
+    
+    <!-- Fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configurações Estendidas do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        indigo: {
+                            550: '#5c54e5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Cada seção é um "slide" */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+            display: none; /* Esconde todos por padrão */
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+            display: block; /* Mostra apenas o slide atual */
+        }
+
+        /* Marcador de número do slide */
+        .slide-number {
+            position: absolute;
+            top: -1rem;
+            right: 2rem;
+            background: #4f46e5;
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 4px solid #e0e7ff; /* borda clara para contraste */
+            z-index: 20;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-800 min-h-screen text-gray-800 p-4 md:p-8 antialiased">
+
+    <!-- Container Principal -->
+    <main class="max-w-4xl mx-auto space-y-12 pb-24">
+
+        <!-- Header (também entra no fluxo de slides) -->
+        <header class="fade-in-section text-center py-10">
+            <div class="inline-block bg-white/20 backdrop-blur-md border border-white/30 rounded-full px-4 py-1 mb-4">
+                <span class="text-white text-sm font-semibold tracking-wide uppercase">Guia</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight drop-shadow-sm">
+                Atendimento em Libras
+            </h1>
+            <p class="text-indigo-100 font-light">Construção coletiva de protocolo de atendimento</p>
+        </header>
+
+        <!-- SLIDE 1: PERGUNTA 1 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-indigo-600">1</div>
+            <div class="bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="text-4xl">🤔</span> 
+                    Como Começar Bem?
+                </h2>
+                <div class="bg-indigo-50 p-6 rounded-2xl mb-6 border border-indigo-100">
+                    <p class="font-medium text-indigo-900 text-lg italic">
+                        "Quando uma pessoa surda chega ao seu balcão, quais são os 3 PRIMEIROS PASSOS que você deve dar para iniciar um atendimento acolhedor?"
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-md transition">
+                        <span class="block text-2xl mb-2">👀</span>
+                        <p class="text-sm font-semibold text-gray-700">Como perceber que a pessoa é surda?</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-md transition">
+                        <span class="block text-2xl mb-2">👋</span>
+                        <p class="text-sm font-semibold text-gray-700">Como chamar atenção (sem tocar)?</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-md transition">
+                        <span class="block text-2xl mb-2">⏱️</span>
+                        <p class="text-sm font-semibold text-gray-700">Que atitude tomar nos primeiros 30s?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: SINAIS 1 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-purple-600 border-purple-200! text-white">2</div>
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-[2rem] p-8 md:p-10 shadow-2xl text-white">
+                <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300 mb-2 flex items-center gap-3">
+                    <span class="text-4xl">🤟</span> 
+                    Sinais Úteis Nesta Etapa
+                </h2>
+                <p class="text-gray-400 mb-6 text-sm">Quais sinais você usaria nos PRIMEIROS 30 SEGUNDOS de contato?</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/10 hover:bg-white/20 transition">
+                        <span class="block font-bold text-lg">OLÁ / BOM DIA</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/10 hover:bg-white/20 transition">
+                        <span class="block font-bold text-lg">ESPERAR</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/10 hover:bg-white/20 transition">
+                        <span class="block font-bold text-lg">SENTAR</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/10 hover:bg-white/20 transition">
+                        <span class="block font-bold text-lg text-gray-300 text-sm">(Outros essenciais)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: PERGUNTA 2 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-indigo-600">3</div>
+            <div class="bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl border-l-8 border-orange-400">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="text-4xl">🤷‍♂️</span> 
+                    E quando não há intérprete?
+                </h2>
+                <div class="bg-orange-50 p-6 rounded-2xl mb-6">
+                    <p class="font-medium text-orange-900 text-lg italic">
+                        "Quais ESTRATÉGIAS você pode usar para se comunicar quando não há intérprete disponível?"
+                    </p>
+                </div>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                        <span class="text-orange-500 font-bold">✓</span>
+                        <span class="text-gray-700">Recursos visuais (papel, celular, gestos)</span>
+                    </li>
+                    <li class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                        <span class="text-orange-500 font-bold">✓</span>
+                        <span class="text-gray-700">Diferença: gestos universais vs Libras</span>
+                    </li>
+                    <li class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                        <span class="text-orange-500 font-bold">✓</span>
+                        <span class="text-gray-700">Apps e tecnologias (VLibras, HandTalk, etc)</span>
+                    </li>
+                    <li class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                        <span class="text-orange-500 font-bold">✓</span>
+                        <span class="text-gray-700">Quando acionar CIL (Central de Intérpretes)</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: SINAIS 2 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-purple-600 border-purple-200! text-white">4</div>
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-[2rem] p-8 md:p-10 shadow-2xl text-white">
+                <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-300 mb-2 flex items-center gap-3">
+                    <span class="text-4xl">🤟</span> 
+                    Sinais Comunicação Básica
+                </h2>
+                <p class="text-gray-400 mb-6 text-sm">Se tiver que se virar SEM intérprete, quais sinais são INDISPENSÁVEIS?</p>
+                
+                <div class="space-y-4">
+                    <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                        <span class="text-xs uppercase text-gray-400 tracking-wider">Verbos de Ação</span>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="px-3 py-1 bg-white/10 rounded-lg font-bold">DAR</span>
+                            <span class="px-3 py-1 bg-white/10 rounded-lg font-bold">PEGAR</span>
+                            <span class="px-3 py-1 bg-white/10 rounded-lg font-bold">MOSTRAR</span>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                        <span class="text-xs uppercase text-gray-400 tracking-wider">Perguntas</span>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-200 rounded-lg font-bold">QUAL?</span>
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-200 rounded-lg font-bold">ONDE?</span>
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-200 rounded-lg font-bold">QUANDO?</span>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                        <span class="text-xs uppercase text-gray-400 tracking-wider">Confirmação</span>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="px-3 py-1 bg-green-500/20 text-green-200 rounded-lg font-bold">CERTO?</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-200 rounded-lg font-bold">ENTENDER?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: PERGUNTA 3 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-indigo-600">5</div>
+            <div class="bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl border-l-8 border-blue-500">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="text-4xl">📝</span> 
+                    Como Cadastrar com Precisão?
+                </h2>
+                <div class="bg-blue-50 p-6 rounded-2xl mb-6">
+                    <p class="font-medium text-blue-900 text-lg italic">
+                        "Ao coletar dados (nome, documento, endereço), como GARANTIR que você entendeu corretamente?"
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                        <p class="text-sm font-semibold text-gray-700">Confirmar informações (números, soletração)</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                        <p class="text-sm font-semibold text-gray-700">Lidar com formulários longos</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                        <p class="text-sm font-semibold text-gray-700">Evitar erros críticos de cadastro</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                        <p class="text-sm font-semibold text-gray-700">Dar/receber senhas e protocolos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: SINAIS 3 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-purple-600 border-purple-200! text-white">6</div>
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-[2rem] p-8 md:p-10 shadow-2xl text-white">
+                <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300 mb-2 flex items-center gap-3">
+                    <span class="text-4xl">🤟</span> 
+                    Sinais Cadastro e Doc.
+                </h2>
+                <p class="text-gray-400 mb-6 text-sm">Durante o cadastro, quais sinais você MAIS USA?</p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/10 flex flex-col justify-center text-center h-full">
+                        <span class="text-xs text-gray-400 mb-1">Documentos</span>
+                        <span class="font-bold text-xl">RG / CPF / ENDEREÇO</span>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/10 flex flex-col justify-center text-center h-full">
+                        <span class="text-xs text-gray-400 mb-1">Confirmação</span>
+                        <span class="font-bold text-xl">CERTO? REPETIR / CONFERIR</span>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/10 flex flex-col justify-center text-center h-full">
+                        <span class="text-xs text-gray-400 mb-1">Básico</span>
+                        <span class="font-bold text-xl">Números e Alfabeto</span>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/10 flex flex-col justify-center text-center h-full">
+                        <span class="text-xs text-gray-400 mb-1">Dados</span>
+                        <span class="font-bold text-xl">NOME / TELEFONE / SENHA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: PERGUNTA 4 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-indigo-600">7</div>
+            <div class="bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl border-l-8 border-red-500">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="text-4xl">🚨</span> 
+                    E se for Urgente?
+                </h2>
+                <div class="bg-red-50 p-6 rounded-2xl mb-6">
+                    <p class="font-medium text-red-900 text-lg italic">
+                        "Em situações de EMERGÊNCIA ou PRAZO CRÍTICO, como agir de forma rápida E acessível?"
+                    </p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 transition">
+                        <span class="text-red-500 text-xl">🏥</span>
+                        <span class="text-gray-800 font-medium">Emergência médica/segurança</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 transition">
+                        <span class="text-red-500 text-xl">📅</span>
+                        <span class="text-gray-800 font-medium">Documento expirando HOJE</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 transition">
+                        <span class="text-red-500 text-xl">😰</span>
+                        <span class="text-gray-800 font-medium">Pessoa muito nervosa/ansiosa</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 transition">
+                        <span class="text-red-500 text-xl">⚔️</span>
+                        <span class="text-gray-800 font-medium">Conflito ou mal-entendido escalando</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: SINAIS 4 -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-purple-600 border-purple-200! text-white">8</div>
+            <div class="bg-gradient-to-br from-red-900 to-gray-900 rounded-[2rem] p-8 md:p-10 shadow-2xl text-white border-t border-red-500/30">
+                <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-orange-300 mb-2 flex items-center gap-3">
+                    <span class="text-4xl">🤟</span> 
+                    Sinais de Urgência
+                </h2>
+                <p class="text-gray-400 mb-6 text-sm">Em momentos críticos, que sinais podem SALVAR a situação?</p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-red-600/20 backdrop-blur rounded-xl p-4 text-center border border-red-500/30">
+                        <span class="block font-bold text-red-100">EMERGÊNCIA / URGENTE / RÁPIDO</span>
+                    </div>
+                    <div class="bg-blue-600/20 backdrop-blur rounded-xl p-4 text-center border border-blue-500/30">
+                        <span class="block font-bold text-blue-100">CALMA / ESPERAR / PROBLEMA</span>
+                    </div>
+                    <div class="bg-green-600/20 backdrop-blur rounded-xl p-4 text-center border border-green-500/30">
+                        <span class="block font-bold text-green-100">AJUDA / CHAMAR (alguém)</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/10">
+                        <span class="block font-bold text-gray-200">Expressões faciais críticas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: KIT DE SOBREVIVÊNCIA -->
+        <section class="fade-in-section relative">
+            <div class="slide-number bg-green-500 border-green-200! text-white">9</div>
+            <div class="bg-gradient-to-br from-indigo-900 to-gray-900 rounded-[2rem] p-8 md:p-12 shadow-2xl text-center border-4 border-indigo-500/20">
+                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300 mb-6">
+                    🛠️ Seu Kit de Sobrevivência
+                </h2>
+                <p class="text-gray-400 mb-8 max-w-xl mx-auto text-sm">
+                    Se você pudesse ter apenas 15 SINAIS colados no seu balcão (um "cheat sheet" de emergência), quais seriam?
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mb-8">
+                    <div class="space-y-2">
+                        <h4 class="text-indigo-400 text-xs font-bold uppercase tracking-wider mb-2">Etapas Cobertas</h4>
+                        <p class="text-gray-300 text-sm flex items-center gap-2">✓ Primeiro contato (P1)</p>
+                        <p class="text-gray-300 text-sm flex items-center gap-2">✓ Comunicação (P2)</p>
+                        <p class="text-gray-300 text-sm flex items-center gap-2">✓ Cadastro (P3)</p>
+                        <p class="text-gray-300 text-sm flex items-center gap-2">✓ Urgências (P4)</p>
+                        <p class="text-gray-300 text-sm flex items-center gap-2">✓ + Sinais universais do seu setor</p>
+                    </div>
+                    <div class="bg-white/5 rounded-2xl p-6 border border-white/10 flex items-center justify-center">
+                        <p class="text-center font-medium text-white">
+                            "Pense nos sinais que você usaria TODO DIA, em QUALQUER atendimento."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navegação de Slides -->
+    <div class="fixed inset-x-0 bottom-4 flex justify-center pointer-events-none">
+        <div class="pointer-events-auto flex items-center gap-4 bg-white/80 backdrop-blur-md rounded-full px-4 py-2 shadow-xl border border-white/60">
+            <button id="prevBtn" class="px-3 py-1 text-sm font-semibold text-gray-700 rounded-full border border-gray-300 disabled:opacity-40 disabled:cursor-not-allowed">
+                ⬅ Anterior
+            </button>
+            <span id="slideIndicator" class="text-xs font-semibold text-gray-600 tracking-widest uppercase">
+                1 / 10
+            </span>
+            <button id="nextBtn" class="px-3 py-1 text-sm font-semibold text-gray-700 rounded-full border border-gray-300 disabled:opacity-40 disabled:cursor-not-allowed">
+                Próximo ➡
+            </button>
+        </div>
+    </div>
+
+    <!-- Script de Navegação -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const slides = document.querySelectorAll('.fade-in-section');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicator = document.getElementById('slideIndicator');
+
+            let currentIndex = 0;
+
+            function showSlide(index) {
+                if (index < 0 || index >= slides.length) return;
+
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('is-visible');
+                    } else {
+                        slide.classList.remove('is-visible');
+                    }
+                });
+
+                currentIndex = index;
+                indicator.textContent = (currentIndex + 1) + " / " + slides.length;
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === slides.length - 1;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                showSlide(currentIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                showSlide(currentIndex + 1);
+            });
+
+            // Navegação pelo teclado (setas esquerda/direita)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    showSlide(currentIndex + 1);
+                } else if (e.key === 'ArrowLeft') {
+                    showSlide(currentIndex - 1);
+                }
+            });
+
+            // Mostra o primeiro slide ao carregar
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

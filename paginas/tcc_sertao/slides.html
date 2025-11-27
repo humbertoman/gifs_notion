@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula - Educação de Surdos no Sertão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a2e;
+            overflow: hidden;
+        }
+        
+        #slide-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            min-height: 600px;
+            width: 100%;
+            max-width: 64rem;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            transform: translateY(0); 
+        }
+
+        .slide.active {
+            display: block;
+            opacity: 1;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            z-index: 50;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn { left: 2rem; }
+        .next-btn { right: 2rem; }
+
+        /* Estilos específicos */
+        .stat-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        .school-badge { transition: all 0.2s ease; }
+        .school-badge:hover { transform: scale(1.05); }
+        .resource-bar { transition: width 1s ease-out; width: 0; } 
+        
+        .slide-number {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(0,0,0,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        /* Scrollbar customizada para slides com muito texto */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    </style>
+</head>
+<body class="h-screen w-screen">
+
+    <div id="slide-container" class="px-8">
+        
+        <button class="nav-btn prev-btn" onclick="changeSlide(-1)">❮</button>
+        <button class="nav-btn next-btn" onclick="changeSlide(1)">❯</button>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 0: CAPA -->
+        <!-- ========================================== -->
+        <div class="slide active bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 rounded-3xl shadow-2xl p-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+            <div class="relative z-10 flex flex-col h-full justify-center items-center text-center gap-10">
+                <div class="flex items-center justify-center gap-8 md:gap-16 mb-4">
+                    <div class="bg-white/10 backdrop-blur-sm p-4 rounded-2xl hover:bg-white/20 transition-all duration-300">
+                        <img src="https://gifscursopullzone.b-cdn.net/LOGO-UFAL-removebg-preview.png" alt="Logo UFAL" class="h-16 object-contain filter drop-shadow-lg">
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-4 rounded-2xl hover:bg-white/20 transition-all duration-300">
+                        <img src="https://gifscursopullzone.b-cdn.net/LOGO-PRILEI-removebg-preview.png" alt="Logo PRILEI" class="h-16 object-contain filter drop-shadow-lg">
+                    </div>
+                </div>
+                <div class="space-y-6 max-w-5xl mx-auto">
+                    <div class="inline-block px-6 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white/90 text-sm font-bold tracking-[0.2em] uppercase shadow-lg">
+                        Curso de Pedagogia
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight drop-shadow-2xl">
+                        ANÁLISE DA OFERTA EDUCACIONAL PARA ESTUDANTES SURDOS
+                    </h1>
+                    <div class="w-32 h-2 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
+                    <p class="text-lg md:text-2xl text-blue-100 font-light tracking-wide max-w-3xl mx-auto">
+                        EM ESCOLAS DO SERTÃO ALAGOANO E BAIANO
+                    </p>
+                </div>
+                <div class="w-full max-w-4xl bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 shadow-2xl">
+                    <div class="grid md:grid-cols-2 gap-8 text-left">
+                        <div class="flex flex-col justify-center">
+                            <p class="text-xs uppercase tracking-widest text-blue-300 font-bold mb-2">Estudantes</p>
+                            <ul class="space-y-1 text-white font-medium text-sm">
+                                <li>Nelcineide Teixeira da Silva</li>
+                                <li>Paula Daniely da Silva Souza</li>
+                                <li>Pauliane da Silva Souza</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center md:border-l md:border-white/10 md:pl-10">
+                            <p class="text-xs uppercase tracking-widest text-purple-300 font-bold mb-2">Orientador</p>
+                            <div class="text-white">
+                                <p class="text-lg font-bold">Dr. Humberto Meira de Araujo Neto</p>
+                                <p class="text-blue-200/80 text-sm font-light">UFAL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 1: CONTEXTO E JUSTIFICATIVA -->
+        <!-- ========================================== -->
+        <div class="slide bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-blue-400 mb-4">Contexto da Pesquisa</div>
+            <h2 class="text-4xl font-bold text-white mb-8">O Problema: Inclusão no Sertão</h2>
+            <div class="h-1 w-24 bg-blue-500 rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6 text-gray-300 text-lg leading-relaxed">
+                    <p>
+                        Apesar da matrícula de estudantes surdos no interior de Alagoas e Bahia, a <strong>qualidade da inclusão</strong> permanece um desafio crítico.
+                    </p>
+                    <div class="bg-blue-900/30 p-6 rounded-xl border-l-4 border-blue-500">
+                        <p class="font-bold text-white mb-2">Distância entre Lei e Realidade</p>
+                        <p class="text-sm">Existe um abismo significativo entre as leis que prescrevem a educação bilíngue e a realidade cotidiana das escolas periféricas.</p>
+                    </div>
+                    <p class="text-sm opacity-80 mt-4">
+                        * Estudo desenvolvido no contexto do curso PRILEI (UFAL Campus Sertão).
+                    </p>
+                </div>
+                
+                <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 text-center">
+                    <div class="text-6xl font-black text-blue-400 mb-2">95%</div>
+                    <p class="text-xl text-white font-semibold mb-4">Das crianças surdas</p>
+                    <p class="text-gray-400">Nascem em famílias ouvintes e não têm acesso precoce à Libras, gerando risco de privação linguística.</p>
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <p class="text-white font-bold">Objetivo Prático</p>
+                        <p class="text-sm text-gray-400">Fornecer subsídios para gestores melhorarem práticas e fortalecerem o AEE.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-white">1</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 2: OBJETIVOS -->
+        <!-- ========================================== -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-purple-600 mb-4">Direcionamento</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Objetivos da Pesquisa</h2>
+            <div class="h-1 w-24 bg-purple-600 rounded mb-10"></div>
+
+            <div class="flex flex-col md:flex-row gap-8 h-full">
+                <!-- Geral -->
+                <div class="md:w-1/3 bg-gray-900 rounded-2xl p-8 text-white flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-400">Objetivo Geral</h3>
+                    <p class="leading-relaxed">
+                        Descrever e analisar as condições de escolarização de estudantes surdos em escolas do Sertão, focando em:
+                    </p>
+                    <ul class="mt-6 space-y-3 font-semibold text-purple-200">
+                        <li>1. Recursos Humanos</li>
+                        <li>2. Recursos Materiais</li>
+                        <li>3. Mediações Comunicativas</li>
+                    </ul>
+                </div>
+
+                <!-- Específicos -->
+                <div class="md:w-2/3 bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">Objetivos Específicos (Perguntas)</h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="flex items-start">
+                            <span class="bg-purple-100 text-purple-700 rounded-full w-8 h-8 flex items-center justify-center mr-4 font-bold shrink-0">?</span>
+                            <p class="text-gray-700">Quantas escolas dispõem de AEE, intérpretes e materiais?</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="bg-purple-100 text-purple-700 rounded-full w-8 h-8 flex items-center justify-center mr-4 font-bold shrink-0">?</span>
+                            <p class="text-gray-700">Qual a quantidade de docentes com formação em surdez/Libras?</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="bg-purple-100 text-purple-700 rounded-full w-8 h-8 flex items-center justify-center mr-4 font-bold shrink-0">?</span>
+                            <p class="text-gray-700">Quais recursos comunicativos (Libras, oralização) são mais usados?</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="bg-purple-100 text-purple-700 rounded-full w-8 h-8 flex items-center justify-center mr-4 font-bold shrink-0">?</span>
+                            <p class="text-gray-700">Como docentes percebem a interação entre surdos e ouvintes?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">2</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 3: MARCO TEÓRICO 1 -->
+        <!-- ========================================== -->
+        <div class="slide bg-gradient-to-br from-indigo-900 to-indigo-800 rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-indigo-300 mb-4">Referencial Teórico - Parte 1</div>
+            <h2 class="text-4xl font-bold text-white mb-8">Educação Bilíngue de Surdos</h2>
+            <div class="h-1 w-24 bg-indigo-500 rounded mb-10"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/10">
+                    <div class="text-3xl mb-4">🤟</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Status da Língua</h3>
+                    <p class="text-indigo-100 text-sm">
+                        Reconhecimento da <strong>Libras como L1</strong> (primeira língua) e Português escrito como L2. É o meio principal de construção de pensamento.
+                    </p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/10">
+                    <div class="text-3xl mb-4">⚖️</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Marcos Legais</h3>
+                    <p class="text-indigo-100 text-sm">
+                        <strong>Lei 10.436/02:</strong> Reconhece Libras.<br>
+                        <strong>Decreto 5.626/05:</strong> Regulamenta a educação bilíngue, garantindo o direito à diferença linguística.
+                    </p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/10">
+                    <div class="text-3xl mb-4">🧠</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Ruptura de Paradigma</h3>
+                    <p class="text-indigo-100 text-sm">
+                        Do <strong>Clínico</strong> (surdez como deficiência a corrigir) para o <strong>Sociocultural</strong> (surdez como diferença cultural e visual).
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-indigo-950/50 p-6 rounded-xl border border-indigo-500/30">
+                <p class="text-white text-center font-medium">
+                    "O desafio central é que a maioria cresce em contextos monolíngues (português), sem contato precoce com sinalizadores fluentes."
+                </p>
+            </div>
+            <div class="slide-number text-white">3</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 4: MARCO TEÓRICO 2 -->
+        <!-- ========================================== -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-blue-600 mb-4">Referencial Teórico - Parte 2</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Inclusão Escolar e AEE</h2>
+            <div class="h-1 w-24 bg-blue-600 rounded mb-10"></div>
+
+            <div class="flex gap-8 items-stretch mb-8">
+                <div class="w-1/2 bg-red-50 p-6 rounded-xl border border-red-100">
+                    <h3 class="text-red-800 font-bold mb-2">Inclusão Formal</h3>
+                    <p class="text-gray-600 text-sm">Apenas a presença física na escola. Muitas vezes reflete a lógica "ouvintista", onde se prioriza a oralização e nega-se a Libras.</p>
+                </div>
+                <div class="flex items-center text-gray-400">vs</div>
+                <div class="w-1/2 bg-green-50 p-6 rounded-xl border border-green-100">
+                    <h3 class="text-green-800 font-bold mb-2">Inclusão Substantiva</h3>
+                    <p class="text-gray-600 text-sm">Garantia de acessibilidade plena. Exige reorganização das práticas e reconhecimento das diferenças (Mantoan, 2017).</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-blue-600">
+                <h3 class="font-bold text-gray-900 mb-2">O Papel do AEE</h3>
+                <p class="text-gray-700 text-sm mb-4">Conjunto de práticas para eliminar barreiras. É complementar, não substitutivo.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-white border rounded-full text-xs text-gray-600">Constituição 1988</span>
+                    <span class="px-3 py-1 bg-white border rounded-full text-xs text-gray-600">LDB 1996</span>
+                    <span class="px-3 py-1 bg-white border rounded-full text-xs text-gray-600">Lei Brasileira de Inclusão</span>
+                    <span class="px-3 py-1 bg-blue-100 border border-blue-200 rounded-full text-xs text-blue-800 font-bold">Decreto 12.686/2025</span>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">4</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 5: MARCO TEÓRICO 3 -->
+        <!-- ========================================== -->
+        <div class="slide bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-orange-400 mb-4">Referencial Teórico - Parte 3</div>
+            <h2 class="text-4xl font-bold text-white mb-8">Recursos Humanos</h2>
+            <div class="h-1 w-24 bg-orange-500 rounded mb-10"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                    <h3 class="text-xl font-bold text-orange-400 mb-4">Intérprete de Libras (TILSP)</h3>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li>• Regulamentado pela Lei 12.319/2010.</li>
+                        <li>• Essencial para acesso ao currículo.</li>
+                        <li>• <strong>Realidade:</strong> Profissionais sobrecarregados e desarticulados do planejamento pedagógico.</li>
+                        <li>• Exige competências específicas (linguística, metodológica, bicultural).</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+                    <h3 class="text-xl font-bold text-orange-400 mb-4">Privação Linguística</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        Crianças sem acesso precoce à Libras nem ao português estruturado sofrem impactos cognitivos e sociais severos.
+                    </p>
+                    <div class="bg-orange-500/20 p-4 rounded-lg text-center">
+                        <p class="text-white font-bold text-sm">Tríade da Qualidade:</p>
+                        <p class="text-orange-200 text-xs mt-1">Professores Bilíngues + Intérpretes Qualificados + Articulação</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-white">5</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 6: METODOLOGIA 1 -->
+        <!-- ========================================== -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-teal-600 mb-4">Metodologia</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Desenho do Estudo</h2>
+            <div class="h-1 w-24 bg-teal-600 rounded mb-10"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-teal-50 p-6 rounded-xl text-center">
+                    <div class="text-4xl mb-2">🔍</div>
+                    <h3 class="font-bold text-teal-800">Tipo</h3>
+                    <p class="text-sm text-gray-600">Descritiva, exploratória e diagnóstica. Abordagem mista (Quali-Quanti).</p>
+                </div>
+                <div class="bg-teal-50 p-6 rounded-xl text-center">
+                    <div class="text-4xl mb-2">🏫</div>
+                    <h3 class="font-bold text-teal-800">Cenário</h3>
+                    <p class="text-sm text-gray-600">8 Escolas Públicas</p>
+                    <p class="text-xs text-gray-500 mt-1">6 no Sertão AL + 2 no Sertão BA</p>
+                </div>
+                <div class="bg-teal-50 p-6 rounded-xl text-center">
+                    <div class="text-4xl mb-2">👥</div>
+                    <h3 class="font-bold text-teal-800">Participantes</h3>
+                    <p class="text-sm text-gray-600">7 Gestores</p>
+                    <p class="text-sm text-gray-600">6-8 Professores Regentes</p>
+                </div>
+            </div>
+            
+            <div class="bg-gray-100 p-4 rounded-lg text-center">
+                <p class="text-gray-700 text-sm"><strong>Seleção por conveniência:</strong> Baseada na acessibilidade e receptividade das equipes.</p>
+            </div>
+            <div class="slide-number text-gray-500">6</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 7: METODOLOGIA 2 -->
+        <!-- ========================================== -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-teal-600 mb-4">Metodologia</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Instrumentos de Coleta</h2>
+            <div class="h-1 w-24 bg-teal-600 rounded mb-10"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-96">
+                <!-- Gestores -->
+                <div class="bg-white border-2 border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 text-blue-700 font-bold rounded-lg px-3 py-1 text-sm">Questionário 1</div>
+                        <span class="ml-3 font-bold text-gray-700">Equipes Gestoras</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Caracterização da escola</li>
+                        <li>Recursos humanos especializados</li>
+                        <li>Políticas e serviços de inclusão (AEE)</li>
+                        <li>Recursos materiais e tecnologia</li>
+                        <li>Políticas pedagógicas e família</li>
+                    </ul>
+                </div>
+
+                <!-- Professores -->
+                <div class="bg-white border-2 border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 text-green-700 font-bold rounded-lg px-3 py-1 text-sm">Questionário 2</div>
+                        <span class="ml-3 font-bold text-gray-700">Professores Regentes</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Formação docente e Libras</li>
+                        <li>Recursos comunicativos dos alunos</li>
+                        <li>Estratégias pedagógicas</li>
+                        <li>Mediação profissional</li>
+                        <li>Percepção sobre interação</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">7</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 8: METODOLOGIA 3 -->
+        <!-- ========================================== -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-teal-600 mb-4">Metodologia</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Análise de Dados</h2>
+            <div class="h-1 w-24 bg-teal-600 rounded mb-10"></div>
+
+            <div class="flex flex-col gap-6">
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl">
+                    <div class="bg-blue-600 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center shrink-0 mr-4">1</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Quantitativa</h3>
+                        <p class="text-sm text-gray-600">Planilhas digitais e cálculo de frequências absolutas e relativas. Foco em documentar padrões.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl">
+                    <div class="bg-purple-600 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center shrink-0 mr-4">2</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Qualitativa</h3>
+                        <p class="text-sm text-gray-600">Análise temática (Bardin, 2016). Identificação de categorias como: desafios comunicativos, estratégias e carências.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start bg-gray-50 p-6 rounded-xl">
+                    <div class="bg-gray-800 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center shrink-0 mr-4">3</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Integração</h3>
+                        <p class="text-sm text-gray-600">Dados numéricos interpretados à luz dos temas qualitativos. Ex: Escola com AEE mas sem intérprete = barreira comunicativa.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">8</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 9: LIMITAÇÕES -->
+        <!-- ========================================== -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-red-500 mb-4">Considerações</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Limitações do Estudo</h2>
+            <div class="h-1 w-24 bg-red-500 rounded mb-10"></div>
+
+            <div class="bg-red-50 border-l-4 border-red-500 p-8 rounded-r-xl mb-8">
+                <h3 class="text-xl font-bold text-red-900 mb-4">Pontos de Atenção</h3>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-red-800">
+                    <li class="flex items-center"><span class="mr-2">•</span> Amostra pequena (8 escolas)</li>
+                    <li class="flex items-center"><span class="mr-2">•</span> Não permite generalização nacional</li>
+                    <li class="flex items-center"><span class="mr-2">•</span> Seleção por conveniência (viés)</li>
+                    <li class="flex items-center"><span class="mr-2">•</span> Dados faltantes em algumas respostas</li>
+                    <li class="flex items-center"><span class="mr-2">•</span> Ausência de observação direta em sala</li>
+                    <li class="flex items-center"><span class="mr-2">•</span> Temporalidade (dados de Março/2025)</li>
+                </ul>
+            </div>
+            
+            <p class="text-gray-600 text-center italic">
+                Apesar das limitações, o estudo é vital por oferecer um diagnóstico inicial para uma região pouco estudada, servindo de base para políticas públicas.
+            </p>
+            <div class="slide-number text-gray-500">9</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BLOCO 10: SÍNTESE DOS EIXOS -->
+        <!-- ========================================== -->
+        <div class="slide bg-gradient-to-br from-indigo-900 to-blue-900 rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-white/70 mb-4">Estrutura da Análise</div>
+            <h2 class="text-4xl font-bold text-white mb-8">Os Três Eixos Analíticos</h2>
+            <div class="h-1 w-24 bg-white rounded mb-10"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-96 items-stretch">
+                <div class="bg-white/10 p-8 rounded-2xl border border-white/20 hover:bg-white/15 transition-colors">
+                    <div class="text-4xl mb-6">🧑‍🏫</div>
+                    <h3 class="text-xl font-bold text-white mb-4">Recursos Humanos</h3>
+                    <p class="text-blue-100 text-sm">Presença de intérpretes, formação docente em surdez/Libras e proficiência na língua.</p>
+                </div>
+
+                <div class="bg-white/10 p-8 rounded-2xl border border-white/20 hover:bg-white/15 transition-colors">
+                    <div class="text-4xl mb-6">📚</div>
+                    <h3 class="text-xl font-bold text-white mb-4">Recursos Materiais</h3>
+                    <p class="text-blue-100 text-sm">Disponibilidade e frequência do AEE, materiais didáticos específicos e apoio individualizado.</p>
+                </div>
+
+                <div class="bg-white/10 p-8 rounded-2xl border border-white/20 hover:bg-white/15 transition-colors">
+                    <div class="text-4xl mb-6">💬</div>
+                    <h3 class="text-xl font-bold text-white mb-4">Mediações Comunicativas</h3>
+                    <p class="text-blue-100 text-sm">Como ocorre a comunicação? (Libras, Oralização). Qualidade da interação surdo-ouvinte.</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-white/60 mt-8 text-sm">
+                Estes eixos, quando articulados, revelam o real cenário da inclusão.
+            </p>
+            <div class="slide-number text-white">10</div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- AQUI COMEÇAM OS SLIDES DE RESULTADOS (ORIGINAIS) -->
+        <!-- ========================================== -->
+        
+        <!-- SLIDE 11: Título Resultados -->
+        <div class="slide bg-gradient-to-br from-purple-600 to-blue-600 rounded-3xl shadow-2xl p-16 relative">
+            <div class="text-white">
+                <div class="text-sm font-semibold uppercase tracking-wide mb-4 opacity-80">Parte Prática</div>
+                <h1 class="text-6xl font-bold mb-6 leading-tight">Resultados da Pesquisa</h1>
+                <div class="h-1 w-32 bg-white rounded mb-8"></div>
+                <p class="text-2xl text-white text-opacity-90 mb-12">Dados quantitativos e qualitativos das 8 escolas</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+                    <div class="bg-white bg-opacity-20 backdrop-blur rounded-2xl p-6 text-center stat-card">
+                        <div class="text-5xl font-bold mb-2">8</div>
+                        <div class="text-sm font-semibold opacity-90">Escolas</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-blur rounded-2xl p-6 text-center stat-card">
+                        <div class="text-5xl font-bold mb-2">15+</div>
+                        <div class="text-sm font-semibold opacity-90">Estudantes</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-blur rounded-2xl p-6 text-center stat-card">
+                        <div class="text-5xl font-bold mb-2">7</div>
+                        <div class="text-sm font-semibold opacity-90">Gestores</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-blur rounded-2xl p-6 text-center stat-card">
+                        <div class="text-5xl font-bold mb-2">8</div>
+                        <div class="text-sm font-semibold opacity-90">Docentes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-white">11</div>
+        </div>
+
+        <!-- SLIDE 12: Escolas Participantes -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-purple-600 mb-4">Caracterização</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Escolas Participantes</h2>
+            <div class="h-1 w-24 bg-purple-600 rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="school-badge bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-4 border-l-4 border-purple-600">
+                    <div class="font-bold text-gray-900">EMEB Eliseu Norberto</div>
+                    <div class="text-sm text-gray-600">Delmiro Gouveia, AL</div>
+                </div>
+                <div class="school-badge bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-4 border-l-4 border-blue-600">
+                    <div class="font-bold text-gray-900">EE Demócrito Gracindo</div>
+                    <div class="text-sm text-gray-600">Mata Grande, AL</div>
+                </div>
+                <div class="school-badge bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-4 border-l-4 border-green-600">
+                    <div class="font-bold text-gray-900">EE Básica de Pariconha</div>
+                    <div class="text-sm text-gray-600">Pariconha, AL</div>
+                    <div class="text-xs text-orange-600 mt-1">* Sem resposta da direção</div>
+                </div>
+                <div class="school-badge bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-xl p-4 border-l-4 border-yellow-600">
+                    <div class="font-bold text-gray-900">EE Domingos Moeda</div>
+                    <div class="text-sm text-gray-600">Água Branca, AL</div>
+                </div>
+                <div class="school-badge bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl p-4 border-l-4 border-pink-600">
+                    <div class="font-bold text-gray-900">EMEB Profª Maria da Silva Brandão</div>
+                    <div class="text-sm text-gray-600">Leobino, Inhapi, AL</div>
+                </div>
+                <div class="school-badge bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-xl p-4 border-l-4 border-indigo-600">
+                    <div class="font-bold text-gray-900">EMEB Urbano Malta Filho</div>
+                    <div class="text-sm text-gray-600">Inhapi, AL</div>
+                </div>
+                <div class="school-badge bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-4 border-l-4 border-red-600">
+                    <div class="font-bold text-gray-900">CETEPI</div>
+                    <div class="text-sm text-gray-600">Paulo Afonso, BA</div>
+                </div>
+                <div class="school-badge bg-gradient-to-r from-teal-50 to-teal-100 rounded-xl p-4 border-l-4 border-teal-600">
+                    <div class="font-bold text-gray-900">CE Paulo Freire</div>
+                    <div class="text-sm text-gray-600">Paulo Afonso, BA</div>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">12</div>
+        </div>
+
+        <!-- SLIDE 13: Intérpretes de Libras -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-purple-600 mb-4">Recursos Humanos - Parte 1</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Intérpretes de Libras</h2>
+            <div class="h-1 w-24 bg-purple-600 rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <div class="flex justify-between mb-3">
+                        <span class="text-gray-700 font-bold text-lg">Com Intérprete</span>
+                        <span class="text-gray-900 font-bold text-2xl text-green-600">4 escolas</span>
+                    </div>
+                    <div class="bg-gray-200 rounded-full h-6 overflow-hidden mb-4">
+                        <div class="resource-bar bg-green-500 h-full rounded-full" data-width="57%"></div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <p class="text-sm text-gray-700 font-semibold mb-2">Escolas:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• INH_MSB</li>
+                            <li>• AB_DM</li>
+                            <li>• PA_CETEPI</li>
+                            <li>• PA_PF</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-3">
+                        <span class="text-gray-700 font-bold text-lg">Sem Intérprete</span>
+                        <span class="text-gray-900 font-bold text-2xl text-red-600">3 escolas</span>
+                    </div>
+                    <div class="bg-gray-200 rounded-full h-6 overflow-hidden mb-4">
+                        <div class="resource-bar bg-red-500 h-full rounded-full" data-width="43%"></div>
+                    </div>
+                    <div class="bg-red-50 rounded-lg p-4">
+                        <p class="text-sm text-gray-700 font-semibold mb-2">Escolas:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• DG_ELISEU</li>
+                            <li>• MG_DG</li>
+                            <li>• INH_UMF</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-lg">
+                <div class="flex items-start">
+                    <div class="text-3xl mr-4">⚠️</div>
+                    <div>
+                        <p class="font-bold text-orange-900 mb-2">Observação Importante</p>
+                        <p class="text-sm text-orange-800">Todas as escolas com intérprete têm <strong>apenas 1 profissional</strong>, concentrando em uma única pessoa a mediação linguística entre Libras e português para diferentes turmas e alunos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">13</div>
+        </div>
+
+        <!-- SLIDE 14: AEE -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-blue-600 mb-4">Recursos Humanos - Parte 2</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Atendimento Educacional Especializado</h2>
+            <div class="h-1 w-24 bg-blue-600 rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border-2 border-green-300">
+                    <div class="text-6xl font-bold text-green-600 mb-4">6</div>
+                    <div class="text-xl font-bold text-gray-900 mb-2">Escolas com AEE</div>
+                    <div class="bg-gray-200 rounded-full h-4 overflow-hidden mt-4">
+                        <div class="resource-bar bg-green-500 h-full rounded-full" data-width="86%"></div>
+                    </div>
+                    <div class="text-sm text-gray-600 mt-2">86% das escolas</div>
+                </div>
+                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 border-2 border-red-300">
+                    <div class="text-6xl font-bold text-red-600 mb-4">1</div>
+                    <div class="text-xl font-bold text-gray-900 mb-2">Escola sem AEE</div>
+                    <div class="bg-gray-200 rounded-full h-4 overflow-hidden mt-4">
+                        <div class="resource-bar bg-red-500 h-full rounded-full" data-width="14%"></div>
+                    </div>
+                    <div class="text-sm text-gray-600 mt-2">CE Paulo Freire (PA_PF)</div>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-lg">
+                <p class="text-gray-800"><strong>O AEE aparece como política mais consolidada</strong> entre as escolas pesquisadas, embora apresente modelos de funcionamento variados (atendimento individual, periodicidade semanal, atendimento em turno contrário, etc.).</p>
+            </div>
+            <div class="slide-number text-gray-500">14</div>
+        </div>
+
+        <!-- SLIDE 15: Formação Docente -->
+        <div class="slide bg-gradient-to-br from-red-50 to-orange-50 rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-red-600 mb-4">Recursos Humanos - Parte 3</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Formação Específica dos Docentes</h2>
+            <div class="h-1 w-24 bg-red-600 rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white rounded-2xl p-6 border-2 border-red-300 shadow-lg">
+                    <div class="text-5xl font-bold text-red-600 mb-2">2</div>
+                    <div class="text-gray-900 font-bold mb-2">Com formação</div>
+                    <div class="text-xs text-gray-600 mt-2">DG_ELISEU<br>MG_DG</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 border-2 border-orange-300 shadow-lg">
+                    <div class="text-5xl font-bold text-orange-600 mb-2">2</div>
+                    <div class="text-gray-900 font-bold mb-2">Sem formação</div>
+                    <div class="text-xs text-gray-600 mt-2">INH_MSB<br>PA_CETEPI</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 border-2 border-gray-300 shadow-lg">
+                    <div class="text-5xl font-bold text-gray-600 mb-2">3</div>
+                    <div class="text-gray-900 font-bold mb-2">Não informaram</div>
+                </div>
+            </div>
+
+            <div class="bg-white border-2 border-red-400 rounded-2xl p-8 shadow-lg">
+                <h4 class="font-bold text-gray-900 mb-6 text-xl">Conhecimento de Libras pelos Professores</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-600">
+                        <div class="text-4xl font-bold text-green-600">1</div>
+                        <div class="text-sm text-gray-900 font-semibold mt-2">Sabe Libras</div>
+                        <div class="text-xs text-gray-600 mt-1">DG_ELISEU</div>
+                    </div>
+                    <div class="bg-red-50 rounded-xl p-6 border-l-4 border-red-600">
+                        <div class="text-4xl font-bold text-red-600">4</div>
+                        <div class="text-sm text-gray-900 font-semibold mt-2">Não sabe Libras</div>
+                    </div>
+                    <div class="bg-gray-100 rounded-xl p-6 border-l-4 border-gray-600">
+                        <div class="text-4xl font-bold text-gray-600">2</div>
+                        <div class="text-sm text-gray-900 font-semibold mt-2">Não informaram</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">15</div>
+        </div>
+
+        <!-- SLIDE 16: Achado Crítico -->
+        <div class="slide bg-gradient-to-br from-red-600 to-red-800 text-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-4 opacity-80">Achado Crítico</div>
+            <h2 class="text-5xl font-bold mb-10">Lacuna na Formação Docente</h2>
+            <div class="h-1 w-24 bg-white rounded mb-10"></div>
+            
+            <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-8">
+                <div class="flex items-start mb-6">
+                    <svg class="w-12 h-12 mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    <div>
+                        <p class="text-xl leading-relaxed mb-6">A maioria dos professores que atualmente atua com estudantes surdos <strong>não domina Libras</strong> e não menciona formação específica na área.</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl p-6 text-center">
+                        <div class="text-5xl font-bold text-red-600 mb-2">8</div>
+                        <div class="text-sm text-gray-900 font-semibold">Docentes<br>respondentes</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 text-center">
+                        <div class="text-5xl font-bold text-orange-600 mb-2">6</div>
+                        <div class="text-sm text-gray-900 font-semibold">Têm aluno surdo<br>em suas turmas</div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 text-center">
+                        <div class="text-5xl font-bold text-green-600 mb-2">1</div>
+                        <div class="text-sm text-gray-900 font-semibold">Professor<br>sabe Libras</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-lg opacity-90">
+                <p><strong>Isso reforça a distância entre o discurso de inclusão e as condições efetivas de trabalho em sala de aula.</strong></p>
+            </div>
+            <div class="slide-number text-white">16</div>
+        </div>
+
+        <!-- SLIDE 17: Recursos Materiais -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-green-600 mb-4">Recursos Materiais</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Material Didático e Apoio</h2>
+            <div class="h-1 w-24 bg-green-600 rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Material Didático Específico</h3>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm text-gray-700 font-semibold">Possuem material</span>
+                                <span class="text-lg font-bold text-green-600">3 escolas</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-4">
+                                <div class="resource-bar bg-green-500 h-full rounded-full" data-width="43%"></div>
+                            </div>
+                            <div class="text-xs text-gray-600 mt-2">DG_ELISEU, MG_DG, INH_MSB</div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm text-gray-700 font-semibold">Não possuem</span>
+                                <span class="text-lg font-bold text-red-600">3 escolas</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-4">
+                                <div class="resource-bar bg-red-500 h-full rounded-full" data-width="43%"></div>
+                            </div>
+                            <div class="text-xs text-gray-600 mt-2">AB_DM, PA_CETEPI, PA_PF</div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm text-gray-700 font-semibold">Não informaram</span>
+                                <span class="text-lg font-bold text-gray-600">1 escola</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-4">
+                                <div class="resource-bar bg-gray-500 h-full rounded-full" data-width="14%"></div>
+                            </div>
+                            <div class="text-xs text-gray-600 mt-2">INH_UMF</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Apoio Individualizado</h3>
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm text-gray-700 font-semibold">Oferecem apoio</span>
+                                <span class="text-lg font-bold text-green-600">5 escolas</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-4">
+                                <div class="resource-bar bg-green-500 h-full rounded-full" data-width="71%"></div>
+                            </div>
+                            <div class="text-xs text-gray-600 mt-2">71% das escolas</div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm text-gray-700 font-semibold">Não oferecem</span>
+                                <span class="text-lg font-bold text-red-600">2 escolas</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-4">
+                                <div class="resource-bar bg-red-500 h-full rounded-full" data-width="29%"></div>
+                            </div>
+                            <div class="text-xs text-gray-600 mt-2">29% das escolas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-lg">
+                <h4 class="font-bold text-gray-900 mb-3 flex items-center">
+                    <span class="text-2xl mr-3">📝</span>
+                    Perspectiva dos Docentes
+                </h4>
+                <p class="text-gray-700">3 professores afirmam utilizar materiais específicos, mas a maioria não detalha quais recursos. Metade dos professores não respondeu esta questão, indicando possível <strong>ausência de materiais estruturados</strong> ou dificuldade em reconhecer o que seria um "material específico".</p>
+            </div>
+            <div class="slide-number text-gray-500">17</div>
+        </div>
+
+        <!-- SLIDE 18: Mediações Comunicativas -->
+        <div class="slide bg-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide text-indigo-600 mb-4">Mediações Comunicativas</div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Comunicação em Sala de Aula</h2>
+            <div class="h-1 w-24 bg-indigo-600 rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">Recursos Utilizados pelos Estudantes</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center bg-white rounded-lg p-4 shadow">
+                            <span class="text-gray-700 font-semibold">Libras</span>
+                            <span class="font-bold text-purple-600 text-lg">2 turmas</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-white rounded-lg p-4 shadow">
+                            <span class="text-gray-700 font-semibold">Aparelho auditivo</span>
+                            <span class="font-bold text-blue-600 text-lg">2 turmas</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-white rounded-lg p-4 shadow">
+                            <span class="text-gray-700 font-semibold">Oralização</span>
+                            <span class="font-bold text-green-600 text-lg">Isoladas</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-white rounded-lg p-4 shadow">
+                            <span class="text-gray-700 font-semibold">Não informado</span>
+                            <span class="font-bold text-gray-600 text-lg">Vários</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">Interação com Colegas Ouvintes</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center bg-white rounded-lg p-4 shadow">
+                            <span class="text-gray-700 font-semibold">Boa interação</span>
+                            <span class="font-bold text-green-600 text-lg">1 prof.</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-white rounded-lg p-4 shadow">
+                            <span class="text-gray-700 font-semibold">Interação razoável</span>
+                            <span class="font-bold text-yellow-600 text-lg">3 prof.</span>
+                        </div>
+                        <div classf="flex justify-between items-center bg-white rounded-lg p-4 shadow">
+                            <span class="text-gray-700 font-semibold">Não responderam</span>
+                            <span class="font-bold text-gray-600 text-lg">4 prof.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border-l-4 border-indigo-600">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Orientação Pedagógica</h3>
+                <p class="text-gray-700 mb-4">3 professores mencionam receber apoio de outros profissionais:</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="bg-white rounded-lg p-4 text-center shadow">
+                        <div class="font-bold text-indigo-600">Intérprete</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 text-center shadow">
+                        <div class="font-bold text-purple-600">Professora de AEE</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 text-center shadow">
+                        <div class="font-bold text-pink-600">Psicopedagogo</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number text-gray-500">18</div>
+        </div>
+
+        <!-- SLIDE 19: Caso Crítico Pariconha -->
+        <div class="slide bg-gradient-to-br from-red-600 to-pink-600 text-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-4 opacity-80">Caso Crítico</div>
+            <h2 class="text-5xl font-bold mb-10">Escola Estadual Básica de Pariconha</h2>
+            <div class="h-1 w-24 bg-white rounded mb-10"></div>
+            
+            <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-8">
+                <div class="flex items-start mb-6">
+                    <div class="bg-white text-red-600 rounded-full w-16 h-16 flex items-center justify-center mr-6 flex-shrink-0 text-3xl font-bold">!</div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-4">Acesso Linguístico Muito Precário</h4>
+                        <div class="bg-white bg-opacity-20 backdrop-blur rounded-xl p-6 mb-4">
+                            <p class="text-xl mb-2">Comunicação descrita pela professora:</p>
+                            <p class="text-3xl font-bold">"Vocalização de choro e emissão de gritos"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white text-gray-900 rounded-xl p-6">
+                    <p class="text-lg leading-relaxed"><strong>Situação:</strong> A expressão do estudante é interpretada mais como <strong>reação física/emocional</strong> do que como produção em uma língua estruturada. A própria docente registra a "necessidade de intérpretes de Libras", reforçando a percepção de que a escola não dispõe de condições adequadas para a comunicação.</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-xl opacity-90"><strong>Este caso evidencia uma situação de exclusão linguística severa.</strong></p>
+            </div>
+            <div class="slide-number text-white">19</div>
+        </div>
+
+        <!-- SLIDE 20: Síntese - Desafios e Aspectos Positivos -->
+        <div class="slide bg-gradient-to-br from-gray-900 to-purple-900 text-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-4 opacity-80">Síntese dos Achados</div>
+            <h2 class="text-5xl font-bold mb-10">Panorama Geral</h2>
+            <div class="h-1 w-24 bg-white rounded mb-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <span class="mr-3 text-3xl">⚠️</span> Desafios Encontrados
+                    </h3>
+                    <ul class="space-y-4 text-white text-opacity-90 text-lg">
+                        <li class="flex items-start">
+                            <span class="mr-3 text-yellow-400">•</span>
+                            <span>Distribuição desigual de recursos humanos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-yellow-400">•</span>
+                            <span>Corpo docente majoritariamente sem domínio de Libras</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-yellow-400">•</span>
+                            <span>Oferta parcial de recursos materiais específicos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-yellow-400">•</span>
+                            <span>Mediações comunicativas frágeis e improvisadas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-yellow-400">•</span>
+                            <span>Uso pouco sistemático dos materiais na sala regular</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <span class="mr-3 text-3xl">✓</span> Aspectos Positivos
+                    </h3>
+                    <ul class="space-y-4 text-white text-opacity-90 text-lg">
+                        <li class="flex items-start">
+                            <span class="mr-3 text-green-400">•</span>
+                            <span>Disposição favorável à inclusão pela direção</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-green-400">•</span>
+                            <span>AEE presente em 86% das escolas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-green-400">•</span>
+                            <span>Apoios individualizados em 5 escolas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-green-400">•</span>
+                            <span>Iniciativas de trabalho colaborativo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-3 text-green-400">•</span>
+                            <span>Envolvimento de famílias e busca de orientação</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number text-white">20</div>
+        </div>
+
+        <!-- SLIDE 21: Tensão Central -->
+        <div class="slide bg-gradient-to-br from-yellow-500 to-orange-600 text-white rounded-3xl shadow-2xl p-12 relative">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-4 opacity-80">Conclusão Principal</div>
+            <h2 class="text-5xl font-bold mb-10">A Tensão Central</h2>
+            <div class="h-1 w-24 bg-white rounded mb-12"></div>
+            
+            <div class="bg-white bg-opacity-20 backdrop-blur border-2 border-white rounded-3xl p-10">
+                <div class="text-center mb-8">
+                    <div class="text-6xl mb-6">⚖️</div>
+                </div>
+                <p class="text-2xl text-white leading-relaxed text-center mb-8">
+                    Há <strong>discurso de compromisso</strong> com a educação inclusiva, mas as <strong>condições concretas de trabalho</strong> ainda são <strong>insuficientes</strong>.
+                </p>
+                <div class="bg-white text-gray-900 rounded-2xl p-8">
+                    <p class="text-xl leading-relaxed">
+                        A formação docente, os recursos humanos, materiais e linguísticos precisam ser fortalecidos para garantir, de forma robusta, uma <strong>educação bilíngue em Libras e português escrito</strong> para estudantes surdos no Sertão.
+                    </p>
+                </div>
+            </div>
+            <div class="slide-number text-white">21</div>
+        </div>
+
+        <div class="slide-counter" id="slide-counter">1 / 22</div>
+    </div>
+
+    <script type="module">
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideCounter = document.getElementById('slide-counter');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                    // Reiniciar animação das barras
+                    const bars = slide.querySelectorAll('.resource-bar');
+                    bars.forEach(bar => {
+                        bar.style.width = '0';
+                        setTimeout(() => {
+                            bar.style.width = bar.dataset.width;
+                        }, 100);
+                    });
+                } else {
+                    slide.classList.remove('active');
+                    const bars = slide.querySelectorAll('.resource-bar');
+                    bars.forEach(bar => bar.style.width = '0');
+                }
+            });
+            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        window.changeSlide = function(direction) {
+            const next = currentSlide + direction;
+            if (next >= 0 && next < slides.length) {
+                currentSlide = next;
+                updateSlide();
+            }
+        };
+
+        // Suporte ao teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Inicializa
+        updateSlide();
+    </script>
+</body>
+</html>

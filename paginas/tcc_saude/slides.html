@@ -505,7 +505,7 @@
                         </div>
                         <div class="bg-gray-100 p-4 rounded-lg">
                             <span class="block font-bold text-gray-700">Lugar de Fala</span>
-                            <span class="text-sm text-gray-500">Autoras Surdas</span>
+                            <span class="text-sm text-gray-500">Autoras <strong>Surdas</strong></span>
                         </div>
                     </div>
                 </div>
@@ -527,11 +527,10 @@
                         </ul>
                     </div>
                     <div class="bg-white rounded-3xl p-8 shadow-lg relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 text-6xl opacity-10">🎥</div>
+                        <div class="absolute top-0 right-0 p-4 text-6xl opacity-10">👤</div>
                         <h3 class="text-xl font-black text-purple-600 mb-4">Instrumento 2:<br>Registros Introspectivos</h3>
                         <ul class="text-gray-600 space-y-2 text-sm">
-                            <li>• Vídeos em Libras das autoras</li>
-                            <li>• Perspectiva êmica (interna)</li>
+                            <li>• Perspectiva pessoal</li>
                             <li>• Experiência real da comunidade</li>
                         </ul>
                     </div>
@@ -725,10 +724,26 @@
                         Resumo da Execução
                     </h2>
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                        <div class="bg-purple-50 p-5 rounded-2xl text-center"><div class="text-4xl font-black text-purple-700">3h</div><div class="text-xs font-bold uppercase">Duração</div></div>
-                        <div class="bg-blue-50 p-5 rounded-2xl text-center"><div class="text-4xl font-black text-blue-700">3</div><div class="text-xs font-bold uppercase">Turmas</div></div>
-                        <div class="bg-green-50 p-5 rounded-2xl text-center"><div class="text-4xl font-black text-green-700">2</div><div class="text-xs font-bold uppercase">Estudantes</div></div>
-                        <div class="bg-orange-50 p-5 rounded-2xl text-center"><div class="text-4xl font-black text-orange-700">1</div><div class="text-xs font-bold uppercase">Profissionais</div></div>
+                        <!-- Duração -->
+                        <div class="bg-purple-50 p-5 rounded-2xl text-center flex flex-col justify-center">
+                            <div class="text-4xl font-black text-purple-700">3h</div>
+                            <div class="text-xs font-bold uppercase text-gray-600">Duração</div>
+                        </div>
+                        <!-- Total -->
+                        <div class="bg-blue-50 p-5 rounded-2xl text-center flex flex-col justify-center">
+                            <div class="text-4xl font-black text-blue-700">3</div>
+                            <div class="text-xs font-bold uppercase text-gray-600">Turmas Totais</div>
+                        </div>
+                        <!-- Breakdown 1 -->
+                        <div class="bg-green-50 p-5 rounded-2xl text-center flex flex-col justify-center border-2 border-green-100 relative overflow-hidden">
+                            <div class="text-4xl font-black text-green-700">2</div>
+                            <div class="text-xs font-bold uppercase text-gray-600 leading-tight">Turmas para<br>Estudantes</div>
+                        </div>
+                        <!-- Breakdown 2 -->
+                        <div class="bg-orange-50 p-5 rounded-2xl text-center flex flex-col justify-center border-2 border-orange-100">
+                            <div class="text-4xl font-black text-orange-700">1</div>
+                            <div class="text-xs font-bold uppercase text-gray-600 leading-tight">Turma para<br>Profissionais</div>
+                        </div>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
                         <h3 class="font-bold text-gray-900 mb-4 text-lg">Impacto Imediato:</h3>

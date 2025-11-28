@@ -28,6 +28,8 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            /* Adicionado padding-bottom para garantir que o conteúdo não encoste na navegação */
+            padding-bottom: 80px; 
         }
         
         .slide.active {
@@ -87,11 +89,6 @@
             transform: none;
         }
 
-        .section-badge {
-            transition: all 0.3s ease;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-
         /* Tabela customizada */
         .custom-table th {
             text-transform: uppercase;
@@ -149,25 +146,19 @@
             z-index: 5;
         }
 
-        /* Barra de rolagem dos dots */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
         .slide::-webkit-scrollbar { width: 6px; }
         .slide::-webkit-scrollbar-track { background: transparent; }
         .slide::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
 
     <main id="presentation-container" class="relative w-full h-full">
 
-        <!-- SLIDE 1: CAPA (CORRIGIDA) -->
+        <!-- SLIDE 1: CAPA -->
         <section class="slide active">
             <div class="slide-content-wrapper">
                 <div class="glass-card p-10 md:p-14 flex flex-col h-full justify-between relative overflow-hidden" style="min-height: 500px;">
@@ -223,10 +214,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-6 border-t pt-4">
-                        <h3 class="font-bold text-gray-800 mb-2 text-sm">Por que estudar?</h3>
-                        <p class="text-gray-600 text-sm">Libras é uma língua natural, dinâmica e heterogênea. Existe uma lacuna de estudos quantitativos sobre a distribuição social de variantes.</p>
-                    </div>
+                    
                 </div>
             </div>
         </section>
@@ -240,7 +228,7 @@
                         <div class="bg-green-50 p-6 rounded-xl text-center">
                             <div class="text-4xl mb-2">🥬</div>
                             <h3 class="font-bold text-green-800 mb-1">Campo Semântico</h3>
-                            <p class="text-sm text-gray-600"><strong>Verduras/Legumes</strong><br>(9 itens: Alface, Batata, Cebola, etc.)</p>
+                            <p class="text-sm text-gray-600"><strong>Verduras/Legumes</strong><br>(8 itens: Alface, Batata, Cebola, etc.)</p>
                         </div>
                         <div class="bg-purple-50 p-6 rounded-xl text-center">
                             <div class="text-4xl mb-2">👥</div>
@@ -312,13 +300,13 @@
                         </div>
                         <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
                             <div class="text-teal-500 font-black text-4xl mb-2">2</div>
-                            <h3 class="font-bold text-gray-800 mb-2">Descrição Fonológica</h3>
-                            <p class="text-xs text-gray-600">Analisar parâmetros das variantes (configuração de mão, movimento, etc.).</p>
+                            <h3 class="font-bold text-gray-800 mb-2">Descrição Morfológica</h3>
+                            <p class="text-xs text-gray-600">Analisar traços das variantes (uso de dv, modificador, etc.).</p>
                         </div>
                         <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
                             <div class="text-teal-500 font-black text-4xl mb-2">3</div>
                             <h3 class="font-bold text-gray-800 mb-2">Teste de Hipótese</h3>
-                            <p class="text-xs text-gray-600">Testar estatisticamente se jovens preferem sistematicamente formas distintas.</p>
+                            <p class="text-xs text-gray-600">Testar estatisticamente se jovens preferem sistematicamente formas distintas e se há maior consenso entre eles.</p>
                         </div>
                     </div>
                 </div>
@@ -355,19 +343,22 @@
             <div class="slide-content-wrapper">
                 <div class="bg-white rounded-3xl p-10 shadow-xl">
                     <h2 class="text-3xl font-black text-gray-900 mb-6">Libras e Sociolinguística</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="col-span-1 md:col-span-2">
                             <h3 class="font-bold text-blue-600 mb-2 uppercase text-sm">Língua Natural Complexa</h3>
                             <p class="text-sm text-gray-700 mb-4">Reconhecida legalmente (2002), Libras apresenta variação em todos os níveis, especialmente lexical. Estudos pioneiros (Stokoe, Quadros & Karnopp) consolidaram esse status.</p>
                         </div>
-                        <div>
-                            <h3 class="font-bold text-blue-600 mb-2 uppercase text-sm">Fatores de Variação</h3>
-                            <ul class="text-sm text-gray-700 space-y-2">
-                                <li class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <strong>Regional:</strong> Diversidade cultural brasileira.</li>
-                                <li class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <strong>Social:</strong> Escolarização, contato com ouvintes.</li>
-                                <li class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <strong>Geracional:</strong> Idade como fator determinante.</li>
-                            </ul>
+                        <div class="bg-gray-50 p-4 rounded-xl flex flex-col justify-center">
+                            <h4 class="font-bold text-gray-800 text-center mb-2">Fatores de Variação</h4>
+                            <div class="space-y-2">
+                                <span class="block bg-white border border-gray-200 p-2 rounded text-center text-xs font-bold text-gray-600">Regional</span>
+                                <span class="block bg-white border border-gray-200 p-2 rounded text-center text-xs font-bold text-gray-600">Social (Escolaridade)</span>
+                                <span class="block bg-blue-100 border border-blue-200 p-2 rounded text-center text-xs font-bold text-blue-800">Geracional (Idade)</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="border-t pt-4 text-center">
+                        <p class="text-sm text-gray-600 italic">"A linguagem é um marcador de identidade geracional. Diferenças entre grupos revelam estágios de mudança." (Labov, 2008; Eckert, 1997)</p>
                     </div>
                 </div>
             </div>
@@ -414,9 +405,7 @@
                             <p class="text-sm text-gray-700">Comunidades isoladas conservam formas antigas. Centros urbanos e digitais promovem inovação rápida.</p>
                         </div>
                     </div>
-                    <div class="mt-6 border-t pt-4">
-                        <p class="text-sm text-gray-600"><strong>Em Libras:</strong> Incorporação de sinais tecnológicos e culturais recentes é o exemplo mais visível.</p>
-                    </div>
+                    
                 </div>
             </div>
         </section>
@@ -840,7 +829,7 @@
         <section class="slide">
             <div class="slide-content-wrapper">
                 <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-12 shadow-2xl text-center flex flex-col justify-center h-full">
-                    <div class="text-6xl mb-6"></div>
+                    <div class="text-6xl mb-6">🏁</div>
                     <h3 class="text-2xl font-bold text-gray-500 mb-4 uppercase tracking-widest">Conclusão Final</h3>
                     <h1 class="text-3xl md:text-4xl font-black text-gray-900 mb-8 leading-snug">
                         O sistema de "legumes" em Libras é <span class="text-purple-600">estável formalmente</span>, mas sensível a fatores <span class="text-blue-600">sociolinguísticos</span> de acesso.
@@ -854,12 +843,27 @@
 
         <!-- CONTROLES -->
         <div class="fixed bottom-6 w-full px-8 z-50 flex flex-col items-center pointer-events-none gap-2">
-            <div id="section-badge" class="section-badge px-4 py-1 rounded-full text-white text-sm font-black uppercase tracking-widest shadow-lg opacity-0 transform translate-y-4"></div>
-            <div class="text-white text-sm font-bold bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm mb-2" id="slide-counter">Slide 1 de 24</div>
+            <!-- Pílula de Navegação (Substitui o badge flutuante antigo) -->
+            <div class="text-white text-sm font-bold bg-black/40 px-4 py-2 rounded-full backdrop-blur-md mb-2 shadow-lg flex items-center gap-3">
+                <span id="section-name" class="uppercase tracking-wider text-xs border-r border-white/20 pr-3 flex items-center gap-2">
+                    <span id="section-dot" class="w-2 h-2 rounded-full bg-gray-400"></span>
+                    <span>Capa</span>
+                </span>
+                <span id="slide-counter">Slide 1 de 24</span>
+            </div>
+
             <div class="flex justify-between items-center w-full max-w-6xl">
-                <button onclick="prevSlide()" id="prevBtn" class="nav-btn pointer-events-auto shadow-lg" disabled><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-                <div class="flex gap-2 pointer-events-auto bg-black/20 backdrop-blur-sm p-2 rounded-full overflow-x-auto max-w-[200px] md:max-w-md hide-scrollbar" id="dots-container"></div>
-                <button onclick="nextSlide()" id="nextBtn" class="nav-btn pointer-events-auto shadow-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                <button onclick="prevSlide()" id="prevBtn" class="nav-btn pointer-events-auto shadow-lg hover:bg-white/20" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                
+                <div class="flex gap-2 pointer-events-auto bg-black/20 backdrop-blur-sm p-2 rounded-full overflow-x-auto max-w-[200px] md:max-w-md hide-scrollbar" id="dots-container">
+                    <!-- Dots gerados via JS -->
+                </div>
+
+                <button onclick="nextSlide()" id="nextBtn" class="nav-btn pointer-events-auto shadow-lg hover:bg-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
             </div>
         </div>
 
@@ -872,19 +876,21 @@
         const nextBtn = document.getElementById('nextBtn');
         const dotsContainer = document.getElementById('dots-container');
         const slideCounter = document.getElementById('slide-counter');
-        const sectionBadge = document.getElementById('section-badge');
+        const sectionNameSpan = document.getElementById('section-name');
+        const sectionDot = document.getElementById('section-dot');
 
         const sectionMap = [
-            { min: 0, max: 0, name: "Capa", color: "bg-gray-800" },
-            { min: 1, max: 2, name: "Intro & Contexto", color: "bg-blue-600" },
-            { min: 3, max: 4, name: "Justificativa & Objetivos", color: "bg-teal-600" },
-            { min: 5, max: 11, name: "Referencial Teórico", color: "bg-purple-600" },
-            { min: 12, max: 12, name: "Dados Gerais", color: "bg-indigo-600" },
-            { min: 13, max: 18, name: "Resultados: Forma", color: "bg-orange-600" },
-            { min: 19, max: 20, name: "Resultados: Uso", color: "bg-pink-600" },
-            { min: 21, max: 23, name: "Conclusão", color: "bg-gray-700" }
+            { min: 0, max: 0, name: "Capa", color: "bg-gray-400" },
+            { min: 1, max: 3, name: "Contextualização", color: "bg-blue-500" }, 
+            { min: 4, max: 4, name: "Justificativa", color: "bg-teal-500" },
+            { min: 5, max: 11, name: "Referencial Teórico", color: "bg-purple-500" },
+            { min: 12, max: 13, name: "Dados Gerais", color: "bg-indigo-500" },
+            { min: 14, max: 18, name: "Resultados: Forma", color: "bg-orange-500" },
+            { min: 19, max: 20, name: "Resultados: Repertório", color: "bg-pink-500" },
+            { min: 21, max: 23, name: "Conclusão", color: "bg-green-500" }
         ];
 
+        // Criar Dots
         slides.forEach((_, index) => {
             const dot = document.createElement('div');
             dot.className = `w-2 h-2 flex-shrink-0 rounded-full cursor-pointer transition-all ${index === 0 ? 'bg-white scale-125' : 'bg-white/40 hover:bg-white/80'}`;
@@ -894,18 +900,12 @@
 
         const dots = dotsContainer.children;
 
-        function updateSectionBadge(index) {
+        function updateSectionInfo(index) {
             const section = sectionMap.find(s => index >= s.min && index <= s.max);
-            sectionBadge.className = "section-badge px-4 py-1 rounded-full text-white text-sm font-black uppercase tracking-widest shadow-lg transition-all duration-300";
             
-            sectionBadge.classList.remove('bg-gray-800', 'bg-blue-600', 'bg-teal-600', 'bg-purple-600', 'bg-indigo-600', 'bg-orange-600', 'bg-pink-600', 'bg-gray-700');
-
-            if (section && section.name !== "") {
-                sectionBadge.innerText = section.name;
-                sectionBadge.classList.add(section.color);
-                sectionBadge.classList.remove('opacity-0', 'translate-y-4');
-            } else {
-                sectionBadge.classList.add('opacity-0', 'translate-y-4');
+            if (section) {
+                // Atualiza o texto (mantendo o span do dot dentro)
+                sectionNameSpan.innerHTML = `<span id="section-dot" class="w-2 h-2 rounded-full ${section.color} mr-2"></span>${section.name}`;
             }
         }
 
@@ -913,6 +913,7 @@
             slides.forEach((slide, index) => {
                 if (index === currentSlideIndex) {
                     slide.classList.add('active');
+                    // Animação das barras de progresso (se houver no slide)
                     const bars = slide.querySelectorAll('.progress-bar');
                     if (bars.length > 0) {
                         bars.forEach(bar => bar.style.width = '0%');
@@ -924,16 +925,23 @@
                     }
                 } else {
                     slide.classList.remove('active');
+                    // Resetar barras
                     const bars = slide.querySelectorAll('.progress-bar');
                     bars.forEach(bar => bar.style.width = '0%');
                 }
             });
 
+            // Atualizar botões
             prevBtn.disabled = currentSlideIndex === 0;
             nextBtn.disabled = currentSlideIndex === slides.length - 1;
+            
+            // Atualizar contador
             slideCounter.innerText = `Slide ${currentSlideIndex + 1} de ${slides.length}`;
-            updateSectionBadge(currentSlideIndex);
+            
+            // Atualizar info da seção
+            updateSectionInfo(currentSlideIndex);
 
+            // Atualizar dots
             Array.from(dots).forEach((dot, index) => {
                 if (index === currentSlideIndex) {
                     dot.className = 'w-2 h-2 flex-shrink-0 rounded-full cursor-pointer transition-all bg-white scale-150';
@@ -963,6 +971,7 @@
             updateUI();
         }
 
+        // Navegação por Teclado
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
                 nextSlide();
@@ -971,6 +980,7 @@
             }
         });
 
+        // Navegação por Toque
         let touchStartX = 0;
         let touchEndX = 0;
         document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
@@ -980,6 +990,7 @@
             if (touchEndX > touchStartX + 50) prevSlide();
         });
 
+        // Inicializar
         updateUI();
     </script>
 </body>

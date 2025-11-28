@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinais em Transição - Estudo Completo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: scale(0.98);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        .slide-content-wrapper {
+            max-width: 72rem;
+            margin: auto;
+            padding: 2rem;
+            width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Utilitários de Design */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .stat-box {
+            background: rgba(243, 244, 246, 0.8);
+            border: 1px solid rgba(229, 231, 235, 1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .stat-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .section-badge {
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Tabela customizada */
+        .custom-table th {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: #6b7280;
+            padding: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .custom-table td {
+            padding: 1rem;
+            color: #1f2937;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .custom-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Continuum Slide CSS */
+        .continuum-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            width: 140px;
+            text-align: center;
+            position: absolute;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            z-index: 10;
+        }
+        .continuum-card:hover {
+            transform: scale(1.1);
+            z-index: 30;
+            border-color: #a78bfa;
+        }
+        .connector {
+            position: absolute;
+            width: 2px;
+            background-color: #cbd5e1;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+        .card-top .connector { top: 100%; height: 2rem; }
+        .card-bottom .connector { bottom: 100%; height: 2rem; }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border: 3px solid #6b7280;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        /* Barra de rolagem dos dots */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .slide::-webkit-scrollbar { width: 6px; }
+        .slide::-webkit-scrollbar-track { background: transparent; }
+        .slide::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <main id="presentation-container" class="relative w-full h-full">
+
+        <!-- SLIDE 1: CAPA (CORRIGIDA) -->
+        <section class="slide active">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10 md:p-14 flex flex-col h-full justify-between relative overflow-hidden" style="min-height: 500px;">
+                    <div class="flex justify-between items-center w-full z-10 mb-8">
+                         <img src="https://gifscursopullzone.b-cdn.net/LOGO-UFAL-removebg-preview.png" alt="UFAL" class="h-16 md:h-20 object-contain filter drop-shadow-sm">
+                         <div class="h-12 w-px bg-gray-200 mx-4"></div>
+                         <img src="https://gifscursopullzone.b-cdn.net/LOGO_LL_PRETO.png" alt="Letras Libras" class="h-12 md:h-16 object-contain filter drop-shadow-sm">
+                    </div>
+                    <div class="text-center z-10 flex-grow flex flex-col justify-center">
+                        <h2 class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-[0.25em] mb-4">Faculdade de Letras • Curso de Letras-Libras</h2>
+                        <h1 class="text-2xl md:text-4xl font-black text-gray-900 mb-6 leading-tight">
+                            Sinais em transição:<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">Variação lexical e fatores geracionais na Língua Brasileira de Sinais</span>
+                        </h1>
+                        <div class="w-24 h-1.5 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full mb-8"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-gray-200 pt-8 z-10">
+                        <div class="text-left">
+                            <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Aluna</p>
+                            <p class="text-xl font-bold text-gray-800">Jaqueline Vitoria da Silva</p>
+                        </div>
+                        <div class="text-left md:text-right">
+                            <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1 flex items-center gap-2 md:justify-end"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Orientador</p>
+                            <p class="text-xl font-bold text-gray-800">Humberto Meira de Araujo Neto</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Bloco 1 - Contextualização -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Variação Lexical em Libras</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-purple-600 mb-2 uppercase text-sm tracking-wider">O Fenômeno</h3>
+                            <ul class="space-y-3 text-gray-700 text-sm">
+                                <li>• <strong>Definição:</strong> Diferentes grupos usam formas distintas (variantes) para o mesmo referente.</li>
+                                <li>• <strong>Natureza:</strong> Inerente a todas as línguas vivas.</li>
+                                <li>• <strong>Importância:</strong> Reflete mudanças linguísticas, sociais e culturais.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-blue-600 mb-2 uppercase text-sm tracking-wider">Contexto de Mudança</h3>
+                            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                                <p class="text-sm text-gray-600 mb-2"><strong>Padronização Crescente:</strong> Políticas, materiais didáticos e internet ampliam circulação de certas variantes.</p>
+                                <p class="text-sm text-gray-600"><strong>Risco:</strong> Apagamento de formas locais e geracionais.</p>
+                                <p class="text-sm font-bold text-blue-800 mt-2">Necessidade urgente de documentação.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="font-bold text-gray-800 mb-2 text-sm">Por que estudar?</h3>
+                        <p class="text-gray-600 text-sm">Libras é uma língua natural, dinâmica e heterogênea. Existe uma lacuna de estudos quantitativos sobre a distribuição social de variantes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Bloco 2 - Domínio Lexical -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white rounded-3xl p-10 shadow-xl">
+                    <h2 class="text-3xl font-black text-gray-900 mb-8">Escopo do Estudo</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-green-50 p-6 rounded-xl text-center">
+                            <div class="text-4xl mb-2">🥬</div>
+                            <h3 class="font-bold text-green-800 mb-1">Campo Semântico</h3>
+                            <p class="text-sm text-gray-600"><strong>Verduras/Legumes</strong><br>(9 itens: Alface, Batata, Cebola, etc.)</p>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-xl text-center">
+                            <div class="text-4xl mb-2">👥</div>
+                            <h3 class="font-bold text-purple-800 mb-1">Participantes</h3>
+                            <p class="text-sm text-gray-600"><strong>30 Sinalizantes Surdos</strong><br>(Florianópolis)</p>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-xl text-center">
+                            <div class="text-4xl mb-2">📊</div>
+                            <h3 class="font-bold text-blue-800 mb-1">Dados</h3>
+                            <p class="text-sm text-gray-600"><strong>240 Tokens</strong><br>Vocabulário Controlado</p>
+                        </div>
+                    </div>
+                    <div class="border-t pt-6">
+                        <h3 class="font-bold text-gray-700 mb-4 text-center uppercase text-sm tracking-widest">Grupos Geracionais</h3>
+                        <div class="flex justify-center gap-4">
+                            <span class="px-4 py-2 bg-gray-100 rounded-full text-sm font-bold text-gray-600">G1 (Jovem): 18–30 anos</span>
+                            <span class="px-4 py-2 bg-gray-100 rounded-full text-sm font-bold text-gray-600">G2 (Adulto): 31–50 anos</span>
+                            <span class="px-4 py-2 bg-gray-100 rounded-full text-sm font-bold text-gray-600">G3 (Idoso): 51+ anos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Bloco 3 - Justificativa -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Por que estudar Variação Geracional?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-purple-600 border-b border-purple-200 pb-2">Lacuna Teórica</h3>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li>• Escassez de estudos quantitativos que testam correlações estatísticas.</li>
+                                <li>• Foco excessivo em variação regional, negligenciando fatores sociais.</li>
+                                <li>• Necessidade de entender a dinâmica viva e mutável da Libras.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-blue-600 border-b border-blue-200 pb-2">Relevância Prática</h3>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li>• <strong>Ensino:</strong> Materiais didáticos mais realistas e inclusivos.</li>
+                                <li>• <strong>Dicionários:</strong> Inventário representativo de variantes.</li>
+                                <li>• <strong>Preservação:</strong> Evitar apagamento de formas locais/geracionais.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+                        <p class="font-bold text-gray-800 text-sm">Contribuição deste estudo:</p>
+                        <p class="text-gray-600 text-sm">Documentar e analisar quantitativamente a variação lexical geracional usando metodologia sociolinguística robusta.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Bloco 4 - Objetivos -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-12 text-center border-t-8 border-teal-500">
+                    <h2 class="text-xl font-bold text-teal-600 uppercase tracking-widest mb-4">Direcionamento Científico</h2>
+                    <h1 class="text-2xl md:text-3xl font-black text-gray-900 mb-8 leading-snug">
+                        "Como a variação dos sinais selecionados se correlaciona com a <span class="text-teal-600">faixa etária</span> dos participantes?"
+                    </h1>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="text-teal-500 font-black text-4xl mb-2">1</div>
+                            <h3 class="font-bold text-gray-800 mb-2">Quantificar Consenso</h3>
+                            <p class="text-xs text-gray-600">Identificar continuum de variação (sinais estáveis vs. instáveis).</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="text-teal-500 font-black text-4xl mb-2">2</div>
+                            <h3 class="font-bold text-gray-800 mb-2">Descrição Fonológica</h3>
+                            <p class="text-xs text-gray-600">Analisar parâmetros das variantes (configuração de mão, movimento, etc.).</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="text-teal-500 font-black text-4xl mb-2">3</div>
+                            <h3 class="font-bold text-gray-800 mb-2">Teste de Hipótese</h3>
+                            <p class="text-xs text-gray-600">Testar estatisticamente se jovens preferem sistematicamente formas distintas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: Bloco 5 - Sociolinguística -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Sociolinguística Variacionista</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-3">Princípios Fundamentais (Labov)</h3>
+                            <ul class="space-y-3 text-sm text-gray-700">
+                                <li class="bg-gray-50 p-2 rounded border-l-4 border-purple-500"><strong>Heterogeneidade Inerente:</strong> A variação não é anomalia, é a natureza da língua.</li>
+                                <li class="bg-gray-50 p-2 rounded border-l-4 border-purple-500"><strong>Variação ≠ Aleatoriedade:</strong> Segue padrões sistemáticos sociais (idade, classe, etc.).</li>
+                                <li class="bg-gray-50 p-2 rounded border-l-4 border-purple-500"><strong>Mecanismo de Mudança:</strong> Competição entre variantes gera evolução linguística.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <div class="bg-purple-100 p-6 rounded-xl text-center mb-4">
+                                <p class="font-bold text-purple-900 text-lg">"Compreender a variação é compreender a vitalidade da língua."</p>
+                            </div>
+                            <p class="text-sm text-gray-600">Estudo rompe com visão normativa e valoriza o uso real. A análise por idade permite observar mudanças em progresso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: Bloco 6 - Libras e Socio -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white rounded-3xl p-10 shadow-xl">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Libras e Sociolinguística</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-blue-600 mb-2 uppercase text-sm">Língua Natural Complexa</h3>
+                            <p class="text-sm text-gray-700 mb-4">Reconhecida legalmente (2002), Libras apresenta variação em todos os níveis, especialmente lexical. Estudos pioneiros (Stokoe, Quadros & Karnopp) consolidaram esse status.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-blue-600 mb-2 uppercase text-sm">Fatores de Variação</h3>
+                            <ul class="text-sm text-gray-700 space-y-2">
+                                <li class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <strong>Regional:</strong> Diversidade cultural brasileira.</li>
+                                <li class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <strong>Social:</strong> Escolarização, contato com ouvintes.</li>
+                                <li class="flex items-center gap-2"><span class="w-2 h-2 bg-blue-500 rounded-full"></span> <strong>Geracional:</strong> Idade como fator determinante.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: Bloco 7 - Variação Geracional -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Variação Geracional em Libras</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-3 border-b pb-2">Dinâmica Histórica</h3>
+                            <ul class="text-sm text-gray-700 space-y-2">
+                                <li><strong>Geração Antiga:</strong> Acesso restrito, aprendizado informal, conservação.</li>
+                                <li><strong>Geração Nova:</strong> Maior visibilidade, escolas bilíngues, inovação.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-3 border-b pb-2">Marcador de Identidade</h3>
+                            <p class="text-sm text-gray-700 mb-2">A linguagem constrói identidade geracional (Eckert, 1997).</p>
+                            <p class="text-sm text-gray-700"><strong>Iconicidade:</strong> Sinais mais icônicos propagam-se rapidamente entre jovens (Battison, 1978).</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-gray-50 p-4 rounded-lg text-center">
+                        <p class="text-sm text-gray-600 italic">"Diferenças entre grupos etários revelam estágios de mudança em progresso." (Labov, 2008)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: Bloco 8 - Variação Lexical -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Variação Lexical: Mecanismos</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-purple-700 mb-2">Origem da Mudança</h3>
+                            <p class="text-sm text-gray-700">Toda mudança começa com variação. Quando duas formas coexistem, uma pode substituir a outra.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-purple-700 mb-2">Conservação vs. Inovação</h3>
+                            <p class="text-sm text-gray-700">Comunidades isoladas conservam formas antigas. Centros urbanos e digitais promovem inovação rápida.</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 border-t pt-4">
+                        <p class="text-sm text-gray-600"><strong>Em Libras:</strong> Incorporação de sinais tecnológicos e culturais recentes é o exemplo mais visível.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10: Bloco 9 - Dinâmica e Padronização -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white rounded-3xl p-10 shadow-xl">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Dinâmica e Padronização</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-gray-50 p-5 rounded-xl">
+                            <h3 class="font-bold text-gray-800 mb-2">Agentes de Padronização</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Políticas Públicas</li>
+                                <li>• Materiais Didáticos</li>
+                                <li>• Formação de Intérpretes</li>
+                                <li>• Expansão Digital</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-5 rounded-xl border border-red-100">
+                            <h3 class="font-bold text-red-800 mb-2">Consequências</h3>
+                            <p class="text-sm text-red-700">Risco de apagamento da diversidade e de formas locais/geracionais.</p>
+                            <p class="text-sm font-bold text-red-900 mt-2">Necessidade: Documentar antes que substitua.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 11: Bloco 10 - Estado da Arte -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white rounded-3xl p-10 shadow-xl border-l-8 border-indigo-500">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Estado da Arte e Lacunas</h2>
+                    <div class="relative pl-8 border-l border-gray-200 space-y-6 mb-8">
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-4 h-4 bg-indigo-500 rounded-full border-4 border-white"></div>
+                            <h3 class="font-bold text-gray-800">Fase Pioneira (1990s)</h3>
+                            <p class="text-sm text-gray-600">Descrição de diferenças regionais e estruturais.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-4 h-4 bg-indigo-500 rounded-full border-4 border-white"></div>
+                            <h3 class="font-bold text-gray-800">Consolidação (2000s)</h3>
+                            <p class="text-sm text-gray-600">Aspectos socioculturais e identitários.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-10 top-1 w-4 h-4 bg-indigo-500 rounded-full border-4 border-white"></div>
+                            <h3 class="font-bold text-gray-800">Contemporânea (2010s+)</h3>
+                            <p class="text-sm text-gray-600">Fatores externos e internos de variação.</p>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-xl">
+                        <h3 class="font-bold text-indigo-900 mb-1">A Lacuna Principal:</h3>
+                        <p class="text-sm text-indigo-800">Falta de estudos sobre variação lexical <strong>geracional</strong> com abordagem <strong>quantitativa e estatística</strong> robusta.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 12: Bloco 11 - Síntese Teórica -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10 text-center">
+                    <h2 class="text-3xl font-black text-gray-900 mb-8">Síntese do Arcabouço Teórico</h2>
+                    <div class="flex flex-wrap justify-center gap-4 mb-8">
+                        <div class="bg-white border border-gray-200 p-4 rounded-xl shadow-sm w-5/12">
+                            <h3 class="font-bold text-purple-600 text-sm">Sociolinguística</h3>
+                            <p class="text-xs text-gray-500">Variação sistemática e social.</p>
+                        </div>
+                        <div class="bg-white border border-gray-200 p-4 rounded-xl shadow-sm w-5/12">
+                            <h3 class="font-bold text-purple-600 text-sm">Estudos de Sinais</h3>
+                            <p class="text-xs text-gray-500">Libras como língua natural.</p>
+                        </div>
+                        <div class="bg-white border border-gray-200 p-4 rounded-xl shadow-sm w-5/12">
+                            <h3 class="font-bold text-purple-600 text-sm">Variação Geracional</h3>
+                            <p class="text-xs text-gray-500">Idade como marcador de mudança.</p>
+                        </div>
+                        <div class="bg-white border border-gray-200 p-4 rounded-xl shadow-sm w-5/12">
+                            <h3 class="font-bold text-purple-600 text-sm">Variação Lexical</h3>
+                            <p class="text-xs text-gray-500">Influência da iconicidade.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 text-white p-6 rounded-2xl">
+                        <h3 class="font-bold text-lg mb-2">Questão Unificadora</h3>
+                        <p class="text-sm leading-relaxed opacity-90">"Como fatores socioculturais, especialmente a idade/geração, moldam a variação lexical em Libras e refletem processos de mudança em curso?"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 13: Tabela Descritiva Geral (Resultados) -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-8 shadow-2xl">
+                    <div class="border-l-8 border-blue-600 pl-6 mb-6">
+                        <h2 class="text-3xl font-black text-gray-900">Estatísticas Descritivas Gerais</h2>
+                        <p class="text-gray-500">Dados compilados (30 participantes)</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full custom-table text-left">
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Grupo 1 (10 part.)</th>
+                                    <th>Grupo 2 (8 part.)</th>
+                                    <th>Grupo 3 (12 part.)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm font-medium">
+                                <tr>
+                                    <td>Total de Tokens</td>
+                                    <td>90</td>
+                                    <td>72</td>
+                                    <td>78</td>
+                                </tr>
+                                <tr class="bg-red-50">
+                                    <td>% "Não Sabe"</td>
+                                    <td class="text-red-600 font-bold">16,3%</td>
+                                    <td class="text-green-600">3,1%</td>
+                                    <td class="text-green-600">4,2%</td>
+                                </tr>
+                                <tr class="bg-blue-50">
+                                    <td>% Modificados</td>
+                                    <td class="text-blue-600 font-bold">46,3%</td>
+                                    <td class="text-blue-600 font-bold">49,2%</td>
+                                    <td class="text-blue-600 font-bold">52,2%</td>
+                                </tr>
+                                <tr class="bg-purple-50">
+                                    <td>Variantes Distintas</td>
+                                    <td>30</td>
+                                    <td>30</td>
+                                    <td class="text-purple-600 font-bold">56</td>
+                                </tr>
+                                <tr>
+                                    <td>Variantes/Part. (média)</td>
+                                    <td>3,0</td>
+                                    <td>3,75</td>
+                                    <td>4,67</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 14: Conhecimento Vocabulário -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-12 flex flex-col items-center text-center">
+                    <h2 class="text-3xl font-black text-gray-900 mb-8">Conhecimento do Vocabulário</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-8">
+                        <div class="stat-box bg-red-50 border-red-200">
+                            <div class="text-sm text-red-500 font-bold uppercase">Grupo 1</div>
+                            <div class="text-4xl font-black text-red-600">16,3%</div>
+                            <div class="text-xs text-red-400">Declaram "não saber"</div>
+                        </div>
+                        <div class="stat-box bg-green-50 border-green-200">
+                            <div class="text-sm text-green-500 font-bold uppercase">Grupo 2</div>
+                            <div class="text-4xl font-black text-green-600">3,1%</div>
+                            <div class="text-xs text-green-400">Declaram "não saber"</div>
+                        </div>
+                        <div class="stat-box bg-green-50 border-green-200">
+                            <div class="text-sm text-green-500 font-bold uppercase">Grupo 3</div>
+                            <div class="text-4xl font-black text-green-600">4,2%</div>
+                            <div class="text-xs text-green-400">Declaram "não saber"</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-xl w-full text-left">
+                        <h3 class="font-bold text-gray-800 mb-2">Interpretação Descritiva</h3>
+                        <p class="text-gray-600">O Grupo 1 declara desconhecer os sinais <strong>~5x mais frequentemente</strong> que os demais. Isso sugere diferenças na trajetória de exposição e acesso ao léxico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 15: Modificação Token -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-12">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-3xl font-black text-gray-900">Idade Não Afeta Modificação (Token)</h2>
+                        <div class="bg-gray-100 px-4 py-2 rounded-full text-gray-600 font-bold text-sm">p = 0,760 (NS)</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mb-8 text-center">
+                        <div class="stat-box bg-blue-50 border-blue-100">
+                            <div class="text-sm text-blue-500 font-bold uppercase">Grupo 1</div>
+                            <div class="text-4xl font-black text-blue-700">46,3%</div>
+                        </div>
+                        <div class="stat-box bg-blue-50 border-blue-100">
+                            <div class="text-sm text-blue-500 font-bold uppercase">Grupo 2</div>
+                            <div class="text-4xl font-black text-blue-700">49,2%</div>
+                        </div>
+                        <div class="stat-box bg-blue-50 border-blue-100">
+                            <div class="text-sm text-blue-500 font-bold uppercase">Grupo 3</div>
+                            <div class="text-4xl font-black text-blue-700">52,2%</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center">
+                        <p class="text-gray-700 font-medium">Diferença máxima de 5,9 pontos percentuais.<br><span class="text-sm text-gray-500">V de Cramér = 0,050 (Efeito praticamente nulo)</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 16: Modificação Participante (Animado) -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white rounded-3xl p-12 shadow-2xl border-t-8 border-indigo-500">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                        <h2 class="text-2xl font-black text-gray-900">Modificação por Participante</h2>
+                        <div class="text-right">
+                            <div class="text-indigo-600 font-bold text-xl">ANOVA p = 0,381</div>
+                            <div class="text-gray-500 text-sm">η²p = 0,069 (Efeito pequeno)</div>
+                        </div>
+                    </div>
+                    <div class="space-y-6 mb-8">
+                        <div class="relative">
+                            <div class="flex mb-1 items-center justify-between"><span class="text-sm font-bold text-gray-700">Grupo 1</span><span class="text-sm font-bold text-indigo-600">~46%</span></div>
+                            <div class="w-full bg-gray-200 rounded-full h-4"><div class="bg-indigo-500 h-4 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="46%"></div></div>
+                        </div>
+                        <div class="relative">
+                            <div class="flex mb-1 items-center justify-between"><span class="text-sm font-bold text-gray-700">Grupo 2</span><span class="text-sm font-bold text-indigo-600">~49%</span></div>
+                            <div class="w-full bg-gray-200 rounded-full h-4"><div class="bg-indigo-500 h-4 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="49%"></div></div>
+                        </div>
+                        <div class="relative">
+                            <div class="flex mb-1 items-center justify-between"><span class="text-sm font-bold text-gray-700">Grupo 3</span><span class="text-sm font-bold text-indigo-600">~52%</span></div>
+                            <div class="w-full bg-gray-200 rounded-full h-4"><div class="bg-indigo-500 h-4 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="52%"></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-5 rounded-xl text-center"><p class="text-indigo-800 font-medium">Cada participante modifica aproximadamente metade dos sinais, independente da idade.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 17: Organização Interna (Animado) -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <h2 class="text-3xl font-black text-white mb-6 text-center">Organização Interna (Legume × Modif)</h2>
+                <div class="glass-card p-8">
+                    <div class="flex justify-between mb-4 text-sm text-gray-500"><span>p < 0,001 (Significativo)</span><span>V de Cramér = 0,575 (Grande)</span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">Altamente Modificados</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center"><span class="font-medium text-gray-700">Cebola</span><span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">96,7% SIM</span></div>
+                                <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-red-500 h-2 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="96.7%"></div></div>
+                                <div class="flex justify-between items-center mt-2"><span class="font-medium text-gray-700">Tomate</span><span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">76,7% SIM</span></div>
+                                <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-red-500 h-2 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="76.7%"></div></div>
+                                <div class="flex justify-between items-center mt-2"><span class="font-medium text-gray-700">Pimentão</span><span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold">70% SIM</span></div>
+                                <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-red-500 h-2 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="70%"></div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">Estáveis / Opacos</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center"><span class="font-medium text-gray-700">Batata</span><span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold">0% SIM</span></div>
+                                <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="0.5%"></div></div>
+                                <div class="flex justify-between items-center mt-2"><span class="font-medium text-gray-700">Alface</span><span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold">3,3% SIM</span></div>
+                                <div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full progress-bar transition-all duration-1000 ease-out" style="width: 0%" data-width="3.3%"></div></div>
+                                <div class="bg-yellow-50 p-3 mt-4 rounded text-xs text-yellow-800"><strong>Intermediários:</strong> Cenoura (36,7%), Repolho (20%).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 18: Estrutura e Modificação -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white rounded-3xl p-10 shadow-2xl">
+                    <h2 class="text-3xl font-black text-gray-900 mb-8">Estrutura e Modificação</h2>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-100 p-4 rounded-xl border-l-4 border-gray-400">
+                            <h3 class="font-black text-gray-700 uppercase text-sm">Opaco</h3>
+                            <div class="flex items-center gap-2 mt-2"><div class="text-3xl font-black text-gray-400">5,7%</div><div class="text-xs text-gray-500 leading-tight">Modificados</div></div>
+                            <p class="text-xs mt-2 text-gray-600">Estável.</p>
+                        </div>
+                        <div class="bg-red-50 p-4 rounded-xl border-l-4 border-red-500">
+                            <h3 class="font-black text-red-700 uppercase text-sm">Misto (Ação+Forma)</h3>
+                            <div class="flex items-center gap-2 mt-2"><div class="text-3xl font-black text-red-600">70,2%</div><div class="text-xs text-red-400 leading-tight">Modificados</div></div>
+                            <p class="text-xs mt-2 text-red-700">Ex: Cebola.</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-xl border-l-4 border-orange-400">
+                            <h3 class="font-black text-orange-700 uppercase text-sm">Ação/Manipulação</h3>
+                            <div class="flex items-center gap-2 mt-2"><div class="text-3xl font-black text-orange-500">62,5%</div><div class="text-xs text-orange-400 leading-tight">Modificados</div></div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-400">
+                            <h3 class="font-black text-yellow-700 uppercase text-sm">Forma Incorporada</h3>
+                            <div class="flex items-center gap-2 mt-2"><div class="text-3xl font-black text-yellow-600">47,2%</div><div class="text-xs text-yellow-600 leading-tight">Modificados</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg text-center border border-blue-100"><p class="text-blue-900 text-sm font-semibold">Sinais icônicos permitem modificação; opacos resistem.<br><span class="text-xs font-normal">V de Cramér = 0,677 (Efeito Muito Grande)</span></p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 19: Continuum (Layout Bonito) -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-12 relative overflow-hidden flex flex-col justify-center h-full">
+                    <div class="absolute left-4 top-4 text-9xl font-black text-blue-100 opacity-20 pointer-events-none select-none">ESTÁVEL</div>
+                    <div class="absolute right-4 bottom-4 text-9xl font-black text-red-100 opacity-20 pointer-events-none select-none">PLÁSTICO</div>
+                    <h2 class="text-3xl font-black text-gray-900 mb-16 text-center relative z-10">Continuum de Lexicalização</h2>
+                    <div class="relative w-full h-40 flex items-center justify-center my-8">
+                        <div class="absolute w-full h-4 bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 rounded-full shadow-lg"></div>
+                        <!-- Items -->
+                        <div class="continuum-card card-bottom" style="left: 0%;"><div class="connector"></div><span class="block font-black text-gray-800 text-lg">Batata</span><span class="text-xs font-bold text-blue-600">0% mod.</span></div><div class="dot" style="left: 0%; border-color: #3b82f6;"></div>
+                        <div class="continuum-card card-top" style="left: 15%;"><div class="connector"></div><span class="block font-bold text-gray-700">Alface</span><span class="text-xs text-gray-500">~3% mod.</span></div><div class="dot" style="left: 15%;"></div>
+                        <div class="continuum-card card-bottom" style="left: 45%;"><div class="connector"></div><span class="block font-bold text-gray-700">Cenoura</span><span class="text-xs text-gray-500">~36% mod.</span></div><div class="dot" style="left: 45%;"></div>
+                        <div class="continuum-card card-top" style="left: 75%;"><div class="connector"></div><span class="block font-bold text-gray-700">Tomate</span><span class="text-xs text-gray-500">~76% mod.</span></div><div class="dot" style="left: 75%;"></div>
+                        <div class="continuum-card card-bottom" style="left: 95%; transform: translateX(-80%);"><div class="connector"></div><span class="block font-black text-gray-800 text-lg">Cebola</span><span class="text-xs font-bold text-red-600">96,7% mod.</span></div><div class="dot" style="left: 95%; border-color: #ef4444;"></div>
+                    </div>
+                    <div class="text-center text-gray-600 italic mt-12 pt-4 relative z-10 border-t border-gray-200">"Esse espaço é compartilhado intergeracionalmente."</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 20: Diversidade Variantes -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <h2 class="text-3xl font-black text-white mb-8 text-center drop-shadow-md">Diversidade de Variantes (Descritivo)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white rounded-3xl p-8 shadow-2xl text-center">
+                        <h3 class="text-gray-500 font-bold uppercase tracking-widest mb-4">Grupos 1 e 2</h3>
+                        <div class="text-6xl font-black text-gray-300 mb-2">30</div>
+                        <div class="text-sm font-bold text-gray-400">Variantes Distintas (cada)</div>
+                        <div class="mt-6 pt-6 border-t border-gray-100">
+                            <div class="text-xl font-bold text-gray-600">3,0 - 3,75</div>
+                            <div class="text-xs text-gray-400">Variantes por Participante</div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3xl p-8 shadow-2xl text-center transform scale-110 border-4 border-purple-400 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">Destaque</div>
+                        <h3 class="text-purple-600 font-bold uppercase tracking-widest mb-4">Grupo 3</h3>
+                        <div class="text-8xl font-black text-purple-600 mb-2">56</div>
+                        <div class="text-sm font-bold text-purple-400">Variantes Distintas</div>
+                        <div class="mt-6 pt-6 border-t border-purple-100">
+                            <div class="text-2xl font-bold text-gray-800">4,67</div>
+                            <div class="text-xs text-gray-500">Variantes por Participante</div>
+                        </div>
+                        <p class="mt-4 text-xs text-gray-500 italic">(Maior exploração do espaço formal)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 21: Síntese Resultados -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[500px]">
+                    <div class="md:w-1/2 bg-gray-100 p-10 flex flex-col justify-center border-r border-gray-200">
+                        <h2 class="text-2xl font-black text-gray-400 uppercase tracking-widest mb-4">Influência da Estrutura</h2>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="font-bold flex gap-2"><span class="text-green-500">✓</span> Item Lexical (Batata vs Cebola)</li>
+                            <li class="text-sm pl-6">V de Cramér = 0,575</li>
+                            <li class="font-bold flex gap-2"><span class="text-green-500">✓</span> Tipo de Categoria (Opaco vs Misto)</li>
+                            <li class="text-sm pl-6">V de Cramér = 0,677</li>
+                            <li class="font-bold flex gap-2"><span class="text-red-500">✗</span> Idade / Grupo</li>
+                            <li class="text-sm pl-6">V de Cramér = 0,050 (Nulo)</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 bg-white p-10 flex flex-col justify-center">
+                        <h2 class="text-2xl font-black text-gray-900 uppercase tracking-widest mb-4">Conclusão Parcial</h2>
+                        <p class="text-lg text-gray-700 font-medium">A modificação é guiada pela <span class="text-purple-600">iconicidade</span> e é <span class="text-blue-600">compartilhada</span> entre grupos.</p>
+                        <p class="text-sm text-gray-500 mt-4">O sistema é estável intergeracionalmente em termos de forma.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 22: Discussão Idade -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-10">
+                    <h2 class="text-3xl font-black text-gray-900 mb-8">Onde a Idade Realmente Importa</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-red-50 p-6 rounded-xl border-t-4 border-red-500">
+                            <h3 class="font-bold text-red-900 mb-2">Conhecimento Lexical</h3>
+                            <p class="text-sm text-gray-700">Grupo 1 declara "não saber" ~16% das vezes, contra ~3-4% nos demais.</p>
+                            <p class="text-xs text-red-500 mt-2 font-bold">Acesso desigual.</p>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-xl border-t-4 border-purple-500">
+                            <h3 class="font-bold text-purple-900 mb-2">Diversidade de Repertório</h3>
+                            <p class="text-sm text-gray-700">Grupo 3 usa quase o dobro de variantes distintas (56 vs 30).</p>
+                            <p class="text-xs text-purple-500 mt-2 font-bold">Exploração mais ampla.</p>
+                        </div>
+                        <div class="bg-gray-100 p-6 rounded-xl border-t-4 border-gray-400 opacity-70">
+                            <h3 class="font-bold text-gray-600 mb-2">Modificação Formal</h3>
+                            <p class="text-sm text-gray-600">p = 0,760 (NS). A gramática da forma não muda.</p>
+                            <p class="text-xs text-gray-500 mt-2 font-bold">Estabilidade.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 23: Estabilidade vs Variação -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="glass-card p-12">
+                    <h2 class="text-3xl font-black text-gray-900 mb-6">Estabilidade vs. Variação</h2>
+                    <div class="space-y-6 text-lg text-gray-700">
+                        <p>A "resposta" para a pergunta de pesquisa é complexa:</p>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <h3 class="font-bold text-gray-900 mb-2">1. Sobre a FORMA (Estrutura):</h3>
+                            <p class="text-gray-600 text-sm">NÃO há correlação com idade. O continuum Batata ↔ Cebola é universal no corpus.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <h3 class="font-bold text-gray-900 mb-2">2. Sobre o REPERTÓRIO (Uso):</h3>
+                            <p class="text-gray-600 text-sm">SIM, há diferenças. O Grupo 3 domina melhor o vocabulário e circula por mais variantes.</p>
+                        </div>
+                        <p class="text-sm italic text-center mt-4 text-gray-500">Isso reflete trajetórias de acesso e escolarização, não mudança linguística estrutural.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 24: Conclusão Geral -->
+        <section class="slide">
+            <div class="slide-content-wrapper">
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-12 shadow-2xl text-center flex flex-col justify-center h-full">
+                    <div class="text-6xl mb-6">🏁</div>
+                    <h3 class="text-2xl font-bold text-gray-500 mb-4 uppercase tracking-widest">Conclusão Final</h3>
+                    <h1 class="text-3xl md:text-4xl font-black text-gray-900 mb-8 leading-snug">
+                        O sistema de "legumes" em Libras é <span class="text-purple-600">estável formalmente</span>, mas sensível a fatores <span class="text-blue-600">sociolinguísticos</span> de acesso.
+                    </h1>
+                    <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+                        Idade não determina <strong>como</strong> os sinais são feitos (regras de modificação), mas influencia <strong>quais</strong> e <strong>quantos</strong> sinais estão disponíveis no repertório do sujeito.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTROLES -->
+        <div class="fixed bottom-6 w-full px-8 z-50 flex flex-col items-center pointer-events-none gap-2">
+            <div id="section-badge" class="section-badge px-4 py-1 rounded-full text-white text-sm font-black uppercase tracking-widest shadow-lg opacity-0 transform translate-y-4"></div>
+            <div class="text-white text-sm font-bold bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm mb-2" id="slide-counter">Slide 1 de 24</div>
+            <div class="flex justify-between items-center w-full max-w-6xl">
+                <button onclick="prevSlide()" id="prevBtn" class="nav-btn pointer-events-auto shadow-lg" disabled><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <div class="flex gap-2 pointer-events-auto bg-black/20 backdrop-blur-sm p-2 rounded-full overflow-x-auto max-w-[200px] md:max-w-md hide-scrollbar" id="dots-container"></div>
+                <button onclick="nextSlide()" id="nextBtn" class="nav-btn pointer-events-auto shadow-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('dots-container');
+        const slideCounter = document.getElementById('slide-counter');
+        const sectionBadge = document.getElementById('section-badge');
+
+        const sectionMap = [
+            { min: 0, max: 0, name: "Capa", color: "bg-gray-800" },
+            { min: 1, max: 2, name: "Intro & Contexto", color: "bg-blue-600" },
+            { min: 3, max: 4, name: "Justificativa & Objetivos", color: "bg-teal-600" },
+            { min: 5, max: 11, name: "Referencial Teórico", color: "bg-purple-600" },
+            { min: 12, max: 12, name: "Dados Gerais", color: "bg-indigo-600" },
+            { min: 13, max: 18, name: "Resultados: Forma", color: "bg-orange-600" },
+            { min: 19, max: 20, name: "Resultados: Uso", color: "bg-pink-600" },
+            { min: 21, max: 23, name: "Conclusão", color: "bg-gray-700" }
+        ];
+
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = `w-2 h-2 flex-shrink-0 rounded-full cursor-pointer transition-all ${index === 0 ? 'bg-white scale-125' : 'bg-white/40 hover:bg-white/80'}`;
+            dot.onclick = () => goToSlide(index);
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.children;
+
+        function updateSectionBadge(index) {
+            const section = sectionMap.find(s => index >= s.min && index <= s.max);
+            sectionBadge.className = "section-badge px-4 py-1 rounded-full text-white text-sm font-black uppercase tracking-widest shadow-lg transition-all duration-300";
+            
+            sectionBadge.classList.remove('bg-gray-800', 'bg-blue-600', 'bg-teal-600', 'bg-purple-600', 'bg-indigo-600', 'bg-orange-600', 'bg-pink-600', 'bg-gray-700');
+
+            if (section && section.name !== "") {
+                sectionBadge.innerText = section.name;
+                sectionBadge.classList.add(section.color);
+                sectionBadge.classList.remove('opacity-0', 'translate-y-4');
+            } else {
+                sectionBadge.classList.add('opacity-0', 'translate-y-4');
+            }
+        }
+
+        function updateUI() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlideIndex) {
+                    slide.classList.add('active');
+                    const bars = slide.querySelectorAll('.progress-bar');
+                    if (bars.length > 0) {
+                        bars.forEach(bar => bar.style.width = '0%');
+                        setTimeout(() => {
+                            bars.forEach(bar => {
+                                bar.style.width = bar.getAttribute('data-width');
+                            });
+                        }, 100);
+                    }
+                } else {
+                    slide.classList.remove('active');
+                    const bars = slide.querySelectorAll('.progress-bar');
+                    bars.forEach(bar => bar.style.width = '0%');
+                }
+            });
+
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === slides.length - 1;
+            slideCounter.innerText = `Slide ${currentSlideIndex + 1} de ${slides.length}`;
+            updateSectionBadge(currentSlideIndex);
+
+            Array.from(dots).forEach((dot, index) => {
+                if (index === currentSlideIndex) {
+                    dot.className = 'w-2 h-2 flex-shrink-0 rounded-full cursor-pointer transition-all bg-white scale-150';
+                    dot.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } else {
+                    dot.className = 'w-2 h-2 flex-shrink-0 rounded-full cursor-pointer transition-all bg-white/40 hover:bg-white/80';
+                }
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slides.length - 1) {
+                currentSlideIndex++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateUI();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            updateUI();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                prevSlide();
+            }
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        });
+
+        updateUI();
+    </script>
+</body>
+</html>

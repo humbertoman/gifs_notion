@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos base */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* --- CORREÇÃO DO ALINHAMENTO AQUI --- */
+        .list-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-items li {
+            display: flex;
+            align-items: flex-start; /* Alinha o ícone ao topo do texto */
+            margin-bottom: 1.5rem;
+            gap: 1rem; /* Espaço entre o ícone e o bloco de texto */
+        }
+
+        .list-items li svg {
+            flex-shrink: 0; /* Impede o ícone de ser esmagado */
+            color: #3B82F6;
+            margin-top: 4px; /* Ajuste fino para alinhar com a altura da linha do texto */
+        }
+
+        /* Estilo para o bloco de texto ao lado do ícone */
+        .text-block {
+            flex: 1; /* Ocupa todo o espaço restante */
+            display: flex;
+            flex-direction: column; /* Garante que o texto flua corretamente */
+        }
+
+        .list-items li strong {
+            font-weight: bold;
+            color: #1e293b; /* slate-800 para destaque */
+            margin-bottom: 0.25rem; /* Espaço entre título e descrição */
+            display: block; /* Garante que o título ocupe a linha ou flua */
+        }
+
+        /* Botão */
+        .btn-verificar {
+            background-color: #3B82F6;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-verificar:hover {
+            background-color: #2563EB;
+            transform: scale(1.05);
+        }
+
+        /* GIF */
+        .gif-img {
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+            margin-top: 20px;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        /* Modal */
+        #modal.hidden { display: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<div class="content-wrapper">
+
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-center">Fechamento</h1>
+    </header>
+
+    <p class="my-12 text-lg text-slate-600 leading-relaxed text-center">
+        Chegamos ao final dos módulos de conteúdo deste curso.<br>
+        Quero parabenizar você pela dedicação (e paciência). Sabemos que conciliar o trabalho no serviço público com a capacitação não é fácil, mas você chegou até aqui.
+    </p>
+
+    <div class="my-6 bg-white border border-slate-200/50 p-8 rounded-2xl shadow-sm hover:shadow-lg">
+        <h3 class="text-xl font-bold text-slate-900 mb-6">Vamos relembrar sua jornada?</h3>
+        
+        <ul class="list-items">
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div class="text-block">
+                    <strong>Você desconstruiu mitos:</strong> 
+                    <span>Aprendeu que a surdez é uma diferença, não apenas uma deficiência, e que o termo correto é "Surdo" (Módulo 1).</span>
+                </div>
+            </li>
+
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div class="text-block">
+                    <strong>Você percebeu a lógica:</strong>
+                    <span>Viu que a Libras é visual, usa o espaço e a iconicidade, e não é mímica (Módulo 2).</span>
+                </div>
+            </li>
+
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div class="text-block">
+                    <strong>Você ganhou ferramentas:</strong>
+                    <span>Aprendeu o Alfabeto, os Números e a pedir para sinalizar "Devagar" e outras expressões esclarecedoras (Módulo 3).</span>
+                </div>
+            </li>
+
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div class="text-block">
+                    <strong>Você aprendeu a acolher:</strong>
+                    <span>Sabe dizer "Bom dia", se apresentar e perguntar "O que você precisa?" e a fazer outras perguntas (Módulo 4).</span>
+                </div>
+            </li>
+
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <div class="text-block">
+                    <strong>Você aprendeu a resolver:</strong>
+                    <span>Entende sinais como "documento", "identidade" e sabe a hora certa de chamar o TILS (Módulos 4 e 5).</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Talvez você ainda não se sinta fluente em Libras. E está tudo bem. Em 20 horas, ninguém se torna intérprete. <br><br>
+
+O objetivo deste curso foi tirar o medo do "primeiro contato". Agora, quando um usuário surdo chegar ao seu setor, você não vai mais congelar. Você vai saber olhar nos olhos, fazer um sinal de "Oi", perguntar o nome e buscar uma forma de ajudar. <br><br>
+
+Isso é atendimento humanizado. Isso é serviço público de qualidade.
+</p>
+
+<div class="my-12 bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto transition-shadow duration-300 hover:shadow-xl">
+  <h3 class="text-xl font-bold text-slate-900 mb-2 text-center">"Acessibilidade não é apenas sobre arquitetura ou leis. É sobre atitude."</h3>
+</div>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    A comunicação é um direito de todos!<br><br>
+
+Espero que este curso tenha plantado uma semente e que você continue buscando aprender Libras. A comunidade surda ganha um aliado, e o serviço público ganha um profissional mais completo.
+</p>
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-right">
+    <strong>Um abraço,</strong> <br>
+    <strong>Humberto Meira Neto</strong>
+</p>
+
+    <figure class="my-12 flex justify-center">
+        <img src="https://gifscursopullzone.b-cdn.net/palmas_boneca.gif" alt="Boneco aplaudindo" class="gif-img">
+    </figure>
+
+    <div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+        <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Título do Pop-up</h3>
+            <p class="text-slate-600">Conteúdo do Pop-up.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+
+            const closeModal = () => {
+                modal.classList.remove('opacity-100');
+                modalContent.classList.remove('scale-100');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            };
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+
+</div>
+
+</body>
+</html>

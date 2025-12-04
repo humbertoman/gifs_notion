@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>modulo 5 cena1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos base para uma aparência mais limpa */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .carousel-track { transition: transform 0.5s ease-in-out; }
+        .nav-button:disabled { opacity: 0.2; cursor: not-allowed; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; }
+        /* Estilo para vídeo responsivo */
+        .aspect-h-9 { padding-bottom: 56.25%; }
+        .aspect-w-16 { position: relative; height: 0; }
+        .aspect-w-16 > * { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        /* Estilos para o Acordeão */
+        .accordion-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .accordion-header.active .accordion-chevron {
+            transform: rotate(90deg);
+        }
+        /* Estilos para o Pop-up (Modal) */
+        #modal.hidden {
+            display: none;
+        }
+
+        /* === Estilos dos flipcards CORRIGIDOS (Gabarito) === */
+        .flipcard-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px auto;
+        }
+        .flipcard {
+            background-color: transparent;
+            width: 200px;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flipcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flipcard.flipped .flipcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flipcard-front, .flipcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            backface-visibility: hidden;
+            overflow: hidden;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .flipcard-front {
+            background-color: white; 
+        }
+        .flipcard-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .flipcard-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #4f46e5, #7c3aed); 
+            color: white; 
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px;
+        }
+        
+        /* Estilos para o novo carrossel de Quiz */
+        .carousel-slide-item {
+            min-width: 100%; 
+            flex-shrink: 0;
+        }
+        .quiz-track {
+            transition: transform 0.4s ease-in-out; 
+        }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-rose-700 to-pink-600 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-8 lg:px-12 max-w-screen-2xl">
+        <div class="py-4">
+            <span class="font-semibold text-white text-xl">Módulo 5 - Cena 1</span>
+        </div>
+    </div>
+</header>
+<p class="my-24 text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto text-center mb-4">
+    Reveja a <strong>primeira cena</strong> da simulação e, na sequência, responda às perguntas.
+</p>
+
+<div class="my-12 max-w-4xl mx-auto transition-transform duration-300 hover:scale-[1.02]">
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe
+      class="rounded-2xl shadow-xl w-full h-full"
+      src="https://player.mediadelivery.net/embed/520267/00f2d25f-b0ad-47d6-bf40-37ddfc5788b7"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+<p class="my-12 text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Quais são os <strong>verbos</strong> que aparecem nessa cena? Associe os verbos que aparecem ao contexto relacionado.
+</p>
+
+
+<div class="my-12 max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg transition-shadow hover:shadow-xl">
+  <h2 class="text-2xl font-bold text-slate-800 text-center mb-6">Atividade — Associe o sinal ao contexto correto presente na Cena 1</h2>
+  <p class="my-6 text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+      O sinal apresentado está na posição [...]. Escolha a alternativa que condiz com a sequência do vídeo.
+  </p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+
+    <div class="gif-item text-center" data-correspondencia="querer">
+      <img src="https://gifscursopullzone.b-cdn.net/querer.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+      <div class="gif-item text-center" data-correspondencia="falar">
+      <img src="https://gifscursopullzone.b-cdn.net/falar.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="esperar">
+      <img src="https://gifscursopullzone.b-cdn.net/esperar.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="sentar">
+      <img src="https://gifscursopullzone.b-cdn.net/sentar.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+  <div class="gif-item text-center" data-correspondencia="marcar">
+      <img src="https://gifscursopullzone.b-cdn.net/combinar.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="precisar">
+      <img src="https://gifscursopullzone.b-cdn.net/precisar.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="pedir">
+      <img src="https://gifscursopullzone.b-cdn.net/pedir.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+    <div class="gif-item text-center" data-correspondencia="saber">
+      <img src="https://gifscursopullzone.b-cdn.net/saber.gif" alt="advogado"
+        class="mx-auto rounded-xl shadow-md w-48 h-48 object-cover">
+      <select
+        class="mt-3 border border-slate-300 rounded-lg p-2 w-48 text-center focus:ring-2 focus:ring-blue-500">
+        <option value="">Selecione...</option>
+        <option value="falar">Oi! 👍! pode [...]</option>
+        <option value="saber">ela [...] libras?</option>
+        <option value="precisar">[...] Intérprete</option>
+        <option value="pedir">Ok, eu [...] 👍 problema não.</option>
+        <option value="marcar">[...] juiz</option>
+        <option value="esperar">[...] um pouquinho</option>
+        <option value="querer">[...] ajuda</option>
+        <option value="sentar">pode [...] ali e esperar um pouco</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-10">
+    <button id="verificarAssociacao"
+      class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow hover:bg-blue-700 hover:scale-105 transition-transform">
+      Verificar
+    </button>
+    <p id="feedbackGeral" class="mt-6 text-lg font-semibold"></p>
+  </div>
+</div>
+
+<div class="my-12 max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg transition-shadow hover:shadow-xl">
+    <h2 class="text-2xl font-bold text-slate-800 text-center mb-6">Atividade — Verificação de Vocabulário</h2>
+    
+    <div class="relative overflow-hidden">
+        <div id="quiz-track" class="quiz-track flex">
+            
+            <div class="carousel-slide-item w-full flex-shrink-0 p-2" data-question-id="q1" data-correct-answer="correto">
+                <p class="font-semibold text-lg mb-4 text-slate-800">
+                    1. O usuário surdo veio encontrar quem?
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta1" value="incorretoo" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>A advogada</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta1" value="correto" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>O juiz</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta1" value="incorreto" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>O intérprete</span>
+                    </label>
+                </div>
+                <p class="feedback-marcar-x mt-4 font-medium"></p>
+            </div>
+            
+            <div class="carousel-slide-item w-full flex-shrink-0 p-2" data-question-id="q2" data-correct-answer="incorreto">
+                <p class="font-semibold text-lg mb-4 text-slate-800">
+                    2. Qual o problema ocorre?
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta2" value="correto" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>O juiz faltou</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta2" value="incorreto" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>Não tem intérprete</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta2" value="corretoo" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>A advogada não vem</span>
+                    </label>
+                </div>
+                <p class="feedback-marcar-x mt-4 font-medium"></p>
+            </div>
+
+            <div class="carousel-slide-item w-full flex-shrink-0 p-2" data-question-id="q3" data-correct-answer="correto">
+                <p class="font-semibold text-lg mb-4 text-slate-800">
+                    3. Diante do problema, o atendente tenta humanizar o atendimento e acalmar o usuário. Aqui, ele oferece coisas para beber e pede para ele aguardar. O que o usuário aceita?
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta3" value="correto" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>Chá</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta3" value="incorreto" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>Água</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer text-slate-700 hover:text-blue-600 transition-colors">
+                        <input type="radio" name="pergunta3" value="incorretoo" class="form-radio h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 mr-2">
+                        <span>Café</span>
+                    </label>
+                </div>
+                <p class="feedback-marcar-x mt-4 font-medium"></p>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="mt-8 flex justify-between items-center">
+        <button id="prevBtn" disabled
+            class="nav-btn bg-slate-200 text-slate-600 p-2 rounded-full shadow hover:bg-slate-300 transition-colors disabled:opacity-30">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+
+        <button id="verificarAtual"
+            class="bg-rose-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-rose-700 hover:scale-[1.03] transition-transform">
+            Verificar Resposta
+        </button>
+
+        <button id="nextBtn" 
+            class="nav-btn bg-slate-200 text-slate-600 p-2 rounded-full shadow hover:bg-slate-300 transition-colors disabled:opacity-30">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+    </div>
+</div>
+
+
+<p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+    Assista à <strong>cena 1</strong> mais uma vez e tente identificar o significado do sinal abaixo:
+</p>
+
+
+<div class="my-12 max-w-5xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+
+    <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
+
+    <div class="flipcard-container">
+        <div class="flipcard" onclick="this.classList.toggle('flipped')">
+            <div class="flipcard-inner">
+                <div class="flipcard-front">
+                    <img src="https://gifscursopullzone.b-cdn.net/problema.gif" alt="QUERER">
+                </div>
+                <div class="flipcard-back">
+                    <p>?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow transition-shadow hover:shadow-lg">
+
+        <div class="atividade-container my-12 max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md text-center transition-shadow duration-300 hover:shadow-lg">
+            <h3 class="text-xl font-semibold text-slate-800 mb-4">Qual o significado do sinal?</h3>
+            
+            <input 
+                type="text" 
+                id="resposta" 
+                placeholder="Digite sua resposta aqui" 
+                class="border border-slate-300 rounded-lg p-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+            
+            <button 
+                id="verificarBtn" 
+                class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 transition-transform hover:scale-105"
+            >
+                Verificar
+            </button>
+            
+            <p id="feedback" class="mt-4 text-lg font-semibold"></p>
+        </div>
+        
+        </div>
+</div>
+
+<h2 class="my-12 text-2xl font-semibold text-slate-700 text-center">
+Gabarito da atividade de associação</h2>
+<div class="flipcard-container">
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/querer.gif" alt="QUERER">
+            </div>
+            <div class="flipcard-back">
+                QUERER </div>
+        </div>
+    </div>
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/falar.gif" alt="FALAR">
+            </div>
+            <div class="flipcard-back">
+                FALAR
+            </div>
+        </div>
+    </div>
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/esperar.gif" alt="ESPERAR">
+            </div>
+            <div class="flipcard-back">
+                ESPERAR
+            </div>
+        </div>
+    </div>
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/sentar.gif" alt="SENTAR">
+            </div>
+            <div class="flipcard-back">
+                SENTAR
+            </div>
+        </div>
+    </div>
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/combinar.gif" alt="MARCAR">
+            </div>
+            <div class="flipcard-back">
+                MARCAR
+            </div>
+        </div>
+    </div>
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/precisar.gif" alt="PRECISAR">
+            </div>
+            <div class="flipcard-back">
+                PRECISAR
+            </div>
+        </div>
+    </div>
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/pedir.gif" alt="PEDIR">
+            </div>
+            <div class="flipcard-back">
+                PEDIR
+            </div>
+        </div>
+    </div>
+
+    <div class="flipcard" onclick="this.classList.toggle('flipped')">
+        <div class="flipcard-inner">
+            <div class="flipcard-front">
+                <img src="https://gifscursopullzone.b-cdn.net/saber.gif" alt="SABER">
+            </div>
+            <div class="flipcard-back">
+                SABER
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="my-12 flex justify-center items-center gap-2 text-slate-500 max-w-3xl mx-auto">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <span class="text-lg font-medium">Veja a próxima cena na próxima página >>></span>
+</div>
+<div id="modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+        <div id="modal-content" class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative transition-transform duration-300 scale-95">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Título do Pop-up</h3>
+            <p class="text-slate-600">Conteúdo do Pop-up.</p>
+        </div>
+    </div>
+
+<script>
+    
+    // === CÓDIGO DA ATIVIDADE DE ASSOCIAÇÃO (GIF ↔ CONTEXTO) ===
+    window.addEventListener("DOMContentLoaded", () => {
+        const btnVerificar = document.getElementById("verificarAssociacao");
+        const itens = document.querySelectorAll(".gif-item");
+        const feedbackGeral = document.getElementById("feedbackGeral");
+
+        if (btnVerificar) {
+            btnVerificar.addEventListener("click", () => {
+                let acertos = 0;
+                const total = itens.length;
+
+                itens.forEach((item) => {
+                    const respostaCorreta = item.dataset.correspondencia;
+                    const select = item.querySelector("select");
+                    const respostaSelecionada = select.value.trim();
+
+                    select.classList.remove("bg-green-700", "bg-red-700", "text-white");
+
+                    if (respostaSelecionada === "") {
+                        select.classList.add("bg-slate-100"); 
+                        return;
+                    }
+
+                    if (respostaSelecionada === respostaCorreta) {
+                        select.classList.add("bg-green-700", "text-white"); 
+                        acertos++;
+                    } else {
+                        select.classList.add("bg-red-700", "text-white"); 
+                    }
+                });
+
+                if (acertos === total) {
+                    feedbackGeral.textContent = "✅ Todas as associações estão corretas! Parabéns!";
+                    feedbackGeral.style.color = "#16a34a"; 
+                } else {
+                    feedbackGeral.textContent = "Tente novamente!";
+                    feedbackGeral.style.color = "#dc2626"; 
+                }
+            });
+        }
+    
+        // === CÓDIGO DA ATIVIDADE DE MÚLTIPLA ESCOLHA/SLIDE (QUIZ-TRACK) ===
+        const track = document.getElementById('quiz-track');
+        if (track) { 
+            const slides = Array.from(track.children);
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const verificarBtn = document.getElementById('verificarAtual');
+            let currentIndex = 0;
+
+            const moveToSlide = (index) => {
+                if (index >= 0 && index < slides.length) {
+                    const slideWidth = slides[0].getBoundingClientRect().width;
+                    track.style.transform = `translateX(-${slideWidth * index}px)`;
+                    currentIndex = index;
+                    updateNavButtons();
+                    
+                    slides.forEach(slide => {
+                        const feedback = slide.querySelector('.feedback-marcar-x');
+                        if (feedback) feedback.textContent = '';
+                    });
+                }
+            };
+
+            const verificarResposta = () => {
+                const currentSlide = slides[currentIndex];
+                const correctAnswer = currentSlide.dataset.correctAnswer;
+                const feedbackElement = currentSlide.querySelector('.feedback-marcar-x');
+                const radios = currentSlide.querySelectorAll('input[type="radio"]');
+                
+                let selectedAnswer = null;
+
+                radios.forEach(radio => {
+                    const label = radio.closest('label');
+                    label.classList.remove('text-green-600', 'text-red-600', 'bg-green-50', 'bg-red-50'); 
+                    
+                    if (radio.checked) {
+                        selectedAnswer = radio.value;
+                    }
+                });
+
+                if (!selectedAnswer) {
+                    feedbackElement.textContent = "⚠️ Selecione uma opção.";
+                    feedbackElement.style.color = "#fbbf24"; 
+                    return;
+                }
+
+                if (selectedAnswer === correctAnswer) {
+                    feedbackElement.textContent = "✅ Correto!";
+                    feedbackElement.style.color = "#16a34a"; 
+                    const selectedRadio = currentSlide.querySelector('input[value="' + selectedAnswer + '"]');
+                    selectedRadio.closest('label').classList.add('text-green-600', 'bg-green-50');
+                } else {
+                    feedbackElement.textContent = "❌ Incorreto. Tente novamente.";
+                    feedbackElement.style.color = "#dc2626"; 
+                    const selectedRadio = currentSlide.querySelector('input[value="' + selectedAnswer + '"]');
+                    selectedRadio.closest('label').classList.add('text-red-600', 'bg-red-50');
+                }
+            };
+
+            const updateNavButtons = () => {
+                prevBtn.disabled = (currentIndex === 0);
+                nextBtn.disabled = (currentIndex === slides.length - 1);
+                
+                if (currentIndex === slides.length - 1) {
+                    verificarBtn.textContent = "Verificar Final";
+                } else {
+                    verificarBtn.textContent = "Verificar Resposta";
+                }
+            };
+
+            prevBtn.addEventListener('click', () => moveToSlide(currentIndex - 1));
+            nextBtn.addEventListener('click', () => moveToSlide(currentIndex + 1));
+            verificarBtn.addEventListener('click', verificarResposta);
+
+            const setupCarousel = () => {
+                if(slides.length === 0) return;
+                const slideWidth = slides[0].getBoundingClientRect().width;
+                track.style.transition = 'none'; 
+                track.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+                setTimeout(() => { track.style.transition = 'transform 0.4s ease-in-out'; }, 50);
+            };
+            
+            window.addEventListener('resize', setupCarousel);
+            setupCarousel(); 
+            updateNavButtons(); 
+        }
+
+        // === CÓDIGO DA ATIVIDADE DE DIGITAÇÃO (Coluna 2) ===
+        const respostaCorreta = "Problema"; 
+        const botao = document.getElementById("verificarBtn");
+        const input = document.getElementById("resposta");
+        const feedback = document.getElementById("feedback");
+
+        if (botao) {
+            botao.addEventListener("click", () => {
+                const resposta = input.value.trim();
+                if (resposta === "") {
+                    feedback.textContent = "⚠️ Digite uma resposta antes de verificar!";
+                    feedback.style.color = "#f59e0b"; 
+                    return;
+                }
+            
+                if (resposta.toLowerCase() === respostaCorreta.toLowerCase()) {
+                    feedback.textContent = "✅ Correto! Muito bem!";
+                    feedback.style.color = "#16a34a"; 
+                } else {
+                    feedback.textContent = "❌ Resposta incorreta. Tente novamente!";
+                    feedback.style.color = "#dc2626"; 
+                }
+            });
+        }
+        
+        // --- CÓDIGO DO CARROSSEL, ACORDEÃO E MODAL (ORIGINAIS DA PÁGINA) ---
+        // (Mantido em forma resumida, mas garantindo que as variáveis não conflitem)
+        const trackCarousel = document.querySelector('.carousel-track');
+        if (trackCarousel) { /* Código do Carrossel (imutável) */ }
+        
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        accordionHeaders.forEach(header => { /* Código do Acordeão (imutável) */ });
+        
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        if (openModalBtn && modal && closeModalBtn && modalContent) { /* Código do Modal (imutável) */ }
+        // FIM DOS SCRIPTS DA PÁGINA ORIGINAL
+    });
+</script>
+</body>
+</html>

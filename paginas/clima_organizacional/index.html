@@ -299,68 +299,65 @@
         }
 
         function renderQuestions() {
-            let html = '';
-            QUESTIONS_DATA.forEach((item, index) => {
-                const num = index + 1;
+    let html = '';
+    QUESTIONS_DATA.forEach((item, index) => {
+        const num = index + 1;
 
-                if (BLOCKS[index]) {
-                    const block = BLOCKS[index];
-                    const hasBlockVideo = block.video !== undefined && block.video !== "";
-                    html += `
-                        <div class="mt-10 md:mt-14 mb-4 md:mb-6 border-b-2 border-blue-50 pb-4 flex flex-col md:flex-row gap-4 items-start md:items-center">
-                            <div class="bg-blue-50 p-3 rounded-xl text-blue-600">
-                                ${block.icon}
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex flex-wrap items-center gap-3 mb-2">
-                                    <h2 class="text-xl sm:text-2xl md:text-2xl font-bold text-gray-800 uppercase">
-                                        ${block.title}
-                                    </h2>
-                                    ${hasBlockVideo ? `
-                                    <button type="button" onclick="openLibrasModal('block-${index}')" class="flex items-center gap-1 text-xs sm:text-sm font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
-                                        Libras
-                                    </button>` : ''}
-                                </div>
-                                ${block.subtitle ? `<p class="text-sm sm:text-base md:text-lg text-gray-600">${block.subtitle}</p>` : ''}
-                            </div>
-                        </div>`;
-                }
-
-                const hideLibrasBtn = index >= 19 && index <= 28;
-
-                html += `
-                <div class="questao bg-gray-50/50 p-4 sm:p-5 md:p-6 rounded-xl border border-gray-100 hover:border-blue-200 transition-all">
-                    <div class="flex flex-col md:flex-row justify-between gap-4 mb-4 md:items-start">
-                        <p class="font-medium text-base sm:text-lg md:text-lg text-gray-800 flex-1 leading-relaxed">
-                            <span class="font-bold text-blue-600 mr-1">${num}.</span> ${item.text}
-                        </p>
-                        ${!hideLibrasBtn ? `
-                        <button type="button" onclick="openLibrasModal(${num})" class="self-start md:self-auto flex items-center gap-1 text-xs sm:text-sm font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full hover:text-blue-600 hover:border-blue-200 transition-colors shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
-                            Libras
-                        </button>` : ''}
-                    </div>
-
-                    <!-- Escala Likert -->
-                    <div class="flex justify-between items-center max-w-2xl mx-auto gap-2 sm:gap-4 mb-2">
-                        ${[1,2,3,4,5].map(val => `
-                        <label class="cursor-pointer flex-1 group text-center">
-                            <input type="radio" name="q${num}" value="${val}" class="likert-option sr-only" required>
-                            <div class="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-full border-2 border-gray-200 bg-white flex items-center justify-center text-gray-400 font-bold text-base sm:text-lg group-hover:border-blue-400 group-hover:text-blue-600 transition-all shadow-sm">
-                                ${val}
-                            </div>
-                        </label>`).join('')}
-                    </div>
-
-                    <div class="flex justify-between text-[11px] sm:text-xs md:text-xs text-gray-400 font-medium max-w-2xl mx-auto px-1 mt-1">
-                        <span class="text-left w-1/3 leading-tight">Discordo totalmente<br>Muito negativo / Nunca</span>
-                        <span class="text-right w-1/3 leading-tight">Concordo totalmente<br>Muito positivo / Sempre</span>
+        if (BLOCKS[index]) {
+            const block = BLOCKS[index];
+            const hasBlockVideo = block.video !== undefined;
+            html += `
+                <div class="mt-12 md:mt-16 mb-4 md:mb-6 border-b-2 border-blue-50 pb-4 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                    <div class="bg-blue-50 p-3 rounded-xl text-blue-600">${block.icon}</div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap items-center gap-3 mb-2">
+                            <h2 class="text-xl md:text-2xl font-bold text-gray-800 uppercase">${block.title}</h2>
+                            ${hasBlockVideo ? `
+                            <button type="button" onclick="openLibrasModal('block-${index}')" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
+                                Libras
+                            </button>` : ''}
+                        </div>
+                        ${block.subtitle ? `<p class="text-sm md:text-base text-gray-600">${block.subtitle}</p>` : ''}
                     </div>
                 </div>`;
-            });
-            container.innerHTML = html;
         }
+
+        const hideLibrasBtn = index >= 19 && index <= 28;
+
+        html += `
+        <div class="questao bg-gray-50/50 p-4 md:p-6 rounded-xl border border-gray-100 hover:border-blue-200 transition-all">
+            <div class="flex flex-col md:flex-row justify-between gap-4 mb-4 md:items-start">
+                <p class="font-medium text-base md:text-lg text-gray-800 flex-1">
+                    <span class="font-bold text-blue-600 mr-1">${num}.</span> ${item.text}
+                </p>
+                ${!hideLibrasBtn ? `
+                <button type="button" onclick="openLibrasModal(${num})" class="self-start md:self-auto flex items-center gap-1 text-xs font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full hover:text-blue-600 hover:border-blue-200 transition-colors shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
+                    Libras
+                </button>` : ''}
+            </div>
+
+            <!-- Escala Likert (AJUSTADA) -->
+            <div class="likert-row flex sm:justify-between items-stretch sm:items-center max-w-md sm:max-w-2xl mx-auto gap-2 sm:gap-4 mb-2">
+                ${[1,2,3,4,5].map(val => `
+                <label class="cursor-pointer flex-1 w-full group">
+                    <input type="radio" name="q${num}" value="${val}" class="likert-option sr-only" required>
+                    <div class="w-full sm:w-14 sm:h-14 px-4 py-3 sm:px-0 sm:py-0 rounded-full sm:rounded-full border-2 border-gray-200 bg-white flex sm:inline-flex items-center justify-center text-gray-400 font-bold text-base sm:text-lg group-hover:border-blue-400 group-hover:text-blue-600 transition-all shadow-sm">
+                        ${val}
+                    </div>
+                </label>`).join('')}
+            </div>
+
+            <div class="flex justify-between text-[10px] md:text-xs text-gray-400 font-medium max-w-2xl mx-auto px-1">
+                <span class="text-left w-1/3 leading-tight">Discordo totalmente<br>Muito negativo / Nunca</span>
+                <span class="text-right w-1/3 leading-tight">Concordo totalmente<br>Muito positivo / Sempre</span>
+            </div>
+        </div>`;
+    });
+    container.innerHTML = html;
+}
+
 
         renderQuestions();
 

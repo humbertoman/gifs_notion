@@ -2,18 +2,15 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport essencial para mobile -->
     <title>Pesquisa Likert</title>
-    <!-- Usando Tailwind CSS para estilização rápida e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilização personalizada para os radio buttons */
         .likert-option:checked + div {
             background-color: #3b82f6;
             color: white;
             border-color: #3b82f6;
         }
-        /* Animação simples para o modal */
         #libras-modal:not(.hidden) {
             animation: fadeIn 0.2s ease-out;
         }
@@ -23,89 +20,90 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-800">
+<body class="bg-gray-50 font-sans text-gray-800 antialiased">
 
-    <div class="max-w-4xl mx-auto p-4 md:p-6">
+    <!-- Container Principal: Padding reduzido no mobile (p-3) e maior no desktop (md:p-8) -->
+    <div class="max-w-5xl mx-auto p-3 md:p-8">
         
         <!-- Cabeçalho -->
-        <header class="mb-6 md:mb-8 text-center bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-100">
-            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3 tracking-tight">Pesquisa de Opinião - Letras Libras</h1>
-            <p class="text-gray-600 text-base md:text-lg">Curso de Licenciatura em Letras-Libras</p>
+        <header class="mb-6 text-center bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-2 tracking-tight">Pesquisa de Opinião</h1>
+            <p class="text-gray-500 text-sm md:text-xl font-light">Curso de Licenciatura em Letras-Libras</p>
         </header>
 
-        <!-- Formulário -->
-        <!-- Adicionado 'novalidate' para controlarmos o alerta manualmente -->
-        <form id="survey-form" class="bg-white shadow-xl rounded-xl p-4 md:p-8 space-y-6 md:space-y-8" novalidate>
+        <!-- Formulário com validação manual -->
+        <form id="survey-form" class="bg-white shadow-lg rounded-xl p-4 md:p-10 space-y-8" novalidate>
             
             <!-- BLOCO DE INTRODUÇÃO -->
-            <div class="mb-6 md:mb-8 p-4 md:p-6 bg-green-50 border border-green-100 rounded-xl relative">
+            <div class="p-5 md:p-8 bg-green-50 border border-green-100 rounded-xl relative">
                 
-                <!-- Botão Libras para a Introdução -->
-                <div class="absolute top-3 right-3 md:top-4 md:right-4">
-                    <button type="button" onclick="openLibrasModal('intro')" class="group flex items-center gap-1 md:gap-2 bg-white hover:bg-green-100 text-gray-500 hover:text-green-700 px-2 py-1 md:px-3 md:py-1.5 rounded-full transition-all border border-green-200 shadow-sm" title="Ver introdução em Libras">
-                        <!-- Ícone de Play -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                <!-- Botão Libras Intro: Absoluto no desktop, relativo/flex no mobile para não cobrir texto -->
+                <div class="flex justify-end mb-2 md:absolute md:top-6 md:right-6 md:mb-0">
+                    <button type="button" onclick="openLibrasModal('intro')" class="flex items-center gap-2 bg-white hover:bg-green-100 text-green-700 border border-green-200 px-3 py-1.5 rounded-full shadow-sm transition-transform active:scale-95">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                             <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
                         </svg>
-                        <span class="text-[10px] md:text-xs font-bold uppercase">Libras</span>
+                        <span class="text-xs font-bold uppercase tracking-wide">Libras</span>
                     </button>
                 </div>
 
-                <h2 class="font-bold text-lg md:text-xl text-green-900 mb-4 pr-16 md:pr-20">Convite à Participação</h2>
+                <h2 class="font-bold text-lg md:text-2xl text-green-900 mb-4 md:pr-24">Convite à Participação</h2>
                 
                 <div class="space-y-4 text-sm md:text-base text-gray-700 leading-relaxed text-justify">
                     <p>
-                        Gostaríamos de convidar você para participar de uma etapa muito importante para o nosso curso: a nossa <strong>Pesquisa de Clima Organizacional</strong>. A ideia é identificar o que já funciona bem e, principalmente, onde precisamos evoluir. As suas respostas vão nos ajudar a traçar planos para melhorar a qualidade do ensino, o atendimento e o bem-estar de todos que fazem parte do Letras-Libras.
+                        Gostaríamos de convidar você para participar de uma etapa muito importante para o nosso curso: a nossa <strong>Pesquisa de Clima Organizacional</strong>. A ideia é identificar o que já funciona bem e, principalmente, onde precisamos evoluir.
                     </p>
-                    <p class="font-semibold bg-white p-3 rounded-lg border border-green-200 inline-block w-full">
-                        Antes de começar, é fundamental esclarecer que:
-                    </p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>O objetivo é apenas diagnosticar, não punir ou fiscalizar.</li>
-                        <li>Total sigilo e anonimato.</li>
-                    </ul>
+                    <div class="bg-white/60 p-3 rounded-lg border-l-4 border-green-400">
+                        <p class="font-semibold text-green-800 text-xs md:text-sm uppercase mb-1">Pontos Importantes:</p>
+                        <ul class="list-disc pl-5 space-y-1 text-xs md:text-sm">
+                            <li>O objetivo é apenas diagnosticar, não punir.</li>
+                            <li>Total sigilo e anonimato garantidos.</li>
+                        </ul>
+                    </div>
                     <p>
-                        Portanto, sinta-se totalmente confortável em participar e <strong>SEJA SINCERO/A</strong>. É rápido e o impacto pode ser positivo para o nosso curso. Contamos com você!
+                        Sinta-se confortável e <strong>SEJA SINCERO/A</strong>. Contamos com você!
                     </p>
                 </div>
             </div>
 
-            <!-- QUESTÃO DE PERFIL -->
-            <div class="mb-6 md:mb-8 p-4 md:p-6 bg-blue-50 border border-blue-100 rounded-xl">
+            <!-- PERFIL -->
+            <div class="p-5 md:p-8 bg-blue-50 border border-blue-100 rounded-xl">
                 <p class="font-bold text-lg md:text-xl text-blue-900 mb-4 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     Perfil
                 </p>
-                <p class="mb-3 text-sm md:text-base text-gray-700 font-medium">Você é:</p>
+                <p class="mb-3 text-sm md:text-base text-gray-600 font-medium">Selecione sua categoria:</p>
                 
-                <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
-                    <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-blue-200 cursor-pointer hover:bg-blue-50 transition-colors flex-1 shadow-sm">
+                <!-- Layout Flex: Coluna no mobile, Linha no desktop -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <label class="group flex items-center gap-3 p-4 bg-white rounded-lg border border-blue-200 cursor-pointer hover:border-blue-400 hover:shadow-md transition-all flex-1">
                         <input type="radio" name="perfil" value="tecnico" class="w-5 h-5 text-blue-600 focus:ring-blue-500 border-gray-300" required>
-                        <span class="text-gray-800 font-medium text-sm md:text-base">Técnico/a</span>
+                        <span class="text-gray-700 font-medium group-hover:text-blue-700">Técnico-Administrativo</span>
                     </label>
                     
-                    <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-blue-200 cursor-pointer hover:bg-blue-50 transition-colors flex-1 shadow-sm">
+                    <label class="group flex items-center gap-3 p-4 bg-white rounded-lg border border-blue-200 cursor-pointer hover:border-blue-400 hover:shadow-md transition-all flex-1">
                         <input type="radio" name="perfil" value="docente" class="w-5 h-5 text-blue-600 focus:ring-blue-500 border-gray-300">
-                        <span class="text-gray-800 font-medium text-sm md:text-base">Docente</span>
+                        <span class="text-gray-700 font-medium group-hover:text-blue-700">Docente</span>
                     </label>
                 </div>
             </div>
 
-            <div class="border-t border-gray-100 pt-4">
-                <p class="text-gray-500 text-xs md:text-sm mb-4 md:mb-6 text-center italic">Avalie as questões abaixo de 1 (Discordo Totalmente/Muito negativo) a 5 (Concordo Totalmente/Muito positivo).</p>
+            <div class="border-b border-gray-200 pb-4 text-center">
+                <span class="bg-gray-100 text-gray-600 px-4 py-1 rounded-full text-xs md:text-sm font-medium">
+                    Escala: 1 (Discordo/Negativo) a 5 (Concordo/Positivo)
+                </span>
             </div>
 
-            <!-- Container onde as questões serão geradas via JS -->
-            <div id="questions-container"></div>
+            <!-- Container das Questões -->
+            <div id="questions-container" class="space-y-8"></div>
 
             <!-- Botão de Envio -->
-            <div class="pt-6 md:pt-8 border-t border-gray-100">
-                <button type="submit" id="submit-btn" class="w-full md:w-auto px-8 md:px-10 py-3 md:py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-base md:text-lg rounded-xl transition-all duration-200 flex items-center justify-center gap-3 shadow-lg hover:shadow-blue-200">
+            <div class="pt-6 border-t border-gray-100 sticky bottom-0 bg-white/95 backdrop-blur py-4 -mx-4 px-4 md:static md:bg-transparent md:p-0 md:mx-0 z-10">
+                <button type="submit" id="submit-btn" class="w-full md:w-auto md:px-12 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-blue-300 transform transition hover:-translate-y-0.5 active:translate-y-0 flex justify-center items-center gap-3">
                     <span>Enviar Respostas</span>
-                    <!-- Ícone de loading (escondido por padrão) -->
-                    <svg id="loading-icon" class="animate-spin h-5 w-5 md:h-6 md:w-6 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg id="loading-icon" class="animate-spin h-6 w-6 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -114,82 +112,61 @@
 
         </form>
 
-        <!-- Footer -->
-        <footer class="mt-8 md:mt-10 text-center text-xs md:text-sm text-gray-400">
-            &copy; 2024 Pesquisa Institucional
+        <footer class="mt-12 text-center text-xs text-gray-400 pb-8">
+            &copy; 2024 Pesquisa Institucional | Letras-Libras
         </footer>
     </div>
 
-    <!-- MODAL DE LIBRAS (POPUP) -->
-    <div id="libras-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeLibrasModal(event)">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden relative transform transition-all scale-100">
+    <!-- MODAL DE VÍDEO (Responsivo) -->
+    <div id="libras-modal" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-2 md:p-6 backdrop-blur-sm" onclick="closeLibrasModal(event)">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh]">
             
-            <!-- Cabeçalho do Modal -->
-            <div class="bg-gray-50 px-4 md:px-6 py-3 md:py-4 border-b border-gray-100 flex justify-between items-center">
-                <h3 id="libras-modal-title" class="font-bold text-base md:text-lg text-gray-800 flex items-center gap-2 truncate pr-2">
-                    <span class="bg-blue-100 text-blue-600 p-1.5 rounded-lg flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 3C9.22386 3 9 3.22386 9 3.5V6H8.5C8.22386 6 8 6.22386 8 6.5V9H7.5C7.22386 9 7 9.22386 7 9.5V12.7236C7 13.5521 7.234 14.3644 7.67499 15.0743C7.2023 15.3402 6.80491 15.7275 6.53033 16.2045L4.1603 20.3204C4.04981 20.5122 3.99951 20.7303 4.01529 20.9493C4.03107 21.1683 4.11228 21.3791 4.24945 21.5571C4.38663 21.7351 4.57409 21.873 4.78988 21.9547C5.00567 22.0363 5.24095 22.0583 5.46782 22.0181L11.5178 20.9461C12.3996 20.7898 13.2386 20.4682 14 20.005V10.5C14 10.2239 13.7761 10 13.5 10H13V7.5C13 7.22386 12.7761 7 12.5 7H12V4.5C12 4.22386 11.7761 4 11.5 4H11V3.5C11 3.22386 10.7761 3 10.5 3H9.5Z" /></svg>
-                    </span>
-                    <span class="truncate">Tradução em Libras</span>
+            <!-- Header Modal -->
+            <div class="bg-gray-50 px-4 py-3 border-b flex justify-between items-center flex-shrink-0">
+                <h3 id="libras-modal-title" class="font-bold text-gray-800 flex items-center gap-2 text-sm md:text-lg">
+                    <!-- Título inserido via JS -->
                 </h3>
-                <button onclick="forceCloseLibrasModal()" class="text-gray-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-full transition-colors flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button onclick="forceCloseLibrasModal()" class="text-gray-400 hover:text-red-500 p-2 rounded-full hover:bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
 
-            <!-- Conteúdo do Vídeo (Iframe YouTube ou Mensagem) -->
-            <div class="p-0 bg-black aspect-video w-full flex justify-center items-center relative">
-                <!-- O Iframe começa vazio e é preenchido pelo JS -->
-                <iframe id="libras-video-iframe" class="w-full h-full absolute inset-0 z-10" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <!-- Corpo Modal (Vídeo) -->
+            <div class="bg-black flex-1 flex items-center justify-center relative aspect-video w-full">
+                <iframe id="libras-video-iframe" class="absolute inset-0 w-full h-full" src="" title="Vídeo em Libras" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 
-                <!-- Mensagem de Placeholder (aparece quando não tem link) -->
-                <div id="libras-video-placeholder" class="text-white text-center p-4 md:p-8 z-0 hidden w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                    <p class="text-lg md:text-xl font-bold mb-2">Vídeo não configurado</p>
-                    <p class="text-gray-400 text-xs md:text-sm px-4">Insira o link do YouTube na variável<br><code class="bg-gray-800 px-2 py-1 rounded text-yellow-400 mt-1 inline-block">QUESTIONS_DATA</code> ou <code class="bg-gray-800 px-2 py-1 rounded text-yellow-400 mt-1 inline-block">BLOCKS</code>.</p>
+                <!-- Fallback se não tiver link -->
+                <div id="libras-video-placeholder" class="hidden text-white text-center p-4">
+                    <p class="text-lg font-bold">Vídeo indisponível</p>
+                    <p class="text-xs text-gray-400 mt-2">Link não configurado no código.</p>
                 </div>
-            </div>
-            
-            <div class="text-center py-2 md:py-3 bg-white text-[10px] md:text-xs text-gray-400 border-t border-gray-100">
-                Clique fora para fechar
             </div>
         </div>
     </div>
 
     <script>
-        // CONFIGURAÇÃO
+        // --- CONFIGURAÇÃO ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzJnWdb53GmGLD5H7EGePEvbhoWrXvaQKfh0jCk48P35DA9faOR_y2Q9bTfQ_oApNz/exec'; 
-        
-        // ----------------------------------------------------------------------------------
-        // LINK DO VÍDEO DA INTRODUÇÃO (Cole aqui o link do YouTube da introdução)
-        // ----------------------------------------------------------------------------------
-        const INTRO_VIDEO_URL = ""; 
+        const INTRO_VIDEO_URL = ""; // Link Vídeo Intro
 
-        // Configuração dos Blocos
+        // Definição dos Blocos e Ícones
         const BLOCKS = {
-            0: { title: "IMAGEM E PERCEPÇÃO EXTERNA", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>` },
-            12: { title: "PERFIL ORGANIZACIONAL", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-3m-1 0h7m-5 3v-3m-1 0h2m-2 3v-3" /></svg>` },
-            16: { title: "RELACIONAMENTO E CLIMA (GERAL)", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>` },
+            0: { title: "IMAGEM E PERCEPÇÃO EXTERNA", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>` },
+            12: { title: "PERFIL ORGANIZACIONAL", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-3m-1 0h7m-5 3v-3m-1 0h2m-2 3v-3" /></svg>` },
+            16: { title: "RELACIONAMENTO E CLIMA (GERAL)", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>` },
             19: { 
                 title: "RELACIONAMENTO ENTRE CATEGORIAS", 
                 subtitle: "Na sua percepção como você classificaria o relacionamento entre as categorias abaixo relacionadas?",
-                video: "", // COLOQUE O LINK DO VÍDEO DO BLOCO AQUI
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>` 
+                video: "", // Vídeo específico para este bloco
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>` 
             },
-            29: { title: "INTEGRAÇÃO E EQUIPE", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>` },
-            35: { title: "GESTÃO E LIDERANÇA (COORDENAÇÃO)", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>` },
-            47: { title: "SATISFAÇÃO E MOTIVAÇÃO", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>` }
+            29: { title: "INTEGRAÇÃO E EQUIPE", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>` },
+            35: { title: "GESTÃO E LIDERANÇA (COORDENAÇÃO)", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>` },
+            47: { title: "SATISFAÇÃO E MOTIVAÇÃO", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>` }
         };
 
-        // ----------------------------------------------------------------------------------
-        // LISTA DE DADOS (PERGUNTAS + LINKS DE VÍDEO DO YOUTUBE)
-        // Cole o link do YouTube na propriedade 'video'. 
-        // Ex: video: "https://www.youtube.com/watch?v=XXXXXXX"
-        // ----------------------------------------------------------------------------------
         const QUESTIONS_DATA = [
             { text: "Você acha que a imagem do Letras-Libras na comunidade externa é:", video: "" },
             { text: "Até que ponto você se sente disposto a melhorar a imagem do curso?", video: "" },
@@ -253,236 +230,166 @@
         const container = document.getElementById('questions-container');
         const submitBtn = document.getElementById('submit-btn');
         const loadingIcon = document.getElementById('loading-icon');
-        const btnText = submitBtn.querySelector('span');
-
         const modal = document.getElementById('libras-modal');
         const modalIframe = document.getElementById('libras-video-iframe');
         const modalTitle = document.getElementById('libras-modal-title');
         const modalPlaceholder = document.getElementById('libras-video-placeholder');
 
-        // Função auxiliar para transformar link do YouTube em Embed
+        // Helpers de Youtube e Modal
         function getEmbedUrl(url) {
             if (!url || url.trim() === '') return '';
-            
-            // Se já for embed, retorna direto
             if (url.includes('youtube.com/embed/')) return url;
-
-            // Tenta pegar o ID do vídeo
             let videoId = '';
-            
-            // Formato youtube.com/watch?v=VIDEO_ID
             if (url.includes('v=')) {
-                videoId = url.split('v=')[1];
-                const ampersandPosition = videoId.indexOf('&');
-                if (ampersandPosition !== -1) {
-                    videoId = videoId.substring(0, ampersandPosition);
-                }
-            } 
-            // Formato youtu.be/VIDEO_ID
-            else if (url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1];
-                const queryPos = videoId.indexOf('?');
-                if (queryPos !== -1) {
-                    videoId = videoId.substring(0, queryPos);
-                }
+                videoId = url.split('v=')[1].split('&')[0];
+            } else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
             }
-
-            if (videoId) {
-                return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            }
-            
-            return url; // Retorna original se não conseguiu processar (fallback)
+            return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : url;
         }
 
-        // Função atualizada para abrir o modal de vídeo
         function openLibrasModal(identifier) {
-            let videoUrlRaw = '';
-            let title = '';
-
+            let videoUrlRaw = '', title = '';
+            
             if (identifier === 'intro') {
                 videoUrlRaw = INTRO_VIDEO_URL;
                 title = 'Introdução';
             } else if (typeof identifier === 'string' && identifier.startsWith('block-')) {
-                // Lógica para abrir vídeo do bloco
                 const blockIndex = parseInt(identifier.split('-')[1]);
-                const block = BLOCKS[blockIndex];
-                videoUrlRaw = block.video;
-                title = block.title;
+                videoUrlRaw = BLOCKS[blockIndex].video;
+                title = BLOCKS[blockIndex].title;
             } else {
-                // identifier é o número da questão (1, 2, 3...)
                 const dataIndex = identifier - 1;
-                const questionData = QUESTIONS_DATA[dataIndex];
-                videoUrlRaw = questionData.video;
+                videoUrlRaw = QUESTIONS_DATA[dataIndex].video;
                 title = `Questão ${identifier}`;
             }
 
-            modalTitle.innerHTML = `
-                <span class="bg-blue-100 text-blue-600 p-1 rounded-lg inline-block mr-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 3C9.22386 3 9 3.22386 9 3.5V6H8.5C8.22386 6 8 6.22386 8 6.5V9H7.5C7.22386 9 7 9.22386 7 9.5V12.7236C7 13.5521 7.234 14.3644 7.67499 15.0743C7.2023 15.3402 6.80491 15.7275 6.53033 16.2045L4.1603 20.3204C4.04981 20.5122 3.99951 20.7303 4.01529 20.9493C4.03107 21.1683 4.11228 21.3791 4.24945 21.5571C4.38663 21.7351 4.57409 21.873 4.78988 21.9547C5.00567 22.0363 5.24095 22.0583 5.46782 22.0181L11.5178 20.9461C12.3996 20.7898 13.2386 20.4682 14 20.005V10.5C14 10.2239 13.7761 10 13.5 10H13V7.5C13 7.22386 12.7761 7 12.5 7H12V4.5C12 4.22386 11.7761 4 11.5 4H11V3.5C11 3.22386 10.7761 3 10.5 3H9.5Z" /></svg>
-                </span> <span class="truncate">${title} em Libras</span>`;
+            modalTitle.innerHTML = `<span class="bg-blue-100 text-blue-600 p-1 rounded mr-2 inline-flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 3C9.22386 3 9 3.22386 9 3.5V6H8.5C8.22386 6 8 6.22386 8 6.5V9H7.5C7.22386 9 7 9.22386 7 9.5V12.7236C7 13.5521 7.234 14.3644 7.67499 15.0743C7.2023 15.3402 6.80491 15.7275 6.53033 16.2045L4.1603 20.3204C4.04981 20.5122 3.99951 20.7303 4.01529 20.9493C4.03107 21.1683 4.11228 21.3791 4.24945 21.5571C4.38663 21.7351 4.57409 21.873 4.78988 21.9547C5.00567 22.0363 5.24095 22.0583 5.46782 22.0181L11.5178 20.9461C12.3996 20.7898 13.2386 20.4682 14 20.005V10.5C14 10.2239 13.7761 10 13.5 10H13V7.5C13 7.22386 12.7761 7 12.5 7H12V4.5C12 4.22386 11.7761 4 11.5 4H11V3.5C11 3.22386 10.7761 3 10.5 3H9.5Z" /></svg></span> ${title}`;
 
-            if (videoUrlRaw && videoUrlRaw.trim() !== "") {
+            if (videoUrlRaw && videoUrlRaw.trim()) {
                 modalIframe.src = getEmbedUrl(videoUrlRaw);
                 modalIframe.classList.remove('hidden');
                 modalPlaceholder.classList.add('hidden');
             } else {
-                // Se não tem link, mostra o placeholder
-                modalIframe.src = ""; 
+                modalIframe.src = "";
                 modalIframe.classList.add('hidden');
                 modalPlaceholder.classList.remove('hidden');
             }
-
             modal.classList.remove('hidden');
         }
 
-        function closeLibrasModal(event) {
-            if (event.target.id === 'libras-modal') {
-                forceCloseLibrasModal();
-            }
-        }
+        function closeLibrasModal(e) { if(e.target.id === 'libras-modal') forceCloseLibrasModal(); }
+        function forceCloseLibrasModal() { modal.classList.add('hidden'); modalIframe.src = ''; }
 
-        function forceCloseLibrasModal() {
-            modal.classList.add('hidden');
-            modalIframe.src = ''; // Limpa o src para parar o vídeo
-        }
-
+        // Renderização
         function renderQuestions() {
             let html = '';
-            
             QUESTIONS_DATA.forEach((item, index) => {
                 const num = index + 1;
-                const pergunta = item.text;
                 
+                // Renderização do Bloco
                 if (BLOCKS[index]) {
                     const block = BLOCKS[index];
-                    // Verifica se o bloco tem um vídeo configurado
                     const hasBlockVideo = block.video !== undefined;
-
                     html += `
-                        <div class="mt-12 md:mt-16 mb-6 md:mb-8 border-b-2 border-blue-50 pb-4 flex flex-col md:flex-row items-start md:items-center gap-4 animate-fade-in-up">
-                            <div class="p-2 md:p-3 bg-blue-50 text-blue-600 rounded-xl shadow-sm flex-shrink-0">
-                                ${block.icon}
-                            </div>
-                            <div class="flex-1 w-full">
-                                <div class="flex items-center flex-wrap gap-2 md:gap-4">
-                                    <h2 class="text-lg md:text-2xl font-bold text-gray-800 uppercase tracking-wide">
-                                        ${block.title}
-                                    </h2>
+                        <div class="mt-12 md:mt-16 mb-4 md:mb-6 border-b-2 border-blue-50 pb-4 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                            <div class="bg-blue-50 p-3 rounded-xl text-blue-600">${block.icon}</div>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap items-center gap-3 mb-2">
+                                    <h2 class="text-xl md:text-2xl font-bold text-gray-800 uppercase">${block.title}</h2>
                                     ${hasBlockVideo ? `
-                                    <button type="button" onclick="openLibrasModal('block-${index}')" class="group flex-shrink-0 flex items-center gap-1 md:gap-2 bg-blue-50 hover:bg-blue-100 text-blue-600 hover:text-blue-800 px-2 py-1 md:px-3 md:py-1.5 rounded-full transition-all border border-blue-200 shadow-sm" title="Ver explicação do bloco em Libras">
-                                        <!-- Ícone de Play -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
-                                        </svg>
-                                        <span class="text-[10px] md:text-xs font-bold uppercase">Libras</span>
-                                    </button>
-                                    ` : ''}
+                                    <button type="button" onclick="openLibrasModal('block-${index}')" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
+                                        Libras
+                                    </button>` : ''}
                                 </div>
-                                ${block.subtitle ? `<p class="text-gray-600 mt-1 text-xs md:text-base">${block.subtitle}</p>` : ''}
+                                ${block.subtitle ? `<p class="text-sm md:text-base text-gray-600">${block.subtitle}</p>` : ''}
                             </div>
-                        </div>
-                    `;
+                        </div>`;
                 }
 
-                // Lógica para esconder o botão individual nas questões 20 a 29 (indices 19 a 28)
-                const hideLibrasButton = index >= 19 && index <= 28;
+                // Lógica de esconder botão (Questões 20-29 / índice 19-28)
+                const hideLibrasBtn = index >= 19 && index <= 28;
 
+                // Renderização da Questão (Mobile: Coluna | Desktop: Linha)
                 html += `
-                <div class="questao mb-4 md:mb-6 p-4 md:p-6 border border-gray-100 rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all duration-300">
-                    
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-2 md:gap-4 mb-4 md:mb-6">
-                        <p class="font-medium text-base md:text-lg text-gray-800 flex-1 leading-relaxed">
-                            <span class="font-bold text-blue-600 mr-2">${num}.</span> ${pergunta}
+                <div class="questao bg-gray-50/50 p-4 md:p-6 rounded-xl border border-gray-100 hover:border-blue-200 transition-all">
+                    <!-- Topo: Pergunta + Botão -->
+                    <div class="flex flex-col md:flex-row justify-between gap-4 mb-4 md:items-start">
+                        <p class="font-medium text-base md:text-lg text-gray-800 flex-1">
+                            <span class="font-bold text-blue-600 mr-1">${num}.</span> ${item.text}
                         </p>
-                        
-                        ${!hideLibrasButton ? `
-                        <div class="self-end md:self-auto">
-                            <button type="button" onclick="openLibrasModal(${num})" class="group flex-shrink-0 flex items-center gap-1 md:gap-2 bg-white hover:bg-blue-50 text-gray-500 hover:text-blue-600 px-3 py-1.5 md:px-4 md:py-2 rounded-full transition-all border border-gray-200 hover:border-blue-200 shadow-sm" title="Ver em Libras">
-                                <!-- Ícone de Play -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
-                                </svg>
-                                <span class="text-xs md:text-sm font-semibold">Libras</span>
-                            </button>
-                        </div>
-                        ` : ''}
+                        ${!hideLibrasBtn ? `
+                        <button type="button" onclick="openLibrasModal(${num})" class="self-start md:self-auto flex items-center gap-1 text-xs font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full hover:text-blue-600 hover:border-blue-200 transition-colors shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
+                            Libras
+                        </button>` : ''}
                     </div>
-                    
-                    <div class="flex justify-between items-center max-w-2xl mx-auto gap-1 sm:gap-2 md:gap-4 mb-2 md:mb-3">
-                        ${[1, 2, 3, 4, 5].map(val => `
-                            <label class="cursor-pointer text-center flex-1 group">
-                                <input type="radio" name="q${num}" value="${val}" class="likert-option sr-only" required>
-                                <div class="w-10 h-10 md:w-14 md:h-14 mx-auto rounded-full border-2 border-gray-200 bg-white flex items-center justify-center text-gray-400 font-bold text-sm md:text-lg group-hover:border-blue-300 group-hover:text-blue-500 transition-all shadow-sm">
-                                    ${val}
-                                </div>
-                            </label>
-                        `).join('')}
+
+                    <!-- Escala Likert -->
+                    <div class="flex justify-between items-center max-w-2xl mx-auto gap-1 sm:gap-4 mb-2">
+                        ${[1,2,3,4,5].map(val => `
+                        <label class="cursor-pointer flex-1 group text-center">
+                            <input type="radio" name="q${num}" value="${val}" class="likert-option sr-only" required>
+                            <div class="w-10 h-10 md:w-14 md:h-14 mx-auto rounded-full border-2 border-gray-200 bg-white flex items-center justify-center text-gray-400 font-bold text-sm md:text-lg group-hover:border-blue-400 group-hover:text-blue-600 transition-all shadow-sm">
+                                ${val}
+                            </div>
+                        </label>`).join('')}
                     </div>
-                    
-                    <div class="flex justify-between text-[10px] md:text-xs text-gray-400 max-w-2xl mx-auto px-1 md:px-2 font-medium">
+
+                    <!-- Legenda -->
+                    <div class="flex justify-between text-[10px] md:text-xs text-gray-400 font-medium max-w-2xl mx-auto px-1">
                         <span class="text-left w-1/3 leading-tight">Discordo totalmente<br>Muito negativo / Nunca</span>
                         <span class="text-right w-1/3 leading-tight">Concordo totalmente<br>Muito positivo / Sempre</span>
                     </div>
-                </div>
-                `;
+                </div>`;
             });
             container.innerHTML = html;
         }
 
         renderQuestions();
 
+        // Envio do Form
         form.addEventListener('submit', e => {
             e.preventDefault();
             
-            // Verificação de Validação Manual
             if (!form.checkValidity()) {
                 e.stopPropagation();
-                
-                // Encontra o primeiro campo inválido
-                const firstInvalid = form.querySelector(':invalid');
-                if (firstInvalid) {
-                    // Tenta encontrar o container da questão (seja likert ou perfil)
-                    const container = firstInvalid.closest('.questao') || firstInvalid.closest('.mb-8'); 
-                    if (container) {
-                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
+                const invalid = form.querySelector(':invalid');
+                if (invalid) {
+                    const block = invalid.closest('.questao') || invalid.closest('.mb-8'); // Ajustado para .mb-8 (perfil)
+                    block?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Efeito visual de erro
+                    block.classList.add('ring-2', 'ring-red-300');
+                    setTimeout(() => block.classList.remove('ring-2', 'ring-red-300'), 2000);
                 }
-                
-                alert("Atenção: Existem questões não respondidas. Por favor, preencha todos os campos antes de enviar.");
+                alert("Por favor, responda todas as questões obrigatórias.");
                 return;
             }
 
-            if (SCRIPT_URL.includes('SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI')) {
-                alert('ATENÇÃO: Configure a variável SCRIPT_URL no código com o link do seu Google Apps Script!');
+            if (SCRIPT_URL.includes('SUA_URL_')) {
+                alert('Configure a URL do Script!');
                 return;
             }
 
             submitBtn.disabled = true;
-            btnText.textContent = 'Enviando...';
             loadingIcon.classList.remove('hidden');
 
-            const formData = new FormData(form);
-
-            fetch(SCRIPT_URL, { method: 'POST', body: formData})
-                .then(response => {
-                    const mainContainer = document.querySelector('.max-w-4xl');
-                    mainContainer.innerHTML = `
-                        <div class="text-center py-10 md:py-20 animate-fade-in-up">
-                            <div class="mx-auto flex items-center justify-center h-20 w-20 md:h-24 md:w-24 rounded-full bg-green-100 mb-6">
-                                <svg class="h-10 w-10 md:h-12 md:w-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            </div>
-                            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Obrigado!</h2>
-                            <p class="text-gray-600 text-base md:text-lg mb-8">Suas respostas foram registradas com sucesso.</p>
-                            <button onclick="location.reload()" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline">Enviar nova resposta</button>
-                        </div>
-                    `;
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+            fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form)})
+                .then(() => {
+                    document.querySelector('.max-w-5xl').innerHTML = `
+                    <div class="text-center py-20 flex flex-col items-center animate-fade-in-up">
+                        <div class="bg-green-100 p-4 rounded-full mb-6"><svg class="h-12 w-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Sucesso!</h2>
+                        <p class="text-gray-500 mb-8">Obrigado pela sua participação.</p>
+                        <button onclick="location.reload()" class="text-blue-600 font-semibold hover:underline">Novo envio</button>
+                    </div>`;
+                    window.scrollTo({top:0, behavior:'smooth'});
                 })
-                .catch(error => {
-                    console.error('Erro!', error.message);
+                .catch(err => {
+                    console.error(err);
                     alert("Erro ao enviar. Verifique sua conexão.");
                     submitBtn.disabled = false;
-                    btnText.textContent = 'Enviar Respostas';
                     loadingIcon.classList.add('hidden');
                 });
         });

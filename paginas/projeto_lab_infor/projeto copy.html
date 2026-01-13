@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Técnico - LAB-LIBRAS UFAL</title>
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --primary: #0f172a;      /* Slate 900 - Navy Blue */
+            --primary-light: #334155; /* Slate 700 */
+            --accent: #2563eb;        /* Royal Blue */
+            --accent-subtle: #eff6ff;
+            --danger: #991b1b;
+            --bg-body: #525659;
+            --bg-paper: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.45;
+            font-size: 10.5pt; 
+        }
+
+        /* --- ESTRUTURA DE PÁGINA (A4) --- */
+        .page {
+            width: 210mm;
+            min-height: 297mm; 
+            padding: 18mm 20mm;
+            margin: 20px auto;
+            background: var(--bg-paper);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always; 
+        }
+
+        /* --- CABEÇALHO INTERNO --- */
+        .page-header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .page-header strong { color: var(--primary); font-size: 0.9rem; }
+
+        /* --- CAPA --- */
+        .cover-page {
+            background: var(--primary);
+            color: white;
+            padding: 0;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 297mm;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cover-header { padding: 30mm 20mm 0 20mm; z-index: 2; }
+        .cover-decor {
+            position: absolute;
+            top: 0; right: 0;
+            width: 65%;
+            height: 100%;
+            background: radial-gradient(circle at top right, #1e293b 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .logo-area { margin-bottom: 60px; border-left: 4px solid var(--accent); padding-left: 20px; }
+        .logo-text { font-size: 1.6rem; font-weight: 700; }
+        .doc-meta { text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; color: #94a3b8; margin-bottom: 10px; }
+        h1.main-title { font-size: 2.8rem; line-height: 1.1; font-weight: 800; margin-bottom: 20px; }
+        .subtitle { font-size: 1.3rem; font-weight: 300; color: #cbd5e1; border-top: 1px solid #334155; padding-top: 20px; }
+
+        .cover-footer {
+            background: #020617;
+            padding: 20mm;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            z-index: 2;
+        }
+
+        .cover-footer strong { display: block; color: white; margin-bottom: 5px; text-transform: uppercase; font-size: 0.75rem; }
+
+        /* --- TÍTULOS E BADGES --- */
+        .section-header { display: flex; align-items: center; margin: 15px 0 10px 0; }
+        .section-badge { background: var(--primary); color: white; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-right: 12px; font-size: 0.9rem; }
+        .section-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); text-transform: uppercase; }
+
+        .mec-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #15803d;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        /* --- TEXTOS E CARDS --- */
+        p { margin-bottom: 12px; text-align: justify; }
+        .highlight-box { background: var(--accent-subtle); border: 1px solid #bfdbfe; padding: 12px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid var(--accent); }
+        .alert-box { background: #fef2f2; border: 1px solid #fee2e2; padding: 12px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid var(--danger); color: var(--danger); }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+        .info-card { border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; background: #fff; }
+        .info-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        .info-card p { font-size: 0.8rem; margin: 0; text-align: left; }
+
+        ul { margin-left: 20px; margin-bottom: 12px; }
+        li { margin-bottom: 5px; font-size: 0.9rem; }
+
+        /* --- TABELAS --- */
+        .budget-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 5px; }
+        .budget-table th { background: var(--primary); color: white; text-align: left; padding: 8px; text-transform: uppercase; font-size: 0.7rem; }
+        .budget-table td { padding: 8px; border-bottom: 1px solid var(--border-color); }
+        .total-row td { background: var(--primary-light) !important; color: white !important; font-weight: 700; }
+
+        /* --- ANEXOS --- */
+        .annex-item { border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; background: #f8fafc; margin-bottom: 15px; }
+        .annex-label { font-weight: 700; color: var(--primary); margin-bottom: 5px; display: block; font-size: 0.85rem; }
+        .annex-img { 
+            width: 100%; 
+            max-height: 380px; 
+            object-fit: contain;
+            border-radius: 4px; 
+            border: 1px solid #ddd; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+            display: block;
+        }
+
+        .footnotes {
+            margin-top: auto;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 8px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.2;
+        }
+
+        /* --- BOTÃO --- */
+        .no-print { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
+        .no-print button { background: var(--primary); color: white; border: none; padding: 15px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
+        @page { size: A4; margin: 0; }
+        @media print {
+            body { background: white; }
+            .page { margin: 0; box-shadow: none; width: 210mm; min-height: 297mm; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <button onclick="window.print()">Imprimir / Salvar PDF</button>
+    </div>
+
+    <!-- PÁGINA 1: CAPA -->
+    <div class="page cover-page">
+        <div class="cover-decor"></div>
+        <div class="cover-header">
+            <div class="logo-area">
+                <div class="logo-text">UFAL • FALE</div>
+                <div style="font-size: 0.8rem; opacity: 0.7;">Universidade Federal de Alagoas</div>
+            </div>
+            <div class="doc-meta">Coordenação do Curso de Letras-Libras</div>
+            <h1 class="main-title">PROJETO TÉCNICO DE<br>IMPLANTAÇÃO</h1>
+            <div class="subtitle">Laboratório de Tecnologias e Linguagens (LAB-LIBRAS) e Modernização da Infraestrutura Tecnológica de Apoio</div>
+        </div>
+        <div class="cover-footer">
+            <div><strong>Objeto</strong>Aquisição de 45 Computadores</div>
+            <div><strong>Referência</strong>Dezembro / 2025</div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: APRESENTAÇÃO E JUSTIFICATIVA (PARTE 1) -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 02</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">01</span>
+            <h2 class="section-title">Apresentação e Objeto</h2>
+        </div>
+        <p>
+            O presente projeto visa a aquisição de <strong>45 microcomputadores de alto desempenho</strong> para suprir o déficit tecnológico da Faculdade de Letras (FALE). A urgência fundamenta-se na correção de um déficit histórico e no atendimento às demandas de acessibilidade e ensino centralizadas na unidade.
+        </p>
+
+        <div class="section-header">
+            <span class="section-badge">02</span>
+            <h2 class="section-title">Justificativa Detalhada</h2>
+        </div>
+
+        <h3 style="margin: 5px 0 8px 0; color: var(--primary); font-size: 1rem; border-left: 3px solid var(--accent); padding-left: 10px;">2.1. Da inclusão digital e permanência</h3>
+        <p>
+            O curso atende estudantes surdos que frequentemente ingressam com histórico de exclusão digital e dificuldades na leitura do português escrito. Alagoas mantém altos patamares de analfabetismo, sendo <strong>Maceió a capital com o pior índice no Brasil<sup>1</sup></strong>. 
+        </p>
+        <p>
+            A ausência de computadores impede o letramento digital, dificultando o domínio de ferramentas acadêmicas (SIGAA, Moodle) e a futura atuação docente. O laboratório funciona como ferramenta de nivelamento, permitindo que disciplinas tecnológicas cumpram seu papel de apresentar o universo digital ao futuro professor.
+        </p>
+
+        <h3 style="margin: 15px 0 10px 0; color: var(--primary); font-size: 1rem; border-left: 3px solid var(--accent); padding-left: 10px;">2.2. Do protagonismo institucional da FALE</h3>
+        <p style="margin-bottom: 10px;">
+            A FALE concentra boa parte das ações linguísticas da UFAL. Os equipamentos solicitados dão suporte a uma rede de serviços que extrapola o curso de Letras-Libras:
+        </p>
+        
+        <div class="grid-2">
+            <div class="info-card">
+                <h3>Ensino Transversal</h3>
+                <p>Oferta de Libras para todas as licenciaturas do Campus A. C. Simões e línguas instrumentais (Inglês, Francês, Espanhol) para cursos externos.</p>
+            </div>
+            <div class="info-card">
+                <h3>Extensão e Cultura</h3>
+                <p>Suporte aos projetos Casa de Cultura no Campus (CCC) e Casa de Cultura e Expressão Visuogestual (CCEV) para toda a comunidade.</p>
+            </div>
+            <div class="info-card" style="grid-column: span 2;">
+                <h3>Acessibilidade Comunicacional Institucional</h3>
+                <p>O setor de tradução/interpretação situado no bloco Letras-Libras assume as demandas de acessibilidade envolvendo surdez em toda a universidade. A produção de materiais acessíveis e vídeos exige obrigatoriamente infraestrutura computacional robusta.</p>
+            </div>
+        </div>
+        <div class="footnotes">
+            1. IBGE. Síntese de Indicadores Sociais (SIS) 2025. Rio de Janeiro: IBGE, 2025.
+        </div>
+    </div>
+
+    <!-- PÁGINA 3: JUSTIFICATIVA (PARTE 2) -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 03</span>
+        </div>
+
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.05rem; border-left: 3px solid var(--accent); padding-left: 10px;">2.3. Do histórico</h3>
+        <p>
+            A sala do laboratório foi entregue em 2018, mas jamais foi equipada. São <strong>7 anos de atraso</strong> que impactam a produção científica. A dependência de empréstimos de outras unidades atingiu um cenário de <strong>total colapso</strong>.
+        </p>
+
+        <div class="alert-box">
+            <strong>NEGATIVAS PARA 2026.1:</strong> Todas as tentativas de solicitação de espaço externo para o próximo semestre foram <strong>negadas</strong>. As coordenações informaram que seus laboratórios já operam em capacidade máxima nos horários necessários. A mesma situação já aconteceu em semestre anterior.
+        </div>
+
+        <div class="mec-badge">AVALIAÇÃO MEC: NOTA 5 (MÁXIMA)</div>
+        <p>
+            O curso mantém a nota máxima, mas as comissões do MEC pontuam a necessidade de maior acesso à tecnologia, dada a vulnerabilidade social dos alunos, muitos dos quais só acessam computadores após a entrada no curso.
+        </p>
+
+        <h3 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05rem; border-left: 3px solid var(--accent); padding-left: 10px;">2.4. Da pesquisa em linguística</h3>
+        <p>
+            Pesquisas em Línguas de Sinais (análise de corpus, tradução visual) exigem processamento de vídeo de alta definição. Estes recursos permitirão que a FALE avance na descrição linguística e na produção acadêmica visual.
+        </p>
+
+        <h3 style="margin: 20px 0 10px 0; color: var(--primary); font-size: 1.05rem; border-left: 3px solid var(--accent); padding-left: 10px;">2.5. Diagnóstico da situação atual</h3>
+        <div class="grid-2">
+            <div class="info-card">
+                <h3>Sala de Estudos</h3>
+                <p>Apenas 01 computador lento para todo o corpo discente, inviabilizando pesquisas extraclasse.</p>
+            </div>
+            <div class="info-card">
+                <h3>Gestão</h3>
+                <p>Coordenação com PC obsoleto e Vice-Coordenação sem equipamento próprio para trabalho.</p>
+            </div>
+            <div class="info-card">
+                <h3>Secretaria</h3>
+                <p>02 equipamentos defasados que atrasam trâmites processuais e atendimentos administrativos.</p>
+            </div>
+            <div class="info-card">
+                <h3>Laboratório</h3>
+                <p>Status: Descaracterizado. Usado apenas como sala de aula, o que inviabiliza a oferta de disciplinas práticas e tecnológicas no currículo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: DISTRIBUIÇÃO E ESPECIFICAÇÕES -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 04</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">03</span>
+            <h2 class="section-title">Plano de Distribuição dos Equipamentos</h2>
+        </div>
+
+        <table class="budget-table">
+            <thead>
+                <tr>
+                    <th>Setor de Destino</th>
+                    <th style="text-align: center;">Qtd.</th>
+                    <th>Justificativa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Laboratório de Informática</strong></td>
+                    <td style="text-align: center;">30</td>
+                    <td>Equipagem de laboratório (44,90 m²) para uso discente.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sala de Estudos</strong></td>
+                    <td style="text-align: center;">08</td>
+                    <td>Substituição e ampliação da oferta de apoio ao aluno.</td>
+                </tr>
+                <tr>
+                    <td><strong>Secretaria e Coordenação</strong></td>
+                    <td style="text-align: center;">04</td>
+                    <td>Modernização da gestão administrativa e apoio técnico.</td>
+                </tr>
+                <tr>
+                    <td><strong>Intérpretes de Libras</strong></td>
+                    <td style="text-align: center;">03</td>
+                    <td>Suporte à tradução e produção de materiais visuais.</td>
+                </tr>
+                <tr class="total-row">
+                    <td>TOTAL GERAL</td>
+                    <td style="text-align: center;">45</td>
+                    <td>Padronização de Hardware Corporativo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header" style="margin-top: 40px;">
+            <span class="section-badge">04</span>
+            <h2 class="section-title">Especificações Técnicas</h2>
+        </div>
+        
+        <div class="info-card" style="margin-bottom: 15px;">
+            <p><strong>01. Mini Desktop i5:</strong> 12ª Ger. ou superior, 16GB RAM, SSD 512GB (Essencial para edição de vídeo em Libras).</p>
+        </div>
+        <div class="info-card" style="margin-bottom: 15px;">
+            <p><strong>02. Monitor 21.5" IPS Full HD:</strong> Painel IPS mandatório para visualização nítida de sinais em diferentes ângulos.</p>
+        </div>
+        <div class="info-card">
+            <p><strong>03. Mobiliário Específico:</strong> Cadeiras giratórias <strong>sem braços</strong>, permitindo a livre sinalização dos usuários surdos.</p>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: INVESTIMENTO E CONCLUSÃO -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 05</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">05</span>
+            <h2 class="section-title">Investimento Estimado</h2>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: -10px;">Estimativa baseada em varejo corporativo (Ref. Dez/2025)</p>
+
+        <table class="budget-table">
+            <thead>
+                <tr>
+                    <th>Item Descritivo</th>
+                    <th style="text-align: center;">Qtd</th>
+                    <th style="text-align: right;">Unitário</th>
+                    <th style="text-align: right;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mini Desktop Corporativo Alto Desempenho</td>
+                    <td style="text-align: center;">45</td>
+                    <td style="text-align: right;">R$ 3.950,00</td>
+                    <td style="text-align: right;">R$ 177.750,00</td>
+                </tr>
+                <tr>
+                    <td>Monitor 21.5" IPS Pro-Visual</td>
+                    <td style="text-align: center;">45</td>
+                    <td style="text-align: right;">R$ 650,00</td>
+                    <td style="text-align: right;">R$ 29.250,00</td>
+                </tr>
+                <tr>
+                    <td>Kit Periféricos e Cadeiras Giratórias</td>
+                    <td style="text-align: center;">30</td>
+                    <td style="text-align: right;">R$ 566,66</td>
+                    <td style="text-align: right;">R$ 17.000,00</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="3">INVESTIMENTO TOTAL ESTIMADO</td>
+                    <td style="text-align: right;">R$ 224.000,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header" style="margin-top: 45px;">
+            <span class="section-badge">06</span>
+            <h2 class="section-title">Conclusão e Encaminhamento</h2>
+        </div>
+        <div class="highlight-box">
+            <p>
+                A implantação imediata do <strong>LAB-LIBRAS</strong> é a única alternativa para evitar a paralisação de disciplinas práticas nos próximos semestres O projeto não apenas corrige um atraso de 7 anos, como garante o direito à educação de alunos em vulnerabilidade, assegurando a manutenção da excelência acadêmica do curso.
+            </p>
+        </div>
+        
+        
+    </div>
+
+    <!-- PÁGINA 6: ANEXOS TÉCNICOS -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 06</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">07</span>
+            <h2 class="section-title">Anexos Técnicos</h2>
+        </div>
+
+        <div class="annex-item">
+            <span class="annex-label">ANEXO I – Planta Baixa Arquitetônica (Sala Existente - 44,90 m²)</span>
+            <img src="https://gifscursopullzone.b-cdn.net/planta_baixa.png" alt="Planta Baixa" class="annex-img">
+        </div>
+        
+        <div class="annex-item">
+            <span class="annex-label">ANEXO II – Estudo Preliminar de Layout e Mobiliário (Estações de Trabalho)</span>
+            <img src="https://gifscursopullzone.b-cdn.net/lab_infor%20(1).png" alt="Estudo de Layout" class="annex-img">
+        </div>
+    </div>
+
+</body>
+</html>

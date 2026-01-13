@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Técnico - LAB-LIBRAS UFAL</title>
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS --- */
+        :root {
+            /* Paleta Corporativa Sóbria (Navy Blue) */
+            --primary: #0f172a;      /* Slate 900 */
+            --primary-light: #334155; /* Slate 700 */
+            --accent: #2563eb;       /* Royal Blue */
+            --accent-subtle: #e0e7ff; /* Fundo azul claro */
+            
+            --bg-body: #525659;      /* Fundo cinza para visualização web */
+            --bg-paper: #ffffff;
+            
+            --text-main: #1e293b;    /* Slate 800 */
+            --text-muted: #64748b;   /* Slate 500 */
+            
+            --border-color: #cbd5e1; /* Slate 300 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.4;
+            font-size: 11pt; 
+        }
+
+        /* --- UTILITÁRIOS --- */
+        .icon {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .text-justify { text-align: justify; }
+        
+        /* --- ESTRUTURA DE PÁGINA (A4) --- */
+        .page {
+            width: 210mm;
+            min-height: 297mm; 
+            padding: 20mm;
+            margin: 20px auto;
+            background: var(--bg-paper);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always; 
+        }
+
+        /* --- CAPA (MODIFICADA PARA CORREÇÃO) --- */
+        .cover-page {
+            background: var(--primary);
+            color: white;
+            padding: 0;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 297mm; /* Altura fixa essencial */
+            overflow: hidden; /* Garante que nada vaze */
+            position: relative; /* Contexto para posicionamento absoluto */
+        }
+
+        .cover-header {
+            padding: 20mm 20mm 0 20mm;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-decor {
+            position: absolute;
+            top: 0; right: 0;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(circle at top right, #1e293b 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .logo-area {
+            margin-bottom: 60px;
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-meta {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        h1.main-title {
+            font-size: 2.8rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #cbd5e1;
+            max-width: 90%;
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+        }
+
+        .cover-footer {
+            background: #020617;
+            padding: 20mm;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            border-top: 1px solid #1e293b;
+            z-index: 2;
+        }
+
+        .cover-footer strong {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- CABEÇALHO INTERNO --- */
+        .page-header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .page-header strong {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        /* --- TÍTULOS DE SEÇÃO --- */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin: 20px 0 10px 0;
+        }
+
+        .section-badge {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- TEXTO E CARDS --- */
+        p { margin-bottom: 10px; text-align: justify; font-size: 0.95rem; }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .info-card {
+            border: 1px solid var(--border-color);
+            background: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 4px;
+            background: var(--primary);
+        }
+
+        .info-card h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* --- CAIXAS DE DESTAQUE --- */
+        .highlight-box {
+            background: var(--accent-subtle);
+            border: 1px solid #bfdbfe;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            color: #1e3a8a;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box strong { font-weight: 600; color: var(--accent); }
+
+        /* --- ESPECIFICAÇÕES --- */
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .spec-row:last-child { border-bottom: none; }
+
+        .spec-title { font-weight: 700; font-size: 0.9rem; color: var(--primary); }
+        .spec-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 1px; }
+        
+        .spec-tag {
+            background: var(--primary-light);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* --- TABELAS --- */
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+        
+        .budget-table th {
+            background: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 6px 10px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+        
+        .budget-table td {
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        
+        .budget-table tr:last-child td { border-bottom: none; }
+        .budget-table tr:nth-child(even) { background-color: #f8fafc; }
+
+        .total-row td {
+            background: var(--primary-light) !important;
+            color: white !important;
+            font-weight: 700;
+        }
+
+        /* --- KPIS --- */
+        .kpi-box {
+            display: flex;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+        }
+        
+        .kpi-item {
+            text-align: center;
+            flex: 1;
+            border-right: 1px solid var(--border-color);
+        }
+        .kpi-item:last-child { border-right: none; }
+
+        .kpi-val {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+        .kpi-lbl {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        /* --- ANEXOS --- */
+        .annex-section { margin-top: 20px; }
+        .annex-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .annex-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px;
+            background: white;
+        }
+        .annex-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.85rem;
+        }
+        .annex-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+            max-height: 300px;
+            object-fit: contain;
+            background-color: #f1f5f9;
+        }
+
+        /* --- ASSINATURAS --- */
+        .sign-area {
+            margin-top: auto;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        
+        .sign-box {
+            flex: 1;
+            border-top: 1px solid var(--text-main);
+            padding-top: 5px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* --- CONFIGURAÇÃO DE IMPRESSÃO --- */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                background-color: white;
+            }
+            .no-print { display: none !important; }
+            .page {
+                margin: 0;
+                border: initial;
+                width: 100%;
+                min-height: 100%;
+                box-shadow: initial;
+                page-break-after: always;
+                padding: 20mm;
+                height: auto;
+                display: block; 
+            }
+            
+            /* --- CORREÇÃO DA CAPA NA IMPRESSÃO --- */
+            .cover-page {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                height: 297mm !important; /* Força altura total */
+                min-height: 297mm !important;
+                background-color: #0f172a !important; /* Garante a cor de fundo */
+                color: white !important;
+                display: grid !important; /* Garante o layout grid */
+                page-break-after: always;
+                margin: 0 !important;
+                padding: 0 !important; /* Capa não deve ter margem interna na impressão */
+                width: 210mm !important;
+            }
+
+            /* Garante que o gradiente da capa apareça */
+            .cover-decor {
+                display: block !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Ajuste específico para o rodapé da capa */
+            .cover-footer {
+                background-color: #020617 !important;
+                color: #cbd5e1 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Remove margens e padding desnecessários na impressão */
+            body { margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botão Flutuante -->
+    <div class="no-print" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+        <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 12px 24px; border-radius: 50px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px;">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+            Imprimir / PDF
+        </button>
+    </div>
+
+    <!-- PÁGINA 1: CAPA -->
+    <div class="page cover-page">
+        <div class="cover-decor"></div>
+        
+        <div class="cover-header">
+            <div class="logo-area">
+                <div class="logo-text">UFAL • FALE</div>
+                <div style="font-size: 0.8rem; opacity: 0.7;">Universidade Federal de Alagoas</div>
+            </div>
+
+            <div class="doc-meta">COORDENAÇÃO DO CURSO DE LETRAS-LIBRAS</div>
+            <h1 class="main-title">PROJETO TÉCNICO DE<br>IMPLANTAÇÃO</h1>
+            <div class="subtitle">Laboratório de Tecnologias e Linguagens (LAB-LIBRAS) e Modernização da Infraestrutura Tecnológica de Apoio</div>
+        </div>
+
+        <div class="cover-footer">
+            <div>
+                <strong>Instituição</strong>
+                Faculdade de Letras - FALE
+            </div>
+            <div>
+                <strong>Objeto</strong>
+                Aquisição de 35 Microcomputadores
+            </div>
+            <div>
+                <strong>Data Estimada</strong>
+                Dezembro / 2025
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: SEÇÕES 1 e 2 -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 02</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">01</span>
+            <h2 class="section-title">Apresentação e Objeto</h2>
+        </div>
+        
+        <p>
+            O presente projeto tem por objeto a aquisição de <strong>35 (trinta e cinco) microcomputadores de alto desempenho e periféricos</strong>. A solicitação visa sanar duas lacunas críticas na infraestrutura da Faculdade de Letras (FALE):
+        </p>
+        <div class="highlight-box">
+            <ul style="list-style: none;">
+                <li style="margin-bottom: 5px;"><strong>• Implantação:</strong> Equipar a sala situada no Bloco de Letras-Libras (44,90 m²) que, embora destinada a laboratório desde 2018, encontra-se desprovida de equipamentos.</li>
+                <li><strong>• Modernização e Expansão:</strong> Substituir equipamentos inoperantes nos setores administrativos e ampliar a oferta na Sala de Estudos.</li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div class="section-header">
+            <span class="section-badge">02</span>
+            <h2 class="section-title">Justificativa Estratégica</h2>
+        </div>
+
+        <div class="grid-2">
+            <!-- Card 1 -->
+            <div class="info-card">
+                <h3>
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                    Inclusão Digital
+                </h3>
+                <p>O curso atende estudantes surdos com histórico de exclusão digital. O laboratório é ferramenta essencial de nivelamento e domínio de ferramentas acadêmicas (SIGAA, Moodle).</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="info-card">
+                <h3>
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    Protagonismo Institucional
+                </h3>
+                <p>A FALE oferta Libras para toda a UFAL e assume demandas de acessibilidade comunicacional. Equipamentos robustos são vitais para tradução e produção de materiais acessíveis.</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="info-card">
+                <h3>
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Déficit Histórico (7 Anos)
+                </h3>
+                <p>A sala do laboratório foi entregue em 2018 mas jamais equipada. A dependência de espaços externos colapsou, com negativas de empréstimo para o semestre 2026.1.</p>
+            </div>
+            <!-- Card 4 -->
+            <div class="info-card">
+                <h3>
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>
+                    Pesquisa em Linguística
+                </h3>
+                <p>Pesquisas em Línguas de Sinais (análise de corpus, tradução visual) exigem hardware capaz de processar vídeo, potenciando a produção acadêmica da FALE.</p>
+            </div>
+        </div>
+
+        <p class="text-justify" style="font-size: 0.9rem; color: var(--text-muted); border-left: 3px solid var(--accent); padding-left: 10px;">
+            <strong>Diagnóstico Atual:</strong> Enquanto o laboratório carece de qualquer computador, a Sala de Estudos possui apenas 1 equipamento lento e a gestão opera com máquinas obsoletas ou inexistentes.
+        </p>
+
+        <p class="my-12 text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto text-center">
+            Testando pra ver se da pra incluir mais coisa aqui
+        </p>
+    </div>
+
+    <!-- PÁGINA 3: SEÇÕES 3 e 4 -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 03</span>
+        </div>
+
+        <br>
+
+        <div class="section-header" style="margin-top: 0;">
+            <span class="section-badge">03</span>
+            <h2 class="section-title">Distribuição dos Equipamentos</h2>
+        </div>
+
+        <table class="budget-table" style="margin-bottom: 30px;">
+            <thead>
+                <tr>
+                    <th>Setor de Destino</th>
+                    <th style="text-align: center;">Qtd.</th>
+                    <th>Situação Atual / Justificativa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Laboratório de Informática</strong></td>
+                    <td style="text-align: center;">25</td>
+                    <td>Inexistente. Sala vazia desde 2018. Equipagem completa.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sala de Estudos</strong></td>
+                    <td style="text-align: center;">05</td>
+                    <td>Precária. Substituição de 2 PCs lentos e ampliação.</td>
+                </tr>
+                <tr>
+                    <td><strong>Secretaria do Curso</strong></td>
+                    <td style="text-align: center;">02</td>
+                    <td>Obsoleta. Substituição de equipamentos antigos.</td>
+                </tr>
+                <tr>
+                    <td><strong>Coordenação do Curso</strong></td>
+                    <td style="text-align: center;">01</td>
+                    <td>Precária. Substituição de equipamento com defeito.</td>
+                </tr>
+                <tr>
+                    <td><strong>Vice-Coordenação</strong></td>
+                    <td style="text-align: center;">01</td>
+                    <td>Inexistente. Dotação inicial para a bancada.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sala de Intérpretes</strong></td>
+                    <td style="text-align: center;">01</td>
+                    <td>Precária. Apoio técnico para tradução de materiais.</td>
+                </tr>
+                <tr class="total-row">
+                    <td>TOTAL</td>
+                    <td style="text-align: center;">35</td>
+                    <td>Padronização de todas as unidades</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">
+            <span class="section-badge">04</span>
+            <h2 class="section-title">Especificações Técnicas e Padronização</h2>
+        </div>
+
+        <p>
+            O espaço físico (44,90 m²) conta com infraestrutura pronta (elétrica/lógica/climatização). Solicita-se a padronização das 35 máquinas para alto desempenho, visando edição de vídeo e longevidade.
+        </p>
+
+        <div style="margin-bottom: 15px;">
+            <div class="spec-row">
+                <div>
+                    <div class="spec-title">01. Mini Desktop Corporativo</div>
+                    <div class="spec-desc">i5 (12ª/13ª Ger), 16GB RAM, SSD 512GB, Win 11 Pro</div>
+                </div>
+                <div class="spec-tag">35 UND</div>
+            </div>
+            <div class="spec-row">
+                <div>
+                    <div class="spec-title">02. Monitor Visual Profissional</div>
+                    <div class="spec-desc">21.5" IPS Full HD (Essencial para visualização de Libras)</div>
+                </div>
+                <div class="spec-tag">35 UND</div>
+            </div>
+            <div class="spec-row">
+                <div>
+                    <div class="spec-title">03. Kit Periféricos</div>
+                    <div class="spec-desc">Teclado ABNT2 e Mouse USB Óptico</div>
+                </div>
+                <div class="spec-tag">35 UND</div>
+            </div>
+            <div class="spec-row">
+                <div>
+                    <div class="spec-title">04. Mobiliário</div>
+                    <div class="spec-desc">Cadeira Giratória Operacional (Sem Braços)</div>
+                </div>
+                <div class="spec-tag">30 UND</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: SEÇÕES 5 e 6 + ASSINATURAS -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 04</span>
+        </div>
+
+        <br>
+
+        <div class="section-header" style="margin-top: 0;">
+            <span class="section-badge">05</span>
+            <h2 class="section-title">Orçamento Estimativo</h2>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: -8px;">Base: Varejo Online (Dez/2025)</p>
+
+        <table class="budget-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th style="text-align: center;">Qtd</th>
+                    <th style="text-align: right;">Unitário</th>
+                    <th style="text-align: right;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mini Desktop i5</td>
+                    <td style="text-align: center;">35</td>
+                    <td style="text-align: right;">R$ 3.950,00</td>
+                    <td style="text-align: right;">R$ 138.250,00</td>
+                </tr>
+                <tr>
+                    <td>Monitor 21.5" IPS</td>
+                    <td style="text-align: center;">35</td>
+                    <td style="text-align: right;">R$ 650,00</td>
+                    <td style="text-align: right;">R$ 22.750,00</td>
+                </tr>
+                <tr>
+                    <td>Kit Teclado/Mouse</td>
+                    <td style="text-align: center;">35</td>
+                    <td style="text-align: right;">R$ 100,00</td>
+                    <td style="text-align: right;">R$ 3.500,00</td>
+                </tr>
+                <tr>
+                    <td>Cadeira Giratória</td>
+                    <td style="text-align: center;">30</td>
+                    <td style="text-align: right;">R$ 450,00</td>
+                    <td style="text-align: right;">R$ 13.500,00</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="3">INVESTIMENTO TOTAL ESTIMADO</td>
+                    <td style="text-align: right;">R$ 178.000,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <div class="section-header">
+            <span class="section-badge">06</span>
+            <h2 class="section-title">Indicadores de Impacto</h2>
+        </div>
+
+        <div class="kpi-box">
+            <div class="kpi-item">
+                <span class="kpi-val">35</span>
+                <span class="kpi-lbl">Computadores</span>
+            </div>
+            <div class="kpi-item">
+                <span class="kpi-val">7</span>
+                <span class="kpi-lbl">Anos de Atraso</span>
+            </div>
+            <div class="kpi-item">
+                <span class="kpi-val">25</span>
+                <span class="kpi-lbl">Vagas no Lab</span>
+            </div>
+            <div class="kpi-item">
+                <span class="kpi-val">6</span>
+                <span class="kpi-lbl">Setores Atendidos</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <p><strong>Encaminhamento:</strong> Diante do exposto, solicitamos a aprovação e abertura de processo de implantação.</p>
+            
+<br>
+<br>
+
+            <div class="sign-area">
+                <div class="sign-box">
+                    Coordenação Letras-Libras<br>
+                    <span style="font-weight: 400; color: #64748b; font-size: 0.7rem;">Solicitante</span>
+                </div>
+                <div class="sign-box">
+                    Direção da FALE<br>
+                    <span style="font-weight: 400; color: #64748b; font-size: 0.7rem;">Aprovação</span>
+                </div>
+                <div class="sign-box">
+                    Superintendência Infra<br>
+                    <span style="font-weight: 400; color: #64748b; font-size: 0.7rem;">Homologação</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: ANEXOS (Seção 7) -->
+    <div class="page">
+        <div class="page-header">
+            <strong>UFAL • FALE • LAB-LIBRAS</strong>
+            <span>Página 05</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">07</span>
+            <h2 class="section-title">Anexos Técnicos</h2>
+        </div>
+
+        <div class="annex-section">
+            <div class="annex-container">
+                <div class="annex-item">
+                    <span class="annex-label">ANEXO I – Planta Baixa Arquitetônica (Sala Existente)</span>
+                    <img src="https://gifscursopullzone.b-cdn.net/planta_baixa.png" alt="Planta Baixa" class="annex-img">
+                </div>
+                
+                <div class="annex-item">
+                    <span class="annex-label">ANEXO II – Estudo Preliminar de Layout e Mobiliário</span>
+                    <img src="https://gifscursopullzone.b-cdn.net/lab_infor%20(1).png" alt="Estudo de Layout" class="annex-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

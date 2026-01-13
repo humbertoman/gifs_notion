@@ -1,0 +1,339 @@
+% !TEX TS-program = lualatex
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Layout e tipografia ----------
+\usepackage[a4paper,margin=20mm]{geometry}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setstretch{1.05}
+
+% Fonte (Inter se existir; senão cai para sans padrão)
+\IfFontExistsTF{Inter}{
+  \setmainfont{Inter}
+}{
+  \setmainfont{TeX Gyre Heros}
+}
+
+% ---------- Paleta ----------
+\definecolor{Primary}{HTML}{0F172A}        % slate 900
+\definecolor{PrimaryLight}{HTML}{334155}   % slate 700
+\definecolor{Accent}{HTML}{2563EB}         % royal blue
+\definecolor{AccentSubtle}{HTML}{E0E7FF}   % fundo azul claro
+\definecolor{BgBody}{HTML}{525659}
+\definecolor{TextMain}{HTML}{1E293B}
+\definecolor{TextMuted}{HTML}{64748B}
+\definecolor{Border}{HTML}{CBD5E1}
+\definecolor{CoverBottom}{HTML}{020617}
+\definecolor{CoverLine}{HTML}{1E293B}
+
+\color{TextMain}
+
+% ---------- Cabeçalho interno ----------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{Primary}\leaders\hrule height \headrulewidth\hfill}}
+\fancyhead[L]{\textcolor{Primary}{\textbf{UFAL • FALE • LAB-LIBRAS}}}
+\fancyhead[R]{\textcolor{TextMuted}{Página \thepage}}
+\setlength{\headheight}{14pt}
+
+% ---------- Componentes visuais ----------
+\newcommand{\SectionHeader}[2]{%
+  \vspace{6pt}%
+  \noindent
+  \begin{tikzpicture}[baseline=(title.base)]
+    \node[
+      fill=Primary,
+      text=white,
+      font=\bfseries\small,
+      rounded corners=2pt,
+      inner xsep=7pt,
+      inner ysep=3pt
+    ] (badge) {#1};
+    \node[
+      anchor=west,
+      xshift=10pt,
+      font=\bfseries\large,
+      text=Primary
+    ] (title) at (badge.east) {\MakeUppercase{#2}};
+  \end{tikzpicture}%
+  \vspace{4pt}%
+}
+
+\newtcolorbox{ObjectiveBox}{
+  enhanced,
+  colback=AccentSubtle,
+  colframe=blue!25!white,
+  boxrule=0.6pt,
+  arc=2mm,
+  left=3mm,right=3mm,top=2mm,bottom=2mm
+}
+
+\newtcolorbox{InfoCard}[1]{
+  enhanced,
+  colback=white,
+  colframe=Border,
+  boxrule=0.6pt,
+  arc=2mm,
+  left=5mm,right=3mm,top=2mm,bottom=2mm,
+  borderline west={1.2mm}{0pt}{Primary},
+  title={#1},
+  fonttitle=\bfseries\small,
+  coltitle=Primary
+}
+
+\newtcolorbox{KPIBox}{
+  enhanced,
+  colback=white,
+  colframe=Border,
+  boxrule=0.6pt,
+  arc=2mm,
+  left=3mm,right=3mm,top=2mm,bottom=2mm
+}
+
+\newcommand{\Muted}[1]{\textcolor{TextMuted}{#1}}
+
+% Tabela com header escuro
+\newcommand{\TableHeader}[1]{\rowcolor{Primary}\color{white}\textbf{#1}}
+
+% Evitar quebras feias em blocos críticos
+\clubpenalty=10000
+\widowpenalty=10000
+\raggedbottom
+
+% ---------- Documento ----------
+\begin{document}
+
+% =========================
+% CAPA (sem margens)
+% =========================
+\newgeometry{margin=0mm}
+\thispagestyle{empty}
+
+% Fundo e decoração da capa via TikZ
+\begin{tikzpicture}[remember picture,overlay]
+  % Fundo principal
+  \fill[Primary] (current page.south west) rectangle (current page.north east);
+
+  % Radial no topo direito (aproximação do HTML)
+  \path[shade, shading=radial, inner color=PrimaryLight, outer color=Primary]
+    ([xshift=-10mm,yshift=-10mm]current page.north east) circle (90mm);
+
+  % Faixa inferior
+  \fill[CoverBottom] (current page.south west) rectangle ([yshift=72mm]current page.south east);
+  % Linha separadora
+  \draw[CoverLine, line width=0.6pt] (current page.south west) ++(0,72mm) -- ++(\paperwidth,0);
+\end{tikzpicture}
+
+% Conteúdo da capa
+\vspace*{20mm}
+\hspace*{20mm}
+\begin{minipage}{0.8\paperwidth}
+  \vspace{2mm}
+  \begin{tikzpicture}
+    \draw[Accent, line width=1.4pt] (0,0) -- (0,12mm);
+  \end{tikzpicture}
+  \hspace{6mm}
+  \begin{minipage}[t]{0.65\paperwidth}
+    {\color{white}\bfseries\Large UFAL • FALE}\\[-2pt]
+    {\color{white}\Muted{Universidade Federal de Alagoas}}
+  \end{minipage}
+
+  \vspace{18mm}
+
+  {\color{TextMuted}\bfseries\letterspacing=200\relax\MakeUppercase{Coordenação do Curso de Letras-Libras}}\par
+  \vspace{4mm}
+  {\color{white}\bfseries\fontsize{38pt}{40pt}\selectfont PROJETO TÉCNICO DE\par IMPLANTAÇÃO}\par
+  \vspace{8mm}
+  {\color{Border}\fontsize{15pt}{18pt}\selectfont
+  Laboratório de Tecnologias e Linguagens (LAB-LIBRAS) e Modernização da Infraestrutura Tecnológica de Apoio}\par
+\end{minipage}
+
+% Rodapé (3 colunas) – alinhado na faixa inferior
+\vfill
+\hspace*{20mm}
+\begin{minipage}{0.9\paperwidth}
+  \vspace{8mm}
+  \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+    {\color{white}\textbf{\footnotesize \MakeUppercase{Instituição}}}\newline {\color{Border}\small Faculdade de Letras - FALE} &
+    {\color{white}\textbf{\footnotesize \MakeUppercase{Objeto}}}\newline {\color{Border}\small Aquisição de 35 Microcomputadores} &
+    {\color{white}\textbf{\footnotesize \MakeUppercase{Data Estimada}}}\newline {\color{Border}\small Dezembro / 2025}
+  \end{tabularx}
+  \vspace{16mm}
+\end{minipage}
+
+\newpage
+\restoregeometry
+
+% =========================
+% PÁGINA 2
+% =========================
+\setcounter{page}{2}
+
+\SectionHeader{01}{Apresentação e Objeto}
+
+O presente projeto tem por objeto a aquisição de \textbf{35 (trinta e cinco) microcomputadores de alto desempenho e periféricos}. A solicitação visa sanar duas lacunas críticas na infraestrutura da Faculdade de Letras (FALE):
+
+\begin{ObjectiveBox}
+\begin{itemize}[leftmargin=0pt,itemsep=6pt]
+  \item \textbf{1. Implantação:} Equipar a sala situada no Bloco de Letras-Libras (44,90 m²) que, embora destinada a laboratório desde 2018, encontra-se desprovida de equipamentos.
+  \item \textbf{2. Modernização e Expansão:} Substituir equipamentos obsoletos nos setores administrativos e ampliar a oferta na Sala de Estudos para permanência estudantil.
+\end{itemize}
+\end{ObjectiveBox}
+
+\SectionHeader{02}{Justificativa Estratégica}
+
+% Grid 2x2 de cards
+\begin{tabularx}{\linewidth}{X X}
+\begin{InfoCard}{Inclusão Digital}
+\Muted{O curso atende estudantes surdos com histórico de exclusão digital. O laboratório é ferramenta essencial de nivelamento e domínio de ferramentas acadêmicas (SIGAA, AVA/Moodle).}
+\end{InfoCard}
+&
+\begin{InfoCard}{Protagonismo Institucional}
+\Muted{A FALE oferta Libras para toda a UFAL e assume demandas de acessibilidade comunicacional. Equipamentos robustos são vitais para tradução e produção de materiais acessíveis.}
+\end{InfoCard}
+\\[8pt]
+\begin{InfoCard}{Déficit Histórico}
+\Muted{A sala do laboratório foi entregue em 2018 mas jamais equipada (7 anos de atraso). A dependência de espaços externos colapsou, com negativas para o semestre 2026.1.}
+\end{InfoCard}
+&
+\begin{InfoCard}{Pesquisa em Linguística}
+\Muted{Pesquisas em Línguas de Sinais (análise de corpus, tradução visual) exigem hardware capaz de processar vídeo, potenciando a produção acadêmica da FALE.}
+\end{InfoCard}
+\end{tabularx}
+
+\vspace{4pt}
+\begin{tcolorbox}[enhanced, colback=white, colframe=Accent, boxrule=0.6pt, arc=2mm,
+  left=3mm,right=3mm,top=2mm,bottom=2mm, borderline west={1.2mm}{0pt}{Accent}]
+\textbf{Diagnóstico Atual:} \Muted{Enquanto o laboratório carece de qualquer computador, a Sala de Estudos possui apenas 1 equipamento lento e a gestão opera com máquinas obsoletas ou inexistentes.}
+\end{tcolorbox}
+
+\SectionHeader{03}{Distribuição dos Equipamentos}
+
+\rowcolors{2}{gray!5}{white}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.32\linewidth} >{\centering\arraybackslash}p{0.10\linewidth} X}
+\rowcolor{Primary}
+\color{white}\textbf{\footnotesize SETOR DE DESTINO} &
+\color{white}\textbf{\footnotesize QTD.} &
+\color{white}\textbf{\footnotesize SITUAÇÃO ATUAL / JUSTIFICATIVA}
+\\
+\textbf{Laboratório de Informática} & 25 & Inexistente. Sala vazia desde 2018. Equipagem completa (24 alunos + 1 prof).\\
+\textbf{Sala de Estudos} & 05 & Precária. Substituição de 2 PCs lentos e ampliação de 3 novos.\\
+\textbf{Secretaria do Curso} & 02 & Obsoleta. Substituição de equipamentos antigos.\\
+\textbf{Coordenação do Curso} & 01 & Precária. Substituição de equipamento com defeito/lento.\\
+\textbf{Vice-Coordenação} & 01 & Inexistente. Dotação inicial para a bancada.\\
+\textbf{Sala de Intérpretes} & 01 & Precária. Apoio técnico para tradução de materiais institucionais.\\
+\rowcolor{PrimaryLight}
+\color{white}\textbf{TOTAL} & \color{white}\textbf{35} & \color{white}\textbf{Padronização de todas as unidades}\\
+\end{tabularx}
+\rowcolors{2}{}{}
+
+\newpage
+
+% =========================
+% PÁGINA 3
+% =========================
+\SectionHeader{04}{Especificações Técnicas e Padronização}
+
+Solicita-se a padronização de todas as 35 máquinas com configuração de alto desempenho para facilitar manutenção e garantir longevidade. O hardware deve suportar edição de vídeos de Libras e processos administrativos pesados.
+
+\vspace{2pt}
+\begin{tabularx}{\linewidth}{X >{\raggedleft\arraybackslash}p{22mm}}
+\toprule
+\textbf{Mini Desktop Corporativo}\newline \Muted{i5 (12ª/13ª Ger), 16GB RAM, SSD 512GB, Win 11 Pro} &
+\colorbox{PrimaryLight}{\parbox[c][5mm][c]{22mm}{\centering\color{white}\bfseries\scriptsize 35 UND}}\\
+\midrule
+\textbf{Monitor Visual Profissional}\newline \Muted{21.5" IPS Full HD (Essencial para visualização de Libras)} &
+\colorbox{PrimaryLight}{\parbox[c][5mm][c]{22mm}{\centering\color{white}\bfseries\scriptsize 35 UND}}\\
+\midrule
+\textbf{Kit Periféricos}\newline \Muted{Teclado ABNT2 e Mouse USB Óptico} &
+\colorbox{PrimaryLight}{\parbox[c][5mm][c]{22mm}{\centering\color{white}\bfseries\scriptsize 35 UND}}\\
+\midrule
+\textbf{Mobiliário}\newline \Muted{Cadeira Giratória Operacional (Sem Braços)} &
+\colorbox{PrimaryLight}{\parbox[c][5mm][c]{22mm}{\centering\color{white}\bfseries\scriptsize 30 UND}}\\
+\bottomrule
+\end{tabularx}
+
+\SectionHeader{05}{Orçamento Estimativo}
+
+{\small \Muted{Base: Varejo Online (Dez/2025) - Pessoa Jurídica/Física}}
+
+\rowcolors{2}{gray!5}{white}
+\begin{tabularx}{\linewidth}{X >{\centering\arraybackslash}p{10mm} >{\raggedleft\arraybackslash}p{28mm} >{\raggedleft\arraybackslash}p{30mm}}
+\rowcolor{Primary}
+\color{white}\textbf{\footnotesize ITEM / ESPECIFICAÇÃO} &
+\color{white}\textbf{\footnotesize QTD} &
+\color{white}\textbf{\footnotesize VALOR UNIT.} &
+\color{white}\textbf{\footnotesize VALOR TOTAL}
+\\
+\textbf{01. Mini Desktop Corporativo}\newline \Muted{i5, 16GB RAM, SSD 512GB} & 35 & R\$ 3.950,00 & R\$ 138.250,00\\
+\textbf{02. Monitor 21.5" IPS}\newline \Muted{Full HD} & 35 & R\$ 650,00 & R\$ 22.750,00\\
+\textbf{03. Kit Teclado e Mouse}\newline \Muted{USB, ABNT2} & 35 & R\$ 100,00 & R\$ 3.500,00\\
+\textbf{04. Cadeira Giratória}\newline \Muted{Operacional, Sem Braços} & 30 & R\$ 450,00 & R\$ 13.500,00\\
+\rowcolor{PrimaryLight}
+\color{white}\textbf{TOTAL ESTIMADO} & \color{white}\textbf{} & \color{white}\textbf{} & \color{white}\textbf{R\$ 178.000,00}\\
+\end{tabularx}
+\rowcolors{2}{}{}
+
+\SectionHeader{06}{Indicadores de Impacto}
+
+\begin{KPIBox}
+\begin{tabularx}{\linewidth}{>{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+{\Large\bfseries\color{Primary}35}\par \Muted{\scriptsize \MakeUppercase{Novos Computadores}} &
+{\Large\bfseries\color{Primary}7}\par \Muted{\scriptsize \MakeUppercase{Anos de Espera}} &
+{\Large\bfseries\color{Primary}25}\par \Muted{\scriptsize \MakeUppercase{Postos no Lab}} &
+{\Large\bfseries\color{Primary}5}\par \Muted{\scriptsize \MakeUppercase{Setores Atendidos}}
+\end{tabularx}
+\end{KPIBox}
+
+\vspace{6pt}
+\textbf{Encaminhamento:} Diante do exposto, e considerando que a FALE é polo de ações e acessibilidade linguística para a UFAL, solicitamos a aprovação e abertura de processo de implantação.
+
+\vfill
+\begin{tabularx}{\linewidth}{X X X}
+\toprule
+\centering \textbf{Coordenação Letras-Libras}\\ \Muted{\scriptsize Solicitante} &
+\centering \textbf{Direção da FALE}\\ \Muted{\scriptsize Aprovação} &
+\centering \textbf{Superintendência de Infra}\\ \Muted{\scriptsize Homologação Técnica}\\
+\bottomrule
+\end{tabularx}
+
+\newpage
+
+% =========================
+% PÁGINA 4 – ANEXOS
+% =========================
+\SectionHeader{07}{Anexos Técnicos}
+
+% IMPORTANTÍSSIMO:
+% Baixe as imagens e salve no MESMO diretório do .tex como:
+%  - planta_baixa.png
+%  - layout.png
+
+\begin{tcolorbox}[enhanced,colback=white,colframe=Border,arc=2mm,boxrule=0.6pt,left=3mm,right=3mm,top=2mm,bottom=2mm]
+\textbf{\color{Primary}ANEXO I – Planta Baixa Arquitetônica (Sala Existente)}\par
+\vspace{3mm}
+\includegraphics[width=\linewidth,height=85mm,keepaspectratio]{planta_baixa.png}
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=white,colframe=Border,arc=2mm,boxrule=0.6pt,left=3mm,right=3mm,top=2mm,bottom=2mm]
+\textbf{\color{Primary}ANEXO II – Estudo Preliminar de Layout e Mobiliário}\par
+\vspace{3mm}
+\includegraphics[width=\linewidth,height=85mm,keepaspectratio]{layout.png}
+\end{tcolorbox}
+
+\end{document}

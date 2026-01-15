@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --slate-50: #f8fafc;
-            --blue-600: #2563eb;
             --blue-700: #1d4ed8;
+            --orange-600: #ea580c;
             --slate-900: #0f172a;
             --slate-body: #1e293b;
             --slate-label: #475569;
@@ -19,230 +18,196 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--slate-50);
+            background-color: white;
             color: var(--slate-900);
             height: 100vh;
+            width: 100vw;
             margin: 0;
             overflow: hidden;
         }
 
-        /* Estrutura do Timer Global Flutuante (Alinhada ao Slide) */
-        #global-timer-overlay {
+        /* Linha Timer Global no Topo */
+        #timer-wrapper {
             position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            display: none; 
-            align-items: center;
-            justify-content: center;
-            padding: 40px; 
-        }
-
-        .timer-alignment-box {
-            width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16 / 9;
-            max-height: 90vh;
-            position: relative;
-        }
-
-        #global-timer-container {
-            position: absolute;
-            top: -12px; 
+            top: 0;
             left: 0;
             width: 100%;
-            height: 8px;
-            background: rgba(226, 232, 240, 0.6);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            height: 10px;
+            background: rgba(226, 232, 240, 0.4);
+            z-index: 10000;
+            display: none;
         }
-
-        #global-timer-bar {
+        #timer-bar {
             height: 100%;
             width: 100%;
             background: var(--blue-700);
             transform-origin: left;
+            transition: background-color 0.5s ease;
+        }
+        .timer-urgent {
+            background-color: var(--orange-600) !important;
+            animation: pulse-timer 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse-timer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
-        /* Box Flutuante Superior (Navegação/Bloco) */
-        #top-info-pill-container {
-            position: fixed;
-            top: 40px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            z-index: 10000;
-            pointer-events: none;
-        }
-
-        .nav-pill-top {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border: 1px solid #cbd5e1;
-            padding: 10px 24px;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            pointer-events: auto;
-        }
-
-        /* Background Blobs */
-        .bg-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.35;
-            z-index: 0;
-            animation: float 15s infinite ease-in-out;
-        }
-        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #e0e7ff; }
-        .blob-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #f3e8ff; animation-delay: -3s; }
-        .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #dbeafe; animation-delay: -6s; }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(20px, -30px) scale(1.05); }
-        }
-
+        /* Slides */
         .slide {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.5s ease-in-out;
+            top: 0; left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            opacity: 0; 
+            pointer-events: none;
+            transition: opacity 0.4s ease-in-out;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
+            z-index: 10;
         }
-        
         .slide.active { opacity: 1; pointer-events: auto; }
 
         .slide-content-wrapper {
             width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16 / 9;
-            max-height: 90vh;
+            height: 100%;
             background: white;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
             display: flex;
-            border: 1px solid rgba(0,0,0,0.05);
             position: relative;
         }
 
-        .title-main { font-size: 2.5rem; line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; color: var(--slate-900); }
-        .text-body-lg { font-size: 1.25rem; line-height: 1.6; color: var(--slate-body); }
-        .label-caps { font-size: 0.85rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; color: var(--slate-label); }
+        /* Grid de Conteúdo */
+        .prof-sidebar {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border-right: 2px solid #e2e8f0;
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
 
-        .image-placeholder {
-            background: #f8fafc;
-            height: 100%;
-            width: 100%;
+        .prof-content {
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem;
+            gap: 3rem;
+        }
+
+        .activity-text {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem;
+        }
+
+        .activity-image {
+            width: 50%;
+            padding: 4rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-left: 1px solid #f1f5f9;
         }
 
-        /* Interface de Navegação Inferior (Setas e Pontos) */
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; transition: all 0.3s; }
-        .dot.active { background: var(--blue-700); width: 24px; border-radius: 12px; }
-
-        .icon-box {
-            width: 54px; height: 54px;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 14px; font-size: 1.5rem;
+        /* Navegação Ultra-discreta */
+        #nav-controls {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e2e8f0;
+            border-radius: 9999px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--slate-900);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) { transform: scale(1.2); color: var(--blue-700); }
+        .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+
+        .counter-text {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--slate-label);
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Estilos Globais */
+        .title-main { font-size: 3.25rem; font-weight: 800; line-height: 1.1; color: black; }
+        .label-caps { font-size: 0.85rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; color: var(--slate-label); }
+        .text-body { font-size: 1.4rem; line-height: 1.6; color: var(--slate-body); }
     </style>
 </head>
 <body>
 
-    <!-- Timer Global Alinhado ao Slide -->
-    <div id="global-timer-overlay">
-        <div class="timer-alignment-box">
-            <div id="global-timer-container">
-                <div id="global-timer-bar"></div>
-            </div>
-        </div>
+    <div id="timer-wrapper">
+        <div id="timer-bar"></div>
     </div>
-
-    <!-- Box Flutuante Superior (Centralizado) -->
-    <div id="top-info-pill-container">
-        <div class="nav-pill-top">
-            <div class="flex items-center gap-4 pr-8 border-r border-slate-300 text-blue-800">
-                <i id="section-icon" class="fa-solid fa-house"></i>
-                <span id="section-name" class="label-caps text-slate-800 font-black">Capa</span>
-            </div>
-            <span id="slide-counter" class="text-sm font-black text-slate-800 tracking-widest">1 / 30</span>
-        </div>
-    </div>
-
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
 
     <main id="presentation-container" class="relative w-full h-full z-10">
 
         <!-- SLIDE 1: CAPA -->
         <section class="slide active">
-            <div class="slide-content-wrapper p-16 relative flex-col justify-between">
-                <div class="absolute left-0 top-0 h-full w-3 bg-gradient-to-b from-blue-700 to-indigo-700"></div>
+            <div class="slide-content-wrapper p-20 flex-col justify-between">
+                <div class="absolute left-0 top-0 h-full w-3 bg-gradient-to-b from-blue-700 to-indigo-800"></div>
                 
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center w-full">
                     <img src="https://gifscursopullzone.b-cdn.net/LOGO-UFAL-removebg-preview.png" alt="UFAL" class="h-20">
                     <img src="https://gifscursopullzone.b-cdn.net/LOGO_LL_PRETO.png" alt="Letras Libras" class="h-12">
                 </div>
 
-                <div class="max-w-3xl">
+                <div class="max-w-4xl">
                     <p class="label-caps text-blue-700 mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-graduation-cap"></i> Faculdade de Letras • UFAL
                     </p>
-                    <h1 class="title-main text-5xl mb-6">Semana de <br><span class="text-blue-700 font-black tracking-tighter">Acolhimento</span></h1>
-                    <p class="text-2xl font-bold text-slate-700">Letras-Libras 2026.1</p>
+                    <h1 class="title-main text-7xl mb-8">Semana de <br><span class="text-blue-700 font-black">Acolhimento</span></h1>
+                    <p class="text-3xl font-bold text-slate-700 tracking-tight">Letras-Libras 2026.1</p>
                 </div>
 
-                <div class="grid grid-cols-4 gap-8 border-t border-slate-200 pt-10">
-                    <div class="flex gap-3">
-                        <i class="fa-solid fa-user-tie text-blue-700 text-xl mt-1"></i>
-                        <div><p class="label-caps mb-1">Gestão</p><p class="font-bold text-lg text-slate-800">Coordenação</p></div>
-                    </div>
-                    <div class="flex gap-3">
-                        <i class="fa-solid fa-chalkboard-user text-blue-700 text-xl mt-1"></i>
-                        <div><p class="label-caps mb-1">Académico</p><p class="font-bold text-lg text-slate-800">Docentes</p></div>
-                    </div>
-                    <div class="flex gap-3">
-                        <i class="fa-solid fa-gears text-blue-700 text-xl mt-1"></i>
-                        <div><p class="label-caps mb-1">Suporte</p><p class="font-bold text-lg text-slate-800">Técnicos</p></div>
-                    </div>
-                    <div class="flex gap-3">
-                        <i class="fa-solid fa-calendar-check text-blue-700 text-xl mt-1"></i>
-                        <div><p class="label-caps mb-1">Agenda</p><p class="font-bold text-lg text-slate-800">Atividades</p></div>
-                    </div>
+                <div class="grid grid-cols-4 gap-12 border-t border-slate-200 pt-12">
+                    <div><p class="label-caps mb-2">Coordenação</p><p class="font-black text-xl text-black">Gestão</p></div>
+                    <div><p class="label-caps mb-2">Académico</p><p class="font-black text-xl text-black">Docentes</p></div>
+                    <div><p class="label-caps mb-2">Suporte</p><p class="font-black text-xl text-black">Técnicos</p></div>
+                    <div><p class="label-caps mb-2">Agenda</p><p class="font-black text-xl text-black">Atividades</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- Slides Gerados Dinamicamente (2 a 29) -->
+        <!-- Slides Dinâmicos (2 a 29) -->
         <div id="dynamic-slides"></div>
 
         <!-- SLIDE 30: DÚVIDAS -->
         <section class="slide">
             <div class="slide-content-wrapper flex-col items-center justify-center text-center p-20">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-700 via-purple-700 to-pink-600"></div>
-                <div class="mb-10 text-8xl text-blue-700">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-700 to-purple-700"></div>
+                <div class="mb-12 text-8xl text-blue-700">
                     <i class="fa-solid fa-circle-question"></i>
                 </div>
-                <h2 class="title-main text-5xl mb-6">Alguma Dúvida?</h2>
-                <p class="text-body-lg max-w-2xl mb-12 font-medium text-slate-700">A palavra está com vocês. Estamos aqui para garantir que o vosso início de curso seja o melhor possível.</p>
-                <div class="bg-blue-700 text-white px-12 py-8 rounded-[32px] shadow-2xl flex items-center gap-6 text-left">
-                    <i class="fa-solid fa-envelope-open-text text-3xl text-blue-200"></i>
+                <h1 class="title-main text-6xl mb-8">Alguma Dúvida?</h1>
+                <p class="text-body max-w-3xl mb-16 font-medium">Estamos aqui para garantir que o vosso início de curso seja o melhor possível.</p>
+                <div class="bg-black text-white px-12 py-8 rounded-[40px] shadow-2xl flex items-center gap-8 text-left border-2 border-blue-600">
+                    <i class="fa-solid fa-envelope text-4xl text-blue-400"></i>
                     <div>
-                        <p class="label-caps text-blue-100 mb-1">E-mail de Apoio</p>
-                        <p class="text-2xl font-bold tracking-tight">coord.libras@letras.ufal.br</p>
+                        <p class="label-caps text-blue-300 mb-1 font-black">Contacto da Coordenação</p>
+                        <p class="text-3xl font-bold">coord.libras@letras.ufal.br</p>
                     </div>
                 </div>
             </div>
@@ -250,17 +215,15 @@
 
     </main>
 
-    <!-- NAVEGAÇÃO INFERIOR (Setas e Pontos) -->
-    <div class="fixed bottom-10 w-full flex flex-col items-center z-[10000] pointer-events-none gap-4">
-        <div class="flex justify-between w-full max-w-5xl px-8 pointer-events-auto">
-            <button onclick="prevSlide()" id="prevBtn" class="w-14 h-14 rounded-full bg-white border border-slate-300 flex items-center justify-center text-slate-800 hover:bg-slate-50 disabled:opacity-20 shadow-xl">
-                <i class="fa-solid fa-chevron-left text-xl"></i>
-            </button>
-            <div class="flex items-center gap-3 px-6 py-2 bg-white/80 rounded-full shadow-inner" id="dots-container"></div>
-            <button onclick="nextSlide()" id="nextBtn" class="w-14 h-14 rounded-full bg-white border border-slate-300 flex items-center justify-center text-slate-800 hover:bg-slate-50 shadow-xl">
-                <i class="fa-solid fa-chevron-right text-xl"></i>
-            </button>
-        </div>
+    <!-- NAVEGAÇÃO -->
+    <div id="nav-controls">
+        <button onclick="prevSlide()" id="prevBtn" class="nav-btn" disabled>
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <span id="slide-counter" class="counter-text">1 / 30</span>
+        <button onclick="nextSlide()" id="nextBtn" class="nav-btn">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
     </div>
 
     <script>
@@ -284,84 +247,82 @@
         const container = document.getElementById('dynamic-slides');
         
         activities.forEach((act) => {
-            // SLIDE PROFESSOR
+            // PADRÃO 1: PROFESSOR
             const prof = document.createElement('section');
             prof.className = 'slide';
             prof.innerHTML = `
                 <div class="slide-content-wrapper">
-                    <div class="w-5/12 bg-slate-50 border-r border-slate-200 p-12 flex flex-col justify-center">
-                        <span class="label-caps mb-4 text-slate-800 font-black flex items-center gap-2"><i class="fa-solid fa-id-card"></i> Docente Responsável</span>
-                        <h2 class="title-main mb-8">Nome do <br>Professor</h2>
-                        <div class="p-6 bg-slate-900 rounded-3xl text-white shadow-2xl flex items-center gap-4">
-                            <div class="icon-box bg-slate-800 text-blue-400 border border-slate-700"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="prof-sidebar">
+                        <span class="label-caps mb-6 text-black font-black flex items-center gap-3"><i class="fa-solid fa-id-card"></i> Docente</span>
+                        <h2 class="title-main mb-10">Nome do <br>Professor</h2>
+                        <div class="p-8 bg-slate-900 rounded-[32px] text-white shadow-xl flex items-center gap-4 border-2 border-blue-600">
+                            <div class="w-14 h-14 bg-blue-700 flex items-center justify-center rounded-xl text-xl"><i class="fa-solid fa-layer-group"></i></div>
                             <div>
-                                <span class="label-caps text-slate-400 mb-1 font-bold tracking-widest">Eixo Atuação</span>
-                                <p class="text-xl font-bold text-white">Linguística e Libras</p>
+                                <span class="label-caps text-slate-400 mb-1 font-bold">Eixo</span>
+                                <p class="text-xl font-black">Linguística</p>
                             </div>
                         </div>
                     </div>
-                    <div class="w-7/12 p-16 flex flex-col justify-center gap-10">
-                        <div class="grid grid-cols-2 gap-10 text-slate-800">
+                    <div class="prof-content">
+                        <div class="grid grid-cols-2 gap-12 text-black">
                             <div>
-                                <h3 class="font-black text-blue-700 mb-3 text-xl flex items-center gap-2">
+                                <h3 class="font-black text-blue-700 mb-4 text-2xl flex items-center gap-3">
                                     <i class="fa-solid fa-award"></i> Formação
                                 </h3>
-                                <p class="text-body-lg font-medium leading-tight">Especialista em Ensino de Libras e Mestre em Letras pela UFAL.</p>
+                                <p class="text-body font-bold">Doutorado e Especialização em Libras pela UFAL.</p>
                             </div>
                             <div>
-                                <h3 class="font-black text-purple-700 mb-3 text-xl flex items-center gap-2">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Curiosidade
+                                <h3 class="font-black text-purple-700 mb-4 text-2xl flex items-center gap-3">
+                                    <i class="fa-solid fa-star"></i> Curiosidade
                                 </h3>
-                                <p class="text-body-lg font-medium italic leading-tight text-slate-700">"Gosta de cinema clássico e culinária regional nordestina."</p>
+                                <p class="text-body font-bold italic">"Apaixonado por artes visuais e fotografia."</p>
                             </div>
                         </div>
-                        <div class="bg-blue-50/80 p-8 rounded-[32px] border-2 border-blue-100 flex gap-6 items-start shadow-inner">
-                            <i class="fa-solid fa-lightbulb text-blue-700 text-3xl mt-1"></i>
+                        <div class="bg-blue-50 p-10 rounded-[40px] border-2 border-blue-100 flex gap-8 items-start shadow-inner">
+                            <i class="fa-solid fa-rocket text-blue-700 text-4xl mt-1"></i>
                             <div>
-                                <h3 class="font-black text-slate-900 mb-2 text-xl">No que podemos trabalhar juntos?</h3>
-                                <p class="text-body-lg font-medium text-slate-700 leading-tight">Oportunidades em projetos de extensão sobre tradução e tradutologia.</p>
+                                <h3 class="font-black text-slate-900 mb-2 text-xl">Projetos Atuais</h3>
+                                <p class="text-body font-bold text-slate-700">Trabalhe comigo em projetos de extensão e grupos de pesquisa ativos.</p>
                             </div>
                         </div>
                     </div>
                 </div>`;
             
-            // SLIDE ATIVIDADE
+            // PADRÃO 2: ATIVIDADE
             const activity = document.createElement('section');
             activity.className = 'slide';
             activity.innerHTML = `
                 <div class="slide-content-wrapper">
-                    <div class="w-6/12 p-16 flex flex-col justify-center">
-                        <div class="inline-block px-5 py-2.5 rounded-2xl ${act.color} text-white w-fit mb-8 shadow-xl flex items-center gap-3">
-                            <i class="${act.icon} text-sm"></i>
-                            <p class="text-xs font-black uppercase tracking-widest text-white">${act.block}</p>
+                    <div class="activity-text">
+                        <div class="inline-block px-6 py-2.5 rounded-2xl ${act.color} text-white w-fit mb-10 shadow-lg flex items-center gap-3">
+                            <i class="${act.icon}"></i>
+                            <p class="text-xs font-black uppercase tracking-widest">${act.block}</p>
                         </div>
-                        <h2 class="title-main mb-8 tracking-tighter text-slate-900">${act.name} <br><span class="text-2xl font-bold text-slate-500">${act.sub}</span></h2>
+                        <h2 class="title-main mb-10 text-black tracking-tighter">${act.name} <br><span class="text-3xl font-bold text-blue-700">${act.sub}</span></h2>
                         <div class="space-y-10">
-                            <div class="flex gap-5 items-start">
-                                <div class="w-1.5 h-20 bg-blue-700 rounded-full"></div>
+                            <div class="flex gap-6 items-start">
+                                <div class="w-1.5 h-20 bg-slate-900 rounded-full"></div>
                                 <div>
-                                    <span class="label-caps text-slate-900 font-black mb-1">O que é</span>
-                                    <p class="text-body-lg font-bold text-slate-800 leading-tight">Explicação objetiva da atividade e sua função estratégica no curso de Letras-Libras.</p>
+                                    <span class="label-caps text-black font-black mb-2">Sobre</span>
+                                    <p class="text-body font-bold text-slate-800 leading-tight">Descrição clara da atividade e sua importância para a formação.</p>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-2 gap-5">
-                                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col gap-1 shadow-sm text-slate-800">
-                                    <span class="label-caps font-bold text-slate-600"><i class="fa-solid fa-user-group text-[11px]"></i> Público</span>
-                                    <p class="font-black text-lg leading-none">Todos os alunos</p>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="bg-slate-100 p-8 rounded-[32px] flex flex-col gap-1 border border-slate-200">
+                                    <span class="label-caps font-bold"><i class="fa-solid fa-user-group"></i> Público</span>
+                                    <p class="font-black text-black text-xl">Todos Alunos</p>
                                 </div>
-                                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col gap-1 shadow-sm text-slate-800">
-                                    <span class="label-caps font-bold text-slate-600"><i class="fa-solid fa-file-signature text-[11px]"></i> Inscrição</span>
-                                    <p class="font-black text-lg leading-none">SIGAA / Editais</p>
+                                <div class="bg-slate-100 p-8 rounded-[32px] flex flex-col gap-1 border border-slate-200">
+                                    <span class="label-caps font-bold"><i class="fa-solid fa-file-pen"></i> Inscrição</span>
+                                    <p class="font-black text-black text-xl">SIGAA</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="w-6/12 p-12">
-                        <div class="image-placeholder rounded-[40px] overflow-hidden shadow-2xl relative border-8 border-white">
-                             <div class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 bg-slate-50">
-                                <i class="${act.icon} text-9xl opacity-5 mb-4 text-slate-900"></i>
-                                <span class="label-caps font-black opacity-20 text-slate-900">Inserir Imagem</span>
-                            </div>
+                    <div class="activity-image">
+                        <div class="w-full h-full rounded-[60px] overflow-hidden shadow-2xl relative border-[12px] border-slate-50 bg-slate-100 flex flex-col items-center justify-center text-slate-400">
+                            <i class="${act.icon} text-9xl opacity-10 mb-4"></i>
+                            <p class="label-caps font-black opacity-30">Inserir Imagem Ilustrativa</p>
                         </div>
                     </div>
                 </div>`;
@@ -370,63 +331,55 @@
             container.appendChild(activity);
         });
 
-        // NAVEGAÇÃO E TIMER
+        // LÓGICA DE TIMER E NAVEGAÇÃO
         let currentIdx = 0;
+        let timerInterval = null;
+        let timeLeft = 300; 
+        
         const slides = document.querySelectorAll('.slide');
-        const dotsCont = document.getElementById('dots-container');
-        const timerBar = document.getElementById('global-timer-bar');
-        const timerOverlay = document.getElementById('global-timer-overlay');
+        const timerBar = document.getElementById('timer-bar');
+        const timerCont = document.getElementById('timer-wrapper');
+        const counterText = document.getElementById('slide-counter');
 
-        slides.forEach((_, i) => {
-            const d = document.createElement('div');
-            d.className = i === 0 ? 'dot active' : 'dot';
-            d.onclick = () => goTo(i);
-            dotsCont.appendChild(d);
-        });
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 300;
+            updateTimerUI();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerUI();
+                if (timeLeft <= 0) clearInterval(timerInterval);
+            }, 1000);
+        }
+
+        function updateTimerUI() {
+            const percentage = (timeLeft / 300) * 100;
+            timerBar.style.width = percentage + '%';
+            if (timeLeft <= 60) timerBar.classList.add('timer-urgent');
+            else timerBar.classList.remove('timer-urgent');
+        }
 
         function update() {
             slides.forEach((s, i) => s.classList.toggle('active', i === currentIdx));
-            document.getElementById('slide-counter').innerText = `${currentIdx + 1} / ${slides.length}`;
+            counterText.innerText = `${currentIdx + 1} / ${slides.length}`;
             document.getElementById('prevBtn').disabled = currentIdx === 0;
             document.getElementById('nextBtn').disabled = currentIdx === slides.length - 1;
 
-            const nameSpan = document.getElementById('section-name');
-            const iconSpan = document.getElementById('section-icon');
+            const isProfessorSlide = (currentIdx + 1) % 2 === 0;
+            const isTimerRange = (currentIdx > 0 && currentIdx < slides.length - 1);
 
-            // Visibilidade do Timer (Slides 2 a 29)
-            const isTimerActiveSlide = (currentIdx > 0 && currentIdx < slides.length - 1);
-            timerOverlay.style.display = isTimerActiveSlide ? 'flex' : 'none';
-
-            if(currentIdx === 0) {
-                nameSpan.innerText = "Capa";
-                iconSpan.className = "fa-solid fa-house";
-            } else if(currentIdx === slides.length - 1) {
-                nameSpan.innerText = "Dúvidas";
-                iconSpan.className = "fa-solid fa-comments";
+            if (isTimerRange) {
+                timerCont.style.display = 'block';
+                if (isProfessorSlide) startTimer();
             } else {
-                const actIdx = Math.floor((currentIdx - 1) / 2);
-                const act = activities[actIdx];
-                
-                // AJUSTE: Agora exibe sempre o nome do bloco
-                nameSpan.innerText = act.block;
-                iconSpan.className = (currentIdx % 2 !== 0) ? "fa-solid fa-user-tie" : act.icon;
-
-                // Lógica de Reset do Timer (Sempre no slide do Professor - slides pares/índices ímpares)
-                if (currentIdx % 2 !== 0) {
-                    timerBar.style.transition = 'none';
-                    timerBar.style.width = '100%';
-                    void timerBar.offsetWidth; // Forçar Reflow
-                    timerBar.style.transition = 'width 300s linear'; // 5 min
-                    timerBar.style.width = '0%';
-                }
+                timerCont.style.display = 'none';
+                clearInterval(timerInterval);
             }
-
-            Array.from(dotsCont.children).forEach((d, i) => d.classList.toggle('active', i === currentIdx));
         }
 
         function nextSlide() { if(currentIdx < slides.length - 1) { currentIdx++; update(); } }
         function prevSlide() { if(currentIdx > 0) { currentIdx--; update(); } }
-        function goTo(i) { currentIdx = i; update(); }
 
         document.addEventListener('keydown', e => {
             if(e.key === 'ArrowRight' || e.key === ' ') nextSlide();

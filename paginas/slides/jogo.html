@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palavras Cruzadas - Lei 8.112/1990</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a4d2e;
+            --secondary: #4f772d;
+            --accent: #90a955;
+            --bg: #faf9f6;
+            --text: #2d3436;
+            --correct: #27ae60;
+            --border: #dfe6e9;
+            --shadow: rgba(26, 77, 46, 0.08);
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, var(--bg) 0%, #f0ebe3 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(144, 169, 85, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, 50px) scale(1.1); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 0 rgba(144, 169, 85, 0.1);
+        }
+
+        .subtitle {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+
+        .level-selector {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .level-btn {
+            font-family: 'DM Mono', monospace;
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--secondary);
+            background: white;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .level-btn:hover::before,
+        .level-btn.active::before {
+            left: 0;
+        }
+
+        .level-btn:hover,
+        .level-btn.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .hints-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .hint-btn {
+            font-family: 'DM Mono', monospace;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--accent);
+            background: white;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .hint-btn:hover:not(:disabled) {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .hint-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .reveal-btn {
+            font-family: 'DM Mono', monospace;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--secondary);
+            background: white;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .reveal-btn:hover:not(:disabled) {
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .reveal-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .hints-used {
+            font-family: 'DM Mono', monospace;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .cell.revealed {
+            background: #fff8dc !important;
+            animation: revealPulse 0.5s ease;
+        }
+
+        .cell.revealed input {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        @keyframes revealPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .word-selector {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow);
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .word-selector.show {
+            display: block;
+            animation: slideDown 0.4s ease;
+        }
+
+        .word-selector h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .word-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .word-option {
+            font-family: 'DM Mono', monospace;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border);
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .word-option:hover {
+            border-color: var(--secondary);
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .word-option.max-reveals {
+            opacity: 0.5;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        .word-option.max-reveals:hover {
+            border-color: var(--border);
+            background: white;
+            color: var(--text);
+            transform: translateY(0);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-left: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+        }
+
+        .crossword-grid {
+            display: grid;
+            gap: 2px;
+            background: var(--border);
+            padding: 2px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px var(--shadow);
+            border-radius: 8px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cell {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: var(--text);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cell.black {
+            background: var(--text);
+            cursor: default;
+        }
+
+        .cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-family: 'DM Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: var(--text);
+            outline: none;
+        }
+
+        .cell.correct {
+            background: var(--correct) !important;
+            color: white;
+            animation: celebrate 0.6s ease;
+        }
+
+        .cell.correct input {
+            color: white;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.15) rotate(-5deg); }
+            75% { transform: scale(1.15) rotate(5deg); }
+        }
+
+        .cell .number {
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            font-size: 0.65rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .cell.correct .number {
+            color: white;
+        }
+
+        .clues {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .clue-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .clue-section h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .clue {
+            margin-bottom: 0.8rem;
+            padding: 0.5rem 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .clue.solved {
+            color: var(--correct);
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .clue-number {
+            font-family: 'DM Mono', monospace;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-right: 0.5rem;
+        }
+
+        .hint-display {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+            animation: slideDown 0.4s ease;
+            display: none;
+        }
+
+        .hint-display.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hint-display strong {
+            font-family: 'DM Mono', monospace;
+            color: #f57c00;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .hint-display p {
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .completion-message {
+            background: linear-gradient(135deg, var(--correct) 0%, #2ecc71 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+            box-shadow: 0 8px 30px rgba(39, 174, 96, 0.3);
+            animation: slideDown 0.5s ease;
+            display: none;
+        }
+
+        .completion-message.show {
+            display: block;
+        }
+
+        .completion-message h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .clues { grid-template-columns: 1fr; }
+            .cell { width: 35px; height: 35px; font-size: 1rem; }
+            .cell input { font-size: 1rem; }
+            .game-info { flex-direction: column; gap: 1rem; }
+            .progress-bar { margin-left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚖️ Palavras Cruzadas</h1>
+            <div class="subtitle">Lei nº 8.112/1990</div>
+        </header>
+
+        <div class="level-selector" id="levelSelector"></div>
+
+        <div class="game-info">
+            <div class="hints-container">
+                <button class="hint-btn" id="hintBtn" onclick="showHint()">💡 Pedir Dica</button>
+                <span class="hints-used" id="hintsUsed">Dicas: 0/3</span>
+                <button class="reveal-btn" id="revealBtn" onclick="toggleWordSelector()">🔍 Revelar Letras</button>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="hint-display" id="hintDisplay">
+            <strong>💡 Dica:</strong>
+            <p id="hintText"></p>
+        </div>
+
+        <div class="word-selector" id="wordSelector">
+            <h3>Escolha uma palavra para revelar letras (máx. 2 letras por palavra):</h3>
+            <div class="word-options" id="wordOptions"></div>
+        </div>
+
+        <div id="crosswordContainer"></div>
+
+        <div class="clues">
+            <div class="clue-section">
+                <h3>Horizontais</h3>
+                <div id="acrossClues"></div>
+            </div>
+            <div class="clue-section">
+                <h3>Verticais</h3>
+                <div id="downClues"></div>
+            </div>
+        </div>
+
+        <div class="completion-message" id="completionMessage">
+            <h2>🎉 Parabéns!</h2>
+            <p>Você completou este nível com sucesso!</p>
+        </div>
+    </div>
+
+    <script>
+        const levels = {
+            1: {
+                name: "Nível 1 - Básico",
+                grid: [
+                    ['E', 'S', 'T', 'A', 'B', 'I', 'L', 'I', 'D', 'A', 'D', 'E', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', 'N', '#', '#', '#', '#', '#', 'F', '#', '#', '#'],
+                    ['#', '#', 'P', 'R', 'O', 'V', 'I', 'M', 'E', 'N', 'T', 'O', '#', '#', '#'],
+                    ['#', '#', '#', 'E', '#', 'E', '#', '#', '#', '#', '#', 'E', '#', '#', '#'],
+                    ['#', '#', '#', 'M', '#', 'S', '#', '#', '#', '#', '#', 'T', '#', '#', '#'],
+                    ['P', 'O', 'S', 'S', 'E', '#', '#', 'C', 'O', 'N', 'C', 'U', 'R', 'S', 'O'],
+                    ['#', '#', '#', 'A', '#', '#', '#', '#', '#', '#', '#', 'A', '#', '#', '#'],
+                    ['#', 'V', 'I', 'T', 'A', 'L', 'I', 'C', 'I', 'E', 'D', 'A', 'D', 'E', '#'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'O', '#', '#', '#'],
+                    ['#', '#', 'R', 'E', 'M', 'U', 'N', 'E', 'R', 'A', 'C', 'A', 'O', '#', '#'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                ],
+                across: {
+                    1: "Garantia constitucional do servidor público (12 letras)",
+                    3: "Ato de nomeação do servidor (10 letras)",
+                    6: "Ingresso no serviço público se dá por isso (8 letras)",
+                    8: "Período de 3 anos para avaliação do servidor (13 letras)",
+                    10: "Conjunto de vencimentos e vantagens do servidor (11 letras)"
+                },
+                down: {
+                    2: "Forma de admissão após concurso (11 letras)",
+                    4: "Indenização de transporte, alimentação etc (7 letras)",
+                    5: "Ato de dar posse ao servidor (5 letras)",
+                    7: "Título que o servidor adquire após estabilidade (9 letras)"
+                },
+                hints: [
+                    "A primeira palavra horizontal está relacionada ao direito que o servidor adquire após 3 anos.",
+                    "A palavra vertical número 2 começa com a letra 'I' e tem 11 letras.",
+                    "CONCURSO é a porta de entrada para o serviço público."
+                ],
+                positions: {
+                    1: {row: 0, col: 0, dir: 'across', answer: 'ESTABILIDADE'},
+                    2: {row: 0, col: 5, dir: 'down', answer: 'INVESTIDURA'},
+                    3: {row: 2, col: 2, dir: 'across', answer: 'PROVIMENTO'},
+                    4: {row: 2, col: 11, dir: 'down', answer: 'INDENIZACAO'},
+                    5: {row: 5, col: 0, dir: 'down', answer: 'POSSE'},
+                    6: {row: 5, col: 7, dir: 'across', answer: 'CONCURSO'},
+                    7: {row: 5, col: 11, dir: 'down', answer: 'EFETIVACAO'},
+                    8: {row: 7, col: 1, dir: 'across', answer: 'VITALICIEDADE'},
+                    10: {row: 9, col: 2, dir: 'across', answer: 'REMUNERACAO'}
+                }
+            },
+            2: {
+                name: "Nível 2 - Intermediário",
+                grid: [
+                    ['A', 'P', 'O', 'S', 'E', 'N', 'T', 'A', 'D', 'O', 'R', 'I', 'A', '#', '#'],
+                    ['#', '#', '#', 'U', '#', '#', '#', '#', 'I', '#', '#', '#', 'V', '#', '#'],
+                    ['#', '#', 'R', 'S', 'P', 'E', 'N', 'S', 'A', 'O', '#', '#', 'A', '#', '#'],
+                    ['#', '#', '#', 'P', '#', '#', '#', '#', 'R', '#', '#', '#', 'L', '#', '#'],
+                    ['#', '#', '#', 'E', '#', '#', '#', '#', 'I', '#', '#', '#', 'I', '#', '#'],
+                    ['#', '#', '#', 'N', '#', 'L', 'I', 'C', 'E', 'N', 'C', 'A', 'S', '#', '#'],
+                    ['#', '#', '#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['F', 'E', 'R', 'I', 'A', 'S', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', 'E', 'O', '#', '#', '#', '#', 'A', 'D', 'I', 'C', 'I', 'O', 'N', 'A', 'L'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                ],
+                across: {
+                    1: "Benefício concedido após anos de serviço (13 letras)",
+                    3: "Benefício pecuniário mensal ao aposentado (7 letras)",
+                    6: "Afastamento temporário do serviço (8 letras)",
+                    8: "Período anual de descanso remunerado (6 letras)",
+                    9: "Gratificação por tempo de serviço (9 letras)"
+                },
+                down: {
+                    2: "Penalidade por falta leve (10 letras)",
+                    4: "Percentual sobre vencimento (8 letras)",
+                    5: "Situação de quem está afastado do cargo (7 letras)"
+                },
+                hints: [
+                    "A primeira palavra refere-se ao direito do servidor após completar os requisitos de idade e tempo.",
+                    "LICENÇAS são afastamentos temporários por diversos motivos previstos na lei.",
+                    "A palavra vertical número 2 relaciona-se com punição disciplinar."
+                ],
+                positions: {
+                    1: {row: 0, col: 0, dir: 'across', answer: 'APOSENTADORIA'},
+                    2: {row: 0, col: 3, dir: 'down', answer: 'SUSPENSAO'},
+                    3: {row: 2, col: 2, dir: 'across', answer: 'PENSAO'},
+                    4: {row: 0, col: 8, dir: 'down', answer: 'DIARIAS'},
+                    5: {row: 0, col: 12, dir: 'down', answer: 'AVALIACAO'},
+                    6: {row: 5, col: 5, dir: 'across', answer: 'LICENCAS'},
+                    8: {row: 7, col: 0, dir: 'across', answer: 'FERIAS'},
+                    9: {row: 8, col: 8, dir: 'across', answer: 'ADICIONAL'}
+                }
+            },
+            3: {
+                name: "Nível 3 - Avançado",
+                grid: [
+                    ['R', 'E', 'A', 'D', 'A', 'P', 'T', 'A', 'C', 'A', 'O', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'S', '#', '#', 'D', 'E', 'S', 'T', 'I', 'T', 'U', 'I', 'C', 'A', 'O'],
+                    ['#', '#', '#', 'T', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', 'R', 'I', 'T', 'O', 'R', 'N', 'O', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'T', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'U', '#', 'R', 'E', 'V', 'E', 'R', 'S', 'A', 'O', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'I', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['E', 'X', 'O', 'N', 'E', 'R', 'A', 'C', 'A', 'O', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', 'P', 'R', 'O', 'G', 'R', 'E', 'S', 'S', 'A', 'O', '#', '#', '#', '#', '#', '#'],
+                ],
+                across: {
+                    1: "Transferência provisória de servidor (11 letras)",
+                    3: "Penalidade de perda do cargo (11 letras)",
+                    5: "Retorno ao cargo anterior (8 letras)",
+                    7: "Retorno de aposentado ao serviço (9 letras)",
+                    9: "Demissão do servidor estável (11 letras)",
+                    11: "Evolução funcional na carreira (10 letras)"
+                },
+                down: {
+                    2: "Penalidade de perda da função (11 letras)"
+                },
+                hints: [
+                    "READAPTAÇÃO envolve mudança de função por razões de saúde.",
+                    "A penalidade mais grave da lei é a DESTITUIÇÃO de cargo em comissão.",
+                    "REVERSÃO é o retorno do aposentado ao serviço ativo."
+                ],
+                positions: {
+                    1: {row: 0, col: 0, dir: 'across', answer: 'READAPTACAO'},
+                    2: {row: 0, col: 3, dir: 'down', answer: 'DESTITUICAO'},
+                    3: {row: 2, col: 6, dir: 'across', answer: 'DESTITUICAO'},
+                    5: {row: 4, col: 2, dir: 'across', answer: 'RITORNO'},
+                    7: {row: 6, col: 5, dir: 'across', answer: 'REVERSAO'},
+                    9: {row: 8, col: 0, dir: 'across', answer: 'EXONERACAO'},
+                    11: {row: 10, col: 1, dir: 'across', answer: 'PROGRESSAO'}
+                }
+            },
+            4: {
+                name: "Nível 4 - Especialista",
+                grid: [
+                    ['S', 'I', 'N', 'D', 'I', 'C', 'A', 'N', 'C', 'I', 'A', '#', '#', '#', '#'],
+                    ['#', 'N', '#', '#', '#', '#', '#', '#', '#', '#', 'C', '#', '#', '#', '#'],
+                    ['#', 'V', '#', 'R', 'E', 'I', 'N', 'T', 'E', 'G', 'R', 'A', 'C', 'A', 'O'],
+                    ['#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', 'U', '#', '#', '#', '#'],
+                    ['#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', 'M', '#', '#', '#', '#'],
+                    ['#', 'T', '#', '#', '#', 'Q', 'U', 'I', 'N', 'Q', 'U', 'E', 'N', 'I', 'O'],
+                    ['#', 'I', '#', '#', '#', '#', '#', '#', '#', '#', 'L', '#', '#', '#', '#'],
+                    ['P', 'D', 'U', 'R', 'A', '#', '#', '#', '#', '#', 'A', '#', '#', '#', '#'],
+                    ['#', 'U', '#', '#', '#', '#', '#', '#', '#', '#', 'D', '#', '#', '#', '#'],
+                    ['#', 'R', '#', '#', 'P', 'R', 'O', 'M', 'O', 'C', 'A', 'O', '#', '#', '#'],
+                    ['#', 'A', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                ],
+                across: {
+                    1: "Processo administrativo contra servidor (11 letras)",
+                    3: "Retorno do servidor demitido ilegalmente (12 letras)",
+                    6: "Adicional por tempo de serviço a cada 5 anos (9 letras)",
+                    8: "Interrupção temporária do processo (5 letras)",
+                    10: "Ascensão funcional na carreira (8 letras)"
+                },
+                down: {
+                    2: "Período de apuração de falta (11 letras)",
+                    4: "Acúmulo de cargos (11 letras)"
+                },
+                hints: [
+                    "SINDICÂNCIA é um processo preliminar de investigação.",
+                    "REINTEGRAÇÃO restaura todos os direitos do servidor.",
+                    "QUINQUÊNIO é concedido a cada cinco anos de efetivo exercício."
+                ],
+                positions: {
+                    1: {row: 0, col: 0, dir: 'across', answer: 'SINDICANCIA'},
+                    2: {row: 0, col: 1, dir: 'down', answer: 'INVESTIDURA'},
+                    3: {row: 2, col: 3, dir: 'across', answer: 'REINTEGRACAO'},
+                    4: {row: 2, col: 10, dir: 'down', answer: 'ACUMULACAO'},
+                    6: {row: 5, col: 5, dir: 'across', answer: 'QUINQUENIO'},
+                    8: {row: 7, col: 0, dir: 'across', answer: 'PDURA'},
+                    10: {row: 9, col: 4, dir: 'across', answer: 'PROMOCAO'}
+                }
+            },
+            5: {
+                name: "Nível 5 - Expert",
+                grid: [
+                    ['R', 'E', 'S', 'P', 'O', 'N', 'S', 'A', 'B', 'I', 'L', 'I', 'D', 'A', 'D', 'E'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'M', '#', '#', '#', '#'],
+                    ['I', 'N', 'C', 'O', 'M', 'P', 'A', 'T', 'I', 'B', 'I', 'L', 'I', 'D', 'A', 'D', 'E'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'P', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'R', '#', '#', '#', '#'],
+                    ['#', '#', 'D', 'I', 'S', 'P', 'O', 'N', 'I', 'B', 'I', 'L', 'I', 'D', 'A', 'D', 'E'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'O', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'B', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'I', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'D', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', 'P', 'R', 'E', 'S', 'C', 'R', 'I', 'C', 'A', 'O', '#'],
+                ],
+                across: {
+                    1: "Dever funcional do servidor público (16 letras)",
+                    3: "Impedimento para acumulação de cargos (17 letras)",
+                    6: "Situação de servidor sem exercício (15 letras)",
+                    11: "Perda do direito de punir por decurso de prazo (10 letras)"
+                },
+                down: {
+                    2: "Contrapartida à responsabilidade (11 letras)"
+                },
+                hints: [
+                    "RESPONSABILIDADE é princípio fundamental do servidor público.",
+                    "INCOMPATIBILIDADE impede o servidor de acumular determinados cargos.",
+                    "A palavra vertical de 11 letras termina com 'DADE' e está relacionada ao conceito de correção."
+                ],
+                positions: {
+                    1: {row: 0, col: 0, dir: 'across', answer: 'RESPONSABILIDADE'},
+                    2: {row: 0, col: 11, dir: 'down', answer: 'IMPROBIDADE'},
+                    3: {row: 2, col: 0, dir: 'across', answer: 'INCOMPATIBILIDADE'},
+                    6: {row: 5, col: 2, dir: 'across', answer: 'DISPONIBILIDADE'},
+                    11: {row: 10, col: 5, dir: 'across', answer: 'PRESCRICAO'}
+                }
+            }
+        };
+
+        let currentLevel = 1;
+        let hintsUsed = 0;
+        let solvedWords = new Set();
+        let revealedLetters = {}; // Rastreia quantas letras foram reveladas por palavra
+
+        function initGame() {
+            createLevelButtons();
+            loadLevel(1);
+        }
+
+        function createLevelButtons() {
+            const selector = document.getElementById('levelSelector');
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'level-btn' + (i === 1 ? ' active' : '');
+                btn.textContent = `Nível ${i}`;
+                btn.onclick = () => loadLevel(i);
+                selector.appendChild(btn);
+            }
+        }
+
+        function loadLevel(level) {
+            currentLevel = level;
+            hintsUsed = 0;
+            solvedWords = new Set();
+            revealedLetters = {};
+            
+            document.querySelectorAll('.level-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx + 1 === level);
+            });
+            
+            updateHintsDisplay();
+            document.getElementById('hintDisplay').classList.remove('show');
+            document.getElementById('wordSelector').classList.remove('show');
+            document.getElementById('completionMessage').classList.remove('show');
+            
+            renderCrossword();
+            renderClues();
+            updateProgress();
+        }
+
+        function renderCrossword() {
+            const level = levels[currentLevel];
+            const container = document.getElementById('crosswordContainer');
+            const grid = document.createElement('div');
+            grid.className = 'crossword-grid';
+            grid.style.gridTemplateColumns = `repeat(${level.grid[0].length}, 45px)`;
+            
+            level.grid.forEach((row, i) => {
+                row.forEach((cell, j) => {
+                    const cellDiv = document.createElement('div');
+                    cellDiv.className = 'cell';
+                    
+                    if (cell === '#') {
+                        cellDiv.classList.add('black');
+                    } else {
+                        const input = document.createElement('input');
+                        input.maxLength = 1;
+                        input.dataset.row = i;
+                        input.dataset.col = j;
+                        input.dataset.answer = cell;
+                        input.addEventListener('input', handleInput);
+                        cellDiv.appendChild(input);
+                        
+                        // Add number if it's a start position
+                        for (let [num, pos] of Object.entries(level.positions)) {
+                            if (pos.row === i && pos.col === j) {
+                                const numSpan = document.createElement('span');
+                                numSpan.className = 'number';
+                                numSpan.textContent = num;
+                                cellDiv.appendChild(numSpan);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    grid.appendChild(cellDiv);
+                });
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(grid);
+        }
+
+        function renderClues() {
+            const level = levels[currentLevel];
+            const acrossDiv = document.getElementById('acrossClues');
+            const downDiv = document.getElementById('downClues');
+            
+            acrossDiv.innerHTML = '';
+            downDiv.innerHTML = '';
+            
+            for (let [num, clue] of Object.entries(level.across)) {
+                const clueDiv = document.createElement('div');
+                clueDiv.className = 'clue';
+                clueDiv.innerHTML = `<span class="clue-number">${num}.</span>${clue}`;
+                clueDiv.dataset.num = num;
+                acrossDiv.appendChild(clueDiv);
+            }
+            
+            for (let [num, clue] of Object.entries(level.down)) {
+                const clueDiv = document.createElement('div');
+                clueDiv.className = 'clue';
+                clueDiv.innerHTML = `<span class="clue-number">${num}.</span>${clue}`;
+                clueDiv.dataset.num = num;
+                downDiv.appendChild(clueDiv);
+            }
+        }
+
+        function handleInput(e) {
+            const input = e.target;
+            const value = input.value.toUpperCase();
+            input.value = value;
+            
+            if (value) {
+                checkWord(input);
+            }
+        }
+
+        function checkWord(input) {
+            const level = levels[currentLevel];
+            const row = parseInt(input.dataset.row);
+            const col = parseInt(input.dataset.col);
+            
+            for (let [num, pos] of Object.entries(level.positions)) {
+                if (pos.row === row && pos.col === col) {
+                    const word = getWordFromPosition(pos);
+                    if (word === pos.answer && !solvedWords.has(num)) {
+                        markWordCorrect(pos, num);
+                        solvedWords.add(num);
+                        updateProgress();
+                        checkLevelComplete();
+                    }
+                    return;
+                }
+                
+                if (pos.dir === 'across' && row === pos.row && col >= pos.col && col < pos.col + pos.answer.length) {
+                    const word = getWordFromPosition(pos);
+                    if (word === pos.answer && !solvedWords.has(num)) {
+                        markWordCorrect(pos, num);
+                        solvedWords.add(num);
+                        updateProgress();
+                        checkLevelComplete();
+                    }
+                    return;
+                }
+                
+                if (pos.dir === 'down' && col === pos.col && row >= pos.row && row < pos.row + pos.answer.length) {
+                    const word = getWordFromPosition(pos);
+                    if (word === pos.answer && !solvedWords.has(num)) {
+                        markWordCorrect(pos, num);
+                        solvedWords.add(num);
+                        updateProgress();
+                        checkLevelComplete();
+                    }
+                    return;
+                }
+            }
+        }
+
+        function getWordFromPosition(pos) {
+            let word = '';
+            const inputs = document.querySelectorAll('input');
+            
+            if (pos.dir === 'across') {
+                for (let i = 0; i < pos.answer.length; i++) {
+                    const input = Array.from(inputs).find(inp => 
+                        parseInt(inp.dataset.row) === pos.row && 
+                        parseInt(inp.dataset.col) === pos.col + i
+                    );
+                    word += input ? input.value : '';
+                }
+            } else {
+                for (let i = 0; i < pos.answer.length; i++) {
+                    const input = Array.from(inputs).find(inp => 
+                        parseInt(inp.dataset.row) === pos.row + i && 
+                        parseInt(inp.dataset.col) === pos.col
+                    );
+                    word += input ? input.value : '';
+                }
+            }
+            
+            return word.toUpperCase();
+        }
+
+        function markWordCorrect(pos, num) {
+            const inputs = document.querySelectorAll('input');
+            
+            if (pos.dir === 'across') {
+                for (let i = 0; i < pos.answer.length; i++) {
+                    const input = Array.from(inputs).find(inp => 
+                        parseInt(inp.dataset.row) === pos.row && 
+                        parseInt(inp.dataset.col) === pos.col + i
+                    );
+                    if (input) {
+                        input.parentElement.classList.add('correct');
+                        input.disabled = true;
+                    }
+                }
+            } else {
+                for (let i = 0; i < pos.answer.length; i++) {
+                    const input = Array.from(inputs).find(inp => 
+                        parseInt(inp.dataset.row) === pos.row + i && 
+                        parseInt(inp.dataset.col) === pos.col
+                    );
+                    if (input) {
+                        input.parentElement.classList.add('correct');
+                        input.disabled = true;
+                    }
+                }
+            }
+            
+            // Mark clue as solved
+            const clues = document.querySelectorAll('.clue');
+            clues.forEach(clue => {
+                if (clue.dataset.num === num) {
+                    clue.classList.add('solved');
+                }
+            });
+        }
+
+        function updateProgress() {
+            const level = levels[currentLevel];
+            const totalWords = Object.keys(level.positions).length;
+            const progress = (solvedWords.size / totalWords) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function checkLevelComplete() {
+            const level = levels[currentLevel];
+            const totalWords = Object.keys(level.positions).length;
+            
+            if (solvedWords.size === totalWords) {
+                setTimeout(() => {
+                    document.getElementById('completionMessage').classList.add('show');
+                }, 500);
+            }
+        }
+
+        function showHint() {
+            if (hintsUsed >= 3) return;
+            
+            const level = levels[currentLevel];
+            const hint = level.hints[hintsUsed];
+            
+            document.getElementById('hintText').textContent = hint;
+            document.getElementById('hintDisplay').classList.add('show');
+            
+            hintsUsed++;
+            updateHintsDisplay();
+        }
+
+        function updateHintsDisplay() {
+            document.getElementById('hintsUsed').textContent = `Dicas: ${hintsUsed}/3`;
+            document.getElementById('hintBtn').disabled = hintsUsed >= 3;
+        }
+
+        function toggleWordSelector() {
+            const selector = document.getElementById('wordSelector');
+            const isVisible = selector.classList.contains('show');
+            
+            if (!isVisible) {
+                populateWordOptions();
+                selector.classList.add('show');
+            } else {
+                selector.classList.remove('show');
+            }
+        }
+
+        function populateWordOptions() {
+            const level = levels[currentLevel];
+            const optionsContainer = document.getElementById('wordOptions');
+            optionsContainer.innerHTML = '';
+            
+            for (let [num, pos] of Object.entries(level.positions)) {
+                if (solvedWords.has(num)) continue; // Não mostrar palavras já resolvidas
+                
+                const button = document.createElement('button');
+                button.className = 'word-option';
+                
+                const revealsCount = revealedLetters[num] || 0;
+                const direction = pos.dir === 'across' ? 'H' : 'V';
+                
+                button.textContent = `${num}${direction} (${revealsCount}/2)`;
+                button.dataset.wordNum = num;
+                
+                if (revealsCount >= 2) {
+                    button.classList.add('max-reveals');
+                    button.disabled = true;
+                } else {
+                    button.onclick = () => revealLetterInWord(num);
+                }
+                
+                optionsContainer.appendChild(button);
+            }
+        }
+
+        function revealLetterInWord(wordNum) {
+            const level = levels[currentLevel];
+            const pos = level.positions[wordNum];
+            
+            if (!revealedLetters[wordNum]) {
+                revealedLetters[wordNum] = 0;
+            }
+            
+            if (revealedLetters[wordNum] >= 2) {
+                return;
+            }
+            
+            // Encontrar células não preenchidas da palavra
+            const inputs = document.querySelectorAll('input:not([disabled])');
+            const wordCells = [];
+            
+            if (pos.dir === 'across') {
+                for (let i = 0; i < pos.answer.length; i++) {
+                    const input = Array.from(inputs).find(inp => 
+                        parseInt(inp.dataset.row) === pos.row && 
+                        parseInt(inp.dataset.col) === pos.col + i
+                    );
+                    if (input && !input.value && !input.parentElement.classList.contains('revealed')) {
+                        wordCells.push({input, index: i});
+                    }
+                }
+            } else {
+                for (let i = 0; i < pos.answer.length; i++) {
+                    const input = Array.from(inputs).find(inp => 
+                        parseInt(inp.dataset.row) === pos.row + i && 
+                        parseInt(inp.dataset.col) === pos.col
+                    );
+                    if (input && !input.value && !input.parentElement.classList.contains('revealed')) {
+                        wordCells.push({input, index: i});
+                    }
+                }
+            }
+            
+            if (wordCells.length === 0) {
+                alert('Todas as letras desta palavra já foram reveladas ou preenchidas!');
+                return;
+            }
+            
+            // Escolher uma célula aleatória
+            const randomCell = wordCells[Math.floor(Math.random() * wordCells.length)];
+            const correctLetter = pos.answer[randomCell.index];
+            
+            randomCell.input.value = correctLetter;
+            randomCell.input.parentElement.classList.add('revealed');
+            
+            revealedLetters[wordNum]++;
+            
+            // Atualizar o seletor de palavras
+            populateWordOptions();
+            
+            // Verificar se a palavra está completa
+            setTimeout(() => checkWord(randomCell.input), 100);
+        }
+
+        initGame();
+    </script>
+</body>
+</html>

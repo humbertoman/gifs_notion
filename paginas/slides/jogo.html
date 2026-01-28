@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Palavras Cruzadas - Lei 8.112/1990</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -28,9 +29,10 @@
             background: linear-gradient(135deg, var(--bg) 0%, #f0ebe3 100%);
             color: var(--text);
             min-height: 100vh;
-            padding: 2rem;
+            padding: 1rem;
             position: relative;
             overflow-x: hidden;
+            touch-action: pan-y;
         }
 
         body::before {
@@ -38,8 +40,8 @@
             position: fixed;
             top: -50%;
             right: -20%;
-            width: 800px;
-            height: 800px;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, rgba(144, 169, 85, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             z-index: -1;
@@ -48,11 +50,11 @@
 
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-50px, 50px) scale(1.1); }
+            50% { transform: translate(-30px, 30px) scale(1.1); }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
             animation: fadeIn 0.8s ease-out;
         }
@@ -64,52 +66,58 @@
 
         header {
             text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
             border-bottom: 2px solid var(--border);
-            position: relative;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 0.5rem;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
             text-shadow: 2px 2px 0 rgba(144, 169, 85, 0.1);
         }
 
         .subtitle {
             font-family: 'DM Mono', monospace;
-            font-size: 0.95rem;
+            font-size: 0.75rem;
             color: var(--secondary);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             font-weight: 500;
         }
 
         .level-selector {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             flex-wrap: wrap;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+            -webkit-overflow-scrolling: touch;
         }
 
         .level-btn {
             font-family: 'DM Mono', monospace;
-            padding: 0.75rem 2rem;
+            padding: 0.7rem 1.2rem;
             border: 2px solid var(--secondary);
             background: white;
             color: var(--secondary);
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            border-radius: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            touch-action: manipulation;
         }
 
         .level-btn::before {
@@ -124,24 +132,21 @@
             z-index: -1;
         }
 
-        .level-btn:hover::before,
         .level-btn.active::before {
             left: 0;
         }
 
-        .level-btn:hover,
         .level-btn.active {
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--shadow);
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         .game-info {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 20px var(--shadow);
@@ -149,59 +154,40 @@
 
         .hints-container {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             align-items: center;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .hint-btn {
+        .hint-btn, .reveal-btn {
             font-family: 'DM Mono', monospace;
-            padding: 0.6rem 1.5rem;
+            padding: 0.7rem 1rem;
             border: 2px solid var(--accent);
             background: white;
             color: var(--accent);
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-            border-radius: 6px;
-        }
-
-        .hint-btn:hover:not(:disabled) {
-            background: var(--accent);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .hint-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
+            border-radius: 8px;
+            touch-action: manipulation;
+            flex: 1;
+            min-width: 120px;
         }
 
         .reveal-btn {
-            font-family: 'DM Mono', monospace;
-            padding: 0.6rem 1.5rem;
-            border: 2px solid var(--secondary);
-            background: white;
+            border-color: var(--secondary);
             color: var(--secondary);
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border-radius: 6px;
         }
 
-        .reveal-btn:hover:not(:disabled) {
-            background: var(--secondary);
-            color: white;
-            transform: scale(1.05);
+        .hint-btn:active:not(:disabled), .reveal-btn:active:not(:disabled) {
+            transform: scale(0.95);
         }
 
-        .reveal-btn:disabled {
+        .hint-btn:disabled, .reveal-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
         }
@@ -209,92 +195,17 @@
         .hints-used {
             font-family: 'DM Mono', monospace;
             color: var(--secondary);
-            font-size: 0.9rem;
-        }
-
-        .cell.revealed {
-            background: #fff8dc !important;
-            animation: revealPulse 0.5s ease;
-        }
-
-        .cell.revealed input {
-            color: var(--secondary);
-            font-weight: 600;
-        }
-
-        @keyframes revealPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .word-selector {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px var(--shadow);
-            margin-bottom: 2rem;
-            display: none;
-        }
-
-        .word-selector.show {
-            display: block;
-            animation: slideDown 0.4s ease;
-        }
-
-        .word-selector h3 {
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .word-options {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .word-option {
-            font-family: 'DM Mono', monospace;
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--border);
-            background: white;
-            color: var(--text);
-            cursor: pointer;
             font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            border-radius: 6px;
-        }
-
-        .word-option:hover {
-            border-color: var(--secondary);
-            background: var(--secondary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .word-option.max-reveals {
-            opacity: 0.5;
-            cursor: not-allowed;
-            text-decoration: line-through;
-        }
-
-        .word-option.max-reveals:hover {
-            border-color: var(--border);
-            background: white;
-            color: var(--text);
-            transform: translateY(0);
+            width: 100%;
+            text-align: center;
         }
 
         .progress-bar {
-            flex: 1;
+            width: 100%;
             height: 8px;
             background: var(--border);
             border-radius: 20px;
             overflow: hidden;
-            margin-left: 2rem;
         }
 
         .progress-fill {
@@ -304,29 +215,35 @@
             border-radius: 20px;
         }
 
+        .crossword-container {
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 1rem 0;
+        }
+
         .crossword-grid {
             display: grid;
-            gap: 2px;
+            gap: 1px;
             background: var(--border);
-            padding: 2px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 40px var(--shadow);
+            padding: 1px;
+            box-shadow: 0 6px 20px var(--shadow);
             border-radius: 8px;
             width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
+            min-width: min-content;
         }
 
         .cell {
-            width: 45px;
-            height: 45px;
+            width: 32px;
+            height: 32px;
             background: white;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'DM Mono', monospace;
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             font-weight: 500;
             text-transform: uppercase;
             color: var(--text);
@@ -346,11 +263,12 @@
             background: transparent;
             text-align: center;
             font-family: 'DM Mono', monospace;
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             font-weight: 500;
             text-transform: uppercase;
             color: var(--text);
             outline: none;
+            touch-action: manipulation;
         }
 
         .cell.correct {
@@ -363,17 +281,32 @@
             color: white;
         }
 
+        .cell.revealed {
+            background: #fff8dc !important;
+            animation: revealPulse 0.5s ease;
+        }
+
+        .cell.revealed input {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
         @keyframes celebrate {
             0%, 100% { transform: scale(1); }
             25% { transform: scale(1.15) rotate(-5deg); }
             75% { transform: scale(1.15) rotate(5deg); }
         }
 
+        @keyframes revealPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
         .cell .number {
             position: absolute;
-            top: 2px;
-            left: 3px;
-            font-size: 0.65rem;
+            top: 1px;
+            left: 2px;
+            font-size: 0.5rem;
             color: var(--secondary);
             font-weight: 500;
         }
@@ -382,22 +315,80 @@
             color: white;
         }
 
+        .word-selector {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow);
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .word-selector.show {
+            display: block;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .word-selector h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .word-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .word-option {
+            font-family: 'DM Mono', monospace;
+            padding: 0.6rem 1rem;
+            border: 2px solid var(--border);
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            touch-action: manipulation;
+        }
+
+        .word-option:active {
+            transform: scale(0.95);
+        }
+
+        .word-option.max-reveals {
+            opacity: 0.5;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
         .clues {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .clue-section {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 20px var(--shadow);
         }
 
         .clue-section h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--primary);
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
@@ -407,8 +398,8 @@
         .clue {
             margin-bottom: 0.8rem;
             padding: 0.5rem 0;
-            font-size: 1.05rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.5;
             transition: all 0.3s ease;
         }
 
@@ -427,9 +418,9 @@
 
         .hint-display {
             background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             border-left: 4px solid var(--accent);
             box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
             animation: slideDown 0.4s ease;
@@ -440,32 +431,27 @@
             display: block;
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .hint-display strong {
             font-family: 'DM Mono', monospace;
             color: #f57c00;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .hint-display p {
             margin-top: 0.5rem;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             line-height: 1.6;
         }
 
         .completion-message {
             background: linear-gradient(135deg, var(--correct) 0%, #2ecc71 100%);
             color: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 12px;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             box-shadow: 0 8px 30px rgba(39, 174, 96, 0.3);
             animation: slideDown 0.5s ease;
             display: none;
@@ -476,17 +462,132 @@
         }
 
         .completion-message h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .clues { grid-template-columns: 1fr; }
-            .cell { width: 35px; height: 35px; font-size: 1rem; }
-            .cell input { font-size: 1rem; }
-            .game-info { flex-direction: column; gap: 1rem; }
-            .progress-bar { margin-left: 0; width: 100%; }
+        /* Otimizações específicas para telas pequenas */
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.65rem;
+            }
+
+            .level-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.7rem;
+            }
+
+            .cell {
+                width: 28px;
+                height: 28px;
+                font-size: 0.85rem;
+            }
+
+            .cell input {
+                font-size: 0.85rem;
+            }
+
+            .cell .number {
+                font-size: 0.45rem;
+            }
+
+            .clue {
+                font-size: 0.9rem;
+            }
+
+            .hint-btn, .reveal-btn {
+                font-size: 0.7rem;
+                padding: 0.6rem 0.8rem;
+                min-width: 100px;
+            }
+        }
+
+        /* Landscape no celular */
+        @media (max-width: 896px) and (orientation: landscape) {
+            body {
+                padding: 0.5rem;
+            }
+
+            header {
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .game-info {
+                padding: 0.75rem;
+            }
+
+            .clue-section {
+                padding: 1rem;
+            }
+        }
+
+        /* iPad e tablets */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .cell {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .cell input {
+                font-size: 1rem;
+            }
+
+            .clues {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Tablets grandes e desktops pequenos */
+        @media (min-width: 769px) {
+            .container {
+                max-width: 1200px;
+            }
+
+            .cell {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .cell input {
+                font-size: 1.1rem;
+            }
+
+            .clues {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .game-info {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .hints-container {
+                justify-content: flex-start;
+            }
+
+            .hints-used {
+                width: auto;
+            }
+
+            .progress-bar {
+                margin-left: 2rem;
+            }
         }
     </style>
 </head>
@@ -501,9 +602,9 @@
 
         <div class="game-info">
             <div class="hints-container">
-                <button class="hint-btn" id="hintBtn" onclick="showHint()">💡 Pedir Dica</button>
+                <button class="hint-btn" id="hintBtn" onclick="showHint()">💡 Dica</button>
+                <button class="reveal-btn" id="revealBtn" onclick="toggleWordSelector()">🔍 Revelar</button>
                 <span class="hints-used" id="hintsUsed">Dicas: 0/3</span>
-                <button class="reveal-btn" id="revealBtn" onclick="toggleWordSelector()">🔍 Revelar Letras</button>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill" style="width: 0%"></div>
@@ -516,11 +617,13 @@
         </div>
 
         <div class="word-selector" id="wordSelector">
-            <h3>Escolha uma palavra para revelar letras (máx. 2 letras por palavra):</h3>
+            <h3>Escolha uma palavra para revelar letras (máx. 2 por palavra):</h3>
             <div class="word-options" id="wordOptions"></div>
         </div>
 
-        <div id="crosswordContainer"></div>
+        <div class="crossword-container">
+            <div id="crosswordContainer"></div>
+        </div>
 
         <div class="clues">
             <div class="clue-section">
@@ -591,18 +694,18 @@
                 grid: [
                     ['A', 'P', 'O', 'S', 'E', 'N', 'T', 'A', 'D', 'O', 'R', 'I', 'A', '#', '#'],
                     ['#', '#', '#', 'U', '#', '#', '#', '#', 'I', '#', '#', '#', 'V', '#', '#'],
-                    ['#', '#', 'R', 'S', 'P', 'E', 'N', 'S', 'A', 'O', '#', '#', 'A', '#', '#'],
-                    ['#', '#', '#', 'P', '#', '#', '#', '#', 'R', '#', '#', '#', 'L', '#', '#'],
-                    ['#', '#', '#', 'E', '#', '#', '#', '#', 'I', '#', '#', '#', 'I', '#', '#'],
+                    ['#', '#', 'P', 'E', 'N', 'S', 'A', 'O', '#', '#', '#', '#', 'A', '#', '#'],
+                    ['#', '#', '#', 'P', '#', '#', '#', '#', '#', '#', '#', '#', 'L', '#', '#'],
+                    ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', 'I', '#', '#'],
                     ['#', '#', '#', 'N', '#', 'L', 'I', 'C', 'E', 'N', 'C', 'A', 'S', '#', '#'],
                     ['#', '#', '#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
                     ['F', 'E', 'R', 'I', 'A', 'S', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                    ['#', '#', 'E', 'O', '#', '#', '#', '#', 'A', 'D', 'I', 'C', 'I', 'O', 'N', 'A', 'L'],
+                    ['#', '#', '#', 'O', '#', '#', '#', '#', 'A', 'D', 'I', 'C', 'I', 'O', 'N', 'A', 'L'],
                     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
                 ],
                 across: {
                     1: "Benefício concedido após anos de serviço (13 letras)",
-                    3: "Benefício pecuniário mensal ao aposentado (7 letras)",
+                    3: "Benefício pecuniário mensal ao aposentado (6 letras)",
                     6: "Afastamento temporário do serviço (8 letras)",
                     8: "Período anual de descanso remunerado (6 letras)",
                     9: "Gratificação por tempo de serviço (9 letras)"
@@ -635,7 +738,7 @@
                     ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
                     ['#', '#', '#', 'S', '#', '#', 'D', 'E', 'S', 'T', 'I', 'T', 'U', 'I', 'C', 'A', 'O'],
                     ['#', '#', '#', 'T', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                    ['#', '#', 'R', 'I', 'T', 'O', 'R', 'N', 'O', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', 'R', 'E', 'T', 'O', 'R', 'N', 'O', '#', '#', '#', '#', '#', '#', '#', '#'],
                     ['#', '#', '#', 'T', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
                     ['#', '#', '#', 'U', '#', 'R', 'E', 'V', 'E', 'R', 'S', 'A', 'O', '#', '#', '#', '#'],
                     ['#', '#', '#', 'I', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
@@ -646,7 +749,7 @@
                 across: {
                     1: "Transferência provisória de servidor (11 letras)",
                     3: "Penalidade de perda do cargo (11 letras)",
-                    5: "Retorno ao cargo anterior (8 letras)",
+                    5: "Retorno ao cargo anterior (7 letras)",
                     7: "Retorno de aposentado ao serviço (9 letras)",
                     9: "Demissão do servidor estável (11 letras)",
                     11: "Evolução funcional na carreira (10 letras)"
@@ -663,7 +766,7 @@
                     1: {row: 0, col: 0, dir: 'across', answer: 'READAPTACAO'},
                     2: {row: 0, col: 3, dir: 'down', answer: 'DESTITUICAO'},
                     3: {row: 2, col: 6, dir: 'across', answer: 'DESTITUICAO'},
-                    5: {row: 4, col: 2, dir: 'across', answer: 'RITORNO'},
+                    5: {row: 4, col: 2, dir: 'across', answer: 'RETORNO'},
                     7: {row: 6, col: 5, dir: 'across', answer: 'REVERSAO'},
                     9: {row: 8, col: 0, dir: 'across', answer: 'EXONERACAO'},
                     11: {row: 10, col: 1, dir: 'across', answer: 'PROGRESSAO'}
@@ -679,7 +782,7 @@
                     ['#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', 'M', '#', '#', '#', '#'],
                     ['#', 'T', '#', '#', '#', 'Q', 'U', 'I', 'N', 'Q', 'U', 'E', 'N', 'I', 'O'],
                     ['#', 'I', '#', '#', '#', '#', '#', '#', '#', '#', 'L', '#', '#', '#', '#'],
-                    ['P', 'D', 'U', 'R', 'A', '#', '#', '#', '#', '#', 'A', '#', '#', '#', '#'],
+                    ['P', 'A', 'U', 'S', 'A', '#', '#', '#', '#', '#', 'A', '#', '#', '#', '#'],
                     ['#', 'U', '#', '#', '#', '#', '#', '#', '#', '#', 'D', '#', '#', '#', '#'],
                     ['#', 'R', '#', '#', 'P', 'R', 'O', 'M', 'O', 'C', 'A', 'O', '#', '#', '#'],
                     ['#', 'A', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
@@ -706,7 +809,7 @@
                     3: {row: 2, col: 3, dir: 'across', answer: 'REINTEGRACAO'},
                     4: {row: 2, col: 10, dir: 'down', answer: 'ACUMULACAO'},
                     6: {row: 5, col: 5, dir: 'across', answer: 'QUINQUENIO'},
-                    8: {row: 7, col: 0, dir: 'across', answer: 'PDURA'},
+                    8: {row: 7, col: 0, dir: 'across', answer: 'PAUSA'},
                     10: {row: 9, col: 4, dir: 'across', answer: 'PROMOCAO'}
                 }
             },
@@ -752,7 +855,7 @@
         let currentLevel = 1;
         let hintsUsed = 0;
         let solvedWords = new Set();
-        let revealedLetters = {}; // Rastreia quantas letras foram reveladas por palavra
+        let revealedLetters = {};
 
         function initGame() {
             createLevelButtons();
@@ -795,7 +898,15 @@
             const container = document.getElementById('crosswordContainer');
             const grid = document.createElement('div');
             grid.className = 'crossword-grid';
-            grid.style.gridTemplateColumns = `repeat(${level.grid[0].length}, 45px)`;
+            
+            // Calcula tamanho da célula baseado na largura da tela
+            const screenWidth = window.innerWidth;
+            let cellSize = 32;
+            if (screenWidth < 480) cellSize = 28;
+            else if (screenWidth < 768) cellSize = 36;
+            else if (screenWidth >= 769) cellSize = 40;
+            
+            grid.style.gridTemplateColumns = `repeat(${level.grid[0].length}, ${cellSize}px)`;
             
             level.grid.forEach((row, i) => {
                 row.forEach((cell, j) => {
@@ -811,9 +922,11 @@
                         input.dataset.col = j;
                         input.dataset.answer = cell;
                         input.addEventListener('input', handleInput);
+                        input.addEventListener('focus', function() {
+                            this.select();
+                        });
                         cellDiv.appendChild(input);
                         
-                        // Add number if it's a start position
                         for (let [num, pos] of Object.entries(level.positions)) {
                             if (pos.row === i && pos.col === j) {
                                 const numSpan = document.createElement('span');
@@ -865,6 +978,24 @@
             
             if (value) {
                 checkWord(input);
+                // Auto-navegar para próxima célula
+                moveToNextCell(input);
+            }
+        }
+
+        function moveToNextCell(currentInput) {
+            const row = parseInt(currentInput.dataset.row);
+            const col = parseInt(currentInput.dataset.col);
+            const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
+            
+            // Tenta encontrar a próxima célula na direção horizontal
+            const nextInput = inputs.find(inp => 
+                parseInt(inp.dataset.row) === row && 
+                parseInt(inp.dataset.col) === col + 1
+            );
+            
+            if (nextInput) {
+                nextInput.focus();
             }
         }
 
@@ -961,7 +1092,6 @@
                 }
             }
             
-            // Mark clue as solved
             const clues = document.querySelectorAll('.clue');
             clues.forEach(clue => {
                 if (clue.dataset.num === num) {
@@ -1024,7 +1154,7 @@
             optionsContainer.innerHTML = '';
             
             for (let [num, pos] of Object.entries(level.positions)) {
-                if (solvedWords.has(num)) continue; // Não mostrar palavras já resolvidas
+                if (solvedWords.has(num)) continue;
                 
                 const button = document.createElement('button');
                 button.className = 'word-option';
@@ -1058,7 +1188,6 @@
                 return;
             }
             
-            // Encontrar células não preenchidas da palavra
             const inputs = document.querySelectorAll('input:not([disabled])');
             const wordCells = [];
             
@@ -1089,7 +1218,6 @@
                 return;
             }
             
-            // Escolher uma célula aleatória
             const randomCell = wordCells[Math.floor(Math.random() * wordCells.length)];
             const correctLetter = pos.answer[randomCell.index];
             
@@ -1098,12 +1226,29 @@
             
             revealedLetters[wordNum]++;
             
-            // Atualizar o seletor de palavras
             populateWordOptions();
             
-            // Verificar se a palavra está completa
             setTimeout(() => checkWord(randomCell.input), 100);
         }
+
+        // Ajustar tamanho do grid ao redimensionar
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                renderCrossword();
+            }, 250);
+        });
+
+        // Prevenir zoom em duplo toque
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
 
         initGame();
     </script>

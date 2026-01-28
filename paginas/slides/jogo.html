@@ -22,6 +22,7 @@
             --correct: #27ae60;
             --border: #dfe6e9;
             --shadow: rgba(26, 77, 46, 0.08);
+            --selected: rgba(144, 169, 85, 0.2);
         }
 
         body {
@@ -246,8 +247,9 @@
             font-weight: 500;
             text-transform: uppercase;
             color: var(--text);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
+            cursor: pointer;
         }
 
         .cell.black {
@@ -270,10 +272,16 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
+            caret-color: var(--secondary);
         }
 
-        .cell input:focus {
-            background: rgba(144, 169, 85, 0.1);
+        .cell.selected {
+            background: var(--selected) !important;
+            box-shadow: inset 0 0 0 2px var(--secondary);
+        }
+
+        .cell.highlighted {
+            background: rgba(144, 169, 85, 0.1) !important;
         }
 
         .cell.correct {
@@ -314,6 +322,7 @@
             font-size: 0.5rem;
             color: var(--secondary);
             font-weight: 500;
+            pointer-events: none;
         }
 
         .cell.correct .number {
@@ -402,10 +411,16 @@
 
         .clue {
             margin-bottom: 0.8rem;
-            padding: 0.5rem 0;
+            padding: 0.5rem;
             font-size: 0.95rem;
             line-height: 1.5;
             transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .clue:hover {
+            background: rgba(144, 169, 85, 0.05);
         }
 
         .clue.solved {
@@ -471,128 +486,40 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Otimizações específicas para telas pequenas */
         @media (max-width: 480px) {
-            body {
-                padding: 0.5rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .subtitle {
-                font-size: 0.65rem;
-            }
-
-            .level-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.7rem;
-            }
-
-            .cell {
-                width: 28px;
-                height: 28px;
-                font-size: 0.85rem;
-            }
-
-            .cell input {
-                font-size: 0.85rem;
-            }
-
-            .cell .number {
-                font-size: 0.45rem;
-            }
-
-            .clue {
-                font-size: 0.9rem;
-            }
-
-            .hint-btn, .reveal-btn {
-                font-size: 0.7rem;
-                padding: 0.6rem 0.8rem;
-                min-width: 100px;
-            }
+            body { padding: 0.5rem; }
+            h1 { font-size: 1.5rem; }
+            .subtitle { font-size: 0.65rem; }
+            .level-btn { padding: 0.6rem 1rem; font-size: 0.7rem; }
+            .cell { width: 28px; height: 28px; font-size: 0.85rem; }
+            .cell input { font-size: 0.85rem; }
+            .cell .number { font-size: 0.45rem; }
+            .clue { font-size: 0.9rem; }
+            .hint-btn, .reveal-btn { font-size: 0.7rem; padding: 0.6rem 0.8rem; min-width: 100px; }
         }
 
-        /* Landscape no celular */
         @media (max-width: 896px) and (orientation: landscape) {
-            body {
-                padding: 0.5rem;
-            }
-
-            header {
-                margin-bottom: 1rem;
-                padding-bottom: 0.5rem;
-            }
-
-            h1 {
-                font-size: 1.3rem;
-            }
-
-            .game-info {
-                padding: 0.75rem;
-            }
-
-            .clue-section {
-                padding: 1rem;
-            }
+            body { padding: 0.5rem; }
+            header { margin-bottom: 1rem; padding-bottom: 0.5rem; }
+            h1 { font-size: 1.3rem; }
+            .game-info { padding: 0.75rem; }
+            .clue-section { padding: 1rem; }
         }
 
-        /* iPad e tablets */
         @media (min-width: 481px) and (max-width: 768px) {
-            .cell {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-
-            .cell input {
-                font-size: 1rem;
-            }
-
-            .clues {
-                grid-template-columns: 1fr 1fr;
-            }
+            .cell { width: 36px; height: 36px; font-size: 1rem; }
+            .cell input { font-size: 1rem; }
         }
 
-        /* Tablets grandes e desktops pequenos */
         @media (min-width: 769px) {
-            .container {
-                max-width: 1200px;
-            }
-
-            .cell {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-            }
-
-            .cell input {
-                font-size: 1.1rem;
-            }
-
-            .clues {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .game-info {
-                flex-direction: row;
-                align-items: center;
-            }
-
-            .hints-container {
-                justify-content: flex-start;
-            }
-
-            .hints-used {
-                width: auto;
-            }
-
-            .progress-bar {
-                margin-left: 2rem;
-            }
+            .container { max-width: 1200px; }
+            .cell { width: 40px; height: 40px; font-size: 1.1rem; }
+            .cell input { font-size: 1.1rem; }
+            .clues { display: grid; grid-template-columns: 1fr 1fr; }
+            .game-info { flex-direction: row; align-items: center; }
+            .hints-container { justify-content: flex-start; }
+            .hints-used { width: auto; }
+            .progress-bar { margin-left: 2rem; }
         }
     </style>
 </head>
@@ -652,85 +579,75 @@
             1: {
                 name: "Nível 1 - Básico",
                 grid: [
-                    ['E', 'S', 'T', 'A', 'B', 'I', 'L', 'I', 'D', 'A', 'D', 'E', '#', '#', '#'],
-                    ['#', '#', '#', '#', '#', 'N', '#', '#', '#', '#', '#', 'F', '#', '#', '#'],
-                    ['#', '#', 'P', 'R', 'O', 'V', 'I', 'M', 'E', 'N', 'T', 'O', '#', '#', '#'],
-                    ['#', '#', '#', 'E', '#', 'E', '#', '#', '#', '#', '#', 'E', '#', '#', '#'],
-                    ['#', '#', '#', 'M', '#', 'S', '#', '#', '#', '#', '#', 'T', '#', '#', '#'],
-                    ['P', 'O', 'S', 'S', 'E', '#', '#', 'C', 'O', 'N', 'C', 'U', 'R', 'S', 'O'],
-                    ['#', '#', '#', 'A', '#', '#', '#', '#', '#', '#', '#', 'A', '#', '#', '#'],
-                    ['#', 'V', 'I', 'T', 'A', 'L', 'I', 'C', 'I', 'E', 'D', 'A', 'D', 'E', '#'],
-                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'O', '#', '#', '#'],
-                    ['#', '#', 'R', 'E', 'M', 'U', 'N', 'E', 'R', 'A', 'C', 'A', 'O', '#', '#'],
-                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['E', 'S', 'T', 'A', 'B', 'I', 'L', 'I', 'D', 'A', 'D', 'E'],
+                    ['#', '#', '#', '#', '#', 'N', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', 'P', 'R', 'O', 'V', 'I', 'M', 'E', 'N', 'T', 'O'],
+                    ['#', '#', '#', '#', '#', 'E', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', 'S', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', 'T', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', 'I', '#', '#', '#', '#', '#', '#'],
+                    ['P', 'O', 'S', 'S', 'E', 'D', '#', 'C', 'O', 'N', 'C', 'U', 'R', 'S', 'O'],
+                    ['#', '#', '#', '#', '#', 'U', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', '#', '#', 'R', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', 'R', 'E', 'M', 'U', 'N', 'E', 'R', 'A', 'C', 'A', 'O'],
+                    ['#', '#', '#', '#', '#', 'A', '#', '#', '#', '#', '#', '#']
                 ],
                 across: {
-                    1: "Garantia constitucional do servidor público (12 letras)",
+                    1: "Garantia constitucional do servidor (12 letras)",
                     3: "Ato de nomeação do servidor (10 letras)",
-                    6: "Ingresso no serviço público se dá por isso (8 letras)",
-                    8: "Período de 3 anos para avaliação do servidor (13 letras)",
-                    10: "Conjunto de vencimentos e vantagens do servidor (11 letras)"
+                    5: "Ato de dar posse ao servidor (5 letras)",
+                    6: "Ingresso no serviço público (8 letras)",
+                    10: "Vencimentos e vantagens do servidor (11 letras)"
                 },
                 down: {
-                    2: "Forma de admissão após concurso (11 letras)",
-                    4: "Indenização de transporte, alimentação etc (7 letras)",
-                    5: "Ato de dar posse ao servidor (5 letras)",
-                    7: "Título que o servidor adquire após estabilidade (9 letras)"
+                    2: "Forma de admissão após concurso (11 letras)"
                 },
                 hints: [
-                    "A primeira palavra horizontal está relacionada ao direito que o servidor adquire após 3 anos.",
-                    "A palavra vertical número 2 começa com a letra 'I' e tem 11 letras.",
+                    "ESTABILIDADE é o direito adquirido após 3 anos.",
+                    "INVESTIDURA é a forma de admissão após concurso.",
                     "CONCURSO é a porta de entrada para o serviço público."
                 ],
                 positions: {
                     1: {row: 0, col: 0, dir: 'across', answer: 'ESTABILIDADE'},
                     2: {row: 0, col: 5, dir: 'down', answer: 'INVESTIDURA'},
                     3: {row: 2, col: 2, dir: 'across', answer: 'PROVIMENTO'},
-                    4: {row: 2, col: 11, dir: 'down', answer: 'INDENIZACAO'},
-                    5: {row: 5, col: 0, dir: 'down', answer: 'POSSE'},
-                    6: {row: 5, col: 7, dir: 'across', answer: 'CONCURSO'},
-                    7: {row: 5, col: 11, dir: 'down', answer: 'EFETIVACAO'},
-                    8: {row: 7, col: 1, dir: 'across', answer: 'VITALICIEDADE'},
-                    10: {row: 9, col: 2, dir: 'across', answer: 'REMUNERACAO'}
+                    5: {row: 7, col: 0, dir: 'across', answer: 'POSSE'},
+                    6: {row: 7, col: 7, dir: 'across', answer: 'CONCURSO'},
+                    10: {row: 10, col: 2, dir: 'across', answer: 'REMUNERACAO'}
                 }
             },
             2: {
                 name: "Nível 2 - Intermediário",
                 grid: [
-                    ['A', 'P', 'O', 'S', 'E', 'N', 'T', 'A', 'D', 'O', 'R', 'I', 'A', '#', '#'],
-                    ['#', '#', '#', 'U', '#', '#', '#', '#', 'I', '#', '#', '#', 'V', '#', '#'],
-                    ['#', '#', 'P', 'E', 'N', 'S', 'A', 'O', '#', '#', '#', '#', 'A', '#', '#'],
-                    ['#', '#', '#', 'P', '#', '#', '#', '#', '#', '#', '#', '#', 'L', '#', '#'],
-                    ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', 'I', '#', '#'],
-                    ['#', '#', '#', 'N', '#', 'L', 'I', 'C', 'E', 'N', 'C', 'A', 'S', '#', '#'],
-                    ['#', '#', '#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                    ['F', 'E', 'R', 'I', 'A', 'S', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                    ['#', '#', '#', 'O', '#', '#', '#', '#', 'A', 'D', 'I', 'C', 'I', 'O', 'N', 'A', 'L'],
-                    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['A', 'P', 'O', 'S', 'E', 'N', 'T', 'A', 'D', 'O', 'R', 'I', 'A'],
+                    ['#', '#', '#', 'U', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', 'P', 'E', 'N', 'S', 'A', 'O', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'P', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'N', '#', 'L', 'I', 'C', 'E', 'N', 'C', 'A', 'S'],
+                    ['#', '#', '#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['F', 'E', 'R', 'I', 'A', 'S', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', '#', '#', 'O', '#', '#', '#', '#', 'A', 'D', 'I', 'C', 'I', 'O', 'N', 'A', 'L']
                 ],
                 across: {
-                    1: "Benefício concedido após anos de serviço (13 letras)",
-                    3: "Benefício pecuniário mensal ao aposentado (6 letras)",
+                    1: "Benefício após anos de serviço (13 letras)",
+                    3: "Benefício pecuniário ao aposentado (6 letras)",
                     6: "Afastamento temporário do serviço (8 letras)",
-                    8: "Período anual de descanso remunerado (6 letras)",
-                    9: "Gratificação por tempo de serviço (9 letras)"
+                    8: "Período anual de descanso (6 letras)",
+                    9: "Gratificação por tempo (9 letras)"
                 },
                 down: {
-                    2: "Penalidade por falta leve (10 letras)",
-                    4: "Percentual sobre vencimento (8 letras)",
-                    5: "Situação de quem está afastado do cargo (7 letras)"
+                    2: "Penalidade por falta (9 letras)"
                 },
                 hints: [
-                    "A primeira palavra refere-se ao direito do servidor após completar os requisitos de idade e tempo.",
-                    "LICENÇAS são afastamentos temporários por diversos motivos previstos na lei.",
-                    "A palavra vertical número 2 relaciona-se com punição disciplinar."
+                    "APOSENTADORIA é direito após idade e tempo.",
+                    "LICENÇAS são afastamentos temporários previstos.",
+                    "SUSPENSAO é penalidade disciplinar."
                 ],
                 positions: {
                     1: {row: 0, col: 0, dir: 'across', answer: 'APOSENTADORIA'},
                     2: {row: 0, col: 3, dir: 'down', answer: 'SUSPENSAO'},
                     3: {row: 2, col: 2, dir: 'across', answer: 'PENSAO'},
-                    4: {row: 0, col: 8, dir: 'down', answer: 'DIARIAS'},
-                    5: {row: 0, col: 12, dir: 'down', answer: 'AVALIACAO'},
                     6: {row: 5, col: 5, dir: 'across', answer: 'LICENCAS'},
                     8: {row: 7, col: 0, dir: 'across', answer: 'FERIAS'},
                     9: {row: 8, col: 8, dir: 'across', answer: 'ADICIONAL'}
@@ -739,8 +656,8 @@
             3: {
                 name: "Nível 3 - Avançado",
                 grid: [
-                    ['R', 'E', 'A', 'D', 'A', 'P', 'T', 'A', 'C', 'A', 'O', '#', '#', '#', '#'],
-                    ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['R', 'E', 'A', 'D', 'A', 'P', 'T', 'A', 'C', 'A', 'O'],
+                    ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#'],
                     ['#', '#', '#', 'S', '#', '#', 'D', 'E', 'S', 'T', 'I', 'T', 'U', 'I', 'C', 'A', 'O'],
                     ['#', '#', '#', 'T', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
                     ['#', '#', 'R', 'E', 'T', 'O', 'R', 'N', 'O', '#', '#', '#', '#', '#', '#', '#', '#'],
@@ -749,7 +666,7 @@
                     ['#', '#', '#', 'I', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
                     ['E', 'X', 'O', 'N', 'E', 'R', 'A', 'C', 'A', 'O', '#', '#', '#', '#', '#', '#', '#'],
                     ['#', '#', '#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-                    ['#', 'P', 'R', 'O', 'G', 'R', 'E', 'S', 'S', 'A', 'O', '#', '#', '#', '#', '#', '#'],
+                    ['#', 'P', 'R', 'O', 'G', 'R', 'E', 'S', 'S', 'A', 'O', '#', '#', '#', '#', '#', '#']
                 ],
                 across: {
                     1: "Transferência provisória de servidor (11 letras)",
@@ -764,7 +681,7 @@
                 },
                 hints: [
                     "READAPTAÇÃO envolve mudança de função por razões de saúde.",
-                    "A penalidade mais grave da lei é a DESTITUIÇÃO de cargo em comissão.",
+                    "A penalidade mais grave é a DESTITUIÇÃO.",
                     "REVERSÃO é o retorno do aposentado ao serviço ativo."
                 ],
                 positions: {
@@ -780,17 +697,17 @@
             4: {
                 name: "Nível 4 - Especialista",
                 grid: [
-                    ['S', 'I', 'N', 'D', 'I', 'C', 'A', 'N', 'C', 'I', 'A', '#', '#', '#', '#'],
-                    ['#', 'N', '#', '#', '#', '#', '#', '#', '#', '#', 'C', '#', '#', '#', '#'],
+                    ['S', 'I', 'N', 'D', 'I', 'C', 'A', 'N', 'C', 'I', 'A'],
+                    ['#', 'N', '#', '#', '#', '#', '#', '#', '#', '#', 'C'],
                     ['#', 'V', '#', 'R', 'E', 'I', 'N', 'T', 'E', 'G', 'R', 'A', 'C', 'A', 'O'],
-                    ['#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', 'U', '#', '#', '#', '#'],
-                    ['#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', 'M', '#', '#', '#', '#'],
+                    ['#', 'E', '#', '#', '#', '#', '#', '#', '#', '#', 'U'],
+                    ['#', 'S', '#', '#', '#', '#', '#', '#', '#', '#', 'M'],
                     ['#', 'T', '#', '#', '#', 'Q', 'U', 'I', 'N', 'Q', 'U', 'E', 'N', 'I', 'O'],
-                    ['#', 'I', '#', '#', '#', '#', '#', '#', '#', '#', 'L', '#', '#', '#', '#'],
-                    ['P', 'A', 'U', 'S', 'A', '#', '#', '#', '#', '#', 'A', '#', '#', '#', '#'],
-                    ['#', 'U', '#', '#', '#', '#', '#', '#', '#', '#', 'D', '#', '#', '#', '#'],
-                    ['#', 'R', '#', '#', 'P', 'R', 'O', 'M', 'O', 'C', 'A', 'O', '#', '#', '#'],
-                    ['#', 'A', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+                    ['#', 'I', '#', '#', '#', '#', '#', '#', '#', '#', 'L'],
+                    ['P', 'A', 'U', 'S', 'A', '#', '#', '#', '#', '#', 'A'],
+                    ['#', 'U', '#', '#', '#', '#', '#', '#', '#', '#', 'D'],
+                    ['#', 'R', '#', '#', 'P', 'R', 'O', 'M', 'O', 'C', 'A', 'O'],
+                    ['#', 'A', '#', '#', '#', '#', '#', '#', '#', '#', '#']
                 ],
                 across: {
                     1: "Processo administrativo contra servidor (11 letras)",
@@ -804,9 +721,9 @@
                     4: "Acúmulo de cargos (11 letras)"
                 },
                 hints: [
-                    "SINDICÂNCIA é um processo preliminar de investigação.",
+                    "SINDICÂNCIA é processo preliminar de investigação.",
                     "REINTEGRAÇÃO restaura todos os direitos do servidor.",
-                    "QUINQUÊNIO é concedido a cada cinco anos de efetivo exercício."
+                    "QUINQUÊNIO é concedido a cada cinco anos."
                 ],
                 positions: {
                     1: {row: 0, col: 0, dir: 'across', answer: 'SINDICANCIA'},
@@ -831,7 +748,7 @@
                     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'B', '#', '#', '#', '#'],
                     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'I', '#', '#', '#', '#'],
                     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', 'D', '#', '#', '#', '#'],
-                    ['#', '#', '#', '#', '#', 'P', 'R', 'E', 'S', 'C', 'R', 'I', 'C', 'A', 'O', '#'],
+                    ['#', '#', '#', '#', '#', 'P', 'R', 'E', 'S', 'C', 'R', 'I', 'C', 'A', 'O', '#']
                 ],
                 across: {
                     1: "Dever funcional do servidor público (16 letras)",
@@ -843,9 +760,9 @@
                     2: "Contrapartida à responsabilidade (11 letras)"
                 },
                 hints: [
-                    "RESPONSABILIDADE é princípio fundamental do servidor público.",
-                    "INCOMPATIBILIDADE impede o servidor de acumular determinados cargos.",
-                    "A palavra vertical de 11 letras termina com 'DADE' e está relacionada ao conceito de correção."
+                    "RESPONSABILIDADE é princípio fundamental do servidor.",
+                    "INCOMPATIBILIDADE impede acumular certos cargos.",
+                    "IMPROBIDADE é a contrapartida negativa à responsabilidade."
                 ],
                 positions: {
                     1: {row: 0, col: 0, dir: 'across', answer: 'RESPONSABILIDADE'},
@@ -861,6 +778,8 @@
         let hintsUsed = 0;
         let solvedWords = new Set();
         let revealedLetters = {};
+        let selectedWordNum = null;
+        let selectedDir = null;
 
         function initGame() {
             createLevelButtons();
@@ -869,7 +788,7 @@
 
         function createLevelButtons() {
             const selector = document.getElementById('levelSelector');
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= Object.keys(levels).length; i++) {
                 const btn = document.createElement('button');
                 btn.className = 'level-btn' + (i === 1 ? ' active' : '');
                 btn.textContent = `Nível ${i}`;
@@ -883,6 +802,8 @@
             hintsUsed = 0;
             solvedWords = new Set();
             revealedLetters = {};
+            selectedWordNum = null;
+            selectedDir = null;
             
             document.querySelectorAll('.level-btn').forEach((btn, idx) => {
                 btn.classList.toggle('active', idx + 1 === level);
@@ -904,7 +825,6 @@
             const grid = document.createElement('div');
             grid.className = 'crossword-grid';
             
-            // Calcula tamanho da célula baseado na largura da tela
             const screenWidth = window.innerWidth;
             let cellSize = 32;
             if (screenWidth < 480) cellSize = 28;
@@ -917,6 +837,8 @@
                 row.forEach((cell, j) => {
                     const cellDiv = document.createElement('div');
                     cellDiv.className = 'cell';
+                    cellDiv.dataset.row = i;
+                    cellDiv.dataset.col = j;
                     
                     if (cell === '#') {
                         cellDiv.classList.add('black');
@@ -932,8 +854,11 @@
                         input.dataset.col = j;
                         input.dataset.answer = cell;
                         input.addEventListener('input', handleInput);
+                        input.addEventListener('keydown', handleKeyDown);
+                        input.addEventListener('focus', handleFocus);
                         cellDiv.appendChild(input);
                         
+                        // Adicionar número se for início de palavra
                         for (let [num, pos] of Object.entries(level.positions)) {
                             if (pos.row === i && pos.col === j) {
                                 const numSpan = document.createElement('span');
@@ -943,6 +868,12 @@
                                 break;
                             }
                         }
+                        
+                        // Adicionar evento de clique na célula
+                        cellDiv.addEventListener('click', () => {
+                            input.focus();
+                            selectWordAtCell(i, j);
+                        });
                     }
                     
                     grid.appendChild(cellDiv);
@@ -953,28 +884,70 @@
             container.appendChild(grid);
         }
 
-        function renderClues() {
+        function handleFocus(e) {
+            const input = e.target;
+            const row = parseInt(input.dataset.row);
+            const col = parseInt(input.dataset.col);
+            selectWordAtCell(row, col);
+        }
+
+        function selectWordAtCell(row, col) {
             const level = levels[currentLevel];
-            const acrossDiv = document.getElementById('acrossClues');
-            const downDiv = document.getElementById('downClues');
             
-            acrossDiv.innerHTML = '';
-            downDiv.innerHTML = '';
-            
-            for (let [num, clue] of Object.entries(level.across)) {
-                const clueDiv = document.createElement('div');
-                clueDiv.className = 'clue';
-                clueDiv.innerHTML = `<span class="clue-number">${num}.</span>${clue}`;
-                clueDiv.dataset.num = num;
-                acrossDiv.appendChild(clueDiv);
+            // Encontrar palavra na posição clicada
+            for (let [num, pos] of Object.entries(level.positions)) {
+                if (solvedWords.has(num)) continue;
+                
+                const isInWord = pos.dir === 'across' 
+                    ? (row === pos.row && col >= pos.col && col < pos.col + pos.answer.length)
+                    : (col === pos.col && row >= pos.row && row < pos.row + pos.answer.length);
+                
+                if (isInWord) {
+                    // Se já estava selecionada, troca direção (se houver palavra cruzada)
+                    if (selectedWordNum === num) {
+                        // Procura palavra na outra direção
+                        const otherDir = pos.dir === 'across' ? 'down' : 'across';
+                        for (let [otherNum, otherPos] of Object.entries(level.positions)) {
+                            if (solvedWords.has(otherNum)) continue;
+                            if (otherPos.dir === otherDir) {
+                                const isInOther = otherDir === 'across'
+                                    ? (row === otherPos.row && col >= otherPos.col && col < otherPos.col + otherPos.answer.length)
+                                    : (col === otherPos.col && row >= otherPos.row && row < otherPos.row + otherPos.answer.length);
+                                if (isInOther) {
+                                    highlightWord(otherNum, otherPos);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    
+                    highlightWord(num, pos);
+                    return;
+                }
             }
+        }
+
+        function highlightWord(num, pos) {
+            selectedWordNum = num;
+            selectedDir = pos.dir;
             
-            for (let [num, clue] of Object.entries(level.down)) {
-                const clueDiv = document.createElement('div');
-                clueDiv.className = 'clue';
-                clueDiv.innerHTML = `<span class="clue-number">${num}.</span>${clue}`;
-                clueDiv.dataset.num = num;
-                downDiv.appendChild(clueDiv);
+            // Remove destaques anteriores
+            document.querySelectorAll('.cell').forEach(c => {
+                c.classList.remove('selected', 'highlighted');
+            });
+            
+            // Destaca palavra selecionada
+            const cells = document.querySelectorAll('.cell');
+            for (let i = 0; i < pos.answer.length; i++) {
+                const targetRow = pos.dir === 'across' ? pos.row : pos.row + i;
+                const targetCol = pos.dir === 'across' ? pos.col + i : pos.col;
+                
+                cells.forEach(cell => {
+                    if (parseInt(cell.dataset.row) === targetRow && 
+                        parseInt(cell.dataset.col) === targetCol) {
+                        cell.classList.add('highlighted');
+                    }
+                });
             }
         }
 
@@ -982,18 +955,64 @@
             const input = e.target;
             let value = input.value.toUpperCase();
             
-            // Se digitou mais de um caractere, pega apenas o último
             if (value.length > 1) {
                 value = value.charAt(value.length - 1);
             }
             
             input.value = value;
             
-            // Só verifica a palavra após um pequeno delay
             if (value) {
-                setTimeout(() => {
-                    checkWord(input);
-                }, 100);
+                setTimeout(() => checkWord(input), 50);
+                
+                // Navega automaticamente para próxima célula da palavra
+                if (selectedWordNum && selectedDir) {
+                    const row = parseInt(input.dataset.row);
+                    const col = parseInt(input.dataset.col);
+                    const pos = levels[currentLevel].positions[selectedWordNum];
+                    
+                    const nextRow = selectedDir === 'across' ? row : row + 1;
+                    const nextCol = selectedDir === 'across' ? col + 1 : col;
+                    
+                    // Verifica se ainda está dentro da palavra
+                    const inWord = selectedDir === 'across'
+                        ? (nextRow === pos.row && nextCol >= pos.col && nextCol < pos.col + pos.answer.length)
+                        : (nextCol === pos.col && nextRow >= pos.row && nextRow < pos.row + pos.answer.length);
+                    
+                    if (inWord) {
+                        const nextInput = document.querySelector(`input[data-row="${nextRow}"][data-col="${nextCol}"]`);
+                        if (nextInput && !nextInput.disabled) {
+                            setTimeout(() => nextInput.focus(), 10);
+                        }
+                    }
+                }
+            }
+        }
+
+        function handleKeyDown(e) {
+            const input = e.target;
+            const row = parseInt(input.dataset.row);
+            const col = parseInt(input.dataset.col);
+            
+            if (e.key === 'Backspace' && !input.value) {
+                e.preventDefault();
+                
+                if (selectedWordNum && selectedDir) {
+                    const pos = levels[currentLevel].positions[selectedWordNum];
+                    const prevRow = selectedDir === 'across' ? row : row - 1;
+                    const prevCol = selectedDir === 'across' ? col - 1 : col;
+                    
+                    const inWord = selectedDir === 'across'
+                        ? (prevRow === pos.row && prevCol >= pos.col && prevCol < pos.col + pos.answer.length)
+                        : (prevCol === pos.col && prevRow >= pos.row && prevRow < pos.row + pos.answer.length);
+                    
+                    if (inWord) {
+                        const prevInput = document.querySelector(`input[data-row="${prevRow}"][data-col="${prevCol}"]`);
+                        if (prevInput && !prevInput.disabled) {
+                            prevInput.value = '';
+                            setTimeout(() => prevInput.focus(), 10);
+                        }
+                    }
+                }
             }
         }
 
@@ -1003,31 +1022,15 @@
             const col = parseInt(input.dataset.col);
             
             for (let [num, pos] of Object.entries(level.positions)) {
-                if (pos.row === row && pos.col === col) {
-                    const word = getWordFromPosition(pos);
-                    if (word === pos.answer && !solvedWords.has(num)) {
-                        markWordCorrect(pos, num);
-                        solvedWords.add(num);
-                        updateProgress();
-                        checkLevelComplete();
-                    }
-                    return;
-                }
+                if (solvedWords.has(num)) continue;
                 
-                if (pos.dir === 'across' && row === pos.row && col >= pos.col && col < pos.col + pos.answer.length) {
-                    const word = getWordFromPosition(pos);
-                    if (word === pos.answer && !solvedWords.has(num)) {
-                        markWordCorrect(pos, num);
-                        solvedWords.add(num);
-                        updateProgress();
-                        checkLevelComplete();
-                    }
-                    return;
-                }
+                const isInWord = pos.dir === 'across' 
+                    ? (row === pos.row && col >= pos.col && col < pos.col + pos.answer.length)
+                    : (col === pos.col && row >= pos.row && row < pos.row + pos.answer.length);
                 
-                if (pos.dir === 'down' && col === pos.col && row >= pos.row && row < pos.row + pos.answer.length) {
+                if (isInWord) {
                     const word = getWordFromPosition(pos);
-                    if (word === pos.answer && !solvedWords.has(num)) {
+                    if (word === pos.answer) {
                         markWordCorrect(pos, num);
                         solvedWords.add(num);
                         updateProgress();
@@ -1073,6 +1076,7 @@
                         parseInt(inp.dataset.col) === pos.col + i
                     );
                     if (input) {
+                        input.parentElement.classList.remove('selected', 'highlighted');
                         input.parentElement.classList.add('correct');
                         input.disabled = true;
                     }
@@ -1084,18 +1088,24 @@
                         parseInt(inp.dataset.col) === pos.col
                     );
                     if (input) {
+                        input.parentElement.classList.remove('selected', 'highlighted');
                         input.parentElement.classList.add('correct');
                         input.disabled = true;
                     }
                 }
             }
             
+            // Marca dica como resolvida
             const clues = document.querySelectorAll('.clue');
             clues.forEach(clue => {
                 if (clue.dataset.num === num) {
                     clue.classList.add('solved');
                 }
             });
+            
+            // Limpa seleção
+            selectedWordNum = null;
+            selectedDir = null;
         }
 
         function updateProgress() {
@@ -1113,6 +1123,50 @@
                 setTimeout(() => {
                     document.getElementById('completionMessage').classList.add('show');
                 }, 500);
+            }
+        }
+
+        function renderClues() {
+            const level = levels[currentLevel];
+            const acrossDiv = document.getElementById('acrossClues');
+            const downDiv = document.getElementById('downClues');
+            
+            acrossDiv.innerHTML = '';
+            downDiv.innerHTML = '';
+            
+            for (let [num, clue] of Object.entries(level.across)) {
+                const clueDiv = document.createElement('div');
+                clueDiv.className = 'clue';
+                clueDiv.innerHTML = `<span class="clue-number">${num}.</span>${clue}`;
+                clueDiv.dataset.num = num;
+                clueDiv.onclick = () => selectWordByNumber(num);
+                acrossDiv.appendChild(clueDiv);
+            }
+            
+            for (let [num, clue] of Object.entries(level.down)) {
+                const clueDiv = document.createElement('div');
+                clueDiv.className = 'clue';
+                clueDiv.innerHTML = `<span class="clue-number">${num}.</span>${clue}`;
+                clueDiv.dataset.num = num;
+                clueDiv.onclick = () => selectWordByNumber(num);
+                downDiv.appendChild(clueDiv);
+            }
+        }
+
+        function selectWordByNumber(num) {
+            const level = levels[currentLevel];
+            const pos = level.positions[num];
+            
+            if (pos && !solvedWords.has(num)) {
+                highlightWord(num, pos);
+                
+                // Foca no primeiro input da palavra
+                const firstInput = document.querySelector(
+                    `input[data-row="${pos.row}"][data-col="${pos.col}"]`
+                );
+                if (firstInput && !firstInput.disabled) {
+                    firstInput.focus();
+                }
             }
         }
 
@@ -1182,9 +1236,7 @@
                 revealedLetters[wordNum] = 0;
             }
             
-            if (revealedLetters[wordNum] >= 2) {
-                return;
-            }
+            if (revealedLetters[wordNum] >= 2) return;
             
             const inputs = document.querySelectorAll('input:not([disabled])');
             const wordCells = [];

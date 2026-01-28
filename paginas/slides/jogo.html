@@ -267,7 +267,13 @@
             text-transform: uppercase;
             color: var(--text);
             outline: none;
-            touch-action: manipulation;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .cell input:focus {
+            background: rgba(144, 169, 85, 0.1);
         }
 
         .cell.correct {
@@ -917,13 +923,15 @@
                     } else {
                         const input = document.createElement('input');
                         input.type = 'text';
-                        input.inputMode = 'text';
+                        input.setAttribute('autocomplete', 'off');
+                        input.setAttribute('autocorrect', 'off');
+                        input.setAttribute('autocapitalize', 'characters');
+                        input.setAttribute('spellcheck', 'false');
                         input.maxLength = 1;
                         input.dataset.row = i;
                         input.dataset.col = j;
                         input.dataset.answer = cell;
                         input.addEventListener('input', handleInput);
-                        input.addEventListener('keydown', handleKeyDown);
                         cellDiv.appendChild(input);
                         
                         for (let [num, pos] of Object.entries(level.positions)) {
@@ -972,43 +980,20 @@
 
         function handleInput(e) {
             const input = e.target;
-            const value = input.value.toUpperCase();
+            let value = input.value.toUpperCase();
+            
+            // Se digitou mais de um caractere, pega apenas o último
+            if (value.length > 1) {
+                value = value.charAt(value.length - 1);
+            }
+            
             input.value = value;
             
+            // Só verifica a palavra após um pequeno delay
             if (value) {
-                checkWord(input);
-            }
-        }
-
-        function handleKeyDown(e) {
-            const input = e.target;
-            const row = parseInt(input.dataset.row);
-            const col = parseInt(input.dataset.col);
-            
-            // Navegação com setas (opcional, para teclados físicos)
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'Tab') {
-                e.preventDefault();
-                const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
-                const currentIndex = inputs.indexOf(input);
-                if (currentIndex < inputs.length - 1) {
-                    inputs[currentIndex + 1].focus();
-                }
-            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                e.preventDefault();
-                const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
-                const currentIndex = inputs.indexOf(input);
-                if (currentIndex > 0) {
-                    inputs[currentIndex - 1].focus();
-                }
-            } else if (e.key === 'Backspace' && !input.value) {
-                // Se backspace em campo vazio, volta para o anterior
-                e.preventDefault();
-                const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
-                const currentIndex = inputs.indexOf(input);
-                if (currentIndex > 0) {
-                    inputs[currentIndex - 1].focus();
-                    inputs[currentIndex - 1].value = '';
-                }
+                setTimeout(() => {
+                    checkWord(input);
+                }, 100);
             }
         }
 
@@ -1243,15 +1228,6 @@
             
             setTimeout(() => checkWord(randomCell.input), 100);
         }
-
-        // Ajustar tamanho do grid ao redimensionar
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                renderCrossword();
-            }, 250);
-        });
 
         initGame();
     </script>

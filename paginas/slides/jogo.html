@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Palavras Cruzadas - Lei 8.112/1990</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -32,7 +32,6 @@
             padding: 1rem;
             position: relative;
             overflow-x: hidden;
-            touch-action: pan-y;
         }
 
         body::before {
@@ -917,14 +916,14 @@
                         cellDiv.classList.add('black');
                     } else {
                         const input = document.createElement('input');
+                        input.type = 'text';
+                        input.inputMode = 'text';
                         input.maxLength = 1;
                         input.dataset.row = i;
                         input.dataset.col = j;
                         input.dataset.answer = cell;
                         input.addEventListener('input', handleInput);
-                        input.addEventListener('focus', function() {
-                            this.select();
-                        });
+                        input.addEventListener('keydown', handleKeyDown);
                         cellDiv.appendChild(input);
                         
                         for (let [num, pos] of Object.entries(level.positions)) {
@@ -978,24 +977,38 @@
             
             if (value) {
                 checkWord(input);
-                // Auto-navegar para próxima célula
-                moveToNextCell(input);
             }
         }
 
-        function moveToNextCell(currentInput) {
-            const row = parseInt(currentInput.dataset.row);
-            const col = parseInt(currentInput.dataset.col);
-            const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
+        function handleKeyDown(e) {
+            const input = e.target;
+            const row = parseInt(input.dataset.row);
+            const col = parseInt(input.dataset.col);
             
-            // Tenta encontrar a próxima célula na direção horizontal
-            const nextInput = inputs.find(inp => 
-                parseInt(inp.dataset.row) === row && 
-                parseInt(inp.dataset.col) === col + 1
-            );
-            
-            if (nextInput) {
-                nextInput.focus();
+            // Navegação com setas (opcional, para teclados físicos)
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'Tab') {
+                e.preventDefault();
+                const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
+                const currentIndex = inputs.indexOf(input);
+                if (currentIndex < inputs.length - 1) {
+                    inputs[currentIndex + 1].focus();
+                }
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
+                const currentIndex = inputs.indexOf(input);
+                if (currentIndex > 0) {
+                    inputs[currentIndex - 1].focus();
+                }
+            } else if (e.key === 'Backspace' && !input.value) {
+                // Se backspace em campo vazio, volta para o anterior
+                e.preventDefault();
+                const inputs = Array.from(document.querySelectorAll('input:not([disabled])'));
+                const currentIndex = inputs.indexOf(input);
+                if (currentIndex > 0) {
+                    inputs[currentIndex - 1].focus();
+                    inputs[currentIndex - 1].value = '';
+                }
             }
         }
 
@@ -1239,16 +1252,6 @@
                 renderCrossword();
             }, 250);
         });
-
-        // Prevenir zoom em duplo toque
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
 
         initGame();
     </script>

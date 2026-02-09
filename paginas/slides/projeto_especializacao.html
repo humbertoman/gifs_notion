@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Curso - Especialização TILS</title>
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #334155;
+            --accent: #2563eb;
+            --accent-subtle: #e0e7ff;
+            --bg-body: #525659;
+            --bg-paper: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            font-size: 10.5pt; 
+        }
+
+        /* --- UTILITÁRIOS --- */
+        .icon {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .text-justify { text-align: justify; }
+        .mt-20 { margin-top: 20px; }
+        
+        /* --- ESTRUTURA DE PÁGINA (A4) --- */
+        .page {
+            width: 210mm;
+            min-height: 297mm; 
+            padding: 20mm;
+            margin: 20px auto;
+            background: var(--bg-paper);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            page-break-after: always; 
+        }
+
+        /* --- CAPA --- */
+        .cover-page {
+            background: var(--primary);
+            color: white;
+            padding: 0;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 297mm;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cover-header {
+            padding: 25mm 20mm 0 20mm;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-decor {
+            position: absolute;
+            top: 0; right: 0;
+            width: 70%;
+            height: 100%;
+            background: radial-gradient(circle at top right, #1e293b 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .logo-area {
+            margin-bottom: 60px;
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-meta {
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        h1.main-title {
+            font-size: 3rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: #cbd5e1;
+            max-width: 90%;
+            border-top: 1px solid #334155;
+            padding-top: 25px;
+        }
+
+        .cover-footer {
+            background: #020617;
+            padding: 20mm;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            border-top: 1px solid #1e293b;
+            z-index: 2;
+        }
+
+        .cover-footer strong {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- CABEÇALHO INTERNO --- */
+        .page-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .page-header strong {
+            color: var(--primary);
+        }
+
+        /* --- TÍTULOS DE SEÇÃO --- */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin: 25px 0 15px 0;
+            break-inside: avoid;
+        }
+
+        .section-badge {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- CONTEÚDO --- */
+        p { margin-bottom: 12px; text-align: justify; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .info-card h3 {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card p {
+            font-size: 0.85rem;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .highlight-box {
+            background: var(--accent-subtle);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            border-radius: 0 6px 6px 0;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        /* --- TABELAS --- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin: 15px 0;
+        }
+
+        .data-table th {
+            background: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 8px 12px;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table tr:nth-child(even) { background: #f8fafc; }
+
+        .syllabus-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .syllabus-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .bibliography {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            padding-left: 15px;
+            border-left: 2px solid #e2e8f0;
+        }
+
+        .team-card {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+
+        .team-name {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .team-bio {
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .lattes-link {
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: monospace;
+        }
+
+        /* --- ASSINATURAS --- */
+        .signature-section {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40mm;
+            padding-top: 30px;
+        }
+
+        .signature-box {
+            border-top: 1px solid var(--primary);
+            text-align: center;
+            padding-top: 8px;
+            font-size: 0.8rem;
+        }
+
+        /* --- IMPRESSÃO --- */
+        @media print {
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; }
+            .no-print { display: none; }
+            .cover-page { height: 297mm !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botão Flutuante -->
+    <div class="no-print" style="position: fixed; bottom: 30px; right: 30px; z-index: 999;">
+        <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 10px;">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+            GERAR PDF / IMPRIMIR
+        </button>
+    </div>
+
+    <!-- PÁGINA 1: CAPA -->
+    <div class="page cover-page">
+        <div class="cover-decor"></div>
+        <div class="cover-header">
+            <div class="logo-area">
+                <div class="logo-text">ANEXO I</div>
+                <div style="font-size: 0.9rem; opacity: 0.8;">Fundação Joaquim Nabuco • Fundaj</div>
+            </div>
+            <div class="doc-meta">Proposta de Curso de Pós-Graduação Lato Sensu</div>
+            <h1 class="main-title">ESPECIALIZAÇÃO EM<br>TRADUÇÃO E INTERPRETAÇÃO<br>DE LIBRAS</h1>
+            <div class="subtitle">Formação técnica, teórica e ética para a promoção da inclusão nas políticas sociais.</div>
+        </div>
+        <div class="cover-footer">
+            <div>
+                <strong>Coordenador</strong>
+                Thiago Bruno de Souza Santos
+            </div>
+            <div>
+                <strong>Carga Horária</strong>
+                360 Horas (24 Créditos)
+            </div>
+            <div>
+                <strong>Local/Data</strong>
+                Maceió, 2026
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: IDENTIFICAÇÃO E JUSTIFICATIVA -->
+    <div class="page">
+        <div class="page-header">
+            <strong>CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS</strong>
+            <span>Página 02</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">A</span>
+            <h2 class="section-title">Identificação do Proponente</h2>
+        </div>
+        <p><strong>Thiago Bruno de Souza Santos</strong> (Coordenador Pedagógico)</p>
+
+        <div class="section-header">
+            <span class="section-badge">B</span>
+            <h2 class="section-title">Título do Curso</h2>
+        </div>
+        <p>Especialização em Tradução e Interpretação de Libras</p>
+
+        <div class="section-header">
+            <span class="section-badge">C-E</span>
+            <h2 class="section-title">Informações Gerais</h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><svg class="icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Modalidade</h3>
+                <p>Educação a Distância (Remota), com atividades síncronas via videoconferência e assíncronas via AVA da Fundaj.</p>
+            </div>
+            <div class="info-card">
+                <h3><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Carga Horária</h3>
+                <p>360 horas (24 créditos).</p>
+            </div>
+        </div>
+
+        <div class="info-card" style="width: 100%;">
+            <h3><svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Público-Alvo</h3>
+            <p>Pessoas portadoras de diploma de graduação em qualquer área do conhecimento, reconhecido pelo MEC, que apresentem fluência mínima em Libras comprovada em processo seletivo (nível suficiente para acompanhar aulas ministradas diretamente em Libras, sem intermediação de intérpretes).</p>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">F</span>
+            <h2 class="section-title">Contextualização e Justificativa</h2>
+        </div>
+        <p class="text-justify">
+            A proposta fundamenta-se na persistente lacuna de formação gratuita em nível de pós-graduação no estado de Alagoas e em toda a região Nordeste, o que compromete a eficácia das políticas de inclusão. A carência de profissionais qualificados é evidenciada pela recorrência de vagas ociosas em processos seletivos de instituições federais de ensino, como a UFAL, onde a ausência de formação específica impede o preenchimento de postos de trabalho fundamentais.
+        </p>
+        <p class="text-justify">
+            O curso contribui diretamente para a missão da Fundaj de fortalecer a capacidade de execução do estado e promover a profissionalização para políticas públicas. Ao focar em ações afirmativas e inclusão, a especialização visa:
+        </p>
+        <ul style="margin-left: 20px; font-size: 0.9rem;">
+            <li><strong>Atendimento ao setor público:</strong> Qualificar agentes públicos e profissionais para suprir a demanda crescente por TILS preparados para cenários complexos.</li>
+            <li><strong>Validação de competências:</strong> Certificar e atualizar tradutores que já atuam no mercado, mas que carecem de titulação acadêmica de pós-graduação para progressão.</li>
+            <li><strong>Qualificação da equipe:</strong> Projeto sustentado por corpo docente composto majoritariamente por doutores e profissionais surdos, garantindo excelência e representatividade.</li>
+        </ul>
+    </div>
+
+    <!-- PÁGINA 3: OBJETIVOS E INÍCIO DA EMENTA -->
+    <div class="page">
+        <div class="page-header">
+            <strong>CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS</strong>
+            <span>Página 03</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">G</span>
+            <h2 class="section-title">Objetivos</h2>
+        </div>
+        <div class="highlight-box">
+            <strong>Geral:</strong> Formar tradutores e intérpretes de Libras com elevada competência técnica, teórica e ética, capacitados para atuar de forma atualizada no setor público e nas diversas esferas sociais.
+        </div>
+        <p><strong>Específicos:</strong></p>
+        <ul style="margin-left: 20px; font-size: 0.9rem; margin-bottom: 20px;">
+            <li>Analisar criticamente as políticas linguísticas bilíngues para surdos;</li>
+            <li>Dominar ferramentas tecnológicas contemporâneas e Inteligência Artificial aplicadas à tradução;</li>
+            <li>Aplicar princípios linguísticos na prática tradutória em ambas as direções (Libras/Português);</li>
+            <li>Desenvolver competências para atuação em educação superior, básica e eventos científicos.</li>
+        </ul>
+
+        <div class="section-header">
+            <span class="section-badge">H</span>
+            <h2 class="section-title">Ementário de Disciplinas e Bibliografia</h2>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>1. Tecnologia</span>
+                <span>30h — 2 Créditos</span>
+            </div>
+            <p><strong>Ementa:</strong> Estudo e aplicação de recursos tecnológicos voltados à atuação do Tradutor e Intérprete de Libras (TILS). Gestão e configuração de estúdio doméstico. Técnicas de gravação, edição e padrões de formatação de vídeos para fins educacionais e profissionais. Ambientação e uso das ferramentas do Ambiente Virtual de Aprendizagem (AVA) oficial.</p>
+            <div class="bibliography">
+                QUADROS & WEININGER (2019); VANZIN & QUEVEDO (2015); VOITTO (2023).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>2. Fundamentos da TILS</span>
+                <span>15h — 1 Crédito</span>
+            </div>
+            <p><strong>Ementa:</strong> Análise histórica e teórica do campo da Tradução e Interpretação de Libras. Estudo das competências tradutórias e dos principais conceitos teóricos aplicados à interpretação em línguas de sinais. Evolução dos campos disciplinares e suas construções teóricas contemporâneas.</p>
+            <div class="bibliography">
+                ALBRES (2009); FEBRAPILS (2022); FELIPE & MONTEIRO (2013); QUADROS (1997); QUADROS & WEININGER (2019).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>3. Política Linguística Bilíngue para Surdos</span>
+                <span>30h — 2 Créditos</span>
+            </div>
+            <p><strong>Ementa:</strong> Discussão das políticas linguísticas voltadas à comunidade surda no Brasil. Análise da legislação vigente, marcos regulatórios da educação bilíngue e direitos linguísticos. Reflexão crítica sobre a deontologia profissional, questões éticas e o papel político do tradutor/intérprete.</p>
+            <div class="bibliography">
+                BRASIL (Leis 10.436/02, 13.146/15, 14.191/21; Dec 5.626/05); FEBRAPILS (2022); FENEIS (2016).
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: CONTINUAÇÃO EMENTA -->
+    <div class="page">
+        <div class="page-header">
+            <strong>CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS</strong>
+            <span>Página 04</span>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>4. Linguística e Línguas (Libras e Português)</span>
+                <span>45h — 3 Créditos</span>
+            </div>
+            <p><strong>Ementa:</strong> Estudo comparativo entre a Língua Portuguesa e a Libras sob a perspectiva linguística. Análise dos efeitos de modalidade (espacial-visual vs. oral-auditiva) no processo tradutório. Fenômenos de neologia, terminologia, estrutura textual e análise do discurso aplicadas à TILS.</p>
+            <div class="bibliography">
+                FELIPE & MONTEIRO (2013); LAKOFF & JOHNSON (2002); QUADROS (2019); RODRIGUES (2008).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>5. Laboratório Prático Português > Libras</span>
+                <span>45h — 3 Créditos</span>
+            </div>
+            <p><strong>Ementa:</strong> Desenvolvimento de habilidades práticas de interpretação e tradução na direção da língua fonte (Português) para a língua alvo (Libras). Exercícios laboratoriais com ênfase na aplicação de estratégias técnicas, escolhas tradutórias e reflexão teórica aplicada à prática.</p>
+            <div class="bibliography">
+                FEBRAPILS (2022); GILE (2009); QUADROS (1997).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>6. Laboratório Prático Libras > Português</span>
+                <span>45h — 3 Créditos</span>
+            </div>
+            <p><strong>Ementa:</strong> Desenvolvimento de habilidades práticas de interpretação e tradução na direção da Libras para o Português (Voz). Exercícios laboratoriais focados na fluência, registro, entonação e fidelidade de sentido. Articulação entre fundamentos teóricos e performance técnica.</p>
+            <div class="bibliography">
+                GILE (2009); MACHADO (2010).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>7. Esferas de Atuação e Especialidades</span>
+                <span>45h — 3 Créditos</span>
+            </div>
+            <p><strong>Ementa:</strong> Exploração dos diversos campos de atuação do TILS: especificidades da interpretação na Educação Básica, no Ensino Superior e em eventos técnico-científicos. Atuação em contextos comunitários e institucionais.</p>
+            <div class="bibliography">
+                ALVES (2023); BRASIL (2021); SANTOS (2024).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>8. Especialidades em Surdocegueira e Comunicação Tátil</span>
+                <span>15h — 1 Crédito</span>
+            </div>
+            <p><strong>Ementa:</strong> Introdução à tradução e interpretação para pessoas surdocegas. Estudo das formas de comunicação tátil, sistemas de apoio e mediação comunicativa. Orientações práticas sobre o posicionamento e o papel do guia-intérprete.</p>
+            <div class="bibliography">
+                ALMEIDA (2017); SANTOS & MACHADO (2017); SPENCE (2021).
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: FINAL EMENTA E CONTEÚDO PROGRAMÁTICO -->
+    <div class="page">
+        <div class="page-header">
+            <strong>CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS</strong>
+            <span>Página 05</span>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>9. Gestão, Carreira e Mercado</span>
+                <span>15h — 1 Crédito</span>
+            </div>
+            <p><strong>Ementa:</strong> Análise do mercado de trabalho contemporâneo. Gestão de carreira, marketing pessoal e empregabilidade. Aspectos administrativos e jurídicos: precificação, contratos, ética e associativismo.</p>
+            <div class="bibliography">
+                ACATILS (2025); BRASIL (2025); FEBRAPILS (2022).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>10. Literatura Surda: Narrativas, Poesia e Corporalidade</span>
+                <span>15h — 1 Crédito</span>
+            </div>
+            <p><strong>Ementa:</strong> Estudo da produção literária em Libras. Técnicas narrativas e literárias no processo tradutório. Especificidades da tradução poética, de performance (Slam) e teatral. Corporalidade e estética visual.</p>
+            <div class="bibliography">
+                SPENCE (2015, 2021).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>11. Pesquisa e Metodologia Científica</span>
+                <span>45h — 3 Créditos</span>
+            </div>
+            <p><strong>Ementa:</strong> Fundamentos da pesquisa científica aplicados aos Estudos da Tradução. Análise de tendências. Normatização técnica (ABNT) e orientações para o projeto de TCC.</p>
+            <div class="bibliography">
+                ABNT (2011, 2018); GILE (2009); QUADROS & WEININGER (2019).
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-header">
+                <span>12. Seminário de Pesquisas em TILS</span>
+                <span>15h — 1 Crédito</span>
+            </div>
+            <p><strong>Ementa:</strong> Espaço de socialização e debate acadêmico. Apresentação e discussão dos TCCs em desenvolvimento. Diálogo crítico e orientação coletiva.</p>
+            <div class="bibliography">
+                ALBRES & SANTIAGO (2018); RODRIGUES & BEER (2020).
+            </div>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">I</span>
+            <h2 class="section-title">Conteúdo Programático Detalhado</h2>
+        </div>
+        <p style="font-size: 0.85rem;">Os 12 módulos articulam fundamentação teórica, domínio tecnológico e prática laboratorial intensiva. (Ver detalhamento no projeto anexo para execução pedagógica).</p>
+    </div>
+
+    <!-- PÁGINA 6: RECURSOS E ESTRATÉGIAS -->
+    <div class="page">
+        <div class="page-header">
+            <strong>CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS</strong>
+            <span>Página 06</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">J</span>
+            <h2 class="section-title">Recursos Didáticos</h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>AVA Fundaj</h3>
+                <p>Uso obrigatório da plataforma oficial para repositório, fóruns e entregas.</p>
+            </div>
+            <div class="info-card">
+                <h3>Edição de Vídeo</h3>
+                <p>Utilização do CapCut para produções audiovisuais traduzidas.</p>
+            </div>
+            <div class="info-card">
+                <h3>Inteligência Artificial</h3>
+                <p>Integração de Gemini, ChatGPT e Perplexity como suporte terminológico.</p>
+            </div>
+            <div class="info-card">
+                <h3>Materiais</h3>
+                <p>Videoaulas gravadas em Libras e textos técnicos em PDF.</p>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">K-L</span>
+            <h2 class="section-title">Metodologia e Avaliação</h2>
+        </div>
+        <div class="highlight-box">
+            <strong>Estratégia:</strong> Modelo híbrido remoto (30% assíncrono no AVA e 70% encontros síncronos aos sábados). Método Direto (Libras-to-Libras) sem intérpretes.
+        </div>
+        <p><strong>Avaliação:</strong> Processual e contínua através de:</p>
+        <ul style="margin-left: 20px; font-size: 0.9rem;">
+            <li>Participação em fóruns temáticos no AVA;</li>
+            <li>Provas remotas (objetivas e subjetivas);</li>
+            <li>Produções práticas: Vídeos de tradução avaliando fluência e fidelidade.</li>
+        </ul>
+
+        <div class="section-header">
+            <span class="section-badge">M</span>
+            <h2 class="section-title">Seleção de Cursistas</h2>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr><th>Fase</th><th>Tipo</th><th>Descrição</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1. Análise Curricular</td><td>Eliminatório</td><td>Verificação de graduação e formação básica em Libras.</td></tr>
+                <tr><td>2. Vídeo Proficiência</td><td>Classificatório</td><td>Vídeo de 3min em Libras sobre trajetória ou tema sorteado.</td></tr>
+                <tr><td>3. Entrevista</td><td>Classificatório</td><td>Realizada via conferência remota em Libras.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">
+            <span class="section-badge">N</span>
+            <h2 class="section-title">Trabalho de Conclusão de Curso (TCC)</h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Tradução Comentada</h3>
+                <p>Vídeo/texto com memorial acadêmico justificando estratégias.</p>
+            </div>
+            <div class="info-card">
+                <h3>Artigo Científico</h3>
+                <p>Texto inédito sobre tradução, interpretação ou políticas linguísticas.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 7: EQUIPE DOCENTE -->
+    <div class="page">
+        <div class="page-header">
+            <strong>CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS</strong>
+            <span>Página 07</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">O</span>
+            <h2 class="section-title">Equipe Docente e Coordenação</h2>
+        </div>
+        
+        <div class="team-card" style="border-left: 4px solid var(--accent); padding-left: 15px; background: #f1f5f9; padding: 15px;">
+            <div class="team-name">Thiago Bruno de Souza Santos (Coordenador)</div>
+            <div class="team-bio">Doutorando pela Universität zu Köln (Alemanha), Mestre (UFAL). Professor da Faculdade de Letras da UFAL com experiência em linguística aplicada.</div>
+            <a href="http://lattes.cnpq.br/2671792257238553" class="lattes-link">Lattes: 2671792257238553</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Alexandre Melo de Souza</div>
+            <div class="team-bio">Doutor em Linguística (UFC) com pós-doutorado pela UFSC. Especialista em lexicologia e toponímia em línguas de sinais.</div>
+            <a href="http://lattes.cnpq.br/8092038576985367" class="lattes-link">Lattes: 8092038576985367</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Hanna Beer Furtado</div>
+            <div class="team-bio">Doutora em Linguística (UFSC). Especialista em Direitos Linguísticos e tradução em contextos jurídicos.</div>
+            <a href="http://lattes.cnpq.br/4536268445807938" class="lattes-link">Lattes: 4536268445807938</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Humberto Meira de Araujo Neto</div>
+            <div class="team-bio">Doutor em Linguística (UFAL). Atual coordenador de Letras-Libras/UFAL. 18 anos de experiência na área.</div>
+            <a href="https://lattes.cnpq.br/5643439482606570" class="lattes-link">Lattes: 5643439482606570</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Jair Barbosa da Silva</div>
+            <div class="team-bio">Doutor em Linguística (UFAL) com pós-doutorado (UFSC). Especialista em linguística de corpus e formação de pesquisadores surdos.</div>
+            <a href="http://lattes.cnpq.br/1788112610150438" class="lattes-link">Lattes: 1788112610150438</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Nágib José Mendes dos Santos</div>
+            <div class="team-bio">Doutor em Educação (UFAL). Especialista em educação inclusiva e processos subjetivos de inclusão escolar.</div>
+            <a href="http://lattes.cnpq.br/3897627554738983" class="lattes-link">Lattes: 3897627554738983</a>
+        </div>
+    </div>
+
+    <!-- PÁGINA 8: CRONOGRAMA -->
+    <div class="page">
+        <div class="page-header">
+            <strong>CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS</strong>
+            <span>Página 08</span>
+        </div>
+
+        <div class="section-header">
+            <span class="section-badge">P</span>
+            <h2 class="section-title">Cronograma de Atividades (2026-2027)</h2>
+        </div>
+        
+        <table class="data-table" style="font-size: 0.75rem;">
+            <thead>
+                <tr>
+                    <th>Disciplina</th>
+                    <th>Professor</th>
+                    <th>Datas Previstas</th>
+                    <th>CH</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1. Tecnologia</td><td>Humberto Meira</td><td>11/07 a 08/08/2026</td><td>30h</td></tr>
+                <tr><td>2. Fundamentos da TILS</td><td>Fischer</td><td>22/08 a 05/09/2026</td><td>15h</td></tr>
+                <tr><td>3. Política Linguística</td><td>Magno Prado</td><td>19/09 a 17/10/2026</td><td>30h</td></tr>
+                <tr><td>4. Lab Port > Libras</td><td>Thiago Bruno</td><td>31/10 a 12/12/2026</td><td>45h</td></tr>
+                <tr style="background: #e2e8f0; font-weight: bold;"><td colspan="4">RECESSO ACADÊMICO - JANEIRO 2027</td></tr>
+                <tr><td>5. Linguística e Línguas</td><td>Jair Barbosa</td><td>23/01 a 06/03/2027</td><td>45h</td></tr>
+                <tr><td>6. Lab Libras > Port</td><td>Humberto/Fischer</td><td>20/03 a 01/05/2027</td><td>45h</td></tr>
+                <tr><td>7. Esferas de Atuação</td><td>Hanna Beer</td><td>15/05 a 19/06/2027</td><td>45h</td></tr>
+                <tr style="background: #e2e8f0; font-weight: bold;"><td colspan="4">RECESSO ACADÊMICO - JULHO 2027</td></tr>
+                <tr><td>8. Surdocegueira</td><td>Nagib Mendes</td><td>07/08 a 21/08/2027</td><td>15h</td></tr>
+                <tr><td>9. Gestão e Carreira</td><td>Hanna Beer</td><td>04/09 a 18/09/2027</td><td>15h</td></tr>
+                <tr><td>10. Literatura Surda</td><td>Cristiano</td><td>02/10 a 16/10/2027</td><td>15h</td></tr>
+                <tr><td>11. Metodologia Pesquisa</td><td>Alexandre Melo</td><td>30/10 a 27/11/2027</td><td>45h</td></tr>
+                <tr><td>12. Seminário de Pesquisas</td><td>Jair Barbosa</td><td>04/12 a 11/12/2027</td><td>15h</td></tr>
+                <tr style="background: var(--primary); color: white;">
+                    <td colspan="3">CARGA HORÁRIA TOTAL</td>
+                    <td>360h</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 40px;">
+            <p>Maceió, 2026.</p>
+            <div class="signature-section">
+                <div class="signature-box">
+                    <strong>Thiago Bruno de Souza Santos</strong><br>
+                    Proponente / Coordenador Pedagógico
+                </div>
+                <div class="signature-box">
+                    <strong>Coordenação Geral de Pós-Graduação</strong><br>
+                    Fundação Joaquim Nabuco (Fundaj)
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

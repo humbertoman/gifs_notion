@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Curso - Especialização TILS</title>
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --primary: #0f172a;       /* Slate 900 */
+            --primary-light: #334155; /* Slate 700 */
+            --accent: #2563eb;        /* Blue 600 */
+            --accent-subtle: #e0e7ff; /* Indigo 100 */
+            --bg-body: #525659;       /* Fundo cinza */
+            --bg-paper: #ffffff;
+            --text-main: #1e293b;     /* Slate 800 */
+            --text-muted: #64748b;    /* Slate 500 */
+            --border-color: #cbd5e1;  /* Slate 300 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            font-size: 10pt;
+        }
+
+        /* --- ESTRUTURA DE PÁGINA (A4) --- */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 20px auto;
+            background: var(--bg-paper);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+        /* --- ESTILOS DA CAPA --- */
+        .cover-page {
+            background: var(--primary);
+            color: white;
+            padding: 0;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 297mm;
+        }
+
+        .cover-header {
+            padding: 25mm 20mm 0 20mm;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-decor {
+            position: absolute;
+            top: 0; right: 0;
+            width: 70%;
+            height: 100%;
+            background: radial-gradient(circle at top right, #1e293b 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .logo-area {
+            margin-bottom: 60px;
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-meta {
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        h1.main-title {
+            font-size: 2.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #cbd5e1;
+            max-width: 90%;
+            border-top: 1px solid #334155;
+            padding-top: 25px;
+        }
+
+        .cover-footer {
+            background: #020617;
+            padding: 20mm;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            border-top: 1px solid #1e293b;
+            z-index: 2;
+        }
+
+        .cover-footer strong {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- CONTEÚDO INTERNO --- */
+        h1.doc-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header-small {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            margin: 18px 0 10px 0;
+            page-break-after: avoid;
+        }
+
+        .section-badge {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+            min-width: 25px;
+            text-align: center;
+            text-transform: lowercase;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p { margin-bottom: 10px; text-align: justify; }
+        ul { margin-left: 20px; margin-bottom: 10px; }
+        li { margin-bottom: 4px; }
+
+        /* --- TABELAS --- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin: 15px 0;
+            page-break-inside: avoid;
+        }
+
+        .data-table th {
+            background: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 6px 10px;
+            font-weight: 600;
+            border: 1px solid var(--primary);
+        }
+
+        .data-table td {
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .data-table tr:nth-child(even) { background: #f8fafc; }
+        .schedule-table th, .schedule-table td { font-size: 0.7rem; }
+        .recesso-row { background: var(--border-color) !important; font-weight: bold; text-align: center; }
+        .total-row { background: var(--primary) !important; color: white; font-weight: bold; }
+
+        /* --- COMPONENTES --- */
+        .highlight-box {
+            background: var(--accent-subtle);
+            border-left: 4px solid var(--accent);
+            padding: 12px;
+            border-radius: 0 4px 4px 0;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .syllabus-item {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 12px;
+            background: #fff;
+            page-break-inside: avoid;
+        }
+
+        .syllabus-title {
+            font-weight: 700;
+            color: var(--primary);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .syllabus-refs {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .team-card {
+            background: #f8fafc;
+            border-left: 3px solid var(--accent);
+            padding: 10px;
+            margin-bottom: 12px;
+            page-break-inside: avoid;
+        }
+
+        .team-name { font-weight: 700; color: var(--primary); font-size: 0.95rem; }
+        .team-link { font-size: 0.75rem; color: var(--accent); text-decoration: none; display: block; margin-top: 4px; }
+
+        .signature-section { margin-top: auto; padding-top: 40px; }
+        .signature-line { border-top: 1px solid var(--primary); width: 60%; margin-top: 40px; padding-top: 5px; }
+
+        @media print {
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; border: none; width: 210mm; height: 297mm; page-break-after: always; }
+            .page:last-child { page-break-after: auto; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+        <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            IMPRIMIR / PDF
+        </button>
+    </div>
+
+    <div class="page cover-page">
+        <div class="cover-decor"></div>
+        <div class="cover-header">
+            <div class="logo-area">
+                <div class="logo-text">ANEXO I</div>
+                <div style="font-size: 0.9rem; opacity: 0.8;">Fundação Joaquim Nabuco • Fundaj</div>
+            </div>
+            <div class="doc-meta">Proposta de Curso</div>
+            <h1 class="main-title">ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS</h1>
+            <div class="subtitle">Formação técnica, teórica e ética para a promoção da inclusão nas políticas sociais.</div>
+        </div>
+        <div class="cover-footer">
+            <div>
+                <strong>Coordenador</strong>
+                Thiago Bruno de Souza Santos
+            </div>
+            <div>
+                <strong>Carga Horária</strong>
+                360 Horas (24 Créditos)
+            </div>
+            <div>
+                <strong>Local/Data</strong>
+                Maceió, 2026
+            </div>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 02</div>
+
+        <h1 class="doc-title">ANEXO I – PROPOSTA DE CURSO</h1>
+
+        <div class="section-header">
+            <span class="section-badge">a</span>
+            <span class="section-title">Proponente/Coordenador(a) Pedagógico(a) do curso</span>
+        </div>
+        <p>Thiago Bruno de Souza Santos</p>
+
+        <div class="section-header">
+            <span class="section-badge">b</span>
+            <span class="section-title">Título do curso</span>
+        </div>
+        <p>Especialização em Tradução e Interpretação de Libras/Português</p>
+
+        <div class="section-header">
+            <span class="section-badge">c</span>
+            <span class="section-title">Modalidade do curso</span>
+        </div>
+        <p>Educação a Distância, com atividades síncronas via videoconferência e atividades assíncronas via Ambiente Virtual de Aprendizagem (AVA) da FUNDAJ.</p>
+
+        <div class="section-header">
+            <span class="section-badge">d</span>
+            <span class="section-title">Carga horária do curso</span>
+        </div>
+        <p>360 horas (24 créditos).</p>
+
+        <div class="section-header">
+            <span class="section-badge">e</span>
+            <span class="section-title">Público-alvo do Curso</span>
+        </div>
+        <p>Pessoas ouvintes portadoras de diploma de graduação em qualquer área do conhecimento (ou que estão no último período do curso de graduação), reconhecido pelo MEC, que apresentem fluência em Libras suficiente para acompanhar as aulas em Libras, sem a necessidade de tradutor intérprete de Libras.</p>
+        <p>A fluência será mensurada/comprovada por meio de banca avaliadora quando do processo seletivo para o Curso.</p>
+
+        <div class="section-header">
+            <span class="section-badge">f</span>
+            <span class="section-title">Contextualização e justificativa de demanda</span>
+        </div>
+        <p>A proposta fundamenta-se na persistente lacuna de formação gratuita em nível de pós-graduação no estado de Alagoas e em toda a região Nordeste, o que compromete a eficácia das políticas de inclusão.</p>
+        <p>A carência de profissionais qualificados é evidenciada pela recorrência de vagas ociosas em processos seletivos de instituições federais de ensino, a exemplo da UFAL, em que a ausência de formação específica impede o preenchimento de postos de trabalho fundamentais.</p>
+        <p>A título de ilustração, veja-se o que há disponível nas universidade federais de cada estado do Nordeste em termos de formação em Libras:</p>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>IES</th>
+                    <th>Curso</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>UFAL</td><td>Letras-Libras Licenciatura - presencial</td><td>AL</td></tr>
+                <tr><td>UFBA</td><td>Letras-Libras Licenciatura - Presencial</td><td>BA</td></tr>
+                <tr><td>UNIVASF</td><td>Letras-Libras Licenciatura - EaD</td><td></td></tr>
+                <tr><td>UFC</td><td>Letras-Libras Licenciatura - Presencial</td><td>CE</td></tr>
+                <tr><td>IFCE</td><td>Letras-Libras Licenciatura - Presencial</td><td></td></tr>
+                <tr><td>UFMA</td><td>Letras-Libras Licenciatura - Presencial</td><td>MA</td></tr>
+                <tr><td>UFPB</td><td>Letras-Libras Licenciatura - EaD</td><td>PB</td></tr>
+                <tr><td>UFCG</td><td>Letras-Libras Licenciatura - Presencial</td><td></td></tr>
+                <tr><td>UFPE</td><td>Letras-Libras Licenciatura - Presencial</td><td>PE</td></tr>
+                <tr><td>UNIVASF</td><td>Letras-Libras Licenciatura - EaD</td><td></td></tr>
+                <tr><td>UFPI</td><td>Letras-Libras Licenciatura - Presencial</td><td>PI</td></tr>
+                <tr><td>UNIVASF</td><td>Letras-Libras Licenciatura - EaD</td><td></td></tr>
+                <tr><td>UFRN</td><td>Letras-Libras Licenciatura - Presencial</td><td>RN</td></tr>
+                <tr><td>UFS</td><td>Letras-Libras Licenciatura - Presencial</td><td>SE</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 03</div>
+
+        <p>O Curso ora proposto contribuirá diretamente para a missão da FUNDAJ de fortalecer a capacidade de execução do Estado e promover a profissionalização para políticas públicas.</p>
+        <p>Ao focar em ações afirmativas e inclusão, a especialização visa:</p>
+        <ul>
+            <li><strong>atendimento ao setor público:</strong> qualificar agentes públicos e profissionais para suprir a demanda crescente por tradutores e intérpretes de Libras (tils) preparados para cenários complexos, como em ambientes universitários (bancas de pós graduação, palestras etc.), eventos artístico-culturais, cenários jurídicos etc., além do atendimento à pessoas surdocegas.</li>
+            <li><strong>validação de competências:</strong> certificar e atualizar tradutores que já atuam no mercado, mas que carecem de titulação acadêmica de pós-graduação para progressão e atuação técnica fundamentada e formar/certificar novos profissionais, cujas carreiras estão sendo iniciadas.</li>
+            <li><strong>qualificação da equipe:</strong> o projeto é sustentado por um corpo docente composto majoritariamente por doutores de universidades federais e profissionais surdos, garantindo a excelência acadêmica e a representatividade linguística necessária para o desenvolvimento da região.</li>
+        </ul>
+
+        <table class="data-table" style="width: 80%; margin: 15px auto;">
+            <thead>
+                <tr>
+                    <th>Professor</th>
+                    <th>Titulação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Alexandre Melo de Sousa</td><td>Doutor</td></tr>
+                <tr><td>Cristiano José Monteiro</td><td>Mestre</td></tr>
+                <tr><td>Hanna Beer Furtado</td><td>Doutora</td></tr>
+                <tr><td>Humberto Meira de Araújo Neto</td><td>Doutor</td></tr>
+                <tr><td>Jair Barbosa da Silva</td><td>Doutor</td></tr>
+                <tr><td>Katherine Fischer</td><td>Mestre</td></tr>
+                <tr><td>Magno Prado Gama Prates</td><td>Doutor</td></tr>
+                <tr><td>Nágib José Mendes</td><td>Doutor</td></tr>
+                <tr><td>Thiago Bruno de Souza Santos</td><td>Doutor</td></tr>
+                <tr style="font-weight: bold; background: #e2e8f0;"><td>Percentual</td><td>77,78% doutores; 22,22% mestres</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">
+            <span class="section-badge">g</span>
+            <span class="section-title">Objetivos (geral e específicos)</span>
+        </div>
+        <div class="highlight-box">
+            <strong>Geral:</strong> Formar tradutores e intérpretes de Libras com elevada competência técnica, teórica e ética, capacitados para atuar de forma atualizada no setor público e nas diversas esferas sociais, promovendo a inclusão efetiva no âmbito das políticas sociais.
+        </div>
+        <p><strong>Específicos:</strong></p>
+        <ul>
+            <li>Analisar criticamente as políticas linguísticas bilíngues para surdos;</li>
+            <li>Dominar ferramentas tecnológicas contemporâneas e Inteligência Artificial aplicadas à tradução e interpretação;</li>
+            <li>Dominar e aplicar princípios linguísticos e teóricos na prática tradutória em ambas as direções (Libras/Português), considerando as especificidades de cada esfera de atuação;</li>
+            <li>Desenvolver competências específicas para atuação em contextos de Educação Superior, Básica, eventos científicos, artístico-culturais, além do âmbito jurídico e de segurança pública.</li>
+        </ul>
+
+        <div class="section-header">
+            <span class="section-badge">h</span>
+            <span class="section-title">Ementário</span>
+        </div>
+        <p><strong>Ementa do curso:</strong> Estudo dos fundamentos teóricos, técnicos e políticos da Tradução e Interpretação de Libras (TILS), sob a perspectiva das ações afirmativas e da inclusão social. Discussão das políticas linguísticas bilíngues, marcos legais e ética profissional. Análise linguístico-comparativa entre Libras e Português e os efeitos de modalidade no processo tradutório. Desenvolvimento de competências práticas em laboratórios de interpretação bidirecional (Libras/Português). Integração de tecnologias digitais, ferramentas de edição audiovisual e inteligência artificial aplicadas à tradução. Exploração de esferas de atuação específicas: educação básica e superior, contextos de surdocegueira e produções literárias/artísticas. Gestão de carreira, mercado de trabalho e profissionalização. Fundamentos da metodologia científica aplicada à pesquisa em tradução e interpretação.</p>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 04</div>
+        <p><strong>Ementário de Disciplinas e Referências</strong></p>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Tecnologia</span> <span>30h — 2 créditos</span></div>
+            <p><strong>Ementa:</strong> Estudo e aplicação de recursos tecnológicos voltados à atuação do Tradutor e Intérprete de Libras (TILS). Gestão e configuração de estúdio doméstico. Técnicas de gravação, edição e padrões de formatação de vídeos para fins educacionais e profissionais. Ambientação e uso das ferramentas do Ambiente Virtual de Aprendizagem (AVA) oficial.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> QUADROS, Ronice Müller de; WEININGER, Markus J. Estudos da língua brasileira de sinais. v. 3. Petrópolis: Vozes, 2019.<br>
+                VANZIN, Tarcísio; QUEVEDO, Silvia R. M. Ambiente virtual de aprendizagem bilíngue: uma proposta hipermídia de educação. In: CONGRESSO NACIONAL DE AMBIENTES HIPERMÍDIA PARA APRENDIZAGEM, 2015. Anais [...].<br>
+                VOITTO. Quer saber como montar seu estúdio em casa? 2023.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Fundamentos da TILS</span> <span>15h — 1 crédito</span></div>
+            <p><strong>Ementa:</strong> Análise histórica e teórica do campo da Tradução e Interpretação de Libras. Estudo das competências tradutórias e dos principais conceitos teóricos aplicados à interpretação em línguas de sinais. Evolução dos campos disciplinares e suas construções teóricas contemporâneas.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> ALBRES, Neiva de Aquino. Intérpretes de língua de sinais: formação em nível superior. Cadernos de Tradução, v. 24, n. 2, p. 39-62, 2009.<br>
+                FEBRAPILS. Libras em estudo: tradução/interpretação. Brasília: FEBRAPILS, 2022.<br>
+                FELIPE, Tanya Amara; MONTEIRO, Mariana da Silva. O discurso verbo-visual na língua brasileira de sinais (Libras). Bakhtiniana: Revista de Estudos do Discurso, v. 8, n. 2, p. 155-177, 2013.<br>
+                QUADROS, Ronice Müller de. Educação de surdos: a aquisição da linguagem. Porto Alegre: Artmed, 1997.<br>
+                QUADROS, Ronice Müller de; WEININGER, Markus J. Estudos da língua brasileira de sinais. v. 1. Petrópolis: Vozes, 2019.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Política Linguística Bilíngue para Surdos</span> <span>30h — 2 créditos</span></div>
+            <p><strong>Ementa:</strong> Discussão das políticas linguísticas voltadas à comunidade surda no Brasil. Análise da legislação vigente, marcos regulatórios da educação bilíngue e direitos linguísticos. Reflexão crítica sobre a deontologia profissional, questões éticas e o papel político do tradutor/intérprete.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> BRASIL. Lei nº 10.436, de 24 de abril de 2002. Dispõe sobre a Língua Brasileira de Sinais (Libras) e dá outras providências. Diário Oficial da União, Brasília, DF, 25 abr. 2002.<br>
+                BRASIL. Lei nº 13.146, de 6 de julho de 2015. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Diário Oficial da União, Brasília, DF, 7 jul. 2015.<br>
+                BRASIL. Lei nº 14.191, de 3 de agosto de 2021. Altera a Lei nº 9.394, de 20 de dezembro de 1996, para dispor sobre a modalidade de educação bilíngue de surdos. Diário Oficial da União, Brasília, DF, 4 ago. 2021.<br>
+                BRASIL. Decreto nº 5.626, de 22 de dezembro de 2005. Regulamenta a Lei nº 10.436, de 24 de abril de 2002, que dispõe sobre a Língua Brasileira de Sinais – Libras, e o art. 18 da Lei nº 10.098, de 19 de dezembro de 2000. Diário Oficial da União, Brasília, DF, 23 dez. 2005.<br>
+                FEBRAPILS. Código de conduta e ética da Federação Brasileira de Tradutores e Intérpretes de Língua de Sinais. Brasília: FEBRAPILS, 2022.<br>
+                FENEIS. Código de ética do intérprete de língua de sinais. Brasília: Federação Nacional de Educação e Integração dos Surdos, 2016.
+            </div>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 05</div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Linguística e Líng u as (Libras e Português)</span> <span>45h — 3 créditos</span></div>
+            <p><strong>Ementa:</strong> Estudo comparativo entre a Língua Portuguesa e a Libras sob a perspectiva linguística. Análise dos efeitos de modalidade (espacial-visual vs. oral-auditiva) no processo tradutório. Fenômenos de neologia, terminologia, estrutura textual e análise do discurso aplicadas à TILS.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> FELIPE, Tanya Amara; MONTEIRO, Mariana da Silva. O discurso verbo-visual na língua brasileira de sinais (Libras). Bakhtiniana: Revista de Estudos do Discurso, v. 8, n. 2, p. 155-177, 2013.<br>
+                LAKOFF, George; JOHNSON, Mark. Metáforas da vida cotidiana. 2. ed. Campinas: Mercado de Letras, 2002.<br>
+                QUADROS, Ronice Müller de. Libras. São Paulo: Parábola Editorial, 2019.<br>
+                RODRIGUES, Alex. Efeitos de modalidade de língua: as línguas de sinais. ETD – Educação Temática Digital, v. 10, n. 1, p. 1-13, 2008.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Laboratório Prático Português > Libras</span> <span>45h — 3 créditos</span></div>
+            <p><strong>Ementa:</strong> Desenvolvimento de habilidades práticas de interpretação e tradução na direção da língua fonte (Português) para a língua alvo (Libras). Exercícios laboratoriais com ênfase na aplicação de estratégias técnicas, escolhas tradutórias e reflexão teórica aplicada à prática.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> FEBRAPILS. Diferentes caminhos no processo de tradução-interpretação. In: FEBRAPILS. Libras em estudo: tradução/interpretação. Brasília: FEBRAPILS, 2022. p. 15-48.<br>
+                GILE, Daniel. Basic concepts and models for interpreter and translator training. 2. ed. Amsterdam: John Benjamins, 2009.<br>
+                QUADROS, Ronice Müller de. Educação de surdos: a aquisição da linguagem. Porto Alegre: Artmed, 1997.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Laboratório Prático Libras > Português</span> <span>45h — 3 créditos</span></div>
+            <p><strong>Ementa:</strong> Desenvolvimento de habilidades práticas de interpretação e tradução na direção da Libras para o Português (Voz). Exercícios laboratoriais focados na fluência, registro, entonação e construção de sentido. Articulação entre fundamentos teóricos e performance técnica.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> GILE, Daniel. Basic concepts and models for interpreter and translator training. 2. ed. Amsterdam: John Benjamins, 2009.<br>
+                MACHADO, Andrey Ferreira. A interpretação simultânea Libras-português: diferenças de compreensão no processamento cognitivo. 2010. Dissertação (Mestrado em Estudos da Linguagem) – Pontifícia Universidade Católica do Rio de Janeiro, Rio de Janeiro, 2010.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Esferas de Atuação e Especialidades</span> <span>45h — 3 créditos</span></div>
+            <p><strong>Ementa:</strong> Exploração dos diversos campos de atuação do TILS: especificidades da interpretação na Educação Básica, no Ensino Superior e em eventos técnico-científicos. Atuação em contextos comunitários e institucionais. Estudo de técnicas para interpretação voltada a pessoas com Competência Linguística Mínima (MLS).</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> ALVES, Waldyr Mendes. A atuação de intérpretes de Libras no desenvolvimento da língua de sinais em contextos educacionais. Revista Linguagens e Identidades, v. 8, n. 2, 2023.<br>
+                BRASIL. Lei nº 14.191, de 3 de agosto de 2021. Altera a Lei nº 9.394, de 20 de dezembro de 1996, para dispor sobre a modalidade de educação bilíngue de surdos. Diário Oficial da União, Brasília, DF, 4 ago. 2021.<br>
+                SANTOS, Fernanda da Silva. Os direitos das pessoas surdas usuárias da Libras no ensino superior. Revista Educação em Foco, v. 2, n. 1, 2024.
+            </div>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 06</div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Especialidades em Surdocegueira e Comunicação Tátil</span> <span>15h — 1 crédito</span></div>
+            <p><strong>Ementa:</strong> Introdução à tradução e interpretação para pessoas surdocegas. Estudo das formas de comunicação tátil, sistemas de apoio e mediação comunicativa. Orientações práticas sobre o posicionamento e o papel do guia-intérprete em diferentes cenários.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> ALMEIDA, Wolney Gomes. Guia-intérprete e a inclusão da pessoa com surdocegueira. 2017. Tese (Doutorado em Educação) – Universidade Federal da Bahia, Salvador, 2017.<br>
+                SANTOS, Danilo Pereira; MACHADO, Roseli Cecília. Atuação do guia-intérprete diante da pessoa com surdocegueira: perspectivas e desafios. Revista Inclusão Educacional, v. 9, n. 1, p. 45-62, 2017.<br>
+                SPENCE, Rachel Sutton. Literatura em Libras. Petrópolis: Vozes, 2021.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Gestão, Carreira e Mercado</span> <span>15h — 1 crédito</span></div>
+            <p><strong>Ementa:</strong> Análise do mercado de trabalho contemporâneo para o TILS. Gestão de carreira, marketing pessoal e empregabilidade. Aspectos administrativos e jurídicos: precificação de serviços, elaboração de contratos, ética profissional e associativismo.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> ACATILS. O tradutor e intérprete de língua brasileira de sinais e língua portuguesa: aspectos administrativos e profissionais. São Paulo: Associação Catarinense de Tradutores e Intérpretes de Língua de Sinais, 2025.<br>
+                BRASIL. Secretaria de Comunicação Social da Presidência da República. Brasil gera 654 mil empregos no primeiro trimestre de 2025. Brasília, 2025.<br>
+                FEBRAPILS. Código de conduta e ética da Federação Brasileira de Tradutores e Intérpretes de Língua de Sinais. Brasília: FEBRAPILS, 2022.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Literatura Surda: Narrativas, Poesia e Corpor eidade</span> <span>15h — 1 crédito</span></div>
+            <p><strong>Ementa:</strong> Estudo da produção literária em Libras. Aplicação de técnicas narrativas e literárias no processo tradutório. Especificidades da tradução poética, de performance (Slam) e teatral. Corporalidade e estética visual na expressão literária e artística surda.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> SPENCE, Rachel Sutton. Literatura em Libras. Petrópolis: Vozes, 2021.<br>
+                SPENCE, Rachel Sutton. Tradução comentada da poesia em Libras “Poesia Surda”. 2015. Dissertação (Mestrado em Estudos da Linguagem) – Pontifícia Universidade Católica do Rio de Janeiro, Rio de Janeiro, 2015.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Pesquisa e Metodologia Científica</span> <span>45h — 3 créditos</span></div>
+            <p><strong>Ementa:</strong> Fundamentos da pesquisa científica aplicados aos Estudos da Tradução e Interpretação. Análise de tendências e exemplos de pesquisa na área. Normatização técnica e orientações para a construção do projeto de Trabalho de Conclusão de Curso (TCC).</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> ABNT. NBR 14724: informação e documentação – trabalhos acadêmicos – apresentação. Rio de Janeiro: Associação Brasileira de Normas Técnicas, 2011.<br>
+                ABNT. NBR 6023: informação e documentação – referências – elaboração. Rio de Janeiro: Associação Brasileira de Normas Técnicas, 2018.<br>
+                GILE, Daniel. Basic concepts and models for interpreter and translator training. 2. ed. Amsterdam: John Benjamins, 2009.<br>
+                QUADROS, Ronice Müller de; WEININGER, Markus J. Estudos da língua brasileira de sinais. v. 1-3. Petrópolis: Vozes, 2019.
+            </div>
+        </div>
+
+        <div class="syllabus-item">
+            <div class="syllabus-title"><span>Seminário de Pesquisas em TILS</span> <span>15h — 1 crédito</span></div>
+            <p><strong>Ementa:</strong> Espaço de socialização e debate acadêmico. Apresentação e discussão dos Trabalhos de Conclusão de Curso (TCC) em desenvolvimento. Diálogo crítico e orientação coletiva sobre as produções científicas dos discentes.</p>
+            <div class="syllabus-refs">
+                <strong>Referências:</strong> ALBRES, Neiva de Aquino; SANTIAGO, Vinícius. Tendências em pesquisa sobre interpretação de língua de sinais: análise crítica. Cadernos de Tradução, v. 38, n. 2, p. 156-178, 2018.<br>
+                RODRIGUES, Alex; BEER, Hiroshi. Estudos da tradução e interpretação em línguas de sinais: estado da arte e perspectivas. Bakhtiniana: Revista de Estudos do Discurso, v. 15, n. 1, p. 45-68, 2020.
+            </div>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 07</div>
+
+        <div class="section-header">
+            <span class="section-badge">i</span>
+            <span class="section-title">Conteúdo programático</span>
+        </div>
+        <p>O conteúdo programático da Especialização em Tradução e Interpretação de Libras está estruturado em 12 módulos que articulam fundamentação teórica, domínio tecnológico e prática laboratorial intensiva.</p>
+
+        <p><strong>1. Tecnologia (30h)</strong></p>
+        <ul>
+            <li><strong>Gestão de infraestrutura técnica:</strong> Organização e configuração de estúdio doméstico para tradução audiovisual; iluminação, enquadramento e fundo neutro.</li>
+            <li><strong>Produção Audiovisual:</strong> Técnicas de gravação e edição de vídeos via software CapCut; padrões de formatação e compressão para entrega de atividades e materiais traduzidos.</li>
+            <li><strong>Tecnologias de Apoio à TILS:</strong> Uso de extensões do Chrome para análise de sinalário; integração de Inteligências Artificiais (Gemini, ChatGPT, Perplexity) como suporte terminológico.</li>
+            <li><strong>Ferramentas de Gestão:</strong> Operação da plataforma oficial (AVA Fundaj) e fluxos de comunicação digital.</li>
+        </ul>
+
+        <p><strong>2. Fundamentos da TILS (15h)</strong></p>
+        <ul>
+            <li><strong>Competências Tradutórias:</strong> Definição e desenvolvimento das competências linguística, textual, técnica, temática e cultural.</li>
+            <li><strong>Conceitos Fundamentais:</strong> Tradução vs. Interpretação em línguas de sinais; modelos de processamento interpretativo.</li>
+            <li><strong>Historiografia e Teoria:</strong> Evolução histórica dos campos disciplinares e análise das principais construções teóricas contemporâneas.</li>
+        </ul>
+
+        <p><strong>3. Política Linguística Bilíngue para Surdos (30h)</strong></p>
+        <ul>
+            <li><strong>Marco Regulatório:</strong> Análise da legislação brasileira (Lei de Libras, Decreto 5.626/05) e diretrizes para a educação bilíngue.</li>
+            <li><strong>Ética e Deontologia:</strong> O código de ética do TILS; tomada de decisão e neutralidade vs. posicionamento político.</li>
+            <li><strong>Direitos Linguísticos:</strong> Políticas de acesso e o papel do tradutor na garantia de direitos da comunidade surda.</li>
+        </ul>
+
+        <p><strong>4. Linguística e Línguas: Libras e Português (45h)</strong></p>
+        <ul>
+            <li><strong>Modalidade e Estrutura:</strong> Efeitos da modalidade visual-espacial vs. oral-auditiva nos processos de tradução.</li>
+            <li><strong>Processos Lexicais:</strong> Neologismos, empréstimos linguísticos e criação terminológica na TILS.</li>
+            <li><strong>Nível Discursivo:</strong> Coesão, coerência e análise do discurso aplicada às especificidades da Libras e do Português.</li>
+        </ul>
+
+        <p><strong>5. Laboratório Prático Português > Libras (45h)</strong></p>
+        <ul>
+            <li><strong>Tradução e Interpretação Direta:</strong> Exercícios práticos de versão do Português para a Libras em tempo real e em tradução gravada.</li>
+            <li><strong>Estratégias Técnicas:</strong> Aplicação de omissões, acréscimos, paráfrases e adaptações culturais durante a sinalização.</li>
+            <li><strong>Reflexão sobre a Prática:</strong> Análise crítica da performance e escolhas tradutórias baseadas em modelos teóricos.</li>
+        </ul>
+
+        <p><strong>6. Laboratório Prático Libras > Português (45h)</strong></p>
+        <ul>
+            <li><strong>Interpretação de Voz:</strong> Prática da interpretação na direção Libras para Português, focando em entonação, registro e fluência oral.</li>
+            <li><strong>Teoria Aplicada:</strong> Gestão de esforço cognitivo e estratégias de antecipação durante a voz.</li>
+            <li><strong>Avaliação de Desempenho:</strong> Gravação e análise de áudios interpretados com foco na fidelidade e naturalidade linguística.</li>
+        </ul>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 08</div>
+
+        <p><strong>7. Esferas de Atuação e Especialidades (45h)</strong></p>
+        <ul>
+            <li><strong>Contexto Educacional:</strong> Especificidades do TILS na Educação Básica e no Ensino Superior; mediação pedagógica.</li>
+            <li><strong>Contexto Técnico-Científico:</strong> Interpretação em eventos, congressos e palestras.</li>
+            <li><strong>Contexto Comunitário e Institucional:</strong> Atuação em esferas públicas e outros cenários de interação social.</li>
+            <li><strong>Competência Linguística Mínima (MLS):</strong> Técnicas de interpretação para surdos com baixo domínio linguístico.</li>
+        </ul>
+
+        <p><strong>8. Especialidades em Surdocegueira e Comunicação Tátil (15h)</strong></p>
+        <ul>
+            <li><strong>O Guia-Intérprete:</strong> Perfil profissional e especificidades do trabalho com pessoas surdocegas.</li>
+            <li><strong>Técnicas de Comunicação:</strong> Introdução à Libras Tátil, Tadoma e outros sistemas de apoio à comunicação.</li>
+            <li><strong>Orientações Práticas:</strong> Posicionamento, segurança e ética no atendimento ao surdocego.</li>
+        </ul>
+
+        <p><strong>9. Gestão, Carreira e Mercado (15h)</strong></p>
+        <ul>
+            <li><strong>Empregabilidade:</strong> Desenvolvimento pessoal, planejamento de carreira e marketing pessoal para o TILS.</li>
+            <li><strong>Operacionalização Profissional:</strong> Precificação de serviços, elaboração de contratos e profissionalização.</li>
+            <li><strong>Cenário de Mercado:</strong> Panorama atual do mercado de trabalho e as diferentes formas de contratação e emprego.</li>
+        </ul>
+
+        <p><strong>10. Literatura Surda: Narrativas, Poesia e Corporalidade (15h)</strong></p>
+        <ul>
+            <li><strong>Estética da Libras:</strong> Uso de classificadores, expressões não-manuais e corporalidade na tradução literária.</li>
+            <li><strong>Artes Performáticas:</strong> Técnicas aplicadas à tradução de poesia (Slam) e teatro em línguas de sinais.</li>
+            <li><strong>Fundamentos acerca do Visual Vernacular (VV)</strong></li>
+            <li><strong>Adaptação Literária:</strong> Desafios na tradução de textos poéticos e narrativos do Português para a Libras.</li>
+        </ul>
+
+        <p><strong>11. Pesquisa e Metodologia Científica (45h)</strong></p>
+        <ul>
+            <li><strong>Cenário de Pesquisa:</strong> Análise de exemplos e tendências contemporâneas de pesquisa na área de TILS.</li>
+            <li><strong>Escrita Acadêmica:</strong> Estruturação de projetos e normas técnicas para produção científica.</li>
+            <li><strong>Projeto de TCC:</strong> Definição de tema e metodologia para o Trabalho de Conclusão de Curso.</li>
+        </ul>
+
+        <p><strong>12. Seminário de Pesquisas em TILS (15h)</strong></p>
+        <ul>
+            <li><strong>Desenvolvimento de TCC:</strong> Apresentação parcial e discussão coletiva dos trabalhos em andamento.</li>
+            <li><strong>Orientação Coletiva:</strong> Debate sobre desafios metodológicos e finalização das propostas de conclusão de curso.</li>
+        </ul>
+
+        <div class="section-header">
+            <span class="section-badge">j</span>
+            <span class="section-title">Recursos didáticos</span>
+        </div>
+        <p>Para a execução do Curso, serão utilizados recursos que integram tecnologias de suporte à tradução e ferramentas de produção audiovisual:</p>
+        <ul>
+            <li><strong>Ambiente Virtual de Aprendizagem (AVA):</strong> Uso obrigatório da plataforma oficial da FUNDAJ para repositório de materiais, fóruns de discussão e entrega de atividades.</li>
+            <li><strong>Softwares de Edição:</strong> Utilização do aplicativo CapCut (versão gratuita) para a edição e finalização de produções em vídeo, garantindo os padrões de formatação necessários para a tradução audiovisual.</li>
+            <li><strong>Extensões e Ferramentas de Navegação:</strong> Uso de extensões do Google Chrome para análise e consulta técnica em plataformas como o YouTube.</li>
+            <li><strong>Inteligência Artificial (IA):</strong> Integração de ferramentas como Gemini, ChatGPT e Perplexity (versões gratuitas) como suporte à pesquisa terminológica, tradução de textos base e auxílio na estruturação de roteiros tradutórios.</li>
+            <li><strong>Materiais Audiovisuais:</strong> Videoaulas gravadas em Libras, textos em PDF e pastas compartilhadas para prática laboratorial.</li>
+        </ul>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 09</div>
+
+        <div class="section-header">
+            <span class="section-badge">k</span>
+            <span class="section-title">Estratégias de ensino-aprendizagem (metodologia)</span>
+        </div>
+        <p>A metodologia adotada prioriza a imersão linguística e a prática técnico-tradutória por meio de um modelo remoto:</p>
+        <ul>
+            <li><strong>Carga Horária Assíncrona:</strong> Em conformidade com o item 3.4 do edital, 30% da carga horária de cada disciplina será composta por atividades assíncronas no AVA, incluindo leitura de textos, visualização de vídeos de apoio e fóruns temáticos.</li>
+            <li><strong>Encontros Síncronos:</strong> Realização de aulas ao vivo via videoconferência (conforme cronograma), focadas na interação, debates e feedback imediato das práticas interpretativas.</li>
+            <li><strong>Método Direto (Libras-to-Libras):</strong> Parte das aulas e interações ocorrerão diretamente em Libras, sem a intermediação de intérpretes, visando o aprofundamento da competência linguística e técnica dos cursistas.</li>
+            <li><strong>Metodologia de Laboratório:</strong> Para as disciplinas práticas (Português > Libras e Libras > Português), os alunos produzirão artefatos tradutórios (vídeos) que serão submetidos para avaliação por pares e pelos docentes, utilizando as ferramentas tecnológicas mencionadas nos recursos didáticos.</li>
+        </ul>
+
+        <div class="section-header">
+            <span class="section-badge">l</span>
+            <span class="section-title">Avaliação dos (as) cursistas</span>
+        </div>
+        <p>A avaliação será processual e contínua, utilizando as ferramentas do Ambiente Virtual de Aprendizagem (AVA) da FUNDAJ para acompanhar o progresso técnico e teórico:</p>
+        <ul>
+            <li><strong>Participação em Fóruns Temáticos:</strong> Avaliação da capacidade crítica e de argumentação teórica sobre os textos e vídeos da semana (caráter formativo).</li>
+            <li><strong>Provas Remotas:</strong> Aplicação de avaliações objetivas e discursivas via plataforma oficial ao final de cada módulo teórico.</li>
+            <li><strong>Produções Práticas (Vídeos):</strong> Entrega de atividades de tradução e interpretação gravadas, avaliando parâmetros como fluência, fidelidade, escolhas tradutórias e uso de recursos tecnológicos.</li>
+        </ul>
+
+        <div class="section-header">
+            <span class="section-badge">m</span>
+            <span class="section-title">Formas e critérios de seleção de cursistas</span>
+        </div>
+        <p>Para garantir a fluência necessária e o bom andamento das aulas em Libras, a seleção será composta pelas seguintes fases:</p>
+        <ul>
+            <li><strong>Análise de Currículo (Classificatório/Eliminatório):</strong> Verificação de diploma de graduação ou de provável concluinte de graduação (obrigatório) e comprovantes de atuação ou formação básica em Libras (opcional e classificatório).</li>
+            <li><strong>Vídeo de Proficiência (Classificatório/Eliminatório):</strong> Envio de um vídeo de 2 a 4 minutos, em Libras, sem contar elementos pré e pós-textuais de edição, onde o candidato deve discorrer sobre um tema sorteado ou sua trajetória na área.</li>
+            <li>Vídeos que não contenham o mínimo de 2 minutos de conteúdo textual em Libras e/ou que tenham duração maior que 4 minutos serão desclassificados.</li>
+            <li><strong>Entrevista em Libras:</strong> Realizada via conferência remota para validar a competência comunicativa em tempo real.</li>
+        </ul>
+
+        <div class="section-header">
+            <span class="section-badge">n</span>
+            <span class="section-title">Modalidades de Trabalho de Conclusão de Curso e suas respectivas formas de avaliação</span>
+        </div>
+        <p>Para tornar o TCC mais plausível e alinhado à prática profissional, serão aceitas três modalidades:</p>
+        <ul>
+            <li><strong>Tradução Comentada:</strong> Produção de uma tradução (vídeo ou texto) acompanhada de um memorial acadêmico justificando as escolhas tradutórias e estratégias utilizadas com base na teoria estudada.</li>
+            <li><strong>Artigo Científico:</strong> Texto acadêmico inédito sobre um tema relevante na área de tradução, interpretação ou políticas linguísticas para surdos.</li>
+            <li><strong>Projeto de Intervenção:</strong> Elaboração de um plano prático para melhoria da acessibilidade comunicativa em uma instituição pública ou educacional.</li>
+        </ul>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 10</div>
+
+        <div class="section-header">
+            <span class="section-badge">o</span>
+            <span class="section-title">Equipe</span>
+        </div>
+        <p>Nossa equipe é composta por professores surdos e ouvintes, sendo ~80% doutores e ~20% mestres. Todos com experiência na área de língua de sinais, educação de surdos e tradução e interpretação de Libras.</p>
+
+        <div class="team-card">
+            <div class="team-name">Thiago Bruno de Souza Santos (Proponente e Coordenador Pedagógico)</div>
+            <p><strong>Resumo:</strong> Professor da Faculdade de Letras da Universidade Federal de Alagoas (UFAL). Doutorando em Linguística pela Universität zu Köln (Alemanha), Mestre em Letras e Linguística (UFAL) e Especialista em Libras. Possui ampla experiência na área de Tradução e Interpretação de Libras, atuando principalmente em temas de linguística aplicada às línguas de sinais e formação de tradutores.</p>
+            <a href="http://lattes.cnpq.br/2671792257238553" class="team-link">Lattes: http://lattes.cnpq.br/2671792257238553</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Alexandre Melo de Souza</div>
+            <p><strong>Resumo:</strong> Professor da Faculdade de Letras da UFAL e do Programa de Pós-Graduação em Educação (UFAC). Doutor em Linguística (UFC) com pós-doutorado pela UFSC. Possui vasta experiência em Linguística aplicada à Libras, com ênfase em descrição e análise linguística, educação de surdos, lexicologia e toponímia em línguas de sinais.</p>
+            <a href="http://lattes.cnpq.br/8092038576985367" class="team-link">Lattes: http://lattes.cnpq.br/8092038576985367</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Cristiano José Monteiro</div>
+            <p>Mestre em Linguagem e Ensino (PPGLE), área de Estudo Literários da UFCG. Possuo pós-graduação Lato Sensu em libras pela Universidade Federal de Pernambuco - UFPE e pós-graduação Lato Sensu em Educação de Libras pela Universidade Salgado de Oliveira ? UNIVERSO. Possuo graduação em Letras/Libras pela Universidade Federal de Santa Catarina ? UFSC, polo Universidade Federal de Pernambuco ? UFPE. Sou professor efetivo do Curso de Licenciatura em Letras/Libras no Departamento de Letras da UFPE (campus Recife). Sou membro do Núcleo de Estudos e Pesquisas sobre Libras (NEPEL) da UFPE, tendo desenvolvido estudos sobre Literatura Surda, Linguística em Libras, SignWriting (SW) e sobre Ensino de Libras. Coordenador um projeto de pesquisa sobre produções culturais e literárias em língua de sinais desenvolvido pela UFPE, assim como o Festival Cultural e Literário em Libras (FCLLI). É diretor do sarau em Libras Slam das Mãos. Diretor de teatro Lab. Alunos em Letras/Libras na UFPE. É artista de Visual Vernacular, ator, poeta, consultor e professor de literatura surda, SignWriting e Libras. É realiza whokshops (oficinais) em vários estados no Brasil e Países.</p>
+            <a href="http://lattes.cnpq.br/5181767677750766" class="team-link">http://lattes.cnpq.br/5181767677750766</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Hanna Beer Furtado</div>
+            <p><strong>Resumo:</strong> Tradutora e intérprete de Libras-português-inglês e consultora em acessibilidade linguística, com atuação nas áreas de linguística das línguas de sinais, estudos da tradução e da interpretação de línguas de sinais, direitos linguísticos e políticas de tradução. Doutora em Linguística pela Universidade Federal de Santa Catarina (UFSC, 2024), mestre em Linguística Aplicada com ênfase em Aquisição de Línguas pela Universitat de Barcelona (2018) e bacharela em Direito pela Universidade Federal de Juiz de Fora (2016). Participou de iniciativas de pesquisa e extensão como o programa TILSJUR/UFSC, voltado à atuação de intérpretes em contextos jurídicos; o Inventário da Libras da Grande Florianópolis, do Núcleo de Aquisição de Língua de Sinais (NALS/UFSC); e o projeto internacional BiBiBi Bi-national, Bimodal, Bilingual, em parceria com a Gallaudet University e a University of Connecticut. Foi Diretora Regional Sul da FEBRAPILS (2019-2023) e mantém vínculo ativo com associações profissionais como a Associação Profissional de Intérpretes de Conferência (APIC) e a Associação Catarinense de Tradutores e Intérpretes de Línguas de Sinais (ACATILS).</p>
+            <a href="http://lattes.cnpq.br/4536268445807938" class="team-link">Lattes: http://lattes.cnpq.br/4536268445807938</a>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 11</div>
+
+        <div class="team-card">
+            <div class="team-name">Humberto Meira de Araujo Neto</div>
+            <p><strong>Resumo:</strong> Professor assistente na UFAL. É doutor em linguística (UFAL, 2018), mestre em linguística (UFAL, 2017), pós-graduado em Libras (Universidade Cândido Mendes, 2015). Possui graduação em Jornalismo (UFAL, 2011) e em Letras-Libras (UFSC, 2012). Atualmente coordena o curso de Letras-Libras. Possui 18 anos de experiência com Libras, tendo atuado como tradutor intérprete e professor da língua em diferentes cenários. Tem experiência em pesquisa na área de Educação, Linguística e Tradução e Interpretação.</p>
+            <a href="https://lattes.cnpq.br/5643439482606570" class="team-link">Lattes: https://lattes.cnpq.br/5643439482606570</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Jair Barbosa da Silva</div>
+            <p><strong>Resumo:</strong> Professor e Coordenador do curso de Letras-Libras da UFAL. Doutor em Linguística (UFAL) com pós-doutorado em Linguística (UFSC). Especialista em documentação e descrição da Libras, atuando com linguística de corpus e pesquisas voltadas à estrutura gramatical das línguas de sinais e formação de pesquisadores surdos.</p>
+            <a href="http://lattes.cnpq.br/1788112610150438" class="team-link">Lattes: http://lattes.cnpq.br/1788112610150438</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Katherine Fischer</div>
+            <p>Professora substituta na Universidade Federal do Paraná (UFPR). Doutoranda e Mestra em Letras Estudos Linguísticos pela UFPR. Pós-graduada em Língua Brasileira de Sinais (Libras) pelo Centro Universitário Leonardo da Vinci (Uniasselvi), em Educação Especial com ênfase em Deficiência Auditiva pela Faculdade Educacional da Lapa (FAEL) e em Gestão de Projetos pela Universidade de São Paulo (USP). Graduada em Letras Libras Licenciatura pela UFPR e em Arquitetura e Urbanismo pela Universidade Positivo (UP).Atuou como pesquisadora nos projetos Descrição e Análise Linguística da Libras: Aspectos Fonológicos, Morfofonológicos e Lexicais e Gêneros Textuais e o Ensino para Surdos, vinculados ao Programa de Iniciação Científica e Tecnológica da UFPR. Trabalhou durante seis anos no Centro de Apoio ao Surdo e aos Profissionais da Educação de Surdos do Paraná (CAS Curitiba), vinculado à Secretaria de Estado da Educação do Paraná. Possui experiência na área de Estudos Linguísticos, com ênfase em pesquisas sobre línguas de sinais e no ensino para surdos.</p>
+            <a href="http://lattes.cnpq.br/1244574159569767" class="team-link">http://lattes.cnpq.br/1244574159569767</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Magno Prado Gama Prates</div>
+            <p>Possui graduação em Pedagogia (2016) pela UNOPAR e em Letras - Libras (2016) pela UFPB, especialização em Libras (2016) pela Faculdade Eficaz, mestrado em Letras (2020) pela UNIR e doutorado em Linguística (2025) pela UNEMAT. Foi professor da Universidade Federal de Rondônia (2017-2024). Atualmente, é professor de Libras na Universidade Federal de Alagoas (UFAL), lotado na Faculdade de Letras. É membro do Grupo de Pesquisa ESLIN (Educação de Surdos, Libras e Inclusão), do Atlas Toponímico em Libras do Brasil (UFAL) e do Corpus de Libras (UFSC). Tem experiência na área de Política Linguística, Estudos Linguísticos em Libras e Estudos Surdos.</p>
+            <a href="http://lattes.cnpq.br/9185405534950808" class="team-link">http://lattes.cnpq.br/9185405534950808</a>
+        </div>
+
+        <div class="team-card">
+            <div class="team-name">Nágib José Mendes dos Santos</div>
+            <p><strong>Resumo:</strong> Professor da Faculdade de Letras da UFAL. Doutor e Mestre em Educação (UFAL), com graduação em Filosofia. Possui sólida experiência na área de educação inclusiva, psicopedagogia e nos processos subjetivos e sociais de inclusão escolar, contribuindo para a discussão de políticas de acessibilidade e educação especial.</p>
+            <a href="http://lattes.cnpq.br/3897627554738983" class="team-link">Lattes: http://lattes.cnpq.br/3897627554738983</a>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="page-header-small">CURSO DE ESPECIALIZAÇÃO EM TRADUÇÃO E INTERPRETAÇÃO DE LIBRAS/PORTUGUÊS - Página 12</div>
+
+        <div class="section-header">
+            <span class="section-badge">p</span>
+            <span class="section-title">Cronograma do curso</span>
+        </div>
+        <p><strong>Encontros Síncronos:</strong> Sábados (08:00-12:00 e 13:00-17:00).<br>
+        <strong>Início previsto:</strong> Julho de 2026.<br>
+        <strong>Término previsto:</strong> Dezembro de 2027.<br>
+        <strong>Detalhamento:</strong></p>
+
+        <table class="data-table schedule-table">
+            <thead>
+                <tr>
+                    <th>disciplina</th>
+                    <th>professor</th>
+                    <th>data</th>
+                    <th>turno</th>
+                    <th>qt_turnos</th>
+                    <th>ch_síncrona</th>
+                    <th>ch_assíncrona</th>
+                    <th>ch_total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1. tecnologia</td><td>Humberto Meira</td><td>11/07/2026</td><td>ambos</td><td>2</td><td>20</td><td>10</td><td>30</td></tr>
+                <tr><td>1. tecnologia</td><td>Humberto Meira</td><td>25/07/2026</td><td>ambos</td><td>1</td><td></td><td></td><td></td></tr>
+                <tr><td>1. tecnologia</td><td>Humberto Meira</td><td>08/08/2026</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>2. fundamentos da tils</td><td>Katherine Fischer</td><td>22/08/2026</td><td>ambos</td><td>1</td><td>12</td><td>3</td><td>15</td></tr>
+                <tr><td>2. fundamentos da tils</td><td>Katherine Fischer</td><td>05/09/2026</td><td>manhã</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>3. política linguística bilíngue para surdos</td><td>Magno Prado</td><td>19/09/2026</td><td>ambos</td><td>2</td><td>24</td><td>6</td><td>30</td></tr>
+                <tr><td>3. política linguística bilíngue para surdos</td><td>Magno Prado</td><td>03/10/2026</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>3. política linguística bilíngue para surdos</td><td>Magno Prado</td><td>17/10/2026</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>4. laboratório prático português > libras</td><td>Thiago Bruno</td><td>31/10/2026</td><td>ambos</td><td>2</td><td>32</td><td>13</td><td>45</td></tr>
+                <tr><td>4. laboratório prático português > libras</td><td>Thiago Bruno</td><td>14/11/2026</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>4. laboratório prático português > libras</td><td>Thiago Bruno</td><td>28/11/2026</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>4. laboratório prático português > libras</td><td>Thiago Bruno</td><td>12/12/2026</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr class="recesso-row"><td>recesso</td><td>-</td><td>janeiro/2027</td><td>recesso</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>5. linguística e línguas (libras e português)</td><td>Jair Barbosa</td><td>23/01/2027</td><td>ambos</td><td>2</td><td>32</td><td>13</td><td>45</td></tr>
+                <tr><td>5. linguística e línguas (libras e português)</td><td>Jair Barbosa</td><td>06/02/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>5. linguística e línguas (libras e português)</td><td>Jair Barbosa</td><td>20/02/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>5. linguística e línguas (libras e português)</td><td>Jair Barbosa</td><td>06/03/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>6. laboratório prático libras > português</td><td>Humberto Meira</td><td>20/03/2027</td><td>ambos</td><td>2</td><td>20</td><td>10</td><td>30</td></tr>
+                <tr><td>6. laboratório prático libras > português</td><td>Humberto Meira</td><td>03/04/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>6. laboratório prático libras > português</td><td>Humberto Meira</td><td>17/04/2027</td><td>manhã</td><td>1</td><td></td><td></td><td></td></tr>
+                <tr><td>6. laboratório prático libras > português</td><td>Katherine Fischer</td><td>17/04/2027</td><td>tarde</td><td>1</td><td>12</td><td>3</td><td>15</td></tr>
+                <tr><td>6. laboratório prático libras > português</td><td>Katherine Fischer</td><td>01/05/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>7. esferas de atuação e especialidades</td><td>Hanna Beer</td><td>15/05/2027</td><td>ambos</td><td>2</td><td>32</td><td>13</td><td>45</td></tr>
+                <tr><td>7. esferas de atuação e especialidades</td><td>Hanna Beer</td><td>29/05/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>7. esferas de atuação e especialidades</td><td>Hanna Beer</td><td>12/06/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>7. esferas de atuação e especialidades</td><td>Hanna Beer</td><td>19/06/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr class="recesso-row"><td>recesso</td><td>-</td><td>julho/2027</td><td>recesso</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td>8. especialidades em surdocegueira e comunicação tátil</td><td>Nagib Mendes</td><td>07/08/2027</td><td>ambos</td><td>2</td><td>12</td><td>3</td><td>15</td></tr>
+                <tr><td>8. especialidades em surdocegueira e comunicação tátil</td><td>Nagib Mendes</td><td>21/08/2027</td><td>manhã</td><td>1</td><td></td><td></td><td></td></tr>
+                <tr><td>"9. gestão, carreira e mercado"</td><td>Hanna Beer</td><td>04/09/2027</td><td>ambos</td><td>2</td><td>12</td><td>3</td><td>15</td></tr>
+                <tr><td>"9. gestão, carreira e mercado"</td><td>Hanna Beer</td><td>18/09/2027</td><td>manhã</td><td>1</td><td></td><td></td><td></td></tr>
+                <tr><td>"10. literatura surda: narrativas, poesia e corporalidade"</td><td>Cristiano Monteiro</td><td>02/10/2027</td><td>ambos</td><td>2</td><td>12</td><td>3</td><td>15</td></tr>
+                <tr><td>"10. literatura surda: narrativas, poesia e corporalidade"</td><td>Cristiano Monteiro</td><td>16/10/2027</td><td>manhã</td><td>1</td><td></td><td></td><td></td></tr>
+                <tr><td>11. pesquisa e metodologia científica</td><td>Alexandre Melo</td><td>30/10/2027</td><td>ambos</td><td>2</td><td>32</td><td>13</td><td>45</td></tr>
+                <tr><td>11. pesquisa e metodologia científica</td><td>Alexandre Melo</td><td>13/11/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>11. pesquisa e metodologia científica</td><td>Alexandre Melo</td><td>20/11/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>11. pesquisa e metodologia científica</td><td>Alexandre Melo</td><td>27/11/2027</td><td>ambos</td><td>2</td><td></td><td></td><td></td></tr>
+                <tr><td>12. seminário de pesquisas em tils</td><td>Jair Barbosa</td><td>04/12/2027</td><td>ambos</td><td>2</td><td>12</td><td>3</td><td>15</td></tr>
+                <tr><td>12. seminário de pesquisas em tils</td><td>Jair Barbosa</td><td>11/12/2027</td><td>manhã</td><td>1</td><td></td><td></td><td></td></tr>
+                <tr class="total-row"><td>TOTAL</td><td></td><td></td><td></td><td>66</td><td>264</td><td>96</td><td>360</td></tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 40px;">
+            <p>Maceió, _____ de __________________ de 2026.</p>
+            
+            <div class="signature-section">
+                <div class="signature-line">
+                    <strong>Thiago Bruno de Souza Santos</strong><br>
+                    Proponente/Coordenador Pedagógico
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

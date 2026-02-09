@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estilos - Especialização TILS</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #334155;
+            --accent: #2563eb;
+            --accent-subtle: #e0e7ff;
+            --bg-body: #f1f5f9;
+            --bg-paper: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 40px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        h1.guide-title {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2.section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        .style-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 25px 0;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .visual-preview {
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .visual-preview.dark {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tech-specs {
+            font-size: 0.85rem;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--border-color);
+        }
+
+        .tech-specs code {
+            display: block;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+
+        .tech-specs strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Classes Reais do Documento para o Preview */
+        .doc-meta { text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; color: #94a3b8; }
+        .main-title { font-size: 2rem; line-height: 1.1; font-weight: 800; color: white; margin: 0; }
+        .subtitle { font-size: 1.2rem; font-weight: 300; color: #cbd5e1; border-top: 1px solid #334155; padding-top: 10px; }
+        .page-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); width: 100%; padding-bottom: 5px; }
+        .section-badge { background: var(--primary); color: white; font-weight: 700; font-size: 0.85rem; padding: 4px 10px; border-radius: 4px; }
+        .section-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-left: 10px; }
+        .info-card { border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; background: #f8fafc; width: 100%; }
+        .info-card h3 { font-size: 0.85rem; color: var(--primary); margin-bottom: 5px; text-transform: uppercase; margin-top: 0; }
+        .info-card p { font-size: 0.85rem; margin: 0; color: var(--text-main); text-align: left; }
+        .bibliography { font-size: 0.8rem; color: var(--text-muted); padding-left: 15px; border-left: 2px solid #e2e8f0; }
+        .lattes-link { font-size: 0.75rem; color: var(--accent); text-decoration: none; font-family: monospace; }
+        .body-text { font-size: 10.5pt; line-height: 1.5; color: var(--text-main); }
+
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .color-swatch { height: 60px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="guide-title">Identidade Visual: Especialização TILS</h1>
+
+        <!-- SEÇÃO CORES -->
+        <section>
+            <h2 class="section-label">Paleta de Cores (Tokens)</h2>
+            <div class="color-grid">
+                <div><div class="color-swatch" style="background: #0f172a;"></div><code>#0f172a (Primary)</code></div>
+                <div><div class="color-swatch" style="background: #2563eb;"></div><code>#2563eb (Accent)</code></div>
+                <div><div class="color-swatch" style="background: #64748b;"></div><code>#64748b (Muted)</code></div>
+                <div><div class="color-swatch" style="background: #e0e7ff;"></div><code>#e0e7ff (Subtle)</code></div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO TIPOGRAFIA -->
+        <section>
+            <h2 class="section-label">Estilos de Texto e Tipografia</h2>
+
+            <!-- Estilo: Etiqueta de Metadados -->
+            <div class="style-row">
+                <div class="visual-preview">
+                    <span class="doc-meta">Proposta de Curso</span>
+                </div>
+                <div class="tech-specs">
+                    <strong>Etiqueta de Metadados (.doc-meta)</strong>
+                    <code>Fonte: Inter / Sans-serif</code>
+                    <code>Tamanho: 0.9rem (aprox. 14px)</code>
+                    <code>Cor: #94a3b8 (Cinza Slate)</code>
+                    <code>Transform: UPPERCASE (Maiúsculas)</code>
+                    <code>Letter-spacing: 2px (Espaçamento entre letras)</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Título Principal -->
+            <div class="style-row">
+                <div class="visual-preview dark">
+                    <h1 class="main-title">TÍTULO DA CAPA</h1>
+                </div>
+                <div class="tech-specs">
+                    <strong>Título Principal (.main-title)</strong>
+                    <code>Fonte: Inter / Sans-serif</code>
+                    <code>Tamanho: 3rem (aprox. 48px)</code>
+                    <code>Peso: 800 (Extra Bold)</code>
+                    <code>Cor: #FFFFFF (Branco)</code>
+                    <code>Line-height: 1.1 (Entrelinha compacta)</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Subtítulo -->
+            <div class="style-row">
+                <div class="visual-preview dark" style="flex-direction: column; align-items: flex-start;">
+                    <div class="subtitle">Este é o subtítulo da proposta de curso.</div>
+                </div>
+                <div class="tech-specs">
+                    <strong>Subtítulo (.subtitle)</strong>
+                    <code>Fonte: Inter / Sans-serif</code>
+                    <code>Tamanho: 1.4rem (aprox. 22px)</code>
+                    <code>Peso: 300 (Light)</code>
+                    <code>Cor: #cbd5e1 (Cinza claro)</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Marca da Página -->
+            <div class="style-row">
+                <div class="visual-preview">
+                    <div class="page-header"><strong>UFAL • FALE</strong> <span>Página 01</span></div>
+                </div>
+                <div class="tech-specs">
+                    <strong>Marca da Página (.page-header)</strong>
+                    <code>Fonte: Inter / Sans-serif</code>
+                    <code>Tamanho: 0.75rem (aprox. 12px)</code>
+                    <code>Cor: #64748b (Muted)</code>
+                    <code>Borda: Inferior 1px solid</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Badge e Título de Seção -->
+            <div class="style-row">
+                <div class="visual-preview">
+                    <span class="section-badge">01</span>
+                    <span class="section-title">Apresentação</span>
+                </div>
+                <div class="tech-specs">
+                    <strong>Título de Seção e Badge</strong>
+                    <code>Badge: Fundo #0f172a, Texto Branco, Bold</code>
+                    <code>Título: 1.1rem, Bold, UPPERCASE</code>
+                    <code>Letter-spacing: 0.5px</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Título e Texto do Card -->
+            <div class="style-row">
+                <div class="visual-preview">
+                    <div class="info-card">
+                        <h3>Título do Card</h3>
+                        <p>Texto interno que descreve um item específico.</p>
+                    </div>
+                </div>
+                <div class="tech-specs">
+                    <strong>Componente Card (.info-card)</strong>
+                    <code>Título (h3): 0.85rem, Bold, Cor Primary</code>
+                    <code>Texto (p): 0.85rem, Cor Main (#1e293b)</code>
+                    <code>Fundo: #f8fafc (Cinza gelo)</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Texto de Referência -->
+            <div class="style-row">
+                <div class="visual-preview">
+                    <div class="bibliography">QUADROS, R. M. Educação de surdos. Porto Alegre: Artmed, 1997.</div>
+                </div>
+                <div class="tech-specs">
+                    <strong>Texto de Referência (.bibliography)</strong>
+                    <code>Fonte: Inter / Sans-serif</code>
+                    <code>Tamanho: 0.8rem (aprox. 13px)</code>
+                    <code>Cor: #64748b (Cinza Muted)</code>
+                    <code>Borda lateral: 2px sólida clara</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Link do Lattes -->
+            <div class="style-row">
+                <div class="visual-preview">
+                    <span class="lattes-link">http://lattes.cnpq.br/123456789</span>
+                </div>
+                <div class="tech-specs">
+                    <strong>Link do Lattes (.lattes-link)</strong>
+                    <code>Fonte: MONOSPACE (Fonte de código)</code>
+                    <code>Tamanho: 0.75rem (aprox. 12px)</code>
+                    <code>Cor: #2563eb (Azul Real)</code>
+                </div>
+            </div>
+
+            <!-- Estilo: Texto Corrido -->
+            <div class="style-row">
+                <div class="visual-preview">
+                    <div class="body-text">Este é o texto padrão utilizado em todos os parágrafos do documento.</div>
+                </div>
+                <div class="tech-specs">
+                    <strong>Corpo do Texto (p)</strong>
+                    <code>Fonte: Inter / Sans-serif</code>
+                    <code>Tamanho: 10.5pt (Padrão de impressão)</code>
+                    <code>Line-height: 1.5 (Espaçamento entre linhas)</code>
+                    <code>Alinhamento: Justificado</code>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+</body>
+</html>

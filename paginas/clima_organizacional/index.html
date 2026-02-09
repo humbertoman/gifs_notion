@@ -32,10 +32,8 @@
 </head>
 <body class="bg-gray-50 font-sans text-gray-800 antialiased">
 
-    <!-- Container Principal -->
     <div class="max-w-5xl mx-auto p-4 sm:p-6 md:p-8">
 
-        <!-- Cabeçalho -->
         <header class="mb-6 text-center bg-white p-6 rounded-xl shadow-sm border border-gray-100">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3 tracking-tight">
                 Pesquisa de Opinião
@@ -45,13 +43,10 @@
             </p>
         </header>
 
-        <!-- Formulário -->
         <form id="survey-form" class="bg-white shadow-lg rounded-xl p-4 sm:p-6 md:p-10 space-y-8" novalidate>
 
-            <!-- BLOCO DE INTRODUÇÃO -->
             <div class="p-5 sm:p-6 md:p-8 bg-green-50 border border-green-100 rounded-xl relative">
 
-                <!-- Botão Libras Intro -->
                 <div class="flex justify-end mb-3 md:absolute md:top-6 md:right-6 md:mb-0">
                     <button type="button" onclick="openLibrasModal('intro')" class="flex items-center gap-2 bg-white hover:bg-green-100 text-green-700 border border-green-200 px-3 py-1.5 rounded-full shadow-sm transition-transform active:scale-95 text-xs sm:text-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -82,7 +77,6 @@
                 </div>
             </div>
 
-            <!-- PERFIL -->
             <div class="p-5 sm:p-6 md:p-8 bg-blue-50 border border-blue-100 rounded-xl">
                 <p class="font-bold text-lg sm:text-xl md:text-2xl text-blue-900 mb-4 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,10 +111,8 @@
                 </span>
             </div>
 
-            <!-- Perguntas -->
             <div id="questions-container" class="space-y-8 pb-4"></div>
 
-            <!-- Botão de Envio -->
             <div class="pt-4 border-t border-gray-100 sticky bottom-0 bg-white/95 backdrop-blur py-4 -mx-4 px-4 md:static md:bg-transparent md:p-0 md:mx-0 z-10">
                 <button type="submit" id="submit-btn" class="w-full md:w-auto md:px-12 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-base sm:text-lg rounded-xl shadow-lg hover:shadow-blue-300 transform transition hover:-translate-y-0.5 active:translate-y-0 flex justify-center items-center gap-3">
                     <span>Enviar Respostas</span>
@@ -138,7 +130,6 @@
         </footer>
     </div>
 
-    <!-- MODAL DE VÍDEO -->
     <div id="libras-modal" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-2 md:p-6 backdrop-blur-sm" onclick="closeLibrasModal(event)">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden flex flex-col max-h-[90vh]">
             <div class="bg-gray-50 px-4 py-3 border-b flex justify-between items-center flex-shrink-0">
@@ -163,7 +154,9 @@
     <script>
         // --- CONFIGURAÇÃO ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzJnWdb53GmGLD5H7EGePEvbhoWrXvaQKfh0jCk48P35DA9faOR_y2Q9bTfQ_oApNz/exec';
-        const INTRO_VIDEO_URL = ""; // Link Vídeo Intro
+        
+        // Link Vídeo Intro (q0)
+        const INTRO_VIDEO_URL = "https://iframe.mediadelivery.net/play/596365/7e0b36b8-3ae9-424e-a001-51bf7cc5817d"; 
 
         const BLOCKS = {
             0: { title: "IMAGEM E PERCEPÇÃO EXTERNA", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>` },
@@ -181,62 +174,75 @@
         };
 
         const QUESTIONS_DATA = [
-            { text: "Você acha que a imagem do Letras-Libras na comunidade externa é:", video: "" },
-            { text: "Até que ponto você se sente disposto a melhorar a imagem do curso?", video: "" },
-            { text: "Você fica indignado quando ouve alguém depreciando a imagem do curso?", video: "" },
-            { text: "Com que frequência você associa o Letras-Libras com a imagem depreciativa que se faz do serviço público no senso comum?", video: "" },
-            { text: "De uma maneira geral, como você considera o atendimento às pessoas que procuram o Letras-Libras?", video: "" },
-            { text: "Como você percebe ou avalia o grau de satisfação dos alunos em relação ao atendimento prestado pelo Letras-Libras?", video: "" },
-            { text: "Como você percebe ou avalia o grau de satisfação dos alunos em relação à qualidade do ensino no Letras-Libras?", video: "" },
-            { text: "Você acha que os servidores valorizam (prestigiam) o LL?", video: "" },
-            { text: "Até que ponto você \"veste a camisa\" do LL?", video: "" },
-            { text: "Você se considera informado sobre as ações/metas projetos desenvolvidos no LL?", video: "" },
-            { text: "Na sua opinião, a imagem pública do LL desperta sentimento de orgulho em você?", video: "" },
-            { text: "Você acredita que os servidores conhecem e estão integrados aos objetivos do LL?", video: "" },
-            { text: "O LL é um setor organizado?", video: "" },
-            { text: "O LL é uma organização apática/atrasada?", video: "" },
-            { text: "O LL é uma organização humanizada?", video: "" },
-            { text: "O LL é uma organização moderna/desafiante?", video: "" },
-            { text: "O relacionamento entre servidores e a Coordenação é adequado?", video: "" },
-            { text: "O relacionamento entre os servidores é cordial?", video: "" },
-            { text: "O relacionamento entre os servidores é cooperativo?", video: "" },
-            { text: "Técnico-Adm. x Técnico-Adm.", video: "" },
-            { text: "Técnico-Adm. x Professor", video: "" },
-            { text: "Técnico-Adm. x Aluno", video: "" },
-            { text: "Técnico-Adm. x TILS", video: "" },
-            { text: "Professor x Professor", video: "" },
-            { text: "Professor x Aluno", video: "" },
-            { text: "Professor x TILS", video: "" },
-            { text: "Aluno x Aluno", video: "" },
-            { text: "Aluno x TILS", video: "" },
-            { text: "TILS x TILS", video: "" },
-            { text: "Como você classificaria o nível de companheirismo e integração no LL?", video: "" },
-            { text: "O grau de consideração e apreço existente entre seus colegas de trabalho é:", video: "" },
-            { text: "No seu entendimento, qual o grau de descontração, espontaneidade existente no seu ambiente de trabalho?", video: "" },
-            { text: "No seu setor, as pessoas são cooperativas e têm espírito de equipe?", video: "" },
-            { text: "Até que ponto seus colegas de setor incentivam uns aos outros para um melhor desempenho?", video: "" },
-            { text: "Em seu setor, as pessoas tendem a reconhecer a competência profissional dos colegas?", video: "" },
-            { text: "A Coordenação atua de forma imparcial e transparente nas decisões que afetam o curso?", video: "" },
-            { text: "A Coordenação demonstra conhecimento sobre os processos administrativos e pedagógicos do curso?", video: "" },
-            { text: "A Coordenação atua como um ponto de referência e orientação para as demandas do curso?", video: "" },
-            { text: "A Coordenação demonstra abertura para ouvir e considerar sugestões de melhoria trazidas pela equipe?", video: "" },
-            { text: "Você se sente seguro(a) com as orientações e diretrizes passadas pela Coordenação?", video: "" },
-            { text: "Você sente que tem autonomia suficiente para realizar suas atividades diárias?", video: "" },
-            { text: "Você conta com o suporte ou retaguarda da Coordenação quando surgem dificuldades no trabalho?", video: "" },
-            { text: "A organização e o planejamento das atividades do curso facilitam o seu trabalho?", video: "" },
-            { text: "As diretrizes, prazos e planejamentos do curso são comunicados de forma clara pela Coordenação?", video: "" },
-            { text: "Existe espaço para diálogo e troca de ideias entre a Coordenação e a equipe?", video: "" },
-            { text: "Você sente segurança profissional na gestão realizada pela Coordenação?", video: "" },
-            { text: "O trabalho e o esforço da equipe são reconhecidos e valorizados pela Coordenação?", video: "" },
-            { text: "As atividades que você realiza hoje no curso são compatíveis com sua formação e perfil profissional?", video: "" },
-            { text: "Você considera que a denominação do seu cargo é um fator de prestígio pessoal:", video: "" },
-            { text: "O prestígio que você desfruta na organização pelo trabalho que executa é alto:", video: "" },
-            { text: "O volume de trabalho e as responsabilidades atribuídas a você estão equilibrados?", video: "" },
-            { text: "Você se sente ouvido(a) nas decisões importantes do curso?", video: "" },
-            { text: "De modo geral, você se sente motivado(a) trabalhando na equipe deste curso?", video: "" },
-            { text: "Você está satisfeito com o trabalho que executa?", video: "" },
-            { text: "Você sente-se integrado ao LL?", video: "" },
-            { text: "Você está satisfeito com o seu setor de trabalho?", video: "" }
+            // Bloco 1
+            { text: "Você acha que a imagem do Letras-Libras na comunidade externa é:", video: "https://iframe.mediadelivery.net/play/596365/fb6a955c-5a62-48ef-8075-2d886a81cccf" }, // q1
+            { text: "Até que ponto você se sente disposto a melhorar a imagem do curso?", video: "" }, // q2 (ausente)
+            { text: "Você fica indignado quando ouve alguém depreciando a imagem do curso?", video: "https://iframe.mediadelivery.net/play/596365/29ad3671-6fb3-43d0-b59d-f0fc3e78d015" }, // q3
+            { text: "Com que frequência você associa o Letras-Libras com a imagem depreciativa que se faz do serviço público no senso comum?", video: "https://iframe.mediadelivery.net/play/596365/a7784091-9d05-424d-a85a-d3fc50ddcf79" }, // q4
+            { text: "De uma maneira geral, como você considera o atendimento às pessoas que procuram o Letras-Libras?", video: "https://iframe.mediadelivery.net/play/596365/fba52a60-5423-497b-8939-219b7ed7546b" }, // q5
+            { text: "Como você percebe ou avalia o grau de satisfação dos alunos em relação ao atendimento prestado pelo Letras-Libras?", video: "https://iframe.mediadelivery.net/play/596365/4e315c6e-1b40-4794-aa28-03c77db2431c" }, // q6
+            { text: "Como você percebe ou avalia o grau de satisfação dos alunos em relação à qualidade do ensino no Letras-Libras?", video: "https://iframe.mediadelivery.net/play/596365/cd4645f1-7c63-4e44-8945-a45722bc03e0" }, // q7
+            { text: "Você acha que os servidores valorizam (prestigiam) o LL?", video: "https://iframe.mediadelivery.net/play/596365/89414d7c-80c1-4f0a-9d52-05aea4ac606e" }, // q8
+            { text: "Até que ponto você \"veste a camisa\" do LL?", video: "https://iframe.mediadelivery.net/play/596365/f4de702b-a5bc-436c-b96b-3d02e1a6f722" }, // q9
+            { text: "Você se considera informado sobre as ações/metas projetos desenvolvidos no LL?", video: "https://iframe.mediadelivery.net/play/596365/a409ca6e-cf3f-4718-b282-0a9b5509d075" }, // q10
+            { text: "Na sua opinião, a imagem pública do LL desperta sentimento de orgulho em você?", video: "https://iframe.mediadelivery.net/play/596365/2dbbf598-43bb-4ac6-a107-5273c4675ac0" }, // q11
+            { text: "Você acredita que os servidores conhecem e estão integrados aos objetivos do LL?", video: "https://iframe.mediadelivery.net/play/596365/0a826ee4-c328-42e2-847b-33e9a120e397" }, // q12
+            
+            // Bloco 2
+            { text: "O LL é um setor organizado?", video: "https://iframe.mediadelivery.net/play/596365/032f0f6a-5d54-4e16-b3b6-04f198c75bda" }, // q13
+            { text: "O LL é uma organização apática/atrasada?", video: "https://iframe.mediadelivery.net/play/596365/576d4498-9a4e-43ca-be04-b5c3a15547c4" }, // q14
+            { text: "O LL é uma organização humanizada?", video: "https://iframe.mediadelivery.net/play/596365/a9492485-3c0f-49c8-ac24-e647ca4a867b" }, // q15
+            { text: "O LL é uma organização moderna/desafiante?", video: "https://iframe.mediadelivery.net/play/596365/ac7ba99a-0a6e-4998-bbb5-697ba02ca0a3" }, // q16
+            
+            // Bloco 3
+            { text: "O relacionamento entre servidores e a Coordenação é adequado?", video: "https://iframe.mediadelivery.net/play/596365/ed1bee2e-b7be-4631-aaaf-9fa25f2e4e3d" }, // q17
+            { text: "O relacionamento entre os servidores é cordial?", video: "https://iframe.mediadelivery.net/play/596365/34c29361-e697-4c98-a14e-329f48fa0da8" }, // q18
+            { text: "O relacionamento entre os servidores é cooperativo?", video: "https://iframe.mediadelivery.net/play/596365/6b32253c-af80-4d5a-a42b-d5c878cd2faa" }, // q19
+            
+            // Bloco 4 (Q20-Q29 sem vídeos)
+            { text: "Técnico-Adm. x Técnico-Adm.", video: "" }, // q20
+            { text: "Técnico-Adm. x Professor", video: "" }, // q21
+            { text: "Técnico-Adm. x Aluno", video: "" }, // q22
+            { text: "Técnico-Adm. x TILS", video: "" }, // q23
+            { text: "Professor x Professor", video: "" }, // q24
+            { text: "Professor x Aluno", video: "" }, // q25
+            { text: "Professor x TILS", video: "" }, // q26
+            { text: "Aluno x Aluno", video: "" }, // q27
+            { text: "Aluno x TILS", video: "" }, // q28
+            { text: "TILS x TILS", video: "" }, // q29
+
+            // Bloco 5
+            { text: "Como você classificaria o nível de companheirismo e integração no LL?", video: "https://iframe.mediadelivery.net/play/596365/880402cb-0690-4a90-898a-b4451b2df06e" }, // q30
+            { text: "O grau de consideração e apreço existente entre seus colegas de trabalho é:", video: "https://iframe.mediadelivery.net/play/596365/b3867fb9-4198-4ed1-869b-37cc64e7d35a" }, // q31
+            { text: "No seu entendimento, qual o grau de descontração, espontaneidade existente no seu ambiente de trabalho?", video: "https://iframe.mediadelivery.net/play/596365/2e113351-d4d3-4990-b6b3-22bb97ed8efa" }, // q32
+            { text: "No seu setor, as pessoas são cooperativas e têm espírito de equipe?", video: "https://iframe.mediadelivery.net/play/596365/d273275b-b883-4438-8a86-03d40838a95a" }, // q33
+            { text: "Até que ponto seus colegas de setor incentivam uns aos outros para um melhor desempenho?", video: "https://iframe.mediadelivery.net/play/596365/afc4f6a7-2b53-4269-8108-a7d20466a2e6" }, // q34
+            { text: "Em seu setor, as pessoas tendem a reconhecer a competência profissional dos colegas?", video: "https://iframe.mediadelivery.net/play/596365/b8d0d6b1-b7f1-400c-9814-f98cb0359dda" }, // q35
+            
+            // Bloco 6
+            { text: "A Coordenação atua de forma imparcial e transparente nas decisões que afetam o curso?", video: "https://iframe.mediadelivery.net/play/596365/989b5bf9-5441-4e2a-898c-d7dc134f6fe6" }, // q36
+            { text: "A Coordenação demonstra conhecimento sobre os processos administrativos e pedagógicos do curso?", video: "https://iframe.mediadelivery.net/play/596365/64aa17ea-cd2f-45ed-b07d-edc037081173" }, // q37
+            { text: "A Coordenação atua como um ponto de referência e orientação para as demandas do curso?", video: "https://iframe.mediadelivery.net/play/596365/7be50c09-fd53-4f96-bbc1-9b164532bac9" }, // q38
+            { text: "A Coordenação demonstra abertura para ouvir e considerar sugestões de melhoria trazidas pela equipe?", video: "https://iframe.mediadelivery.net/play/596365/0e1b15af-6b36-45a0-bfd1-d2de22dfc58a" }, // q39
+            { text: "Você se sente seguro(a) com as orientações e diretrizes passadas pela Coordenação?", video: "https://iframe.mediadelivery.net/play/596365/4062be57-b760-4886-bdcb-71e647c96e48" }, // q40
+            { text: "Você sente que tem autonomia suficiente para realizar suas atividades diárias?", video: "https://iframe.mediadelivery.net/play/596365/256671fe-faf3-406b-aa41-e2400dfa987d" }, // q41
+            { text: "Você conta com o suporte ou retaguarda da Coordenação quando surgem dificuldades no trabalho?", video: "https://iframe.mediadelivery.net/play/596365/54fbdf75-0f67-4346-820b-60e584cb2bd4" }, // q42
+            { text: "A organização e o planejamento das atividades do curso facilitam o seu trabalho?", video: "https://iframe.mediadelivery.net/play/596365/c35b0503-1ad0-42a7-baa3-64216999f96f" }, // q43
+            { text: "As diretrizes, prazos e planejamentos do curso são comunicados de forma clara pela Coordenação?", video: "https://iframe.mediadelivery.net/play/596365/809a6659-a1e7-495b-94d9-7112638e67da" }, // q44
+            { text: "Existe espaço para diálogo e troca de ideias entre a Coordenação e a equipe?", video: "https://iframe.mediadelivery.net/play/596365/aec0ec56-cbb4-40da-aa63-d80421831208" }, // q45
+            { text: "Você sente segurança profissional na gestão realizada pela Coordenação?", video: "https://iframe.mediadelivery.net/play/596365/8b7db08a-546c-43db-98bd-8913848f1d23" }, // q46
+            { text: "O trabalho e o esforço da equipe são reconhecidos e valorizados pela Coordenação?", video: "https://iframe.mediadelivery.net/play/596365/f3f9c25e-0c39-45e5-b284-22b15c9b4524" }, // q47
+            
+            // Bloco 7
+            { text: "As atividades que você realiza hoje no curso são compatíveis com sua formação e perfil profissional?", video: "https://iframe.mediadelivery.net/play/596365/92c3b19f-aacd-484b-8a4e-f0ac294adff4" }, // q48
+            { text: "Você considera que a denominação do seu cargo é um fator de prestígio pessoal:", video: "https://iframe.mediadelivery.net/play/596365/b0f7b247-af69-4912-aa11-57dd6f7fe591" }, // q49
+            { text: "O prestígio que você desfruta na organização pelo trabalho que executa é alto:", video: "https://iframe.mediadelivery.net/play/596365/8e1f5488-b54f-4aa3-be00-30a953beeddb" }, // q50
+            { text: "O volume de trabalho e as responsabilidades atribuídas a você estão equilibrados?", video: "https://iframe.mediadelivery.net/play/596365/9e96888f-4dff-4ee9-8977-79c53eaace3c" }, // q51
+            { text: "Você se sente ouvido(a) nas decisões importantes do curso?", video: "https://iframe.mediadelivery.net/play/596365/0c026da7-5f80-43d4-8a91-dd218f590814" }, // q52
+            { text: "De modo geral, você se sente motivado(a) trabalhando na equipe deste curso?", video: "https://iframe.mediadelivery.net/play/596365/33199ff2-eac7-4a65-bf3b-4b59640a6a15" }, // q53
+            { text: "Você está satisfeito com o trabalho que executa?", video: "https://iframe.mediadelivery.net/play/596365/855cb9cd-9ddb-4abd-93ef-a054ccee34db" }, // q54
+            { text: "Você sente-se integrado ao LL?", video: "https://iframe.mediadelivery.net/play/596365/5c8bd583-a6fe-4946-928c-276cc7224df4" }, // q55
+            { text: "Você está satisfeito com o seu setor de trabalho?", video: "https://iframe.mediadelivery.net/play/596365/8dbcea06-b6ca-46cb-a883-d50bec8f0398" } // q56
         ];
 
         const form = document.getElementById('survey-form');
@@ -250,6 +256,21 @@
 
         function getEmbedUrl(url) {
             if (!url || url.trim() === '') return '';
+
+            // Se for link do Bunny Stream (mediadelivery.net)
+            if (url.includes('mediadelivery.net')) {
+                // 1. Converter /play/ para /embed/ se necessário
+                // O modo /play/ geralmente é uma página de visualização, não aceitando parâmetros de iframe
+                let embedUrl = url.replace('/play/', '/embed/');
+                
+                // 2. Limpar parâmetros existentes
+                embedUrl = embedUrl.split('?')[0];
+
+                // 3. Adicionar parâmetros forçados (autoplay + mute + loop)
+                return `${embedUrl}?autoplay=true&muted=true&loop=false`;
+            }
+
+            // Fallback para YouTube
             if (url.includes('youtube.com/embed/')) return url;
             let videoId = '';
             if (url.includes('v=')) {
@@ -299,71 +320,69 @@
         }
 
         function renderQuestions() {
-    let html = '';
-    QUESTIONS_DATA.forEach((item, index) => {
-        const num = index + 1;
+            let html = '';
+            QUESTIONS_DATA.forEach((item, index) => {
+                const num = index + 1;
 
-        if (BLOCKS[index]) {
-            const block = BLOCKS[index];
-            const hasBlockVideo = block.video !== undefined;
-            html += `
-                <div class="mt-12 md:mt-16 mb-4 md:mb-6 border-b-2 border-blue-50 pb-4 flex flex-col md:flex-row gap-4 items-start md:items-center">
-                    <div class="bg-blue-50 p-3 rounded-xl text-blue-600">${block.icon}</div>
-                    <div class="flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-2">
-                            <h2 class="text-xl md:text-2xl font-bold text-gray-800 uppercase">${block.title}</h2>
-                            ${hasBlockVideo ? `
-                            <button type="button" onclick="openLibrasModal('block-${index}')" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
-                                Libras
-                            </button>` : ''}
-                        </div>
-                        ${block.subtitle ? `<p class="text-sm md:text-base text-gray-600">${block.subtitle}</p>` : ''}
+                if (BLOCKS[index]) {
+                    const block = BLOCKS[index];
+                    const hasBlockVideo = block.video !== undefined && block.video !== "";
+                    html += `
+                        <div class="mt-12 md:mt-16 mb-4 md:mb-6 border-b-2 border-blue-50 pb-4 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                            <div class="bg-blue-50 p-3 rounded-xl text-blue-600">${block.icon}</div>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap items-center gap-3 mb-2">
+                                    <h2 class="text-xl md:text-2xl font-bold text-gray-800 uppercase">${block.title}</h2>
+                                    ${hasBlockVideo ? `
+                                    <button type="button" onclick="openLibrasModal('block-${index}')" class="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
+                                        Libras
+                                    </button>` : ''}
+                                </div>
+                                ${block.subtitle ? `<p class="text-sm md:text-base text-gray-600">${block.subtitle}</p>` : ''}
+                            </div>
+                        </div>`;
+                }
+
+                const hasVideo = item.video && item.video.trim() !== "";
+
+                html += `
+                <div class="questao bg-gray-50/50 p-4 md:p-6 rounded-xl border border-gray-100 hover:border-blue-200 transition-all">
+                    <div class="flex flex-col md:flex-row justify-between gap-4 mb-4 md:items-start">
+                        <p class="font-medium text-base md:text-lg text-gray-800 flex-1">
+                            <span class="font-bold text-blue-600 mr-1">${num}.</span> ${item.text}
+                        </p>
+                        ${hasVideo ? `
+                        <button type="button" onclick="openLibrasModal(${num})" class="self-start md:self-auto flex items-center gap-1 text-xs font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full hover:text-blue-600 hover:border-blue-200 transition-colors shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
+                            Libras
+                        </button>` : ''}
+                    </div>
+
+                    <div class="likert-row flex sm:justify-between items-stretch sm:items-center max-w-md sm:max-w-2xl mx-auto gap-2 sm:gap-4 mb-2">
+                        ${[1,2,3,4,5].map(val => `
+                        <label class="cursor-pointer flex-1 w-full group">
+                            <input type="radio" name="q${num}" value="${val}" class="likert-option sr-only" required>
+                            <div class="w-full sm:w-14 sm:h-14 px-4 py-3 sm:px-0 sm:py-0 rounded-full sm:rounded-full border-2 border-gray-200 bg-white flex sm:inline-flex items-center justify-center text-gray-400 font-bold text-base sm:text-lg group-hover:border-blue-400 group-hover:text-blue-600 transition-all shadow-sm">
+                                ${val}
+                            </div>
+                        </label>`).join('')}
+                    </div>
+
+                    <div class="flex justify-between text-[10px] md:text-xs text-gray-400 font-medium max-w-2xl mx-auto px-1">
+                        <span class="text-left w-1/3 leading-tight">Discordo totalmente<br>Muito negativo / Nunca</span>
+                        <span class="text-right w-1/3 leading-tight">Concordo totalmente<br>Muito positivo / Sempre</span>
                     </div>
                 </div>`;
+            });
+            container.innerHTML = html;
         }
-
-        const hideLibrasBtn = index >= 19 && index <= 28;
-
-        html += `
-        <div class="questao bg-gray-50/50 p-4 md:p-6 rounded-xl border border-gray-100 hover:border-blue-200 transition-all">
-            <div class="flex flex-col md:flex-row justify-between gap-4 mb-4 md:items-start">
-                <p class="font-medium text-base md:text-lg text-gray-800 flex-1">
-                    <span class="font-bold text-blue-600 mr-1">${num}.</span> ${item.text}
-                </p>
-                ${!hideLibrasBtn ? `
-                <button type="button" onclick="openLibrasModal(${num})" class="self-start md:self-auto flex items-center gap-1 text-xs font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-full hover:text-blue-600 hover:border-blue-200 transition-colors shadow-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
-                    Libras
-                </button>` : ''}
-            </div>
-
-            <!-- Escala Likert (AJUSTADA) -->
-            <div class="likert-row flex sm:justify-between items-stretch sm:items-center max-w-md sm:max-w-2xl mx-auto gap-2 sm:gap-4 mb-2">
-                ${[1,2,3,4,5].map(val => `
-                <label class="cursor-pointer flex-1 w-full group">
-                    <input type="radio" name="q${num}" value="${val}" class="likert-option sr-only" required>
-                    <div class="w-full sm:w-14 sm:h-14 px-4 py-3 sm:px-0 sm:py-0 rounded-full sm:rounded-full border-2 border-gray-200 bg-white flex sm:inline-flex items-center justify-center text-gray-400 font-bold text-base sm:text-lg group-hover:border-blue-400 group-hover:text-blue-600 transition-all shadow-sm">
-                        ${val}
-                    </div>
-                </label>`).join('')}
-            </div>
-
-            <div class="flex justify-between text-[10px] md:text-xs text-gray-400 font-medium max-w-2xl mx-auto px-1">
-                <span class="text-left w-1/3 leading-tight">Discordo totalmente<br>Muito negativo / Nunca</span>
-                <span class="text-right w-1/3 leading-tight">Concordo totalmente<br>Muito positivo / Sempre</span>
-            </div>
-        </div>`;
-    });
-    container.innerHTML = html;
-}
-
 
         renderQuestions();
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-
+            
             if (!form.checkValidity()) {
                 e.stopPropagation();
                 const invalid = form.querySelector(':invalid');

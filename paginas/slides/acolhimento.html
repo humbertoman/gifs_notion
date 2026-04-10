@@ -1,457 +1,257 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acolhimento Letras-Libras 2026.1 - UFAL</title>
+    <title>Organizador de Equipes</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --blue-700: #1d4ed8;
-            --orange-600: #ea580c;
-            --slate-900: #0f172a;
-            --slate-body: #1e293b;
-            --slate-label: #475569;
-            
-            /* Cores dos Eixos */
-            --eixo-basica: #3730a3;     
-            --eixo-especifica: #065f46; 
-            --eixo-pedagogica: #5b21b6; 
-            --eixo-eletiva: #92400e;    
+        .student-chip {
+            cursor: grab;
+            transition: all 0.2s ease;
         }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: white;
-            color: var(--slate-900);
-            height: 100vh;
-            width: 100vw;
-            margin: 0;
-            overflow: hidden;
+        .student-chip:active {
+            cursor: grabbing;
         }
-
-        /* Linha Timer Global Superior (20px) */
-        #timer-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background: rgba(226, 232, 240, 0.4);
-            z-index: 10000;
-            display: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .drop-zone {
+            min-height: 120px;
+            transition: background-color 0.3s border-color 0.3s;
         }
-        #timer-bar {
-            height: 100%;
-            width: 100%;
-            background: var(--blue-700);
-            transform-origin: left;
-            transition: background-color 0.5s ease;
+        .drag-over {
+            background-color: #f0fdf4;
+            border-color: #22c55e;
+            border-style: dashed;
         }
-        .timer-urgent {
-            background-color: var(--orange-600) !important;
-            animation: pulse-timer 1.5s infinite ease-in-out;
+        .dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
         }
-        @keyframes pulse-timer {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        /* Slides em Tela Cheia */
-        .slide {
-            position: absolute;
-            top: 0; left: 0; 
-            width: 100vw; 
-            height: 100vh;
-            opacity: 0; 
-            pointer-events: none;
-            transition: opacity 0.4s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-        .slide.active { opacity: 1; pointer-events: auto; }
-
-        .slide-content-wrapper {
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            position: relative;
-        }
-
-        /* Estruturas Docente */
-        .prof-sidebar {
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-            border-right: 2px solid #e2e8f0;
-            width: 35%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem;
-        }
-        .prof-content {
-            width: 65%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 5rem;
-            gap: 2rem;
-        }
-
-        /* Estruturas Atividade */
-        .activity-text {
-            width: 55%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 5rem;
-        }
-        .activity-image-container {
-            width: 45%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8fafc;
-            border-left: 2px solid #f1f5f9;
-        }
-
-        /* Chips de Disciplinas com Cores */
-        .discipline-tag {
-            color: white;
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 8px;
-            margin-right: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .tag-basica { background-color: var(--eixo-basica); }
-        .tag-especifica { background-color: var(--eixo-especifica); }
-        .tag-pedagogica { background-color: var(--eixo-pedagogica); }
-        .tag-eletiva { background-color: var(--eixo-eletiva); }
-
-        /* Legenda de Eixos */
-        .eixo-legend {
-            margin-top: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--slate-label);
-        }
-        .legend-color { width: 12px; height: 12px; border-radius: 3px; }
-
-        /* Espaço de Imagem Quadrada */
-        .square-image-box {
-            width: 80%;
-            aspect-ratio: 1 / 1;
-            background: white;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 12px solid white;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #cbd5e1;
-        }
-
-        /* Navegação Minimalista - Ajustada para o canto inferior direito */
-        #nav-controls {
-            position: fixed;
-            bottom: 30px;
-            right: 30px; /* Posicionamento no canto direito */
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #e2e8f0;
-            border-radius: 9999px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-        }
-        .nav-btn {
-            background: none; border: none; color: black;
-            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center;
-            transition: transform 0.2s;
-        }
-        .nav-btn:hover:not(:disabled) { transform: scale(1.2); color: var(--blue-700); }
-        .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; }
-        .counter-text { font-size: 0.9rem; font-weight: 900; color: black; min-width: 50px; text-align: center; }
-
-        /* Tipografia */
-        .title-main { font-size: 3.25rem; font-weight: 800; line-height: 1.1; color: black; }
-        .label-caps { font-size: 0.85rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; color: var(--slate-label); }
-        .text-body { font-size: 1.4rem; line-height: 1.5; color: var(--slate-body); }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8 font-sans">
 
-    <div id="timer-wrapper">
-        <div id="timer-bar"></div>
-    </div>
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Divisão de Equipes</h1>
+            <p class="text-slate-600">Insira os nomes e arraste para os grupos</p>
+        </header>
 
-    <main id="presentation-container" class="relative w-full h-full z-10">
-
-        <!-- SLIDE 1: CAPA -->
-        <section class="slide active">
-            <div class="slide-content-wrapper p-20 flex-col justify-between">
-                <div class="absolute left-0 top-0 h-full w-3 bg-gradient-to-b from-blue-700 to-indigo-800"></div>
-                <div class="flex justify-between items-center w-full">
-                    <img src="https://gifscursopullzone.b-cdn.net/LOGO-UFAL-removebg-preview.png" alt="UFAL" class="h-20">
-                    <img src="https://gifscursopullzone.b-cdn.net/LOGO_LL_PRETO.png" alt="Letras Libras" class="h-12">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Painel de Entrada -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="text-lg font-semibold mb-4 text-slate-700">1. Lista de Alunos</h2>
+                    <textarea 
+                        id="namesInput" 
+                        class="w-full h-48 p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                        placeholder="Digite um nome por linha..."
+                    ></textarea>
+                    <button 
+                        onclick="generateStudents()" 
+                        class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition"
+                    >
+                        Carregar Alunos
+                    </button>
                 </div>
-                <div class="max-w-4xl">
-                    <p class="label-caps text-blue-700 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap"></i> Faculdade de Letras • UFAL
-                    </p>
-                    <h1 class="title-main text-7xl mb-8">Semana de <br><span class="text-blue-700 font-black">Acolhimento</span></h1>
-                    <p class="text-3xl font-bold text-slate-700 tracking-tight">Letras-Libras 2026.1</p>
-                </div>
-                <div class="grid grid-cols-4 gap-12 border-t border-slate-200 pt-12">
-                    <div><p class="label-caps mb-2">Coordenação</p><p class="font-black text-xl text-black">Gestão</p></div>
-                    <div><p class="label-caps mb-2">Acadêmico</p><p class="font-black text-xl text-black">Docentes</p></div>
-                    <div><p class="label-caps mb-2">Suporte</p><p class="font-black text-xl text-black">Técnicos</p></div>
-                    <div><p class="label-caps mb-2">Agenda</p><p class="font-black text-xl text-black">Atividades</p></div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Slides Dinâmicos Gerados via JS -->
-        <div id="dynamic-slides"></div>
-
-        <!-- SLIDE 30: DÚVIDAS -->
-        <section class="slide">
-            <div class="slide-content-wrapper flex-col items-center justify-center text-center p-20">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-700 to-purple-700"></div>
-                <div class="mb-12 text-8xl text-blue-700">
-                    <i class="fa-solid fa-circle-question"></i>
-                </div>
-                <h1 class="title-main text-6xl mb-8">Dúvidas?</h1>
-                <p class="text-body max-w-3xl mb-16 font-medium">Estamos à disposição para esclarecimentos.</p>
-                <div class="bg-black text-white px-12 py-8 rounded-[40px] shadow-2xl flex items-center gap-8 text-left border-2 border-blue-600">
-                    <i class="fa-solid fa-envelope text-4xl text-blue-400"></i>
-                    <div>
-                        <p class="label-caps text-blue-300 mb-1 font-black">Contato da Coordenação</p>
-                        <p class="text-3xl font-bold">coordenacao.libras@fale.ufal.br</p>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="text-lg font-semibold mb-2 text-slate-700">Alunos sem Equipe</h2>
+                    <p class="text-xs text-slate-500 mb-4">Arraste os nomes daqui para as equipes.</p>
+                    <div 
+                        id="unassigned" 
+                        class="drop-zone flex flex-wrap gap-2 p-2 border-2 border-transparent rounded-lg"
+                        ondragover="allowDrop(event)" 
+                        ondrop="drop(event)"
+                    >
+                        <!-- Alunos aparecerão aqui -->
                     </div>
                 </div>
             </div>
-        </section>
 
-    </main>
+            <!-- Painel das Equipes -->
+            <div class="lg:col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Equipe 1 -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-blue-800">Equipe 1</h3>
+                            <span class="count bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-0.5 rounded-full" id="count-team1">0</span>
+                        </div>
+                        <div id="team1" class="drop-zone border-2 border-slate-100 rounded-lg p-2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                    </div>
 
-    <!-- NAVEGAÇÃO CANTO DIREITO INFERIOR -->
-    <div id="nav-controls">
-        <button onclick="prevSlide()" id="prevBtn" class="nav-btn" disabled>
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <span id="slide-counter" class="counter-text">1 / 30</span>
-        <button onclick="nextSlide()" id="nextBtn" class="nav-btn">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+                    <!-- Equipe 2 -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-green-800">Equipe 2</h3>
+                            <span class="count bg-green-100 text-green-700 text-xs font-bold px-2.5 py-0.5 rounded-full" id="count-team2">0</span>
+                        </div>
+                        <div id="team2" class="drop-zone border-2 border-slate-100 rounded-lg p-2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                    </div>
+
+                    <!-- Equipe 3 -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-purple-800">Equipe 3</h3>
+                            <span class="count bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-0.5 rounded-full" id="count-team3">0</span>
+                        </div>
+                        <div id="team3" class="drop-zone border-2 border-slate-100 rounded-lg p-2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                    </div>
+
+                    <!-- Equipe 4 -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-orange-800">Equipe 4</h3>
+                            <span class="count bg-orange-100 text-orange-700 text-xs font-bold px-2.5 py-0.5 rounded-full" id="count-team4">0</span>
+                        </div>
+                        <div id="team4" class="drop-zone border-2 border-slate-100 rounded-lg p-2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                    </div>
+
+                    <!-- Equipe 5 -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-rose-800">Equipe 5</h3>
+                            <span class="count bg-rose-100 text-rose-700 text-xs font-bold px-2.5 py-0.5 rounded-full" id="count-team5">0</span>
+                        </div>
+                        <div id="team5" class="drop-zone border-2 border-slate-100 rounded-lg p-2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                    </div>
+
+                    <!-- Equipe 6 -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-teal-800">Equipe 6</h3>
+                            <span class="count bg-teal-100 text-teal-700 text-xs font-bold px-2.5 py-0.5 rounded-full" id="count-team6">0</span>
+                        </div>
+                        <div id="team6" class="drop-zone border-2 border-slate-100 rounded-lg p-2" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex justify-end gap-4">
+                    <button onclick="clearTeams()" class="px-4 py-2 text-slate-600 hover:text-slate-800 text-sm font-medium">Limpar Tudo</button>
+                    <button onclick="exportResult()" class="px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition shadow-md">Exportar TXT</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const activities = [
-            { name: "Gestão", sub: "(Coordenação)", block: "Gestão, Representação e Apoio", color: "bg-blue-700", icon: "fa-solid fa-sitemap" },
-            { name: "Centro Acadêmico", sub: "(CA)", block: "Gestão, Representação e Apoio", color: "bg-blue-700", icon: "fa-solid fa-users-rectangle" },
-            { name: "Assistência Estudantil", sub: "", block: "Gestão, Representação e Apoio", color: "bg-blue-700", icon: "fa-solid fa-hand-holding-heart" },
-            { name: "Ensino", sub: "(Geral)", block: "Ensino e Formação Profissional", color: "bg-teal-700", icon: "fa-solid fa-book-open-reader" },
-            { name: "PIBID", sub: "(Iniciação à Docência)", block: "Ensino e Formação Profissional", color: "bg-teal-700", icon: "fa-solid fa-person-chalkboard" },
-            { name: "Monitoria", sub: "", block: "Ensino e Formação Profissional", color: "bg-teal-700", icon: "fa-solid fa-user-graduate" },
-            { name: "Estágio Supervisionado", sub: "", block: "Ensino e Formação Profissional", color: "bg-teal-700", icon: "fa-solid fa-briefcase" },
-            { name: "Pesquisa", sub: "(Geral)", block: "Pesquisa e Produção Científica", color: "bg-purple-800", icon: "fa-solid fa-microscope" },
-            { name: "PIBIC", sub: "/ Iniciação Científica", block: "Pesquisa e Produção Científica", color: "bg-purple-800", icon: "fa-solid fa-magnifying-glass-chart" },
-            { name: "TCC", sub: "(Conclusão de Curso)", block: "Pesquisa e Produção Científica", color: "bg-purple-800", icon: "fa-solid fa-file-signature" },
-            { name: "Extensão Universitária", sub: "", block: "Extensão e Sociedade", color: "bg-pink-800", icon: "fa-solid fa-earth-americas" },
-            { name: "CCC / CCEV", sub: "(Casas de Cultura)", block: "Extensão e Sociedade", color: "bg-pink-800", icon: "fa-solid fa-masks-theater" },
-            { name: "SETILSP", sub: "/ Interpretação", block: "Extensão e Sociedade", color: "bg-pink-800", icon: "fa-solid fa-hands-asl-interpreting" },
-            { name: "Ofertas Externas", sub: "", block: "Extensão e Sociedade", color: "bg-pink-800", icon: "fa-solid fa-link" }
-        ];
+        let studentIdCounter = 0;
 
-        const legendHtml = `
-            <div class="eixo-legend">
-                <div class="legend-item"><div class="legend-color tag-basica"></div> Formação Básica</div>
-                <div class="legend-item"><div class="legend-color tag-especifica"></div> Formação Específica</div>
-                <div class="legend-item"><div class="legend-color tag-pedagogica"></div> Formação Pedagógica</div>
-                <div class="legend-item"><div class="legend-color tag-eletiva"></div> Formação Eletiva</div>
-            </div>
-        `;
+        function generateStudents() {
+            const input = document.getElementById('namesInput');
+            const container = document.getElementById('unassigned');
+            const lines = input.value.split('\n').filter(line => line.trim() !== "");
 
-        const container = document.getElementById('dynamic-slides');
-        
-        activities.forEach((act, index) => {
-            if (index === 0) {
-                // SLIDE 2: COORDENAÇÃO DUPLA
-                const doubleProf = document.createElement('section');
-                doubleProf.className = 'slide';
-                doubleProf.innerHTML = `
-                <div class="slide-content-wrapper p-20 flex-col">
-                    <div class="mb-10 border-b-2 border-slate-100 pb-6 flex justify-between items-end text-black">
-                        <h2 class="title-main text-5xl">Coordenação e Vice</h2>
-                        <span class="label-caps font-black text-blue-700 flex items-center gap-2 text-black"><i class="fa-solid fa-users"></i> Gestão do Curso</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-16 flex-grow">
-                        <div class="flex flex-col pr-10 border-r-2 border-slate-100">
-                            <h3 class="text-3xl font-black text-black mb-6">Nome do Coordenador</h3>
-                            <div class="space-y-6">
-                                <div><p class="label-caps text-blue-700 mb-2">Disciplinas / Eixo</p><div class="flex flex-wrap"><span class="discipline-tag tag-especifica">Linguística I</span><span class="discipline-tag tag-basica">Libras IV</span></div></div>
-                                <div><p class="label-caps text-blue-700">Formação</p><p class="font-bold text-lg">Doutorado em Linguística</p></div>
-                                <div><p class="label-caps text-purple-700">Curiosidade</p><p class="italic text-lg">"Gosta de fotografia e trilhas."</p></div>
-                                <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 mt-2 text-lg font-bold">Projetos: Tradutologia e Libras.</div>
-                                ${legendHtml}
-                            </div>
-                        </div>
-                        <div class="flex flex-col">
-                            <h3 class="text-3xl font-black text-black mb-6">Nome do Vice</h3>
-                            <div class="space-y-6">
-                                <div><p class="label-caps text-blue-700 mb-2">Disciplinas / Eixo</p><div class="flex flex-wrap"><span class="discipline-tag tag-pedagogica">Educação de Surdos</span></div></div>
-                                <div><p class="label-caps text-blue-700">Formação</p><p class="font-bold text-lg">Mestrado em Letras</p></div>
-                                <div><p class="label-caps text-purple-700">Curiosidade</p><p class="italic text-lg">"Apaixonado por cinema clássico."</p></div>
-                                <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 mt-2 text-lg font-bold">Projetos: Extensão e Apoio.</div>
-                                ${legendHtml}
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-                container.appendChild(doubleProf);
-            } else {
-                // SLIDE DOCENTE PADRÃO
-                const prof = document.createElement('section');
-                prof.className = 'slide';
-                prof.innerHTML = `
-                    <div class="slide-content-wrapper">
-                        <div class="prof-sidebar">
-                            <span class="label-caps mb-6 text-black font-black flex items-center gap-3"><i class="fa-solid fa-id-card"></i> Docente</span>
-                            <h2 class="title-main mb-10 text-4xl">Nome do <br>Professor</h2>
-                            <div class="mt-4">
-                                <p class="label-caps text-slate-700 font-bold mb-4">Disciplinas 2026.1</p>
-                                <div class="flex flex-wrap">
-                                    <span class="discipline-tag tag-basica">Disciplina A</span>
-                                    <span class="discipline-tag tag-especifica">Disciplina B</span>
-                                </div>
-                                ${legendHtml}
-                            </div>
-                        </div>
-                        <div class="prof-content">
-                            <div class="grid grid-cols-2 gap-12 text-black">
-                                <div><h3 class="font-black text-blue-700 mb-4 text-2xl flex items-center gap-3"><i class="fa-solid fa-award"></i> Formação</h3><p class="text-body font-bold text-lg">Doutorado e especialização.</p></div>
-                                <div><h3 class="font-black text-purple-700 mb-4 text-2xl flex items-center gap-3"><i class="fa-solid fa-star"></i> Curiosidade</h3><p class="text-body font-bold italic text-lg">"Hobby ou fato interessante."</p></div>
-                            </div>
-                            <div class="bg-blue-50 p-10 rounded-[40px] border-2 border-blue-100 flex gap-8 items-start shadow-inner">
-                                <i class="fa-solid fa-rocket text-blue-700 text-4xl mt-1"></i>
-                                <div><h3 class="font-black text-slate-900 mb-2 text-xl italic">No que podemos trabalhar juntos?</h3><p class="text-body font-bold text-slate-800 text-lg">Espaço para convite de colaboração.</p></div>
-                            </div>
-                        </div>
-                    </div>`;
-                container.appendChild(prof);
-            }
+            if (lines.length === 0) return;
 
-            // SLIDE ATIVIDADE (IMAGEM QUADRADA)
-            const activity = document.createElement('section');
-            activity.className = 'slide';
-            activity.innerHTML = `
-                <div class="slide-content-wrapper">
-                    <div class="activity-text">
-                        <div class="inline-block px-6 py-2.5 rounded-2xl ${act.color} text-white w-fit mb-10 shadow-lg flex items-center gap-3">
-                            <i class="${act.icon}"></i>
-                            <p class="text-xs font-black uppercase tracking-widest text-white">${act.block}</p>
-                        </div>
-                        <h2 class="title-main mb-10 text-4xl">${act.name} <br><span class="text-3xl font-bold text-blue-700">${act.sub}</span></h2>
-                        <div class="space-y-10">
-                            <div class="flex gap-6 items-start text-black">
-                                <div class="w-1.5 h-20 bg-slate-900 rounded-full"></div>
-                                <div><span class="label-caps font-black mb-2">Sobre</span><p class="text-lg font-bold leading-tight">Breve explicação da actividade.</p></div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="bg-slate-100 p-8 rounded-[32px] border border-slate-200 shadow-sm text-black"><span class="label-caps font-bold">Público</span><p class="font-black text-xl">Todos Alunos</p></div>
-                                <div class="bg-slate-100 p-8 rounded-[32px] border border-slate-200 shadow-sm text-black"><span class="label-caps font-bold">Inscrição</span><p class="font-black text-xl">SIGAA</p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="activity-image-container">
-                        <div class="square-image-box shadow-2xl flex flex-col gap-4">
-                            <i class="${act.icon} text-8xl opacity-10 text-black"></i>
-                            <p class="label-caps font-black opacity-30 text-black">Imagem (1:1)</p>
-                        </div>
-                    </div>
-                </div>`;
-            container.appendChild(activity);
-        });
+            // Limpa o que já existe
+            container.innerHTML = '';
+            clearCounts();
 
-        // LÓGICA DE TIMER E NAVEGAÇÃO
-        let currentIdx = 0;
-        let timerInterval = null;
-        let timeLeft = 300; 
-        const slides = document.querySelectorAll('.slide');
-        const timerBar = document.getElementById('timer-bar');
-        const timerCont = document.getElementById('timer-wrapper');
-        const counterText = document.getElementById('slide-counter');
-
-        function startTimer() {
-            clearInterval(timerInterval);
-            timeLeft = 300;
-            updateTimerUI();
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                updateTimerUI();
-                if (timeLeft <= 0) clearInterval(timerInterval);
-            }, 1000);
+            lines.forEach(name => {
+                createStudentElement(name.trim(), container);
+            });
+            
+            updateAllCounts();
         }
 
-        function updateTimerUI() {
-            const percentage = (timeLeft / 300) * 100;
-            timerBar.style.width = percentage + '%';
-            if (timeLeft <= 60) timerBar.classList.add('timer-urgent');
-            else timerBar.classList.remove('timer-urgent');
+        function createStudentElement(name, targetContainer) {
+            const id = 'student-' + studentIdCounter++;
+            const el = document.createElement('div');
+            el.id = id;
+            el.className = 'student-chip bg-white border border-slate-200 px-3 py-1.5 rounded-md text-sm shadow-sm hover:shadow-md hover:border-blue-300 text-slate-700 select-none';
+            el.draggable = true;
+            el.innerText = name;
+
+            el.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+                e.target.classList.add('dragging');
+            });
+
+            el.addEventListener('dragend', (e) => {
+                e.target.classList.remove('dragging');
+            });
+
+            targetContainer.appendChild(el);
         }
 
-        function update() {
-            slides.forEach((s, i) => s.classList.toggle('active', i === currentIdx));
-            counterText.innerText = `${currentIdx + 1} / ${slides.length}`;
-            document.getElementById('prevBtn').disabled = currentIdx === 0;
-            document.getElementById('nextBtn').disabled = currentIdx === slides.length - 1;
-
-            const isProfessorSlide = (currentIdx + 1) % 2 === 0;
-            const isTimerRange = (currentIdx > 0 && currentIdx < slides.length - 1);
-
-            if (isTimerRange) {
-                timerCont.style.display = 'block';
-                if (isProfessorSlide) startTimer();
-            } else {
-                timerCont.style.display = 'none';
-                clearInterval(timerInterval);
+        function allowDrop(e) {
+            e.preventDefault();
+            const zone = e.currentTarget;
+            if (zone.classList.contains('drop-zone')) {
+                zone.classList.add('drag-over');
             }
         }
 
-        function nextSlide() { if(currentIdx < slides.length - 1) { currentIdx++; update(); } }
-        function prevSlide() { if(currentIdx > 0) { currentIdx--; update(); } }
-
-        document.addEventListener('keydown', e => {
-            if(e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-            if(e.key === 'ArrowLeft') prevSlide();
+        // Remover classe de destaque quando o item sai ou é solto
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('dragleave', (e) => {
+                e.currentTarget.classList.remove('drag-over');
+            });
         });
 
-        update();
+        function drop(e) {
+            e.preventDefault();
+            const zone = e.currentTarget;
+            zone.classList.remove('drag-over');
+            
+            const data = e.dataTransfer.getData('text/plain');
+            const draggedElement = document.getElementById(data);
+            
+            if (draggedElement && zone.classList.contains('drop-zone')) {
+                zone.appendChild(draggedElement);
+                updateAllCounts();
+            }
+        }
+
+        function updateAllCounts() {
+            const zones = ['team1', 'team2', 'team3', 'team4', 'team5', 'team6'];
+            zones.forEach(id => {
+                const count = document.getElementById(id).children.length;
+                document.getElementById('count-' + id).innerText = count;
+            });
+        }
+
+        function clearCounts() {
+            const counts = document.querySelectorAll('.count');
+            counts.forEach(c => c.innerText = '0');
+            // Também limpa os containers de times
+            const zones = ['team1', 'team2', 'team3', 'team4', 'team5', 'team6'];
+            zones.forEach(id => document.getElementById(id).innerHTML = '');
+        }
+
+        function clearTeams() {
+            document.getElementById('namesInput').value = '';
+            document.getElementById('unassigned').innerHTML = '';
+            clearCounts();
+        }
+
+        function exportResult() {
+            let output = "DIVISÃO DE EQUIPES\n==================\n\n";
+            const zones = ['team1', 'team2', 'team3', 'team4', 'team5', 'team6'];
+            
+            zones.forEach((id, index) => {
+                const teamName = "EQUIPE " + (index + 1);
+                output += teamName + ":\n";
+                const students = document.getElementById(id).children;
+                if (students.length === 0) {
+                    output += "(Vazia)\n";
+                } else {
+                    Array.from(students).forEach(s => {
+                        output += "- " + s.innerText + "\n";
+                    });
+                }
+                output += "\n";
+            });
+
+            const blob = new Blob([output], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'equipes_formadas.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
     </script>
 </body>
 </html>

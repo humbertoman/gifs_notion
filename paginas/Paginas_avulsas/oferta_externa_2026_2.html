@@ -350,11 +350,11 @@
       {
         id: 8,
         componente: "FALE0001 - LIBRAS",
-        solicitante: "CIÊNCIAS BIOLÓGICAS / MATEMÁTICA - CAMPUS MACEIÓ - VESPERTINO",
+        solicitante: "MATEMÁTICA - CAMPUS MACEIÓ - VESPERTINO", // Turma #8 dividida (apenas Matemática)
         data: "01/06/2026",
         tipo: "Turma Regular",
         horario: "6T123",
-        vagas: 45,
+        vagas: 15, // Vagas de matemática (10 + 5)
         situacao: "Pendente",
         docente: "Emanoelly"
       },
@@ -413,7 +413,6 @@
         situacao: "Pendente",
         docente: "Magda"
       },
-      // Solicitações Período Matutino
       {
         id: 21,
         componente: "FALE0001 - LIBRAS",
@@ -437,6 +436,17 @@
         color: "rose",
         docente: "Profa. Magda",
         local: "Espaço Cultural"
+      },
+      {
+        id: 23,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "CIÊNCIAS BIOLÓGICAS - CAMPUS MACEIÓ - VESPERTINO", // Nova turma de Biologia separada da #8
+        data: "01/06/2026",
+        tipo: "Turma Regular",
+        horario: "6T123",
+        vagas: 30,
+        situacao: "Pendente",
+        docente: "Adeilson"
       }
     ];
 
@@ -461,7 +471,7 @@
       { index: 13, turn: 'N', num: 3, text: 'N3', time: '20:40 - 21:30' }
     ];
 
-    // Temas Visuais do Tailwind mapeados por chave de cor
+    // Temas Visuais do Tailwind mapeados por chave de colas
     const COLOR_CLASSES = {
       red: {
         bg: "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950/50",
@@ -546,6 +556,7 @@
         case 'DANIEL': return 'indigo';
         case 'NAGIB': return 'fuchsia';
         case 'MAGDA': return 'sky';
+        case 'MAGNO font-sans':
         case 'MAGNO': return 'violet';
         default: return 'violet';
       }
@@ -967,6 +978,7 @@
       }, 20);
     }
 
+    // Fecha o modal ativo
     function closeModal() {
       const modal = document.getElementById('detailsModal');
       const card = document.getElementById('modalCard');

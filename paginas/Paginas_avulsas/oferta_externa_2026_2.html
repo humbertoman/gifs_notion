@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualização Semanal de Solicitações - FALE0001</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Suporte para barra de rolagem fina e personalizada */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+
+    /* Rotação e fluxo vertical de texto */
+    .vertical-text-flow {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-orientation: mixed;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans min-h-full flex flex-col transition-colors duration-200">
+
+  <!-- Cabeçalho (Header) -->
+  <header class="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 shrink-0">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-200">
+            FALE0001 - LIBRAS
+          </span>
+          <span class="text-[11px] text-slate-500 dark:text-slate-400">Maceió/AL</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white mt-0.5">
+          Solicitações de Oferta de Turmas
+        </h1>
+      </div>
+      
+      <!-- Controlos Globais -->
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- Alternar Tema (Escuro/Claro) -->
+        <button id="themeToggle" class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition" title="Alternar tema escuro/claro">
+          <!-- Sol (Modo Escuro) -->
+          <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14.25 12a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+          </svg>
+          <!-- Lua (Modo Claro) -->
+          <svg id="moonIcon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+
+        <!-- Alternar entre Grelha e Lista -->
+        <div class="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 p-0.5 bg-white dark:bg-slate-900">
+          <button id="viewGridBtn" class="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white transition">
+            Grelha Semanal
+          </button>
+          <button id="viewListBtn" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+            Lista Completa
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Painel de Métricas Rápidas (Dinâmico) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full shrink-0">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center">
+        <div>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium uppercase">Total de Ofertas</span>
+          <span id="metricTotal" class="text-xl font-bold text-slate-900 dark:text-white block">-</span>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center">
+        <div>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium uppercase">Vagas Solicitadas</span>
+          <span id="metricVagas" class="text-xl font-bold text-slate-900 dark:text-white block">-</span>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center">
+        <div>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium uppercase">Cursos Solicitantes</span>
+          <span id="metricCursos" class="text-xl font-bold text-slate-900 dark:text-white block">-</span>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center">
+        <div>
+          <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-medium uppercase">Componente</span>
+          <span class="text-sm font-bold text-indigo-600 dark:text-indigo-400 block truncate">FALE0001 - LIBRAS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtro de Layout de Turnos -->
+  <section id="layoutControls" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
+    <div class="bg-white dark:bg-slate-950 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-4">
+        <span class="font-medium text-slate-600 dark:text-slate-400">Exibir Turnos:</span>
+        <label class="flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" id="toggleManha" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+          <span>Manhã</span>
+        </label>
+        <label class="flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" id="toggleTarde" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+          <span>Tarde</span>
+        </label>
+        <label class="flex items-center gap-1.5 cursor-pointer">
+          <input type="checkbox" id="toggleNoite" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+          <span>Noite</span>
+        </label>
+      </div>
+      <div class="flex items-center gap-1 text-slate-400 dark:text-slate-500">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="text-[11px]">Passe o rato para ler o nome do curso. Clique para mais detalhes.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conteúdo Principal -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full flex flex-col">
+    
+    <!-- Visualização de Grelha -->
+    <div id="gridView" class="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+      <!-- Cabeçalho dos Dias -->
+      <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-center text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 shrink-0">
+        <div class="py-2 border-r border-slate-200 dark:border-slate-800">Horário</div>
+        <div class="py-2 border-r border-slate-200 dark:border-slate-800">Seg (2)</div>
+        <div class="py-2 border-r border-slate-200 dark:border-slate-800">Ter (3)</div>
+        <div class="py-2 border-r border-slate-200 dark:border-slate-800">Qua (4)</div>
+        <div class="py-2 border-r border-slate-200 dark:border-slate-800">Qui (5)</div>
+        <div class="py-2">Sex (6)</div>
+      </div>
+
+      <!-- Corpo da Grelha Semanal -->
+      <div class="relative" id="gridBodyContainer">
+        <!-- Linhas horizontais de fundo -->
+        <div id="bgGridLines" class="absolute inset-0 pointer-events-none divide-y divide-slate-100 dark:divide-slate-900">
+          <!-- Inserido dinamicamente via JS -->
+        </div>
+
+        <!-- Colunas de Eventos Dinâmicos -->
+        <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] relative" id="gridColumnsContainer">
+          <!-- Coluna 0: Horários de Aula (Eixo lateral esquerdo) -->
+          <div id="timeAxisColumn" class="border-r border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 divide-y divide-slate-100 dark:divide-slate-900 text-[9px] text-slate-500 text-center select-none">
+            <!-- Inserido via JS -->
+          </div>
+
+          <!-- Colunas 1-5: Dias da Semana (Segunda a Sexta) -->
+          <div id="dayCol-2" class="relative border-r border-slate-200 dark:border-slate-800"></div>
+          <div id="dayCol-3" class="relative border-r border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/20"></div>
+          <div id="dayCol-4" class="relative border-r border-slate-200 dark:border-slate-800"></div>
+          <div id="dayCol-5" class="relative border-r border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/20"></div>
+          <div id="dayCol-6" class="relative"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visualização de Lista (Alternativa responsiva) -->
+    <div id="listView" class="hidden space-y-3">
+      <!-- Inserido via JS -->
+    </div>
+
+  </main>
+
+  <!-- Modal de Detalhes da Turma -->
+  <div id="detailsModal" class="fixed inset-0 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-opacity duration-150">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl max-w-md w-full shadow-xl overflow-hidden transform scale-95 opacity-0 transition-all duration-150" id="modalCard">
+      <!-- Cabeçalho do Modal -->
+      <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-start">
+        <div>
+          <span class="inline-block px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
+            Estado: Pendente
+          </span>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white mt-2" id="mComponente">-</h3>
+        </div>
+        <button id="closeModalBtn" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Corpo do Modal -->
+      <div class="p-5 space-y-3 text-xs">
+        <div>
+          <span class="text-[10px] text-slate-400 uppercase font-semibold block">Solicitante</span>
+          <p class="font-semibold text-slate-800 dark:text-slate-200 text-sm mt-0.5" id="mSolicitante">-</p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Horário</span>
+            <p class="font-medium text-slate-800 dark:text-slate-200 mt-0.5" id="mHorario">-</p>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Vagas Solicitadas</span>
+            <p class="font-semibold text-indigo-600 dark:text-indigo-400 mt-0.5" id="mVagas">-</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Data da Solicitação</span>
+            <p class="text-slate-600 dark:text-slate-300 mt-0.5" id="mData">-</p>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Tipo de Turma</span>
+            <p class="text-slate-600 dark:text-slate-300 mt-0.5" id="mTipo">-</p>
+          </div>
+        </div>
+
+        <!-- Bloco de Informações Extras Dinâmicas -->
+        <div id="mExtraContainer" class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800 hidden">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Docente</span>
+            <p class="text-slate-700 dark:text-slate-300 mt-0.5 font-medium" id="mDocente">-</p>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Local</span>
+            <p class="text-slate-700 dark:text-slate-300 mt-0.5 font-medium" id="mLocal">-</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé do Modal -->
+      <div class="p-4 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+        <button id="closeModalOkBtn" class="px-4 py-1.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-xs font-medium rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Principal -->
+  <script>
+    // ----------------------------------------------------
+    // Dados das Solicitações (Lista Dinâmica Completa)
+    // ----------------------------------------------------
+    const SOLICITACOES = [
+      {
+        id: 1,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "GEOGRAFIA - CAMPUS MACEIÓ - VESPERTINO",
+        data: "26/05/2026",
+        tipo: "Turma Regular",
+        horario: "6T456",
+        vagas: 20,
+        situacao: "Pendente",
+        color: "indigo"
+      },
+      {
+        id: 2,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "HISTÓRIA / CIÊNCIAS SOCIAIS - CAMPUS MACEIÓ - NOTURNO", // Junção #2 + #6
+        data: "02/06/2026",
+        tipo: "Turma Regular",
+        horario: "5N123",
+        vagas: 50, // 30 + 20
+        situacao: "Pendente",
+        color: "amber"
+      },
+      {
+        id: 3,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "LETRAS (PORTUGUÊS / FRANCÊS / INGLÊS) - CAMPUS MACEIÓ - VESPERTINO",
+        data: "02/06/2026",
+        tipo: "Turma Regular",
+        horario: "6T123",
+        vagas: 45,
+        situacao: "Pendente",
+        color: "emerald",
+        docente: "Prof. Fábio"
+      },
+      {
+        id: 4,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "QUÍMICA - CAMPUS MACEIÓ - NOTURNO",
+        data: "30/05/2026",
+        tipo: "Turma Regular",
+        horario: "2N123",
+        vagas: 40,
+        situacao: "Pendente",
+        color: "rose"
+      },
+      {
+        id: 5,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "GEOGRAFIA / FILOSOFIA - CAMPUS MACEIÓ - NOTURNO", // Junção #5 + #11
+        data: "26/05/2026",
+        tipo: "Turma Regular",
+        horario: "2N123",
+        vagas: 40, // 20 + 20
+        situacao: "Pendente",
+        color: "indigo"
+      },
+      {
+        id: 8,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "CIÊNCIAS BIOLÓGICAS / MATEMÁTICA - CAMPUS MACEIÓ - VESPERTINO", // Junção #8 + #13 + #14
+        data: "01/06/2026",
+        tipo: "Turma Regular",
+        horario: "6T123",
+        vagas: 45, // 30 + 10 + 5
+        situacao: "Pendente",
+        color: "teal"
+      },
+      {
+        id: 10,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "LETRAS (PORTUGUÊS / INGLÊS) - CAMPUS MACEIÓ - NOTURNO", // Junção #10 + #20
+        data: "02/06/2026",
+        tipo: "Turma Regular",
+        horario: "6N123",
+        vagas: 40, // 20 + 20
+        situacao: "Pendente",
+        color: "emerald"
+      },
+      {
+        id: 12,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "PEDAGOGIA - CAMPUS MACEIÓ - VESPERTINO",
+        data: "03/06/2026",
+        tipo: "Turma Regular",
+        horario: "4T123",
+        vagas: 50,
+        situacao: "Pendente",
+        color: "violet"
+      },
+      {
+        id: 15,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "MATEMÁTICA / BIBLIOTECONOMIA - CAMPUS MACEIÓ - NOTURNO", // Junção #15 + #7
+        data: "03/06/2026",
+        tipo: "Turma Regular",
+        horario: "2N123",
+        vagas: 45, // 30 + 15
+        situacao: "Pendente",
+        color: "violet"
+      },
+      {
+        id: 16,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "FÍSICA / CIÊNCIAS BIOLÓGICAS - CAMPUS MACEIÓ - NOTURNO", // Junção #16 + #17
+        data: "03/06/2026",
+        tipo: "Turma Regular",
+        horario: "6N123",
+        vagas: 45, // 15 + 30
+        situacao: "Pendente",
+        color: "cyan"
+      },
+      {
+        id: 18,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "PEDAGOGIA - CAMPUS MACEIÓ - NOTURNO",
+        data: "03/06/2026",
+        tipo: "Turma Regular",
+        horario: "6N123",
+        vagas: 50,
+        situacao: "Pendente",
+        color: "indigo"
+      },
+      // Solicitações Período Matutino
+      {
+        id: 21,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "PEDAGOGIA - CAMPUS MACEIÓ - MATUTINO",
+        data: "05/06/2026",
+        tipo: "Turma Regular",
+        horario: "5M123",
+        vagas: 50,
+        situacao: "Pendente",
+        color: "violet"
+      },
+      {
+        id: 22,
+        componente: "FALE0001 - LIBRAS",
+        solicitante: "MÚSICA - CAMPUS MACEIÓ - MATUTINO",
+        data: "05/06/2026",
+        tipo: "Turma Regular",
+        horario: "5M234",
+        vagas: 20,
+        situacao: "Pendente",
+        color: "rose",
+        docente: "Profa. Magda",
+        local: "Espaço Cultural"
+      }
+    ];
+
+    // Mapeamento de slots e horários reais
+    const SLOTS = [
+      // Manhã
+      { index: 0, turn: 'M', num: 1, label: 'M1', time: '07:30 - 08:20' },
+      { index: 1, turn: 'M', num: 2, label: 'M2', time: '08:20 - 09:10' },
+      { index: 2, turn: 'M', num: 3, label: 'M3', time: '09:20 - 10:10' },
+      { index: 3, turn: 'M', num: 4, label: 'M4', time: '10:10 - 11:00' },
+      { index: 4, turn: 'M', num: 5, label: 'M5', time: '11:10 - 12:00' },
+      // Tarde
+      { index: 5, turn: 'T', num: 1, label: 'T1', time: '13:30 - 14:20' },
+      { index: 6, turn: 'T', num: 2, label: 'T2', time: '14:20 - 15:10' },
+      { index: 7, turn: 'T', num: 3, label: 'T3', time: '15:20 - 16:10' },
+      { index: 8, turn: 'T', num: 4, label: 'T4', time: '16:10 - 17:00' },
+      { index: 9, turn: 'T', num: 5, label: 'T5', time: '17:00 - 17:50' },
+      { index: 10, turn: 'T', num: 6, label: 'T6', time: '17:50 - 18:40' },
+      // Noite
+      { index: 11, turn: 'N', num: 1, label: 'N1', time: '19:00 - 19:50' },
+      { index: 12, turn: 'N', num: 2, label: 'N2', time: '19:50 - 20:40' },
+      { index: 13, turn: 'N', num: 3, label: 'N3', time: '20:40 - 21:30' }
+    ];
+
+    const COLOR_CLASSES = {
+      indigo: {
+        bg: "bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-900/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-950/55",
+        tag: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/80 dark:text-indigo-200"
+      },
+      amber: {
+        bg: "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-900/60 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-950/55",
+        tag: "bg-amber-100 text-amber-800 dark:bg-amber-900/80 dark:text-amber-200"
+      },
+      emerald: {
+        bg: "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/55",
+        tag: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/80 dark:text-indigo-200"
+      },
+      rose: {
+        bg: "bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/60 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-950/55",
+        tag: "bg-rose-100 text-rose-800 dark:bg-rose-900/80 dark:text-rose-200"
+      },
+      violet: {
+        bg: "bg-violet-50 dark:bg-violet-950/30 border-violet-200 dark:border-violet-900/60 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-950/55",
+        tag: "bg-violet-100 text-violet-800 dark:bg-violet-900/80 dark:text-rose-200"
+      },
+      cyan: {
+        bg: "bg-cyan-50 dark:bg-cyan-950/30 border-cyan-200 dark:border-cyan-900/60 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-950/55",
+        tag: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/80 dark:text-indigo-200"
+      },
+      teal: {
+        bg: "bg-teal-50 dark:bg-teal-950/30 border-teal-200 dark:border-teal-900/60 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-950/55",
+        tag: "bg-teal-100 text-teal-800 dark:bg-teal-900/80 dark:text-indigo-200"
+      },
+      sky: {
+        bg: "bg-sky-50 dark:bg-sky-950/30 border-sky-200 dark:border-sky-900/60 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-950/55",
+        tag: "bg-sky-100 text-sky-800 dark:bg-sky-900/80 dark:text-indigo-200"
+      },
+      fuchsia: {
+        bg: "bg-fuchsia-50 dark:bg-fuchsia-950/30 border-fuchsia-200 dark:border-fuchsia-900/60 text-fuchsia-700 dark:text-fuchsia-300 hover:bg-fuchsia-100 dark:hover:bg-fuchsia-950/55",
+        tag: "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900/80 dark:text-indigo-200"
+      }
+    };
+
+    const state = {
+      view: 'grid',
+      theme: 'light',
+      activeTurns: {
+        M: true,
+        T: true,
+        N: true
+      },
+      selectedRequest: null
+    };
+
+    const ROW_HEIGHT = 52;
+
+    // ----------------------------------------------------
+    // Parsers, Helpers e Abreviações
+    // ----------------------------------------------------
+    function parseHorarioString(str) {
+      const match = str.match(/^([2-7])([MNT])(\d+)$/);
+      if (!match) return null;
+      return {
+        day: parseInt(match[1]),
+        turn: match[2],
+        slots: match[3].split('').map(Number)
+      };
+    }
+
+    // Limpa o nome do docente para extrair apenas o primeiro nome
+    function getFirstProfessorName(docente) {
+      if (!docente) return '';
+      let clean = docente.replace(/^(prof[a]?\.\s*|dr[a]?\.\s*)/i, '').trim();
+      return clean.split(' ')[0];
+    }
+
+    // Abreviação inteligente dos cursos solicitantes
+    function abbreviateCourse(fullSolicitante, isNarrow = false) {
+      const curso = fullSolicitante.split(' - ')[0].trim().toUpperCase();
+      
+      if (isNarrow) {
+        // Abreviações ultra-curtas para modo vertical/estreito
+        return curso
+          .replace("CIÊNCIAS BIOLÓGICAS / MATEMÁTICA", "BIO/MAT")
+          .replace("LETRAS (PORTUGUÊS / FRANCÊS / INGLÊS)", "LET (PORT/FRA/ING)")
+          .replace("LETRAS (PORTUGUÊS / INGLÊS)", "LET (PORT/ING)")
+          .replace("HISTÓRIA / CIÊNCIAS SOCIAIS", "HIS/SOC")
+          .replace("GEOGRAFIA / FILOSOFIA", "GEO/FIL")
+          .replace("MATEMÁTICA / BIBLIOTECONOMIA", "MAT/BIB")
+          .replace("FÍSICA / CIÊNCIAS BIOLÓGICAS", "FIS/BIO")
+          .replace("CIÊNCIAS BIOLÓGICAS", "BIO")
+          .replace("CIÊNCIAS SOCIAIS", "SOC")
+          .replace("LETRAS (PORTUGUÊS)", "LET (PORT)")
+          .replace("LETRAS (FRANCÊS)", "LET (FRAN)")
+          .replace("LETRAS (INGLÊS)", "LET (ING)")
+          .replace("MATEMÁTICA LICENCIATURA", "MAT (LIC)")
+          .replace("MATEMÁTICA BACHARELADO", "MAT (BACH)")
+          .replace("BIBLIOTECONOMIA", "BIB")
+          .replace("GEOGRAFIA", "GEO")
+          .replace("HISTÓRIA", "HIS")
+          .replace("FILOSOFIA", "FIL")
+          .replace("QUÍMICA", "QUI")
+          .replace("FÍSICA", "FIS")
+          .replace("PEDAGOGIA", "PED")
+          .replace("MATEMÁTICA", "MAT")
+          .replace("MÚSICA", "MUS");
+      }
+
+      // Abreviações padrão para layout horizontal
+      return curso
+        .replace("CIÊNCIAS BIOLÓGICAS / MATEMÁTICA", "BIO. / MAT.")
+        .replace("LETRAS (PORTUGUÊS / FRANCÊS / INGLÊS)", "LET. (PORT/FRA/ING)")
+        .replace("LETRAS (PORTUGUÊS / INGLÊS)", "LET. (PORT/ING)")
+        .replace("HISTÓRIA / CIÊNCIAS SOCIAIS", "HIS. / C. SOC.")
+        .replace("GEOGRAFIA / FILOSOFIA", "GEO. / FILO.")
+        .replace("MATEMÁTICA / BIBLIOTECONOMIA", "MAT. / BIBLIO.")
+        .replace("FÍSICA / CIÊNCIAS BIOLÓGICAS", "FIS. / C. BIOL.")
+        .replace("CIÊNCIAS BIOLÓGICAS", "C. BIOLÓGICAS")
+        .replace("CIÊNCIAS SOCIAIS", "C. SOCIAIS")
+        .replace("LETRAS (PORTUGUÊS)", "LETRAS (PORT.)")
+        .replace("LETRAS (FRANCÊS)", "LETRAS (FRAN.)")
+        .replace("LETRAS (INGLÊS)", "LETRAS (ING.)")
+        .replace("MATEMÁTICA LICENCIATURA", "MAT. (LIC.)")
+        .replace("MATEMÁTICA BACHARELADO", "MAT. (BACH.)")
+        .replace("BIBLIOTECONOMIA", "BIBLIO.")
+        .replace("GEOGRAFIA", "GEOGRAFIA")
+        .replace("HISTÓRIA", "HISTÓRIA")
+        .replace("FILOSOFIA", "FILOSOFIA")
+        .replace("QUÍMICA", "QUÍMICA")
+        .replace("FÍSICA", "FÍSICA")
+        .replace("PEDAGOGIA", "PEDAGOGIA")
+        .replace("MATEMÁTICA", "MATEMÁTICA")
+        .replace("MÚSICA", "MÚSICA");
+    }
+
+    function getGlobalIndex(turn, slotNum) {
+      if (turn === 'M') return slotNum - 1;
+      if (turn === 'T') return 5 + (slotNum - 1);
+      if (turn === 'N') return 11 + (slotNum - 1);
+      return 0;
+    }
+
+    function translateDay(dayNum) {
+      const days = { 2: "Segunda", 3: "Terça", 4: "Quarta", 5: "Quinta", 6: "Sexta", 7: "Sábado" };
+      return days[dayNum] || "Desconhecido";
+    }
+
+    function translateTurn(turnChar) {
+      const turns = { M: "Manhã", T: "Tarde", N: "Noite" };
+      return turns[turnChar] || turnChar;
+    }
+
+    const requestsData = SOLICITACOES.map(req => {
+      return {
+        ...req,
+        parsed: parseHorarioString(req.horario)
+      };
+    });
+
+    // Atualiza o painel de métricas de forma dinâmica baseando-se nas solicitações ativas
+    function updateMetrics() {
+      const totalOfertas = SOLICITACOES.length;
+      const totalVagas = SOLICITACOES.reduce((acc, curr) => acc + curr.vagas, 0);
+      
+      // Filtra cursos únicos desconsiderando campus e turno
+      const cursosUnicos = new Set(
+        SOLICITACOES.map(s => s.solicitante.split(' - ')[0].trim())
+      ).size;
+
+      document.getElementById('metricTotal').innerText = totalOfertas;
+      document.getElementById('metricVagas').innerText = totalVagas;
+      document.getElementById('metricCursos').innerText = cursosUnicos;
+    }
+
+    // ----------------------------------------------------
+    // Renderização
+    // ----------------------------------------------------
+    function render() {
+      if (state.theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('sunIcon').classList.remove('hidden');
+        document.getElementById('moonIcon').classList.add('hidden');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('sunIcon').add ? document.getElementById('sunIcon').classList.add('hidden') : null;
+        document.getElementById('sunIcon').classList.add('hidden');
+        document.getElementById('moonIcon').classList.remove('hidden');
+      }
+
+      document.getElementById('toggleManha').checked = state.activeTurns.M;
+      document.getElementById('toggleTarde').checked = state.activeTurns.T;
+      document.getElementById('toggleNoite').checked = state.activeTurns.N;
+
+      const visibleSlots = SLOTS.filter(s => state.activeTurns[s.turn]);
+
+      // Atualiza métricas no topo
+      updateMetrics();
+
+      if (state.view === 'grid') {
+        document.getElementById('gridView').classList.remove('hidden');
+        document.getElementById('listView').classList.add('hidden');
+        document.getElementById('layoutControls').classList.remove('hidden');
+        document.getElementById('viewGridBtn').className = "px-2.5 py-1.5 text-xs font-medium rounded-md bg-indigo-500 text-white shadow-sm transition";
+        document.getElementById('viewListBtn').className = "px-2.5 py-1.5 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition";
+        
+        renderGrid(visibleSlots);
+      } else {
+        document.getElementById('gridView').classList.add('hidden');
+        document.getElementById('listView').classList.remove('hidden');
+        document.getElementById('layoutControls').classList.add('hidden');
+        document.getElementById('viewGridBtn').className = "px-2.5 py-1.5 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition";
+        document.getElementById('viewListBtn').className = "px-2.5 py-1.5 text-xs font-medium rounded-md bg-indigo-500 text-white shadow-sm transition";
+        
+        renderList();
+      }
+    }
+
+    function calculateDayOverlapPositions(dayEvents) {
+      if (dayEvents.length === 0) return;
+
+      dayEvents.sort((a, b) => {
+        const aStart = getGlobalIndex(a.parsed.turn, Math.min(...a.parsed.slots));
+        const bStart = getGlobalIndex(b.parsed.turn, Math.min(...b.parsed.slots));
+        if (aStart !== bStart) return aStart - bStart;
+        return a.parsed.slots.length - b.parsed.slots.length;
+      });
+
+      let columns = [];
+      dayEvents.forEach(event => {
+        let placed = false;
+        const startIdx = getGlobalIndex(event.parsed.turn, Math.min(...event.parsed.slots));
+        const endIdx = getGlobalIndex(event.parsed.turn, Math.max(...event.parsed.slots));
+
+        for (let i = 0; i < columns.length; i++) {
+          let hasOverlap = columns[i].some(colEvent => {
+            const colStart = getGlobalIndex(colEvent.parsed.turn, Math.min(...colEvent.parsed.slots));
+            const colEnd = getGlobalIndex(colEvent.parsed.turn, Math.max(...colEvent.parsed.slots));
+            return (startIdx <= colEnd && endIdx >= colStart);
+          });
+
+          if (!hasOverlap) {
+            columns[i].push(event);
+            placed = true;
+            break;
+          }
+        }
+
+        if (!placed) {
+          columns.push([event]);
+        }
+      });
+
+      const totalCols = columns.length;
+      columns.forEach((col, colIndex) => {
+        col.forEach(event => {
+          event.position = {
+            left: (colIndex / totalCols) * 100,
+            width: (1 / totalCols) * 100
+          };
+        });
+      });
+    }
+
+    function renderGrid(visibleSlots) {
+      const containerHeight = visibleSlots.length * ROW_HEIGHT;
+      document.getElementById('gridColumnsContainer').style.height = `${containerHeight}px`;
+      
+      const bgLines = document.getElementById('bgGridLines');
+      bgLines.innerHTML = '';
+      for (let i = 0; i < visibleSlots.length; i++) {
+        const line = document.createElement('div');
+        line.style.height = `${ROW_HEIGHT}px`;
+        bgLines.appendChild(line);
+      }
+
+      const timeAxis = document.getElementById('timeAxisColumn');
+      timeAxis.innerHTML = '';
+      visibleSlots.forEach(slot => {
+        const row = document.createElement('div');
+        row.style.height = `${ROW_HEIGHT}px`;
+        row.className = "flex flex-col justify-center items-center border-b border-slate-100 dark:border-slate-900 px-1 leading-tight";
+        
+        let turnBadgeColor = "text-slate-400";
+        if (slot.turn === 'M') turnBadgeColor = "text-orange-500 dark:text-orange-400";
+        if (slot.turn === 'T') turnBadgeColor = "text-blue-500 dark:text-blue-400";
+        if (slot.turn === 'N') turnBadgeColor = "text-indigo-500 dark:text-indigo-400";
+
+        row.innerHTML = `
+          <span class="font-bold text-[10px] ${turnBadgeColor}">${slot.label}</span>
+          <span class="text-[8px] text-slate-400 dark:text-slate-500">${slot.time.replace(' - ', '<br/>')}</span>
+        `;
+        timeAxis.appendChild(row);
+      });
+
+      for (let d = 2; d <= 6; d++) {
+        document.getElementById(`dayCol-${d}`).innerHTML = '';
+      }
+
+      for (let d = 2; d <= 6; d++) {
+        const dayEvents = requestsData.filter(req => req.parsed && req.parsed.day === d && state.activeTurns[req.parsed.turn]);
+        calculateDayOverlapPositions(dayEvents);
+
+        const dayCol = document.getElementById(`dayCol-${d}`);
+
+        dayEvents.forEach(event => {
+          const startGlobalIdx = getGlobalIndex(event.parsed.turn, Math.min(...event.parsed.slots));
+          const endGlobalIdx = getGlobalIndex(event.parsed.turn, Math.max(...event.parsed.slots));
+
+          const startVisibleIdx = visibleSlots.findIndex(s => s.index === startGlobalIdx);
+          const endVisibleIdx = visibleSlots.findIndex(s => s.index === endGlobalIdx);
+
+          if (startVisibleIdx === -1 || endVisibleIdx === -1) return;
+
+          const topPos = startVisibleIdx * ROW_HEIGHT;
+          const blockHeight = (endVisibleIdx - startVisibleIdx + 1) * ROW_HEIGHT;
+
+          // Se a largura for menor que 100%, o card divide espaço com outros (Narrow/Estreito)
+          const isNarrow = event.position.width < 100;
+          const colorTheme = COLOR_CLASSES[event.color] || COLOR_CLASSES.indigo;
+
+          const card = document.createElement('div');
+          card.style.top = `${topPos + 2}px`;
+          card.style.height = `${blockHeight - 4}px`;
+          card.style.left = `calc(${event.position.left}% + 2px)`;
+          card.style.width = `calc(${event.position.width}% - 4px)`;
+          card.className = `absolute rounded-lg border p-1.5 flex flex-col justify-between shadow-sm cursor-pointer select-none transition-all duration-150 hover:shadow hover:scale-[1.01] overflow-hidden z-10 ${colorTheme.bg}`;
+          
+          // Tooltip nativo com as informações detalhadas ao pairar o mouse
+          card.title = `[ID: ${event.id}] ${event.solicitante}${event.docente ? ` | Prof: ${event.docente}` : ''}${event.local ? ` | Local: ${event.local}` : ''}`;
+
+          const cursoAbreviado = abbreviateCourse(event.solicitante, isNarrow);
+          const profName = getFirstProfessorName(event.docente);
+
+          if (isNarrow) {
+            // Disposição vertical minimalista para colunas estreitas
+            const displayLabel = profName ? `${cursoAbreviado} (${profName})` : cursoAbreviado;
+            card.innerHTML = `
+              <div class="w-full h-full flex flex-row justify-between items-center vertical-text-flow font-semibold text-[9px] py-0.5 pointer-events-none">
+                <span class="shrink-0 text-[8px] font-extrabold px-0.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-sm">
+                  #${event.id}
+                </span>
+                <span class="truncate tracking-tight text-center" style="max-width: ${blockHeight - 34}px;">
+                  ${displayLabel}
+                </span>
+                <span class="shrink-0 font-bold text-slate-600 dark:text-slate-400">
+                  ${event.vagas}V
+                </span>
+              </div>
+            `;
+          } else {
+            // Layout horizontal limpo
+            card.innerHTML = `
+              <div class="h-full w-full flex flex-col justify-between p-0.5 pointer-events-none">
+                <div class="flex justify-between items-start gap-1">
+                  <span class="font-bold text-[9.5px] uppercase tracking-tight truncate">
+                    ${cursoAbreviado}
+                  </span>
+                  <span class="shrink-0 text-[8px] font-extrabold px-1 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-sm">
+                    #${event.id}
+                  </span>
+                </div>
+                <div class="flex justify-between items-end gap-1">
+                  <span class="text-[9px] font-semibold text-slate-600 dark:text-slate-400 leading-none">
+                    ${event.vagas} vagas
+                  </span>
+                  ${profName ? `
+                    <span class="text-[8.5px] font-bold text-indigo-600 dark:text-indigo-400 truncate max-w-[50%] leading-none" title="${event.docente}">
+                      ${profName}
+                    </span>
+                  ` : ''}
+                </div>
+              </div>
+            `;
+          }
+
+          card.addEventListener('click', () => openModal(event));
+          dayCol.appendChild(card);
+        });
+      }
+    }
+
+    function renderList() {
+      const listContainer = document.getElementById('listView');
+      listContainer.innerHTML = '';
+
+      // Identifica os dias com ofertas de forma dinâmica
+      const diasComOferta = [...new Set(requestsData.filter(req => req.parsed).map(req => req.parsed.day))].sort();
+
+      diasComOferta.forEach(d => {
+        const dayEvents = requestsData.filter(req => req.parsed && req.parsed.day === d);
+        if (dayEvents.length === 0) return;
+
+        const dayCard = document.createElement('div');
+        dayCard.className = "bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm";
+
+        dayCard.innerHTML = `
+          <div class="bg-slate-50 dark:bg-slate-900/60 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+            <h3 class="font-bold text-slate-800 dark:text-white text-sm flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+              ${translateDay(d)}
+            </h3>
+            <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">${dayEvents.length} solicitações</span>
+          </div>
+          <div class="divide-y divide-slate-100 dark:divide-slate-900" id="listGroup-${d}"></div>
+        `;
+
+        listContainer.appendChild(dayCard);
+        const listGroup = document.getElementById(`listGroup-${d}`);
+
+        dayEvents.forEach(event => {
+          const colorTheme = COLOR_CLASSES[event.color] || COLOR_CLASSES.indigo;
+          const row = document.createElement('div');
+          row.className = "p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/50 dark:hover:bg-slate-900/10 cursor-pointer transition";
+          
+          let extraInfoHtml = '';
+          if (event.docente || event.local) {
+            extraInfoHtml = `
+              <div class="flex flex-wrap items-center gap-2 mt-1 text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">
+                ${event.docente ? `<span>Prof: ${event.docente}</span>` : ''}
+                ${event.docente && event.local ? '<span>•</span>' : ''}
+                ${event.local ? `<span>Local: ${event.local}</span>` : ''}
+              </div>
+            `;
+          }
+
+          row.innerHTML = `
+            <div class="flex items-start gap-2.5 pointer-events-none">
+              <span class="mt-0.5 shrink-0 px-2 py-0.5 text-[10px] font-bold rounded ${colorTheme.tag}">
+                ${event.horario}
+              </span>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+                  <span class="text-indigo-600 dark:text-indigo-400 mr-1.5">[#${event.id}]</span>${event.solicitante}
+                </h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">${event.componente}</p>
+                <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400">
+                  <span class="flex items-center gap-0.5">
+                    Solicitado em: ${event.data}
+                  </span>
+                  <span>•</span>
+                  <span>${event.tipo}</span>
+                </div>
+                ${extraInfoHtml}
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100 dark:border-slate-800 pointer-events-none">
+              <div class="text-left sm:text-right">
+                <span class="text-[9px] text-slate-400 uppercase font-semibold block leading-none">Vagas</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">${event.vagas}</span>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">
+                Pendente
+              </span>
+            </div>
+          `;
+
+          row.addEventListener('click', () => openModal(event));
+          listGroup.appendChild(row);
+        });
+      });
+    }
+
+    function openModal(event) {
+      state.selectedRequest = event;
+      
+      document.getElementById('mComponente').innerHTML = `<span class="text-indigo-600 dark:text-indigo-400 mr-1.5">[#${event.id}]</span>${event.componente}`;
+      document.getElementById('mSolicitante').innerText = event.solicitante;
+      document.getElementById('mHorario').innerHTML = `
+        ${translateDay(event.parsed.day)}, ${translateTurn(event.parsed.turn)} <br/>
+        <span class="text-[11px] text-slate-500 dark:text-slate-400 font-mono">Código: ${event.horario}</span>
+      `;
+      document.getElementById('mVagas').innerText = `${event.vagas} vagas`;
+      document.getElementById('mData').innerText = event.data;
+      document.getElementById('mTipo').innerText = event.tipo;
+
+      // Exibição condicional de docente e local no painel lateral
+      const extraContainer = document.getElementById('mExtraContainer');
+      if (event.docente || event.local) {
+        document.getElementById('mDocente').innerText = event.docente || "A definir";
+        document.getElementById('mLocal').innerText = event.local || "A definir";
+        extraContainer.classList.remove('hidden');
+      } else {
+        extraContainer.classList.add('hidden');
+      }
+
+      const modal = document.getElementById('detailsModal');
+      const card = document.getElementById('modalCard');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.add('opacity-100');
+        card.classList.remove('scale-95', 'opacity-0');
+        card.classList.add('scale-100', 'opacity-100');
+      }, 20);
+    }
+
+    // Fecha o modal ativo
+    function closeModal() {
+      const modal = document.getElementById('detailsModal');
+      const card = document.getElementById('modalCard');
+      
+      modal.classList.remove('opacity-100');
+      card.classList.remove('scale-100', 'opacity-100');
+      card.classList.add('scale-95', 'opacity-0');
+      
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        state.selectedRequest = null;
+      }, 150);
+    }
+
+    // ----------------------------------------------------
+    // Listeners & Inicialização
+    // ----------------------------------------------------
+    document.getElementById('viewGridBtn').addEventListener('click', () => {
+      state.view = 'grid';
+      render();
+    });
+
+    document.getElementById('viewListBtn').addEventListener('click', () => {
+      state.view = 'list';
+      render();
+    });
+
+    document.getElementById('toggleManha').addEventListener('change', (e) => {
+      state.activeTurns.M = e.target.checked;
+      render();
+    });
+
+    document.getElementById('toggleTarde').addEventListener('change', (e) => {
+      state.activeTurns.T = e.target.checked;
+      render();
+    });
+
+    document.getElementById('toggleNoite').addEventListener('change', (e) => {
+      state.activeTurns.N = e.target.checked;
+      render();
+    });
+
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    document.getElementById('closeModalOkBtn').addEventListener('click', closeModal);
+    document.getElementById('detailsModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('detailsModal')) {
+        closeModal();
+      }
+    });
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      render();
+    });
+
+    window.onload = function() {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        state.theme = 'dark';
+      }
+      render();
+    }
+  </script>
+</body>
+</html>

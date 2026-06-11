@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-PT" class="h-full">
+<html lang="pt-BR" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visualização Semanal de Solicitações - FALE0001</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -18,7 +17,6 @@
       }
     }
   </script>
-  <!-- Google Fonts Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -49,7 +47,6 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans min-h-full flex flex-col transition-colors duration-200">
 
-  <!-- Cabeçalho (Header) -->
   <header class="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 shrink-0">
     <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
       <div>
@@ -64,24 +61,19 @@
         </h1>
       </div>
       
-      <!-- Controlos Globais -->
       <div class="flex flex-wrap items-center gap-2">
-        <!-- Alternar Tema (Escuro/Claro) -->
         <button id="themeToggle" class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition" title="Alternar tema escuro/claro">
-          <!-- Sol (Modo Escuro) -->
           <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14.25 12a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
           </svg>
-          <!-- Lua (Modo Claro) -->
           <svg id="moonIcon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         </button>
 
-        <!-- Alternar entre Grelha e Lista -->
         <div class="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 p-0.5 bg-white dark:bg-slate-900">
           <button id="viewGridBtn" class="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white transition">
-            Grelha Semanal
+            Grade Semanal
           </button>
           <button id="viewListBtn" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
             Lista Completa
@@ -91,8 +83,20 @@
     </div>
   </header>
 
-  <!-- Painel de Métricas Rápidas (Dinâmico) -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full shrink-0">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
+    <div class="bg-white dark:bg-slate-950 p-2 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] items-center">
+      <span class="font-semibold text-slate-400 uppercase text-[10px]">Legenda:</span>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-red-500"></span> <span>Sem Professor</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-indigo-500"></span> <span>Daniel</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-emerald-500"></span> <span>Fábio</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-teal-500"></span> <span>Emanoelly</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-amber-500"></span> <span>Adeilson</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-fuchsia-500"></span> <span>Nagib</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-sky-500"></span> <span>Magda</span></div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center">
         <div>
@@ -121,7 +125,6 @@
     </div>
   </section>
 
-  <!-- Filtro de Layout de Turnos -->
   <section id="layoutControls" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
     <div class="bg-white dark:bg-slate-950 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
       <div class="flex items-center gap-4">
@@ -143,17 +146,14 @@
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span class="text-[11px]">Passe o rato para ler o nome do curso. Clique para mais detalhes.</span>
+        <span class="text-[11px]">Passe o mouse para ler o nome do curso. Clique para mais detalhes.</span>
       </div>
     </div>
   </section>
 
-  <!-- Conteúdo Principal -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full flex flex-col">
     
-    <!-- Visualização de Grelha -->
     <div id="gridView" class="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
-      <!-- Cabeçalho dos Dias -->
       <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-center text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 shrink-0">
         <div class="py-2 border-r border-slate-200 dark:border-slate-800">Horário</div>
         <div class="py-2 border-r border-slate-200 dark:border-slate-800">Seg (2)</div>
@@ -163,21 +163,14 @@
         <div class="py-2">Sex (6)</div>
       </div>
 
-      <!-- Corpo da Grelha Semanal -->
       <div class="relative" id="gridBodyContainer">
-        <!-- Linhas horizontais de fundo -->
         <div id="bgGridLines" class="absolute inset-0 pointer-events-none divide-y divide-slate-100 dark:divide-slate-900">
-          <!-- Inserido dinamicamente via JS -->
-        </div>
-
-        <!-- Colunas de Eventos Dinâmicos -->
-        <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] relative" id="gridColumnsContainer">
-          <!-- Coluna 0: Horários de Aula (Eixo lateral esquerdo) -->
-          <div id="timeAxisColumn" class="border-r border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 divide-y divide-slate-100 dark:divide-slate-900 text-[9px] text-slate-500 text-center select-none">
-            <!-- Inserido via JS -->
           </div>
 
-          <!-- Colunas 1-5: Dias da Semana (Segunda a Sexta) -->
+        <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] relative" id="gridColumnsContainer">
+          <div id="timeAxisColumn" class="border-r border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 divide-y divide-slate-100 dark:divide-slate-900 text-[9px] text-slate-500 text-center select-none">
+            </div>
+
           <div id="dayCol-2" class="relative border-r border-slate-200 dark:border-slate-800"></div>
           <div id="dayCol-3" class="relative border-r border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/20"></div>
           <div id="dayCol-4" class="relative border-r border-slate-200 dark:border-slate-800"></div>
@@ -187,21 +180,17 @@
       </div>
     </div>
 
-    <!-- Visualização de Lista (Alternativa responsiva) -->
     <div id="listView" class="hidden space-y-3">
-      <!-- Inserido via JS -->
-    </div>
+      </div>
 
   </main>
 
-  <!-- Modal de Detalhes da Turma -->
   <div id="detailsModal" class="fixed inset-0 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-opacity duration-150">
     <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl max-w-md w-full shadow-xl overflow-hidden transform scale-95 opacity-0 transition-all duration-150" id="modalCard">
-      <!-- Cabeçalho do Modal -->
       <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-start">
         <div>
           <span class="inline-block px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
-            Estado: Pendente
+            Situação: Pendente
           </span>
           <h3 class="text-base font-bold text-slate-900 dark:text-white mt-2" id="mComponente">-</h3>
         </div>
@@ -212,7 +201,6 @@
         </button>
       </div>
 
-      <!-- Corpo do Modal -->
       <div class="p-5 space-y-3 text-xs">
         <div>
           <span class="text-[10px] text-slate-400 uppercase font-semibold block">Solicitante</span>
@@ -241,7 +229,6 @@
           </div>
         </div>
 
-        <!-- Bloco de Informações Extras Dinâmicas -->
         <div id="mExtraContainer" class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800 hidden">
           <div>
             <span class="text-[10px] text-slate-400 uppercase font-semibold block">Docente</span>
@@ -254,7 +241,6 @@
         </div>
       </div>
 
-      <!-- Rodapé do Modal -->
       <div class="p-4 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800 flex justify-end">
         <button id="closeModalOkBtn" class="px-4 py-1.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-xs font-medium rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition">
           Fechar
@@ -263,7 +249,6 @@
     </div>
   </div>
 
-  <!-- Script Principal -->
   <script>
     // ----------------------------------------------------
     // Dados das Solicitações (Lista Dinâmica Completa)
@@ -278,7 +263,6 @@
         horario: "6T456",
         vagas: 20,
         situacao: "Pendente",
-        color: "indigo",
         docente: "Emanoelly"
       },
       {
@@ -290,7 +274,6 @@
         horario: "5N123",
         vagas: 30,
         situacao: "Pendente",
-        color: "amber",
         docente: "Adeilson"
       },
       {
@@ -302,8 +285,7 @@
         horario: "6T123",
         vagas: 45,
         situacao: "Pendente",
-        color: "emerald",
-        docente: "Prof. Fábio"
+        docente: "Fábio"
       },
       {
         id: 4,
@@ -314,7 +296,6 @@
         horario: "2N123",
         vagas: 40,
         situacao: "Pendente",
-        color: "rose",
         docente: "Daniel"
       },
       {
@@ -326,7 +307,6 @@
         horario: "2N123",
         vagas: 40,
         situacao: "Pendente",
-        color: "indigo",
         docente: "Nagib"
       },
       {
@@ -338,7 +318,6 @@
         horario: "5N123",
         vagas: 20,
         situacao: "Pendente",
-        color: "violet",
         docente: "Daniel"
       },
       {
@@ -350,7 +329,6 @@
         horario: "6T123",
         vagas: 45,
         situacao: "Pendente",
-        color: "teal",
         docente: "Emanoelly"
       },
       {
@@ -362,7 +340,6 @@
         horario: "6N123",
         vagas: 40,
         situacao: "Pendente",
-        color: "emerald",
         docente: "Daniel"
       },
       {
@@ -374,7 +351,6 @@
         horario: "4T123",
         vagas: 50,
         situacao: "Pendente",
-        color: "violet",
         docente: "Emanoelly"
       },
       {
@@ -386,7 +362,7 @@
         horario: "2N123",
         vagas: 45,
         situacao: "Pendente",
-        color: "violet"
+        docente: "" // Sem Professor -> Vermelho
       },
       {
         id: 16,
@@ -397,7 +373,7 @@
         horario: "6N123",
         vagas: 45,
         situacao: "Pendente",
-        color: "cyan"
+        docente: "" // Sem Professor -> Vermelho
       },
       {
         id: 18,
@@ -408,9 +384,8 @@
         horario: "6N123",
         vagas: 50,
         situacao: "Pendente",
-        color: "indigo"
+        docente: "" // Sem Professor -> Vermelho
       },
-      // Solicitações Período Matutino
       {
         id: 21,
         componente: "FALE0001 - LIBRAS",
@@ -420,7 +395,7 @@
         horario: "5M123",
         vagas: 50,
         situacao: "Pendente",
-        color: "violet"
+        docente: "" // Sem Professor -> Vermelho
       },
       {
         id: 22,
@@ -431,7 +406,6 @@
         horario: "5M234",
         vagas: 20,
         situacao: "Pendente",
-        color: "rose",
         docente: "Profa. Magda",
         local: "Espaço Cultural"
       }
@@ -455,10 +429,15 @@
       // Noite
       { index: 11, turn: 'N', num: 1, label: 'N1', time: '19:00 - 19:50' },
       { index: 12, turn: 'N', num: 2, label: 'N2', time: '19:50 - 20:40' },
-      { index: 13, turn: 'N', num: 3, label: 'N3', time: '20:40 - 21:30' }
+      { index: 13, turn: 'N', num: 3, text: 'N3', time: '20:40 - 21:30' }
     ];
 
+    // Temas Visuais do Tailwind mapeados por chave de cor
     const COLOR_CLASSES = {
+      red: {
+        bg: "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950/50",
+        tag: "bg-red-100 text-red-800 dark:bg-red-900/80 dark:text-red-200"
+      },
       indigo: {
         bg: "bg-indigo-50 dark:bg-indigo-950/30 border-indigo-200 dark:border-indigo-900/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-950/55",
         tag: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/80 dark:text-indigo-200"
@@ -469,31 +448,27 @@
       },
       emerald: {
         bg: "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/55",
-        tag: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/80 dark:text-indigo-200"
-      },
-      rose: {
-        bg: "bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/60 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-950/55",
-        tag: "bg-rose-100 text-rose-800 dark:bg-rose-900/80 dark:text-rose-200"
+        tag: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/80 dark:text-emerald-200"
       },
       violet: {
         bg: "bg-violet-50 dark:bg-violet-950/30 border-violet-200 dark:border-violet-900/60 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-950/55",
-        tag: "bg-violet-100 text-violet-800 dark:bg-violet-900/80 dark:text-rose-200"
+        tag: "bg-violet-100 text-violet-800 dark:bg-violet-900/80 dark:text-violet-200"
       },
       cyan: {
         bg: "bg-cyan-50 dark:bg-cyan-950/30 border-cyan-200 dark:border-cyan-900/60 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-950/55",
-        tag: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/80 dark:text-indigo-200"
+        tag: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/80 dark:text-cyan-200"
       },
       teal: {
         bg: "bg-teal-50 dark:bg-teal-950/30 border-teal-200 dark:border-teal-900/60 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-950/55",
-        tag: "bg-teal-100 text-teal-800 dark:bg-teal-900/80 dark:text-indigo-200"
+        tag: "bg-teal-100 text-teal-800 dark:bg-teal-900/80 dark:text-teal-200"
       },
       sky: {
         bg: "bg-sky-50 dark:bg-sky-950/30 border-sky-200 dark:border-sky-900/60 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-950/55",
-        tag: "bg-sky-100 text-sky-800 dark:bg-sky-900/80 dark:text-indigo-200"
+        tag: "bg-sky-100 text-sky-800 dark:bg-sky-900/80 dark:text-sky-200"
       },
       fuchsia: {
         bg: "bg-fuchsia-50 dark:bg-fuchsia-950/30 border-fuchsia-200 dark:border-fuchsia-900/60 text-fuchsia-700 dark:text-fuchsia-300 hover:bg-fuchsia-100 dark:hover:bg-fuchsia-950/55",
-        tag: "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900/80 dark:text-indigo-200"
+        tag: "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900/80 dark:text-fuchsia-200"
       }
     };
 
@@ -523,19 +498,33 @@
       };
     }
 
-    // Limpa o nome do docente para extrair apenas o primeiro nome
     function getFirstProfessorName(docente) {
       if (!docente) return '';
       let clean = docente.replace(/^(prof[a]?\.\s*|dr[a]?\.\s*)/i, '').trim();
       return clean.split(' ')[0];
     }
 
-    // Abreviação inteligente dos cursos solicitantes
+    // Resolve a cor do card com base no professor designado
+    function getProfessorColor(docente) {
+      if (!docente) return 'red'; // Vermelho se estiver vazio
+      
+      const name = getFirstProfessorName(docente).toUpperCase();
+      switch(name) {
+        case 'EMANOELLY': return 'teal';
+        case 'ADEILSON': return 'amber';
+        case 'FÁBIO':
+        case 'FABIO': return 'emerald';
+        case 'DANIEL': return 'indigo';
+        case 'NAGIB': return 'fuchsia';
+        case 'MAGDA': return 'sky';
+        default: return 'violet';
+      }
+    }
+
     function abbreviateCourse(fullSolicitante, isNarrow = false) {
       const curso = fullSolicitante.split(' - ')[0].trim().toUpperCase();
       
       if (isNarrow) {
-        // Abreviações ultra-curtas para modo vertical/estreito
         return curso
           .replace("CIÊNCIAS BIOLÓGICAS / MATEMÁTICA", "BIO/MAT")
           .replace("LETRAS (PORTUGUÊS / FRANCÊS / INGLÊS)", "LET (PORT/FRA/ING)")
@@ -562,7 +551,6 @@
           .replace("MÚSICA", "MUS");
       }
 
-      // Abreviações padrão para layout horizontal
       return curso
         .replace("CIÊNCIAS BIOLÓGICAS / MATEMÁTICA", "BIO. / MAT.")
         .replace("LETRAS (PORTUGUÊS / FRANCÊS / INGLÊS)", "LET. (PORT/FRA/ING)")
@@ -601,7 +589,6 @@
       return days[dayNum] || "Desconhecido";
     }
 
-    // Tradução simples de turno
     function translateTurn(turnChar) {
       const turns = { M: "Manhã", T: "Tarde", N: "Noite" };
       return turns[turnChar] || turnChar;
@@ -614,12 +601,9 @@
       };
     });
 
-    // Atualiza o painel de métricas de forma dinâmica baseando-se nas solicitações ativas
     function updateMetrics() {
       const totalOfertas = SOLICITACOES.length;
       const totalVagas = SOLICITACOES.reduce((acc, curr) => acc + curr.vagas, 0);
-      
-      // Filtra cursos únicos desconsiderando campus e turno
       const cursosUnicos = new Set(
         SOLICITACOES.map(s => s.solicitante.split(' - ')[0].trim())
       ).size;
@@ -639,7 +623,6 @@
         document.getElementById('moonIcon').classList.add('hidden');
       } else {
         document.documentElement.classList.remove('dark');
-        document.getElementById('sunIcon').add ? document.getElementById('sunIcon').classList.add('hidden') : null;
         document.getElementById('sunIcon').classList.add('hidden');
         document.getElementById('moonIcon').classList.remove('hidden');
       }
@@ -650,7 +633,6 @@
 
       const visibleSlots = SLOTS.filter(s => state.activeTurns[s.turn]);
 
-      // Atualiza métricas no topo
       updateMetrics();
 
       if (state.view === 'grid') {
@@ -771,9 +753,11 @@
           const topPos = startVisibleIdx * ROW_HEIGHT;
           const blockHeight = (endVisibleIdx - startVisibleIdx + 1) * ROW_HEIGHT;
 
-          // Se a largura for menor que 100%, o card divide espaço com outros (Narrow/Estreito)
           const isNarrow = event.position.width < 100;
-          const colorTheme = COLOR_CLASSES[event.color] || COLOR_CLASSES.indigo;
+          
+          // Recupera a chave de cor dinâmica com base no docente
+          const colorKey = getProfessorColor(event.docente);
+          const colorTheme = COLOR_CLASSES[colorKey] || COLOR_CLASSES.indigo;
 
           const card = document.createElement('div');
           card.style.top = `${topPos + 2}px`;
@@ -782,15 +766,13 @@
           card.style.width = `calc(${event.position.width}% - 4px)`;
           card.className = `absolute rounded-lg border p-1.5 flex flex-col justify-between shadow-sm cursor-pointer select-none transition-all duration-150 hover:shadow hover:scale-[1.01] overflow-hidden z-10 ${colorTheme.bg}`;
           
-          // Tooltip nativo com as informações detalhadas ao pairar o rato
-          card.title = `[ID: ${event.id}] ${event.solicitante}${event.docente ? ` | Prof: ${event.docente}` : ''}${event.local ? ` | Local: ${event.local}` : ''}`;
+          card.title = `[ID: ${event.id}] ${event.solicitante}${event.docente ? ` | Prof: ${event.docente}` : ' | Sem Professor Assinalado'}`;
 
           const cursoAbreviado = abbreviateCourse(event.solicitante, isNarrow);
           const profName = getFirstProfessorName(event.docente);
 
           if (isNarrow) {
-            // Disposição vertical minimalista para colunas estreitas
-            const displayLabel = profName ? `${cursoAbreviado} (${profName})` : cursoAbreviado;
+            const displayLabel = profName ? `${cursoAbreviado} (${profName})` : `${cursoAbreviado} (S/ PROF)`;
             card.innerHTML = `
               <div class="w-full h-full flex flex-row justify-between items-center vertical-text-flow font-semibold text-[9px] py-0.5 pointer-events-none">
                 <span class="shrink-0 text-[8px] font-extrabold px-0.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-sm">
@@ -805,7 +787,6 @@
               </div>
             `;
           } else {
-            // Layout horizontal limpo
             card.innerHTML = `
               <div class="h-full w-full flex flex-col justify-between p-0.5 pointer-events-none">
                 <div class="flex justify-between items-start gap-1">
@@ -820,11 +801,9 @@
                   <span class="text-[9px] font-semibold text-slate-600 dark:text-slate-400 leading-none">
                     ${event.vagas} vagas
                   </span>
-                  ${profName ? `
-                    <span class="text-[8.5px] font-bold text-indigo-600 dark:text-indigo-400 truncate max-w-[50%] leading-none font-sans" title="${event.docente}">
-                      ${profName}
-                    </span>
-                  ` : ''}
+                  <span class="text-[8.5px] font-bold ${profName ? 'text-indigo-600 dark:text-indigo-400' : 'text-red-600 dark:text-red-400 font-extrabold'} truncate max-w-[50%] leading-none font-sans">
+                    ${profName || 'Sem Prof'}
+                  </span>
                 </div>
               </div>
             `;
@@ -840,7 +819,6 @@
       const listContainer = document.getElementById('listView');
       listContainer.innerHTML = '';
 
-      // Identifica os dias com ofertas de forma dinâmica
       const diasComOferta = [...new Set(requestsData.filter(req => req.parsed).map(req => req.parsed.day))].sort();
 
       diasComOferta.forEach(d => {
@@ -865,7 +843,8 @@
         const listGroup = document.getElementById(`listGroup-${d}`);
 
         dayEvents.forEach(event => {
-          const colorTheme = COLOR_CLASSES[event.color] || COLOR_CLASSES.indigo;
+          const colorKey = getProfessorColor(event.docente);
+          const colorTheme = COLOR_CLASSES[colorKey] || COLOR_CLASSES.indigo;
           const row = document.createElement('div');
           row.className = "p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/50 dark:hover:bg-slate-900/10 cursor-pointer transition";
           
@@ -876,6 +855,12 @@
                 ${event.docente ? `<span>Prof: ${event.docente}</span>` : ''}
                 ${event.docente && event.local ? '<span>•</span>' : ''}
                 ${event.local ? `<span>Local: ${event.local}</span>` : ''}
+              </div>
+            `;
+          } else {
+            extraInfoHtml = `
+              <div class="mt-1 text-[10px] text-red-500 font-bold">
+                ⚠️ Sem professor alocado nesta solicitação
               </div>
             `;
           }
@@ -931,7 +916,6 @@
       document.getElementById('mData').innerText = event.data;
       document.getElementById('mTipo').innerText = event.tipo;
 
-      // Exibição condicional de docente e local no painel lateral
       const extraContainer = document.getElementById('mExtraContainer');
       if (event.docente || event.local) {
         document.getElementById('mDocente').innerText = event.docente || "A definir";
@@ -951,7 +935,6 @@
       }, 20);
     }
 
-    // Fecha o modal ativo
     function closeModal() {
       const modal = document.getElementById('detailsModal');
       const card = document.getElementById('modalCard');

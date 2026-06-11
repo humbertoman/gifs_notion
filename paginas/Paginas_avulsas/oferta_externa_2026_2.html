@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visualização Semanal de Solicitações - FALE0001</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,6 +18,7 @@
       }
     }
   </script>
+  <!-- Google Fonts Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -47,6 +49,7 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans min-h-full flex flex-col transition-colors duration-200">
 
+  <!-- Cabeçalho (Header) -->
   <header class="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 shrink-0">
     <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
       <div>
@@ -61,16 +64,21 @@
         </h1>
       </div>
       
+      <!-- Controles Globais -->
       <div class="flex flex-wrap items-center gap-2">
+        <!-- Alternar Tema (Escuro/Claro) -->
         <button id="themeToggle" class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition" title="Alternar tema escuro/claro">
+          <!-- Sol (Modo Escuro) -->
           <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14.25 12a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
           </svg>
+          <!-- Lua (Modo Claro) -->
           <svg id="moonIcon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         </button>
 
+        <!-- Alternar entre Grade e Lista -->
         <div class="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 p-0.5 bg-white dark:bg-slate-900">
           <button id="viewGridBtn" class="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white transition">
             Grade Semanal
@@ -83,6 +91,7 @@
     </div>
   </header>
 
+  <!-- Painel de Legenda de Cores por Professor -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
     <div class="bg-white dark:bg-slate-950 p-2 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] items-center">
       <span class="font-semibold text-slate-400 uppercase text-[10px]">Legenda:</span>
@@ -93,9 +102,11 @@
       <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-amber-500"></span> <span>Adeilson</span></div>
       <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-fuchsia-500"></span> <span>Nagib</span></div>
       <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-sky-500"></span> <span>Magda</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-violet-500"></span> <span>Magno</span></div>
     </div>
   </section>
 
+  <!-- Painel de Métricas Rápidas (Dinâmico) -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div class="bg-white dark:bg-slate-950 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center">
@@ -125,6 +136,7 @@
     </div>
   </section>
 
+  <!-- Filtro de Layout de Turnos -->
   <section id="layoutControls" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
     <div class="bg-white dark:bg-slate-950 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
       <div class="flex items-center gap-4">
@@ -151,9 +163,12 @@
     </div>
   </section>
 
+  <!-- Conteúdo Principal -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full flex flex-col">
     
+    <!-- Visualização de Grade -->
     <div id="gridView" class="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+      <!-- Cabeçalho dos Dias -->
       <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-center text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 shrink-0">
         <div class="py-2 border-r border-slate-200 dark:border-slate-800">Horário</div>
         <div class="py-2 border-r border-slate-200 dark:border-slate-800">Seg (2)</div>
@@ -163,14 +178,19 @@
         <div class="py-2">Sex (6)</div>
       </div>
 
+      <!-- Corpo da Grade Semanal -->
       <div class="relative" id="gridBodyContainer">
+        <!-- Linhas horizontais de fundo -->
         <div id="bgGridLines" class="absolute inset-0 pointer-events-none divide-y divide-slate-100 dark:divide-slate-900">
           </div>
 
+        <!-- Grade Dinâmica das Colunas de Eventos -->
         <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] relative" id="gridColumnsContainer">
+          <!-- Coluna 0: Horários de Aula (Eixo lateral esquerdo) -->
           <div id="timeAxisColumn" class="border-r border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 divide-y divide-slate-100 dark:divide-slate-900 text-[9px] text-slate-500 text-center select-none">
             </div>
 
+          <!-- Colunas 1-5: Dias da Semana (Segunda a Sexta) -->
           <div id="dayCol-2" class="relative border-r border-slate-200 dark:border-slate-800"></div>
           <div id="dayCol-3" class="relative border-r border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/20"></div>
           <div id="dayCol-4" class="relative border-r border-slate-200 dark:border-slate-800"></div>
@@ -180,13 +200,16 @@
       </div>
     </div>
 
+    <!-- Visualização de Lista (Alternativa responsiva) -->
     <div id="listView" class="hidden space-y-3">
       </div>
 
   </main>
 
+  <!-- Modal de Detalhes da Turma -->
   <div id="detailsModal" class="fixed inset-0 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-opacity duration-150">
     <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl max-w-md w-full shadow-xl overflow-hidden transform scale-95 opacity-0 transition-all duration-150" id="modalCard">
+      <!-- Header do Modal -->
       <div class="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-start">
         <div>
           <span class="inline-block px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
@@ -201,6 +224,7 @@
         </button>
       </div>
 
+      <!-- Corpo do Modal -->
       <div class="p-5 space-y-3 text-xs">
         <div>
           <span class="text-[10px] text-slate-400 uppercase font-semibold block">Solicitante</span>
@@ -229,6 +253,7 @@
           </div>
         </div>
 
+        <!-- Bloco de Informações Extras Dinâmicas -->
         <div id="mExtraContainer" class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800 hidden">
           <div>
             <span class="text-[10px] text-slate-400 uppercase font-semibold block">Docente</span>
@@ -241,6 +266,7 @@
         </div>
       </div>
 
+      <!-- Rodapé do Modal -->
       <div class="p-4 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800 flex justify-end">
         <button id="closeModalOkBtn" class="px-4 py-1.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-xs font-medium rounded-lg hover:bg-slate-800 dark:hover:bg-slate-200 transition">
           Fechar
@@ -249,6 +275,7 @@
     </div>
   </div>
 
+  <!-- Script Principal -->
   <script>
     // ----------------------------------------------------
     // Dados das Solicitações (Lista Dinâmica Completa)
@@ -362,7 +389,7 @@
         horario: "2N123",
         vagas: 45,
         situacao: "Pendente",
-        docente: "" // Sem Professor -> Vermelho
+        docente: "Adeilson"
       },
       {
         id: 16,
@@ -373,7 +400,7 @@
         horario: "6N123",
         vagas: 45,
         situacao: "Pendente",
-        docente: "" // Sem Professor -> Vermelho
+        docente: "Nagib"
       },
       {
         id: 18,
@@ -384,8 +411,9 @@
         horario: "6N123",
         vagas: 50,
         situacao: "Pendente",
-        docente: "" // Sem Professor -> Vermelho
+        docente: "Magda"
       },
+      // Solicitações Período Matutino
       {
         id: 21,
         componente: "FALE0001 - LIBRAS",
@@ -395,7 +423,7 @@
         horario: "5M123",
         vagas: 50,
         situacao: "Pendente",
-        docente: "" // Sem Professor -> Vermelho
+        docente: "Magno"
       },
       {
         id: 22,
@@ -406,6 +434,7 @@
         horario: "5M234",
         vagas: 20,
         situacao: "Pendente",
+        color: "rose",
         docente: "Profa. Magda",
         local: "Espaço Cultural"
       }
@@ -517,6 +546,7 @@
         case 'DANIEL': return 'indigo';
         case 'NAGIB': return 'fuchsia';
         case 'MAGDA': return 'sky';
+        case 'MAGNO': return 'violet';
         default: return 'violet';
       }
     }
@@ -623,6 +653,7 @@
         document.getElementById('moonIcon').classList.add('hidden');
       } else {
         document.documentElement.classList.remove('dark');
+        document.getElementById('sunIcon').add ? document.getElementById('sunIcon').classList.add('hidden') : null;
         document.getElementById('sunIcon').classList.add('hidden');
         document.getElementById('moonIcon').classList.remove('hidden');
       }
@@ -753,7 +784,8 @@
           const topPos = startVisibleIdx * ROW_HEIGHT;
           const blockHeight = (endVisibleIdx - startVisibleIdx + 1) * ROW_HEIGHT;
 
-          const isNarrow = event.position.width < 100;
+          // Se a largura for menor que 100% ou se for a turma #12, o card é exibido no modo vertical
+          const isNarrow = event.position.width < 100 || event.id === 12;
           
           // Recupera a chave de cor dinâmica com base no docente
           const colorKey = getProfessorColor(event.docente);

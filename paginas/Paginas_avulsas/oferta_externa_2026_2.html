@@ -136,29 +136,48 @@
     </div>
   </section>
 
-  <!-- Filtro de Layout de Turnos -->
+  <!-- Filtro de Layout de Turnos e Professores -->
   <section id="layoutControls" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 w-full shrink-0">
     <div class="bg-white dark:bg-slate-950 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
-      <div class="flex items-center gap-4">
-        <span class="font-medium text-slate-600 dark:text-slate-400">Exibir Turnos:</span>
-        <label class="flex items-center gap-1.5 cursor-pointer">
-          <input type="checkbox" id="toggleManha" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
-          <span>Manhã</span>
-        </label>
-        <label class="flex items-center gap-1.5 cursor-pointer">
-          <input type="checkbox" id="toggleTarde" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
-          <span>Tarde</span>
-        </label>
-        <label class="flex items-center gap-1.5 cursor-pointer">
-          <input type="checkbox" id="toggleNoite" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
-          <span>Noite</span>
-        </label>
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+        <!-- Turnos -->
+        <div class="flex items-center gap-2">
+          <span class="font-medium text-slate-600 dark:text-slate-400">Exibir Turnos:</span>
+          <label class="flex items-center gap-1.5 cursor-pointer">
+            <input type="checkbox" id="toggleManha" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+            <span>Manhã</span>
+          </label>
+          <label class="flex items-center gap-1.5 cursor-pointer">
+            <input type="checkbox" id="toggleTarde" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+            <span>Tarde</span>
+          </label>
+          <label class="flex items-center gap-1.5 cursor-pointer">
+            <input type="checkbox" id="toggleNoite" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+            <span>Noite</span>
+          </label>
+        </div>
+
+        <!-- Filtro por Docente -->
+        <div class="flex items-center gap-2 border-t sm:border-t-0 sm:border-l border-slate-200 dark:border-slate-800 pt-2 sm:pt-0 sm:pl-4">
+          <span class="font-medium text-slate-600 dark:text-slate-400">Filtrar Docente:</span>
+          <select id="profFilter" class="rounded border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs px-2 py-0.5 text-slate-700 dark:text-slate-300 focus:ring-indigo-500 font-medium">
+            <option value="all">Todos</option>
+            <option value="none">Sem Professor</option>
+            <option value="Daniel">Daniel</option>
+            <option value="Fábio">Fábio</option>
+            <option value="Emanoelly">Emanoelly</option>
+            <option value="Adeilson">Adeilson</option>
+            <option value="Nagib">Nagib</option>
+            <option value="Magda">Magda</option>
+            <option value="Magno">Magno</option>
+          </select>
+        </div>
       </div>
       <div class="flex items-center gap-1 text-slate-400 dark:text-slate-500">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span class="text-[11px]">Passe o rato para ler o nome do curso. Clique para mais detalhes.</span>
+        <span class="text-[11px]">Passe o mouse para ler o nome do curso. Clique para mais detalhes.</span>
       </div>
     </div>
   </section>
@@ -520,6 +539,7 @@
         T: true,
         N: true
       },
+      professorFilter: 'all', // 'all' | 'none' | '[NomeProfessor]'
       selectedRequest: null
     };
 
@@ -643,11 +663,29 @@
       };
     });
 
+    // Filtra dinamicamente as solicitações com base nos controlos ativos
+    function getFilteredRequests() {
+      return requestsData.filter(req => {
+        // Filtro por Turno
+        if (!state.activeTurns[req.parsed.turn]) return false;
+
+        // Filtro por Professor
+        if (state.professorFilter === 'all') return true;
+        if (state.professorFilter === 'none') return !req.docente;
+
+        const profName = getFirstProfessorName(req.docente).toUpperCase();
+        const filterTarget = state.professorFilter.toUpperCase();
+        return profName === filterTarget;
+      });
+    }
+
+    // Atualiza o painel de métricas em tempo real de acordo com as turmas exibidas
     function updateMetrics() {
-      const totalOfertas = SOLICITACOES.length;
-      const totalVagas = SOLICITACOES.reduce((acc, curr) => acc + curr.vagas, 0);
+      const filtered = getFilteredRequests();
+      const totalOfertas = filtered.length;
+      const totalVagas = filtered.reduce((acc, curr) => acc + curr.vagas, 0);
       const cursosUnicos = new Set(
-        SOLICITACOES.map(s => s.solicitante.split(' - ')[0].trim())
+        filtered.map(s => s.solicitante.split(' - ')[0].trim())
       ).size;
 
       document.getElementById('metricTotal').innerText = totalOfertas;
@@ -673,6 +711,7 @@
       document.getElementById('toggleManha').checked = state.activeTurns.M;
       document.getElementById('toggleTarde').checked = state.activeTurns.T;
       document.getElementById('toggleNoite').checked = state.activeTurns.N;
+      document.getElementById('profFilter').value = state.professorFilter;
 
       const visibleSlots = SLOTS.filter(s => state.activeTurns[s.turn]);
 
@@ -778,8 +817,10 @@
         document.getElementById(`dayCol-${d}`).innerHTML = '';
       }
 
+      const filteredRequests = getFilteredRequests();
+
       for (let d = 2; d <= 6; d++) {
-        const dayEvents = requestsData.filter(req => req.parsed && req.parsed.day === d && state.activeTurns[req.parsed.turn]);
+        const dayEvents = filteredRequests.filter(req => req.parsed && req.parsed.day === d);
         calculateDayOverlapPositions(dayEvents);
 
         const dayCol = document.getElementById(`dayCol-${d}`);
@@ -863,10 +904,13 @@
       const listContainer = document.getElementById('listView');
       listContainer.innerHTML = '';
 
-      const diasComOferta = [...new Set(requestsData.filter(req => req.parsed).map(req => req.parsed.day))].sort();
+      const filtered = getFilteredRequests();
+
+      // Identifica os dias com ofertas de forma dinâmica
+      const diasComOferta = [...new Set(filtered.filter(req => req.parsed).map(req => req.parsed.day))].sort();
 
       diasComOferta.forEach(d => {
-        const dayEvents = requestsData.filter(req => req.parsed && req.parsed.day === d);
+        const dayEvents = filtered.filter(req => req.parsed && req.parsed.day === d);
         if (dayEvents.length === 0) return;
 
         const dayCard = document.createElement('div');
@@ -1018,6 +1062,11 @@
 
     document.getElementById('toggleNoite').addEventListener('change', (e) => {
       state.activeTurns.N = e.target.checked;
+      render();
+    });
+
+    document.getElementById('profFilter').addEventListener('change', (e) => {
+      state.professorFilter = e.target.value;
       render();
     });
 

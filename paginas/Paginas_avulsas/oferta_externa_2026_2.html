@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT" class="h-full">
+<html lang="pt-BR" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +64,7 @@
         </h1>
       </div>
       
-      <!-- Controlos Globais -->
+      <!-- Controles Globais -->
       <div class="flex flex-wrap items-center gap-2">
         <!-- Alternar Tema (Escuro/Claro) -->
         <button id="themeToggle" class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition" title="Alternar tema escuro/claro">
@@ -78,10 +78,10 @@
           </svg>
         </button>
 
-        <!-- Alternar entre Grelha e Lista -->
+        <!-- Alternar entre Grade e Lista -->
         <div class="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 p-0.5 bg-white dark:bg-slate-900">
           <button id="viewGridBtn" class="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white transition">
-            Grelha Semanal
+            Grade Semanal
           </button>
           <button id="viewListBtn" class="px-2.5 py-1 text-xs font-medium rounded-md text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
             Lista Completa
@@ -166,7 +166,7 @@
   <!-- Conteúdo Principal -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full flex flex-col">
     
-    <!-- Visualização de Grelha -->
+    <!-- Visualização de Grade -->
     <div id="gridView" class="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
       <!-- Cabeçalho dos Dias -->
       <div class="grid grid-cols-[70px_1fr_1fr_1fr_1fr_1fr] bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-center text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 shrink-0">
@@ -178,7 +178,7 @@
         <div class="py-2">Sex (6)</div>
       </div>
 
-      <!-- Corpo da Grelha Semanal -->
+      <!-- Corpo da Grade Semanal -->
       <div class="relative" id="gridBodyContainer">
         <!-- Linhas horizontais de fundo -->
         <div id="bgGridLines" class="absolute inset-0 pointer-events-none divide-y divide-slate-100 dark:divide-slate-900">
@@ -290,7 +290,7 @@
         horario: "6T456",
         vagas: 20,
         situacao: "Pendente",
-        docente: "Emanoelly"
+        docente: "Daniel"
       },
       {
         id: 2,
@@ -411,8 +411,9 @@
         horario: "6N123",
         vagas: 50,
         situacao: "Pendente",
-        docente: "Magda"
+        docente: ""
       },
+      // Solicitações Período Matutino
       {
         id: 21,
         componente: "FALE0001 - LIBRAS",
@@ -471,7 +472,7 @@
       { index: 13, turn: 'N', num: 3, label: 'N3', time: '20:40 - 21:30' }
     ];
 
-    // Temas Visuais do Tailwind mapeados por chave de colas
+    // Temas Visuais do Tailwind mapeados por chave de cores
     const COLOR_CLASSES = {
       red: {
         bg: "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/60 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950/50",
@@ -498,7 +499,7 @@
         tag: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/80 dark:text-cyan-200"
       },
       teal: {
-        bg: "bg-teal-50 dark:bg-teal-950/30 border-teal-200 dark:border-teal-900/60 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-950/55",
+        bg: "bg-teal-50 dark:bg-teal-950/30 border-teal-200 dark:teal-900/60 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-950/55",
         tag: "bg-teal-100 text-teal-800 dark:bg-teal-900/80 dark:text-teal-200"
       },
       sky: {
@@ -556,7 +557,6 @@
         case 'DANIEL': return 'indigo';
         case 'NAGIB': return 'fuchsia';
         case 'MAGDA': return 'sky';
-        case 'MAGNO font-sans':
         case 'MAGNO': return 'violet';
         default: return 'violet';
       }
@@ -625,6 +625,7 @@
       return 0;
     }
 
+    // Traduz o dia número
     function translateDay(dayNum) {
       const days = { 2: "Segunda", 3: "Terça", 4: "Quarta", 5: "Quinta", 6: "Sexta", 7: "Sábado" };
       return days[dayNum] || "Desconhecido";

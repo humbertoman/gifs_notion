@@ -177,7 +177,7 @@
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span class="text-[11px]">Passe o mouse para ler o nome do curso. Clique para mais detalhes.</span>
+        <span class="text-[11px]">Passe o mouse para ler o nome do curso e o espaço sugerido. Clique para ver detalhes.</span>
       </div>
     </div>
   </section>
@@ -279,7 +279,7 @@
             <p class="text-slate-700 dark:text-slate-300 mt-0.5 font-medium" id="mDocente">-</p>
           </div>
           <div>
-            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Local</span>
+            <span class="text-[10px] text-slate-400 uppercase font-semibold block">Local Sugerido</span>
             <p class="text-slate-700 dark:text-slate-300 mt-0.5 font-medium" id="mLocal">-</p>
           </div>
         </div>
@@ -297,7 +297,7 @@
   <!-- Script Principal -->
   <script>
     // ----------------------------------------------------
-    // Dados das Solicitações (Lista Dinâmica Completa)
+    // Dados das Solicitações (Lista Dinâmica Completa com Locais Sugeridos)
     // ----------------------------------------------------
     const SOLICITACOES = [
       {
@@ -309,7 +309,8 @@
         horario: "6T456",
         vagas: 20,
         situacao: "Pendente",
-        docente: "Daniel"
+        docente: "Daniel",
+        local: "BL7 SALA104"
       },
       {
         id: 2,
@@ -320,7 +321,8 @@
         horario: "5N123",
         vagas: 30,
         situacao: "Pendente",
-        docente: "Adeilson"
+        docente: "Adeilson",
+        local: ""
       },
       {
         id: 3,
@@ -331,7 +333,8 @@
         horario: "6T123",
         vagas: 45,
         situacao: "Pendente",
-        docente: "Fábio"
+        docente: "Fábio",
+        local: "FALE" // Sugestão do curso de Letras-Francês
       },
       {
         id: 4,
@@ -340,9 +343,10 @@
         data: "30/05/2026",
         tipo: "Turma Regular",
         horario: "2N123",
-        vagas: 40,
+        vagas: 35, // Atualizado de 40 para 35 vagas
         situacao: "Pendente",
-        docente: "Daniel"
+        docente: "Daniel",
+        local: ""
       },
       {
         id: 5,
@@ -353,7 +357,8 @@
         horario: "2N123",
         vagas: 40,
         situacao: "Pendente",
-        docente: "Nagib"
+        docente: "Nagib",
+        local: "IGDEMA - BL6/SA 06" // Sugestão do curso de Geografia
       },
       {
         id: 6,
@@ -364,18 +369,20 @@
         horario: "5N123",
         vagas: 20,
         situacao: "Pendente",
-        docente: "Daniel"
+        docente: "Daniel",
+        local: ""
       },
       {
         id: 8,
         componente: "FALE0001 - LIBRAS",
-        solicitante: "MATEMÁTICA - CAMPUS MACEIÓ - VESPERTINO", // Turma #8 dividida (apenas Matemática)
+        solicitante: "MATEMÁTICA - CAMPUS MACEIÓ - VESPERTINO",
         data: "01/06/2026",
         tipo: "Turma Regular",
         horario: "6T123",
-        vagas: 15, // Vagas de matemática (10 + 5)
+        vagas: 15,
         situacao: "Pendente",
-        docente: "Emanoelly"
+        docente: "Emanoelly",
+        local: "Sala 05 - IM Novo" // Sugestão de Matemática Licenciatura & Matemática Bacharelado
       },
       {
         id: 10,
@@ -386,7 +393,8 @@
         horario: "6N123",
         vagas: 40,
         situacao: "Pendente",
-        docente: "Daniel"
+        docente: "Daniel",
+        local: ""
       },
       {
         id: 12,
@@ -397,7 +405,8 @@
         horario: "4T123",
         vagas: 50,
         situacao: "Pendente",
-        docente: "Emanoelly"
+        docente: "Emanoelly",
+        local: "CEDU"
       },
       {
         id: 15,
@@ -408,7 +417,8 @@
         horario: "2N123",
         vagas: 45,
         situacao: "Pendente",
-        docente: "Adeilson"
+        docente: "Adeilson",
+        local: "Sala 04 - IM Novo / IM(Sala 4)" // Junção de Matemática Licenciatura e Biblioteconomia
       },
       {
         id: 16,
@@ -419,7 +429,8 @@
         horario: "6N123",
         vagas: 45,
         situacao: "Pendente",
-        docente: "Nagib"
+        docente: "Nagib",
+        local: "IF / 205 - ICBS" // Junção de Física Licenciatura e Ciências Biológicas Noite
       },
       {
         id: 18,
@@ -430,9 +441,9 @@
         horario: "6N123",
         vagas: 50,
         situacao: "Pendente",
-        docente: "Profa. Magda"
+        docente: "Magda", // Adicionado professor
+        local: "CEDU"
       },
-      // Solicitações Período Matutino
       {
         id: 21,
         componente: "FALE0001 - LIBRAS",
@@ -442,7 +453,8 @@
         horario: "5M123",
         vagas: 50,
         situacao: "Pendente",
-        docente: "Magno"
+        docente: "Magno",
+        local: "CEDU"
       },
       {
         id: 22,
@@ -453,20 +465,20 @@
         horario: "5M234",
         vagas: 20,
         situacao: "Pendente",
-        color: "rose",
         docente: "Profa. Magda",
-        local: "Espaço Cultural"
+        local: "Espaço Cultural, sala 36"
       },
       {
         id: 23,
         componente: "FALE0001 - LIBRAS",
-        solicitante: "CIÊNCIAS BIOLÓGICAS - CAMPUS MACEIÓ - VESPERTINO", // Nova turma de Biologia separada da #8
+        solicitante: "CIÊNCIAS BIOLÓGICAS - CAMPUS MACEIÓ - VESPERTINO",
         data: "01/06/2026",
         tipo: "Turma Regular",
         horario: "6T123",
         vagas: 30,
         situacao: "Pendente",
-        docente: "Adeilson"
+        docente: "Adeilson",
+        local: "102 - ICBS"
       }
     ];
 
@@ -518,7 +530,7 @@
         tag: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/80 dark:text-cyan-200"
       },
       teal: {
-        bg: "bg-teal-50 dark:bg-teal-950/30 border-teal-200 dark:teal-900/60 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-950/55",
+        bg: "bg-teal-50 dark:bg-teal-950/30 border-teal-200 dark:border-teal-900/60 text-teal-700 dark:text-teal-300 hover:bg-teal-100 dark:hover:bg-teal-950/55",
         tag: "bg-teal-100 text-teal-800 dark:bg-teal-900/80 dark:text-teal-200"
       },
       sky: {
@@ -851,7 +863,10 @@
           card.style.width = `calc(${event.position.width}% - 4px)`;
           card.className = `absolute rounded-lg border p-1.5 flex flex-col justify-between shadow-sm cursor-pointer select-none transition-all duration-150 hover:shadow hover:scale-[1.01] overflow-hidden z-10 ${colorTheme.bg}`;
           
-          card.title = `[ID: ${event.id}] ${event.solicitante}${event.docente ? ` | Prof: ${event.docente}` : ' | Sem Professor Assinalado'}`;
+          // Tooltip nativo com as informações detalhadas ao pairar o mouse (incluindo o espaço sugerido)
+          card.title = `[ID: ${event.id}] ${event.solicitante}\n` +
+                       `Professor: ${event.docente ? event.docente : 'Sem Professor Assinalado'}\n` +
+                       `${event.local ? `Local Sugerido: ${event.local}` : 'Sem sugestão de espaço físico'}`;
 
           const cursoAbreviado = abbreviateCourse(event.solicitante, isNarrow);
           const profName = getFirstProfessorName(event.docente);
@@ -942,7 +957,7 @@
               <div class="flex flex-wrap items-center gap-2 mt-1 text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">
                 ${event.docente ? `<span>Prof: ${event.docente}</span>` : ''}
                 ${event.docente && event.local ? '<span>•</span>' : ''}
-                ${event.local ? `<span>Local: ${event.local}</span>` : ''}
+                ${event.local ? `<span>Espaço Sugerido: ${event.local}</span>` : ''}
               </div>
             `;
           } else {
@@ -1007,7 +1022,7 @@
       const extraContainer = document.getElementById('mExtraContainer');
       if (event.docente || event.local) {
         document.getElementById('mDocente').innerText = event.docente || "A definir";
-        document.getElementById('mLocal').innerText = event.local || "A definir";
+        document.getElementById('mLocal').innerText = event.local || "Não sugerido";
         extraContainer.classList.remove('hidden');
       } else {
         extraContainer.classList.add('hidden');

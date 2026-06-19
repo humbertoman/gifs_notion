@@ -100,7 +100,8 @@
         </header>
 
         <!-- Formulário Principal -->
-        <form id="discenteForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
+        <!-- O atributo novalidate impede que o navegador bloqueie o envio por causa de inputs requeridos ocultos -->
+        <form id="discenteForm" class="space-y-6" onsubmit="handleFormSubmit(event)" novalidate>
             
             <!-- ETAPA 1: Identificação -->
             <div id="step-1" class="step-panel active space-y-6">
@@ -138,7 +139,7 @@
 
             <!-- ETAPA 2: Perfil Acadêmico e Diversidade -->
             <div id="step-2" class="step-panel space-y-6">
-                <!-- Turma de Ingresso -->
+                <!-- Turma de Inresso -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                     <div class="flex justify-between items-start">
                         <label for="turma" class="block font-bold text-slate-800 text-base">1. Turma de Ingresso <span class="text-red-500">*</span></label>
@@ -462,7 +463,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Base fraca do ensino médio/semestres anteriores." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Base fraca do ensino médio/semestres anteriores." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Base fraca do ensino médio/semestres anteriores.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-1')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -481,7 +482,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade com a didática dos professores." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade com a didática dos professores." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Dificuldade com a didática dos professores.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-2')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -500,7 +501,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Falta de tempo devido ao trabalho/rotina externa." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Falta de tempo devido ao trabalho/rotina externa." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Falta de tempo devido ao trabalho/rotina externa.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-3')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -519,7 +520,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Questões emocionais ou de saúde mental (ansiedade, estresse)." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Questões emocionais ou de saúde mental (ansiedade, estresse)." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Questões emocionais ou de saúde mental (ansiedade, estresse).</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-4')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -538,7 +539,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade específica com a Língua Portuguesa (leitura/escrita)." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade específica com a Língua Portuguesa (leitura/escrita)." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Dificuldade específica com a Língua Portuguesa (leitura/escrita).</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-5')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -557,7 +558,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade específica com a Libras." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade específica com a Libras." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Dificuldade específica com a Libras.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-6')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -576,7 +577,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Ambiente domiciliar inadequado para estudos." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Ambiente domiciliar inadequado para estudos." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Ambiente domiciliar inadequado para estudos.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-7')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -595,7 +596,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Problemas de transporte/deslocamento até a UFAL." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Problemas de transporte/deslocamento até a UFAL." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Problemas de transporte/deslocamento até a UFAL.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-8')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -614,7 +615,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Falta de materiais de apoio ou bibliografia acessível." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Falta de materiais de apoio ou bibliografia acessível." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Falta de materiais de apoio ou bibliografia acessível.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-9')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -633,7 +634,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
-                                    <input type="checkbox" name="dificuldades_opcoes" value="Problemas financeiros que afetam a permanência." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Problemas financeiros que afetam a permanência." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="disableNenhuma(this, 'dificuldades_opcoes')">
                                     <span class="text-slate-700 text-sm font-medium">Problemas financeiros que afetam a permanência.</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-10')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -652,7 +653,7 @@
                         <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
                             <div class="flex items-center justify-between gap-3">
                                 <label class="flex items-center gap-3 cursor-pointer flex-1">
-                                    <input type="checkbox" id="dificuldades-outro-check" name="dificuldades_opcoes" value="Outro" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="toggleOutroInput(this, 'dificuldades-outro-texto')">
+                                    <input type="checkbox" id="dificuldades-outro-check" name="dificuldades_opcoes" value="Outro" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="toggleOutroInput(this, 'dificuldades-outro-texto'); disableNenhuma(this, 'dificuldades_opcoes');">
                                     <span class="text-slate-700 font-medium text-sm">Outro:</span>
                                 </label>
                                 <button type="button" onclick="toggleVideo('video-dif-11')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
@@ -1093,7 +1094,7 @@
                                 </button>
                             </div>
                             <div id="video-plano-21" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
-                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
                                     <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
                                     <span>Libras: Acessibilidade</span>
                                 </div>
@@ -1425,6 +1426,45 @@
             return isValid;
         }
 
+        // Validador Global de Etapas (Customizado para contornar problemas de display:none do HTML5)
+        function validateAllSteps() {
+            const requiredFields = document.querySelectorAll('#discenteForm [required]');
+            let isValid = true;
+            let firstInvalidField = null;
+
+            requiredFields.forEach(field => {
+                if (field.type === 'radio') {
+                    const name = field.name;
+                    const checkedRadio = document.querySelector(`input[name="${name}"]:checked`);
+                    if (!checkedRadio) {
+                        isValid = false;
+                        if (!firstInvalidField) firstInvalidField = field;
+                    }
+                } else {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('border-red-400');
+                        if (!firstInvalidField) firstInvalidField = field;
+                    } else {
+                        field.classList.remove('border-red-400');
+                    }
+                }
+            });
+
+            // Se houver erros, redireciona o aluno automaticamente ao passo correto!
+            if (!isValid && firstInvalidField) {
+                let parentPanel = firstInvalidField.closest('.step-panel');
+                if (parentPanel) {
+                    const stepId = parentPanel.id;
+                    const stepNum = parseInt(stepId.split('-')[1]);
+                    currentStep = stepNum;
+                    updateStepVisibility();
+                }
+            }
+
+            return isValid;
+        }
+
         // Controle dos Vídeos em Libras (Bunny)
         function toggleVideo(containerId) {
             const videoContainer = document.getElementById(containerId);
@@ -1560,10 +1600,16 @@
         async function handleFormSubmit(e) {
             e.preventDefault();
 
-            // Consolida todos os dados de checkboxes antes do envio
+            // 1. Validação manual de todas as etapas (ignora o display: none nativo)
+            if (!validateAllSteps()) {
+                showNotification('error', 'Campos Incompletos', 'Por favor, certifique-se de preencher todos os campos obrigatórios (*) em todas as etapas anteriores.');
+                return;
+            }
+
+            // 2. Consolida todos os dados de checkboxes antes do envio
             consolidateCheckboxes();
 
-            // Validação estrita do Plano de Ação (deve ser exatamente 3)
+            // 3. Validação estrita do Plano de Ação (deve ser exatamente 3)
             const totalPlano = document.querySelectorAll('input[name="plano_opcoes"]:checked').length;
             if (totalPlano !== 3) {
                 showNotification('error', 'Ação Necessária', 'Você precisa selecionar exatamente 3 opções para o Plano de Ação do Curso.');
@@ -1631,7 +1677,7 @@
             // URL do script configurado
             const targetUrl = GOOGLE_SCRIPT_URL;
 
-            if (!targetUrl || targetUrl === "SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI") {
+            if (!targetUrl || targetUrl.includes("SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI")) {
                 // Sem URL configurada: Simular o sucesso localmente para o professor ver
                 setTimeout(() => {
                     hideNotification();
@@ -1771,6 +1817,7 @@
             document.getElementById('custom-modal').classList.add('hidden');
         }
 
+        // Função para fechar o modal
         function closeModal() {
             hideNotification();
         }

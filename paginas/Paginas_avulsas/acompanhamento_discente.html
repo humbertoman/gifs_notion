@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento Discente - Letras-Libras UFAL</title>
+    <!-- Tailwind CSS para design ágil e responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Ajustes específicos de acessibilidade e transições */
+        .touch-target {
+            min-height: 48px;
+        }
+        /* Modo de Alto Contraste */
+        body.high-contrast {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        body.high-contrast .bg-white {
+            background-color: #121212 !important;
+            color: #ffffff !important;
+            border: 2px solid #ffffff !important;
+        }
+        body.high-contrast input, 
+        body.high-contrast select, 
+        body.high-contrast textarea {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            border: 2px solid #ffffff !important;
+        }
+        body.high-contrast button {
+            background-color: #ffff00 !important;
+            color: #000000 !important;
+            font-weight: bold !important;
+        }
+        body.high-contrast .text-gray-600,
+        body.high-contrast .text-gray-500,
+        body.high-contrast .text-slate-700 {
+            color: #e5e7eb !important;
+        }
+        /* Transições suaves */
+        .step-panel {
+            display: none;
+        }
+        .step-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen transition-colors duration-200">
+
+    <!-- Barra de Acessibilidade Superior -->
+    <div class="bg-slate-800 text-white py-2 px-4 sticky top-0 z-50 shadow-md">
+        <div class="max-w-xl mx-auto flex justify-between items-center text-sm">
+            <span class="font-semibold tracking-wide flex items-center gap-2">
+                <i class="fa-solid fa-universal-access text-teal-400"></i> Acessibilidade
+            </span>
+            <div class="flex items-center gap-4">
+                <button onclick="adjustFontSize(-1)" class="px-2 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs font-bold" aria-label="Diminuir fonte">A-</button>
+                <button onclick="adjustFontSize(1)" class="px-2 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs font-bold" aria-label="Aumentar fonte">A+</button>
+                <button onclick="toggleHighContrast()" class="px-3 py-1 bg-teal-600 hover:bg-teal-500 rounded text-xs font-bold flex items-center gap-1" aria-label="Alternar alto contraste">
+                    <i class="fa-solid fa-circle-half-stroke"></i> Contraste
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container Principal do Formulário -->
+    <main class="max-w-xl mx-auto px-4 py-6" id="main-content">
+        
+        <!-- Cabeçalho -->
+        <header class="text-center mb-8 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <div class="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-graduation-cap text-3xl text-teal-600"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-900 tracking-tight" id="form-title">Acompanhamento Discente</h1>
+            <p class="text-teal-700 font-semibold text-sm mt-1">Letras-Libras • UFAL</p>
+            <p class="text-slate-500 text-xs mt-3 leading-relaxed">
+                Registro de informações acadêmicas e pessoais para acompanhamento dos estudantes de graduação.
+            </p>
+            
+            <!-- Barra de Progresso Global -->
+            <div class="mt-6">
+                <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
+                    <span id="progress-text">Passo 1 de 4</span>
+                    <span id="progress-percent">25%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-teal-600 h-2.5 rounded-full transition-all duration-300" style="width: 25%"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Formulário Principal -->
+        <form id="discenteForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
+            
+            <!-- ETAPA 1: Identificação -->
+            <div id="step-1" class="step-panel active space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <h2 class="text-lg font-bold text-slate-800 border-b pb-2 flex items-center gap-2">
+                        <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-full">1</span>
+                        Identificação Pessoal
+                    </h2>
+
+                    <!-- Nome Completo -->
+                    <div class="space-y-2">
+                        <label for="nome" class="block font-semibold text-slate-700">Nome Completo <span class="text-red-500">*</span></label>
+                        <input type="text" id="nome" name="nome" required class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target" placeholder="Seu nome completo">
+                    </div>
+
+                    <!-- Número de Matrícula -->
+                    <div class="space-y-2">
+                        <label for="matricula" class="block font-semibold text-slate-700">Número de Matrícula <span class="text-slate-400 text-xs">(opcional)</span></label>
+                        <input type="text" id="matricula" name="matricula" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target" placeholder="Ex: 2021000123">
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="space-y-2">
+                        <label for="whatsapp" class="block font-semibold text-slate-700">Número de WhatsApp <span class="text-red-500">*</span></label>
+                        <input type="tel" id="whatsapp" name="whatsapp" required class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target" placeholder="Ex: (82) 99999-9999">
+                    </div>
+
+                    <!-- E-mail -->
+                    <div class="space-y-2">
+                        <label for="email" class="block font-semibold text-slate-700">Email <span class="text-slate-400 text-xs">(Se tiver institucional, use ele)</span> <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target" placeholder="usuario@ufal.br">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETAPA 2: Perfil Acadêmico e Diversidade -->
+            <div id="step-2" class="step-panel space-y-6">
+                <!-- Turma de Ingresso -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <label for="turma" class="block font-bold text-slate-800 text-base">1. Turma de Ingresso <span class="text-red-500">*</span></label>
+                        <button type="button" onclick="toggleVideo('video-turma')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-turma" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2 animate-pulse"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Turma de Ingresso</span>
+                        </div>
+                    </div>
+
+                    <select name="turma" id="turma" required class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 bg-white touch-target">
+                        <option value="" disabled selected>Selecione a turma de ingresso</option>
+                        <option value="2026.1">2026.1</option>
+                        <option value="2025.2">2025.2</option>
+                        <option value="2024.2">2024.2</option>
+                        <option value="2023.2">2023.2</option>
+                        <option value="2022.2">2022.2</option>
+                        <option value="2021.2">2021.2</option>
+                        <option value="2020.2">2020.2</option>
+                        <option value="2019.2">2019.2</option>
+                    </select>
+                </div>
+
+                <!-- Perfil Auditivo/Identidade -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">2. Você é: <span class="text-red-500">*</span></span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Identidade">
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="identidade" value="surdo/a" required class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Surdo/a</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="identidade" value="ouvinte" class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Ouvinte</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Deficiências -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">3. Possui alguma deficiência?<br><span class="text-xs text-slate-400 font-normal">(Selecione todas que se aplicam)</span></span>
+                    </div>
+
+                    <div class="space-y-2.5">
+                        <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" name="deficiencia_opcoes" value="Nenhuma" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="handleNenhumaCheckbox(this, 'deficiencia_opcoes')">
+                            <span class="text-slate-700 font-medium">Nenhuma</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" name="deficiencia_opcoes" value="Física" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="disableNenhuma(this, 'deficiencia_opcoes')">
+                            <span class="text-slate-700 font-medium">Física</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" name="deficiencia_opcoes" value="Baixa visão" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="disableNenhuma(this, 'deficiencia_opcoes')">
+                            <span class="text-slate-700 font-medium">Baixa visão</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" name="deficiencia_opcoes" value="Cegueira" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="disableNenhuma(this, 'deficiencia_opcoes')">
+                            <span class="text-slate-700 font-medium">Cegueira</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" name="deficiencia_opcoes" value="Surdocegueira" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="disableNenhuma(this, 'deficiencia_opcoes')">
+                            <span class="text-slate-700 font-medium">Surdocegueira</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" name="deficiencia_opcoes" value="TDAH" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="disableNenhuma(this, 'deficiencia_opcoes')">
+                            <span class="text-slate-700 font-medium">TDAH</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" name="deficiencia_opcoes" value="Autismo" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="disableNenhuma(this, 'deficiencia_opcoes')">
+                            <span class="text-slate-700 font-medium">Autismo</span>
+                        </label>
+                        
+                        <!-- Campo Dinâmico Outro -->
+                        <div class="pt-2 border-t border-slate-100">
+                            <label class="flex items-center gap-3 p-2 rounded-lg cursor-pointer">
+                                <input type="checkbox" id="deficiencia-outro-check" name="deficiencia_opcoes" value="Outro" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="toggleOutroInput(this, 'deficiencia-outro-texto'); disableNenhuma(this, 'deficiencia_opcoes');">
+                                <span class="text-slate-700 font-medium">Outro:</span>
+                            </label>
+                            <input type="text" id="deficiencia-outro-texto" disabled class="mt-2 w-full p-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target" placeholder="Qual deficiência?">
+                        </div>
+                    </div>
+                    <!-- Campo Oculto de Consolidação -->
+                    <input type="hidden" name="deficiencia" id="deficiencia_consolidada">
+                </div>
+            </div>
+
+            <!-- ETAPA 3: Contexto e Rotina UFAL -->
+            <div id="step-3" class="step-panel space-y-6">
+                <!-- Reprovações -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">4. Reprovou em alguma disciplina neste semestre (2026.1)? <span class="text-red-500">*</span></span>
+                        <button type="button" onclick="toggleVideo('video-reprovacao')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-reprovacao" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Reprovações</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="reprovacao" value="Sim" required class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Sim</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="reprovacao" value="Não" class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Não</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Bolsas da UFAL com Campo Dinâmico Adicional -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">5. Recebeu alguma bolsa da UFAL neste semestre (2026.1)? <span class="text-red-500">*</span></span>
+                        <button type="button" onclick="toggleVideo('video-bolsa')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-bolsa" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Bolsas de Apoio</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <!-- Nenhuma -->
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="bolsa" value="Nenhuma" required class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                            <span class="text-slate-700 font-medium">Nenhuma</span>
+                        </label>
+                        <!-- Extensão -->
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="bolsa" value="Extensão" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                            <span class="text-slate-700 font-medium">Extensão</span>
+                        </label>
+                        <!-- CCC/CCEV -->
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="bolsa" value="CCC/CCEV" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                            <span class="text-slate-700 font-medium">CCC/CCEV</span>
+                        </label>
+                        <!-- PIBID -->
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="bolsa" value="PIBID" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                            <span class="text-slate-700 font-medium">PIBID</span>
+                        </label>
+                        <!-- Monitoria -->
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="bolsa" value="Monitoria" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                            <span class="text-slate-700 font-medium">Monitoria</span>
+                        </label>
+                        <!-- PIBIC -->
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="bolsa" value="PIBIC" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                            <span class="text-slate-700 font-medium">PIBIC</span>
+                        </label>
+                        <!-- Permanência -->
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="bolsa" value="Permanência" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                            <span class="text-slate-700 font-medium">Permanência</span>
+                        </label>
+                        
+                        <!-- Novo Campo Dinâmico Outra Bolsa -->
+                        <div class="pt-2 border-t border-slate-100">
+                            <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                                <input type="radio" name="bolsa" value="Outra" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handleBolsaChange(this)">
+                                <span class="text-slate-700 font-semibold">Outra bolsa:</span>
+                            </label>
+                            <input type="text" id="bolsa-outra-texto" disabled class="mt-2 w-full p-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target" placeholder="Qual o nome da outra bolsa?">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Atualmente está trabalhando -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">6. Atualmente, está trabalhando? <span class="text-red-500">*</span></span>
+                        <button type="button" onclick="toggleVideo('video-trabalho')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-trabalho" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Trabalho</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="trabalho" value="Não" required class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-semibold">Não</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="trabalho" value="Trabalha fora da área" class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-semibold">Trabalha fora da área</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="trabalho" value="Trabalha na área" class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-semibold">Trabalha na área</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Tempo de deslocamento -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <label for="deslocamento" class="block font-bold text-slate-800 text-base">7. Tempo médio de deslocamento até a UFAL? <span class="text-red-500">*</span></label>
+                        <button type="button" onclick="toggleVideo('video-deslocamento')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-deslocamento" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Tempo de Deslocamento</span>
+                        </div>
+                    </div>
+
+                    <input type="text" id="deslocamento" name="deslocamento" required class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target" placeholder="Ex: 40 minutos, 1 hora">
+                </div>
+
+                <!-- Prática de Esportes -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">8. Fez esporte na UFAL neste semestre (2026.1)? <span class="text-red-500">*</span></span>
+                        <button type="button" onclick="toggleVideo('video-esporte')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-esporte" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Esporte</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="esporte" value="Sim" required class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Sim</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="esporte" value="Não" class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Não</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Participação em Evento -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">9. Participou de evento neste semestre (2026.1)? <span class="text-red-500">*</span></span>
+                        <button type="button" onclick="toggleVideo('video-evento')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-evento" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Evento</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="evento" value="Sim" required class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Sim</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="evento" value="Não" class="w-5 h-5 text-teal-600 focus:ring-teal-500">
+                            <span class="font-semibold text-slate-700">Não</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETAPA 4: Dificuldades, Plano de Ação e Período Cursado -->
+            <div id="step-4" class="step-panel space-y-6">
+                
+                <!-- Maiores Dificuldades (COM VÍDEO LIBRAS PARA O ENUNCIADO E PARA CADA ALTERNATIVA) -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="block font-bold text-slate-800 text-base">10. Maiores dificuldades ou obstáculos enfrentados neste semestre (2026.1)?<br><span class="text-xs text-slate-400 font-normal">(Selecione todas que se aplicam)</span></span>
+                        <button type="button" onclick="toggleVideo('video-q10')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors shrink-0">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <!-- Vídeo Libras para o Enunciado da Q10 -->
+                    <div id="video-q10" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Enunciado da Pergunta 10</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <!-- Alternativa 1 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Base fraca do ensino médio/semestres anteriores." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Base fraca do ensino médio/semestres anteriores.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-1')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-1" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Base de Ensino Fraca</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 2 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade com a didática dos professores." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Dificuldade com a didática dos professores.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-2')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-2" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Didática do Professor</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 3 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Falta de tempo devido ao trabalho/rotina externa." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Falta de tempo devido ao trabalho/rotina externa.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-3')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-3" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Falta de Tempo (Trabalho)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 4 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Questões emocionais ou de saúde mental (ansiedade, estresse)." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Questões emocionais ou de saúde mental (ansiedade, estresse).</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-4')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-4" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Saúde Mental</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 5 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade específica com a Língua Portuguesa (leitura/escrita)." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Dificuldade específica com a Língua Portuguesa (leitura/escrita).</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-5')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-5" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Dificuldade em Língua Portuguesa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 6 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Dificuldade específica com a Libras." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Dificuldade específica com a Libras.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-6')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-6" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Dificuldade em Libras</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 7 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Ambiente domiciliar inadequado para estudos." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Ambiente domiciliar inadequado para estudos.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-7')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-7" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Ambiente Domiciliar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 8 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Problemas de transporte/deslocamento até a UFAL." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Problemas de transporte/deslocamento até a UFAL.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-8')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-8" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Transporte e Deslocamento</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 9 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Falta de materiais de apoio ou bibliografia acessível." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Falta de materiais de apoio ou bibliografia acessível.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-9')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-9" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Bibliografia e Apoio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 10 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="checkbox" name="dificuldades_opcoes" value="Problemas financeiros que afetam a permanência." class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Problemas financeiros que afetam a permanência.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-10')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-10" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Problemas Financeiros</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campo Dinâmico Outro com Libras próprio -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-center gap-3 cursor-pointer flex-1">
+                                    <input type="checkbox" id="dificuldades-outro-check" name="dificuldades_opcoes" value="Outro" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500" onchange="toggleOutroInput(this, 'dificuldades-outro-texto')">
+                                    <span class="text-slate-700 font-medium text-sm">Outro:</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-dif-11')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-dif-11" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Outro Obstáculo</span>
+                                </div>
+                            </div>
+                            <input type="text" id="dificuldades-outro-texto" disabled class="mt-2 w-full p-2.5 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all touch-target text-sm" placeholder="Escreva aqui outra dificuldade enfrentada">
+                        </div>
+                    </div>
+                    <!-- Campo Oculto de Consolidação -->
+                    <input type="hidden" name="dificuldades" id="dificuldades_consolidada">
+                </div>
+
+                <!-- Plano de Ação (EXATAMENTE 3 OPÇÕES - COM VÍDEO LIBRAS PARA O ENUNCIADO E PARA CADA ALTERNATIVA) -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="block font-bold text-slate-800 text-base">
+                            11. Plano de Ação para Melhoria do Curso 
+                            <span class="text-red-500">*</span>
+                            <br>
+                            <span class="text-xs text-slate-400 font-normal">(Escolha exatamente 3 opções)</span>
+                        </span>
+                        <button type="button" onclick="toggleVideo('video-q11')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors shrink-0">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <!-- Vídeo Libras para o Enunciado da Q11 -->
+                    <div id="video-q11" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Enunciado da Pergunta 11</span>
+                        </div>
+                    </div>
+
+                    <!-- Contador Dinâmico -->
+                    <div id="plano-contador" class="bg-teal-50 border border-teal-100 rounded-xl p-3 text-center text-teal-800 font-bold text-sm">
+                        Selecionadas: <span id="plano-counter-number">0</span> de 3 opções
+                    </div>
+
+                    <div class="space-y-3 max-h-[350px] overflow-y-auto pr-2 border border-slate-100 p-2 rounded-xl" id="plano-acao-grupo">
+                        
+                        <!-- Opção 1 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Habilidade linguística (Proficiência baixa em Libras dos ouvintes)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Habilidade linguística:</strong> O nível de proficiência baixo em Libras dos alunos ouvintes.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-1')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-1" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Habilidade linguística</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 2 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Acesso profissional (Inserção no mercado)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Acesso profissional:</strong> A dificuldade de inserção no mercado.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-2')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-2" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Acesso profissional</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 3 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Intercorrências na tradução (Professores que interrompem intérpretes)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Intercorrências na tradução:</strong> Professores que interrompem a atuação dos intérpretes em sala.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-3')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-3" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Intercorrências na tradução</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 4 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Uso da sala de estudos (Desvio de finalidade/infraestrutura)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Uso da sala de estudos:</strong> Desvio de finalidade do espaço (alimentação e conversas) e infraestrutura precária.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-4')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-4" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Uso da sala de estudos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 5 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Poluição sonora estrutural (Ruídos de portas/cadeiras)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Poluição sonora estrutural:</strong> Ruídos de impacto (portas e cadeiras) que prejudicam a concentração.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-5')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-5" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Poluição sonora estrutural</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 6 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Clima organizacional (Conflitos/desunião)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Clima organizacional:</strong> Conflitos interpessoais, fofocas e desunião entre os períodos.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-6')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-6" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Clima organizacional</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 7 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Segregação interna (Falta de interação surdo/ouvinte)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Segregação interna:</strong> A falta de interação efetiva entre o grupo de surdos e o grupo de ouvintes.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-7')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-7" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Segregação interna</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 8 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Grade horária (Choque de horários)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Grade horária:</strong> Choque de horários entre disciplinas obrigatórias e optativas.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-8')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-8" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Grade horária</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 9 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Dispersão em sala (Conversas e barulho)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Dispersão em sala:</strong> Barulho e conversas paralelas durante as exposições dos professores.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-9')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-9" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Dispersão em sala</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 10 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Assiduidade e pontualidade (Descumprimento de horários)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Assiduidade e pontualidade:</strong> Descumprimento dos horários de início e término das aulas.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-10')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-10" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Assiduidade e pontualidade</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 11 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Suporte à neurodivergência (Falta de sala de regulação)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Suporte à neurodivergência:</strong> Ausência de uma sala de regulação específica.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-11')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-11" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Suporte à neurodivergência</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 12 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Recursos tecnológicos (Falta de computadores/câmera)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Recursos tecnológicos:</strong> Insuficiência de computadores e falta de câmera profissional.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-12')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-12" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Recursos tecnológicos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 13 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Infraestrutura de apoio (Sala de gravação/armários)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Infraestrutura de apoio:</strong> Condições da sala de gravação e ausência de armários para alunos.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-13')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-13" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Infraestrutura de apoio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 14 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Espaço físico (Falta de convivência)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Espaço físico:</strong> Inexistência de uma área dedicada à convivência.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-14')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-14" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Espaço físico</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 15 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Lacuna curricular (Ausência de CCC Avançado)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Lacuna curricular:</strong> Ausência da disciplina "CCC Avançado".</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-15')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-15" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Lacuna curricular</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 16 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Identidade do curso (Excesso de oralização)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Identidade do curso:</strong> Excesso de oralização e baixa sinalização em um ambiente de Letras-Libras.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-16')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-16" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Identidade do curso</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 17 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Prática profissional (Carência de projetos de mercado)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Prática profissional:</strong> Carência de projetos que abordem o mercado de trabalho.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-17')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-17" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Prática profissional</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 18 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Expressão artística (Falta de teatro em Libras)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Expressão artística:</strong> Falta de grupos de teatro e apresentações visuais em Libras.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-18')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-18" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Expressão artística</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 19 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Ativismo estudantil (Baixo engajamento)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Ativismo estudantil:</strong> Baixo nível de engajamento e mobilização dos alunos.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-19')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-19" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Ativismo estudantil</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 20 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Integração de calouros (Apoio aos novos alunos)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Integração de calouros:</strong> Ausência de um grupo ou sistema de apoio aos novos alunos.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-20')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-20" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Integração de calouros</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opção 21 -->
+                        <div class="border border-slate-50 rounded-lg p-2.5 transition-opacity">
+                            <div class="flex items-start justify-between gap-2">
+                                <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+                                    <input type="checkbox" name="plano_opcoes" value="Acessibilidade (Falta de intérpretes)" class="w-5 h-5 text-teal-600 rounded focus:ring-teal-500 mt-0.5" onchange="validatePlanoAcao(this)">
+                                    <span class="text-slate-700 text-xs"><strong>Acessibilidade:</strong> Falta de intérpretes em todos os espaços.</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-plano-21')" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2 py-1 rounded flex items-center gap-1 shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-plano-21" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
+                                    <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
+                                    <span>Libras: Acessibilidade</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Campo Oculto de Consolidação -->
+                    <input type="hidden" name="plano_acao" id="plano_consolidado">
+                </div>
+
+                <!-- Período Cursado em 2026.1 (PERGUNTA COM GATILHO DE CONDICIONAL) -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="block font-bold text-slate-800 text-base">12. Que período cursou agora em 2026.1? <span class="text-red-500">*</span></span>
+                        <button type="button" onclick="toggleVideo('video-periodo')" class="text-xs bg-teal-50 hover:bg-teal-100 text-teal-700 font-bold px-3 py-1.5 rounded-full flex items-center gap-1 transition-colors">
+                            <i class="fa-solid fa-hands-asl-interpreting"></i> Ver Libras
+                        </button>
+                    </div>
+
+                    <div id="video-periodo" class="hidden bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                            <i class="fa-solid fa-play text-4xl text-teal-400 mb-2"></i>
+                            <span class="text-xs font-semibold">Vídeo Libras: Período Cursado em 2026.1</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Período">
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="periodo" value="1º" required class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handlePeriodoChange(this)">
+                            <span class="font-semibold text-slate-700">1º Período</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="periodo" value="3º" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handlePeriodoChange(this)">
+                            <span class="font-semibold text-slate-700">3º Período</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="periodo" value="5º" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handlePeriodoChange(this)">
+                            <span class="font-semibold text-slate-700">5º Período</span>
+                        </label>
+                        <label class="border border-slate-200 rounded-xl p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition-colors touch-target">
+                            <input type="radio" name="periodo" value="7º" class="w-5 h-5 text-teal-600 focus:ring-teal-500" onchange="handlePeriodoChange(this)">
+                            <span class="font-semibold text-slate-700">7º Período</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ETAPA 5: Status em TCC (Apenas para o 7º Período) -->
+            <div id="step-5" class="step-panel space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <h2 class="text-lg font-bold text-slate-800 border-b pb-2 flex items-center gap-2">
+                        <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-full">5</span>
+                        Status de TCC (7º Período)
+                    </h2>
+
+                    <span class="block font-bold text-slate-800 text-base">
+                        13. Qual seu status em TCC? <span class="text-red-500">*</span>
+                        <br>
+                        <span class="text-xs text-slate-400 font-normal">(Selecione apenas 1 opção)</span>
+                    </span>
+
+                    <div class="space-y-3">
+                        <!-- Alternativa 1 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="radio" name="tcc_status" value="Sem orientador/a" class="w-5 h-5 text-teal-600 focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Sem orientador/a</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-tcc-1')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-tcc-1" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Sem orientador/a</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 2 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="radio" name="tcc_status" value="Já tenho termo de orientação assinado" class="w-5 h-5 text-teal-600 focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Já tenho termo de orientação assinado</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-tcc-2')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-tcc-2" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Já tenho termo de orientação assinado</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 3 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="radio" name="tcc_status" value="Já estou matriculado em TCC" class="w-5 h-5 text-teal-600 focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Já estou matriculado em TCC</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-tcc-3')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-tcc-3" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Já estou matriculado em TCC</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 4 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="radio" name="tcc_status" value="Minha defesa já foi marcada" class="w-5 h-5 text-teal-600 focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Minha defesa já foi marcada</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-tcc-4')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-tcc-4" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Minha defesa já foi marcada</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternativa 5 -->
+                        <div class="border border-slate-100 rounded-xl p-3 hover:bg-slate-50 transition-colors">
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-start gap-3 cursor-pointer flex-1 py-1">
+                                    <input type="radio" name="tcc_status" value="Já defendi" class="w-5 h-5 text-teal-600 focus:ring-teal-500 mt-0.5">
+                                    <span class="text-slate-700 text-sm font-medium">Já defendi</span>
+                                </label>
+                                <button type="button" onclick="toggleVideo('video-tcc-5')" class="text-[11px] bg-slate-100 hover:bg-slate-200 text-teal-700 font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors shrink-0">
+                                    <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
+                                </button>
+                            </div>
+                            <div id="video-tcc-5" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <i class="fa-solid fa-play text-2xl text-teal-400 mb-1"></i>
+                                    <span class="text-xs font-semibold text-slate-300">Vídeo Libras: Já defendi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botões de Navegação (Fixo/Flutuante na Base para Mobile) -->
+            <div class="bg-white p-4 rounded-2xl shadow-lg border border-slate-100 flex justify-between gap-4 sticky bottom-4 z-40">
+                <button type="button" id="btn-prev" onclick="prevStep()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all touch-target flex items-center justify-center gap-2 visibility-hidden">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar
+                </button>
+                <button type="button" id="btn-next" onclick="nextStep()" class="flex-1 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl transition-all shadow-md touch-target flex items-center justify-center gap-2">
+                    Avançar <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button type="submit" id="btn-submit" class="hidden flex-1 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl transition-all shadow-md touch-target flex items-center justify-center gap-2">
+                    Enviar <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+
+        </form>
+    </main>
+
+    <!-- Custom Modal de Alerta / Sucesso / Carregamento (Evitando alert() do navegador) -->
+    <div id="custom-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform scale-95 transition-transform duration-200" id="modal-container">
+            <div id="modal-icon" class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <!-- Ícone dinâmico -->
+            </div>
+            <h3 id="modal-title" class="text-lg font-bold text-slate-900 text-center">Título</h3>
+            <p id="modal-message" class="text-slate-600 text-sm mt-2 text-center leading-relaxed">Mensagem explicativa.</p>
+            <div class="mt-6 flex justify-center">
+                <button id="modal-btn-close" onclick="closeModal()" class="bg-teal-600 hover:bg-teal-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-all shadow-md">Ok, entendi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para Comportamento Interativo e Acessível -->
+    <script>
+        // =========================================================================
+        // CONFIGURAÇÃO DO PROFESSOR: COLA A URL DA SUA PLANILHA AQUI ABAIXO:
+        // =========================================================================
+        const GOOGLE_SCRIPT_URL = "SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI"; 
+        // =========================================================================
+
+        // Configuração de Estado Global do Formulário
+        let currentStep = 1;
+        let baseFontSize = 16; // em pixels
+
+        // Executar ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            updateStepVisibility();
+        });
+
+        // Gatilho dinâmico para a pergunta de Período
+        function handlePeriodoChange(radio) {
+            updateStepVisibility();
+            
+            const tccRadios = document.querySelectorAll('input[name="tcc_status"]');
+            if (radio.value === "7º") {
+                // Torna obrigatório o passo do TCC se o período for o 7º
+                tccRadios.forEach(r => r.setAttribute('required', 'true'));
+            } else {
+                // Remove obrigatoriedade e limpa seleção caso mude para outro período
+                tccRadios.forEach(r => {
+                    r.removeAttribute('required');
+                    r.checked = false;
+                });
+            }
+        }
+
+        // Navegação de Etapas (Wizard Adaptativo)
+        function updateStepVisibility() {
+            // Descobre o período selecionado para saber se mostramos 4 ou 5 passos no total
+            const selectedPeriodRadio = document.querySelector('input[name="periodo"]:checked');
+            const hasTccStep = (selectedPeriodRadio && selectedPeriodRadio.value === "7º");
+            const totalSteps = hasTccStep ? 5 : 4;
+
+            // Previne inconsistência caso o usuário estivesse no passo 5 e mude para outro período
+            if (currentStep > totalSteps) {
+                currentStep = totalSteps;
+            }
+
+            // Oculta todos os painéis e exibe apenas o atual
+            for (let i = 1; i <= 5; i++) {
+                const stepElement = document.getElementById(`step-${i}`);
+                if (stepElement) {
+                    if (i === currentStep) {
+                        stepElement.classList.add('active');
+                    } else {
+                        stepElement.classList.remove('active');
+                    }
+                }
+            }
+
+            // Atualiza botões
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const btnSubmit = document.getElementById('btn-submit');
+
+            if (currentStep === 1) {
+                btnPrev.classList.add('invisible');
+            } else {
+                btnPrev.classList.remove('invisible');
+            }
+
+            if (currentStep === totalSteps) {
+                btnNext.classList.add('hidden');
+                btnSubmit.classList.remove('hidden');
+            } else {
+                btnNext.classList.remove('hidden');
+                btnSubmit.classList.add('hidden');
+            }
+
+            // Atualiza Barra de Progresso
+            const percent = Math.round((currentStep / totalSteps) * 100);
+            document.getElementById('progress-text').textContent = `Passo ${currentStep} de ${totalSteps}`;
+            document.getElementById('progress-percent').textContent = `${percent}%`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+
+            // Rola a tela até o topo para facilitar a leitura no mobile
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep() {
+            // Valida se os campos obrigatórios da etapa atual foram preenchidos
+            if (validateCurrentStepInputs()) {
+                const selectedPeriodRadio = document.querySelector('input[name="periodo"]:checked');
+                const hasTccStep = (selectedPeriodRadio && selectedPeriodRadio.value === "7º");
+                const totalSteps = hasTccStep ? 5 : 4;
+
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepVisibility();
+                }
+            } else {
+                showNotification('error', 'Campos Obrigatórios', 'Por favor, preencha todos os campos obrigatórios (*) antes de avançar.');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepVisibility();
+            }
+        }
+
+        // Validação Estrita dos Inputs do Passo Atual
+        function validateCurrentStepInputs() {
+            const activePanel = document.getElementById(`step-${currentStep}`);
+            const requiredFields = activePanel.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (field.type === 'radio') {
+                    // Trata grupo de radios obrigatórios
+                    const name = field.name;
+                    const checkedRadio = activePanel.querySelector(`input[name="${name}"]:checked`);
+                    if (!checkedRadio) {
+                        isValid = false;
+                    }
+                } else {
+                    // Trata inputs normais e selects
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('border-red-400');
+                    } else {
+                        field.classList.remove('border-red-400');
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // Controle dos Vídeos em Libras (Bunny)
+        function toggleVideo(containerId) {
+            const videoContainer = document.getElementById(containerId);
+            videoContainer.classList.toggle('hidden');
+        }
+
+        // Comportamento Exclusivo dos Checkboxes
+        function handleNenhumaCheckbox(checkbox, groupName) {
+            if (checkbox.checked) {
+                // Desmarca todas as outras opções do grupo correspondente de forma direta
+                const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
+                checkboxes.forEach(cb => {
+                    if (cb !== checkbox) {
+                        cb.checked = false;
+                    }
+                });
+                
+                // Desativa campos de texto dinâmicos se forem desmarcados
+                const outroCheck = document.getElementById('deficiencia-outro-check');
+                if (outroCheck) {
+                    outroCheck.checked = false;
+                    toggleOutroInput(outroCheck, 'deficiencia-outro-texto');
+                }
+            }
+        }
+
+        function disableNenhuma(triggerCheckbox, groupName) {
+            // Se outra opção for selecionada manualmente, desmarca o checkbox "Nenhuma"
+            if (triggerCheckbox.checked) {
+                const nenhumaCb = document.querySelector(`input[name="${groupName}"][value="Nenhuma"]`);
+                if (nenhumaCb) {
+                    nenhumaCb.checked = false;
+                }
+            }
+        }
+
+        // Controle Dinâmico do campo 'Outro'
+        function toggleOutroInput(checkbox, textInputId) {
+            const textInput = document.getElementById(textInputId);
+            if (checkbox.checked) {
+                textInput.removeAttribute('disabled');
+                textInput.classList.remove('bg-slate-50');
+                textInput.focus();
+                textInput.setAttribute('required', 'true');
+            } else {
+                textInput.setAttribute('disabled', 'true');
+                textInput.classList.add('bg-slate-50');
+                textInput.removeAttribute('required');
+                textInput.value = '';
+            }
+        }
+
+        // Controle Dinâmico do campo 'Outra Bolsa'
+        function handleBolsaChange(radio) {
+            const textInput = document.getElementById('bolsa-outra-texto');
+            if (radio.value === 'Outra') {
+                textInput.removeAttribute('disabled');
+                textInput.classList.remove('bg-slate-50');
+                textInput.focus();
+                textInput.setAttribute('required', 'true');
+            } else {
+                textInput.setAttribute('disabled', 'true');
+                textInput.classList.add('bg-slate-50');
+                textInput.removeAttribute('required');
+                textInput.value = '';
+            }
+        }
+
+        // Validação Inteligente das 3 Opções de Plano de Ação
+        function validatePlanoAcao(changedCheckbox) {
+            const selectedCbs = document.querySelectorAll('input[name="plano_opcoes"]:checked');
+            const totalSelected = selectedCbs.length;
+
+            // Atualiza contador em tela
+            const counterNum = document.getElementById('plano-counter-number');
+            const counterDiv = document.getElementById('plano-contador');
+            counterNum.textContent = totalSelected;
+
+            if (totalSelected === 3) {
+                counterDiv.className = "bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-center text-emerald-800 font-bold text-sm animate-bounce";
+            } else {
+                counterDiv.className = "bg-teal-50 border border-teal-100 rounded-xl p-3 text-center text-teal-800 font-bold text-sm";
+            }
+
+            // Se atingir 3, desativa as caixas não selecionadas
+            if (totalSelected >= 3) {
+                const allCbs = document.querySelectorAll('input[name="plano_opcoes"]');
+                allCbs.forEach(cb => {
+                    if (!cb.checked) {
+                        cb.disabled = true;
+                        cb.parentElement.classList.add('opacity-40');
+                    }
+                });
+            } else {
+                // Caso contrário, habilita todas
+                const allCbs = document.querySelectorAll('input[name="plano_opcoes"]');
+                allCbs.forEach(cb => {
+                    cb.disabled = false;
+                    cb.parentElement.classList.remove('opacity-40');
+                });
+            }
+        }
+
+        // Consolidação Final de Dados Multiseleção
+        function consolidateCheckboxes() {
+            // 1. Deficiências
+            const defCbs = document.querySelectorAll('input[name="deficiencia_opcoes"]:checked');
+            let defVal = Array.from(defCbs).map(cb => {
+                if (cb.value === 'Outro') {
+                    return `Outro (${document.getElementById('deficiencia-outro-texto').value})`;
+                }
+                return cb.value;
+            }).join(', ');
+            document.getElementById('deficiencia_consolidada').value = defVal;
+
+            // 2. Dificuldades
+            const difCbs = document.querySelectorAll('input[name="dificuldades_opcoes"]:checked');
+            let difVal = Array.from(difCbs).map(cb => {
+                if (cb.value === 'Outro') {
+                    return `Outro (${document.getElementById('dificuldades-outro-texto').value})`;
+                }
+                return cb.value;
+            }).join(', ');
+            document.getElementById('dificuldades_consolidada').value = difVal;
+
+            // 3. Plano de Ação
+            const planoCbs = document.querySelectorAll('input[name="plano_opcoes"]:checked');
+            let planoVal = Array.from(planoCbs).map(cb => cb.value).join(', ');
+            document.getElementById('plano_consolidado').value = planoVal;
+        }
+
+        // Submissão do Formulário
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            // Consolida todos os dados de checkboxes antes do envio
+            consolidateCheckboxes();
+
+            // Validação estrita do Plano de Ação (deve ser exatamente 3)
+            const totalPlano = document.querySelectorAll('input[name="plano_opcoes"]:checked').length;
+            if (totalPlano !== 3) {
+                showNotification('error', 'Ação Necessária', 'Você precisa selecionar exatamente 3 opções para o Plano de Ação do Curso.');
+                return;
+            }
+
+            // Exibir carregando
+            showLoadingNotification('Enviando dados...', 'Suas respostas estão sendo enviadas à planilha da UFAL de forma segura.');
+
+            // Prepara Payload
+            const form = document.getElementById('discenteForm');
+            const formData = new FormData();
+            
+            // Mapeamento explícito de chaves para o Apps Script
+            formData.append('nome', document.getElementById('nome').value);
+            formData.append('matricula', document.getElementById('matricula').value);
+            formData.append('whatsapp', document.getElementById('whatsapp').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('turma', document.getElementById('turma').value);
+            
+            const identidadeChecked = document.querySelector('input[name="identidade"]:checked');
+            formData.append('identidade', identidadeChecked ? identidadeChecked.value : '');
+            
+            formData.append('deficiencia', document.getElementById('deficiencia_consolidada').value);
+            
+            const reprovacaoChecked = document.querySelector('input[name="reprovacao"]:checked');
+            formData.append('reprovacao', reprovacaoChecked ? reprovacaoChecked.value : '');
+            
+            // Tratamento da Bolsa Dinâmica (Outra)
+            const bolsaChecked = document.querySelector('input[name="bolsa"]:checked');
+            let bolsaValue = bolsaChecked ? bolsaChecked.value : '';
+            if (bolsaValue === 'Outra') {
+                const outraBolsaTexto = document.getElementById('bolsa-outra-texto').value.trim();
+                bolsaValue = `Outra (${outraBolsaTexto})`;
+            }
+            formData.append('bolsa', bolsaValue);
+            
+            const trabalhoChecked = document.querySelector('input[name="trabalho"]:checked');
+            formData.append('trabalho', trabalhoChecked ? trabalhoChecked.value : '');
+            
+            formData.append('deslocamento', document.getElementById('deslocamento').value);
+            
+            const esporteChecked = document.querySelector('input[name="esporte"]:checked');
+            formData.append('esporte', esporteChecked ? esporteChecked.value : '');
+            
+            const eventoChecked = document.querySelector('input[name="evento"]:checked');
+            formData.append('evento', eventoChecked ? eventoChecked.value : '');
+            
+            formData.append('dificuldades', document.getElementById('dificuldades_consolidada').value);
+            formData.append('plano_acao', document.getElementById('plano_consolidado').value);
+
+            // Período
+            const periodoChecked = document.querySelector('input[name="periodo"]:checked');
+            const periodoVal = periodoChecked ? periodoChecked.value : '';
+            formData.append('periodo', periodoVal);
+
+            // Campo condicional TCC Status (apenas se for do 7º Período)
+            if (periodoVal === "7º") {
+                const tccChecked = document.querySelector('input[name="tcc_status"]:checked');
+                formData.append('tcc_status', tccChecked ? tccChecked.value : '');
+            } else {
+                formData.append('tcc_status', '');
+            }
+
+            // Verifica se possui endpoint real configurado
+            const targetUrl = GOOGLE_SCRIPT_URL;
+
+            if (!targetUrl || targetUrl === "SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI") {
+                // Sem URL configurada: Simular o sucesso localmente para o professor ver
+                setTimeout(() => {
+                    hideNotification();
+                    showNotification('success', 'Envio Simulado!', 'O formulário foi preenchido com sucesso! Para capturar dados reais, configure a constante GOOGLE_SCRIPT_URL no código fonte.');
+                    form.reset();
+                    currentStep = 1;
+                    updateStepVisibility();
+                    resetPlanoCounter();
+                    resetBolsaField();
+                }, 1500);
+            } else {
+                // Envio Real via Fetch para o Google Sheets (Apps Script)
+                try {
+                    // Converter FormData em URLSearchParams para o Apps Script
+                    const searchParams = new URLSearchParams();
+                    for (const pair of formData.entries()) {
+                        searchParams.append(pair[0], pair[1]);
+                    }
+
+                    // Implementação de Retentativa simples
+                    let response;
+                    let retries = 3;
+                    while (retries > 0) {
+                        try {
+                            response = await fetch(targetUrl, {
+                                method: 'POST',
+                                body: searchParams,
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                }
+                            });
+                            if (response.ok) break;
+                        } catch (err) {
+                            retries--;
+                            if (retries === 0) throw err;
+                            await new Promise(resolve => setTimeout(resolve, 1000));
+                        }
+                    }
+
+                    const resData = await response.json();
+                    hideNotification();
+
+                    if (resData.status === 'success') {
+                        showNotification('success', 'Respostas Registradas!', 'Agradecemos sua colaboração. Suas respostas foram inseridas na planilha com sucesso.');
+                        form.reset();
+                        currentStep = 1;
+                        updateStepVisibility();
+                        resetPlanoCounter();
+                        resetBolsaField();
+                    } else {
+                        throw new Error('Servidor retornou status inválido.');
+                    }
+                } catch (error) {
+                    hideNotification();
+                    showNotification('error', 'Falha no Envio', 'Houve um problema de rede ou a URL do Apps Script não tem suporte CORS. Verifique as configurações de implantação.');
+                }
+            }
+        }
+
+        function resetPlanoCounter() {
+            document.getElementById('plano-counter-number').textContent = '0';
+            const counterDiv = document.getElementById('plano-contador');
+            counterDiv.className = "bg-teal-50 border border-teal-100 rounded-xl p-3 text-center text-teal-800 font-bold text-sm";
+            const allCbs = document.querySelectorAll('input[name="plano_opcoes"]');
+            allCbs.forEach(cb => {
+                cb.disabled = false;
+                cb.parentElement.classList.remove('opacity-40');
+            });
+        }
+
+        function resetBolsaField() {
+            const textInput = document.getElementById('bolsa-outra-texto');
+            textInput.setAttribute('disabled', 'true');
+            textInput.classList.add('bg-slate-50');
+            textInput.removeAttribute('required');
+            textInput.value = '';
+        }
+
+        // Funções Globais de Acessibilidade
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+
+        // Ajuste fluido do tamanho da fonte para leitura acessível
+        function adjustFontSize(change) {
+            baseFontSize += change;
+            if (baseFontSize < 12) baseFontSize = 12;
+            if (baseFontSize > 22) baseFontSize = 22;
+            document.getElementById('main-content').style.fontSize = `${baseFontSize}px`;
+        }
+
+        // Controle das Modais de Alerta e Notificações (Sem alert nativo)
+        function showNotification(type, title, message) {
+            const modal = document.getElementById('custom-modal');
+            const iconDiv = document.getElementById('modal-icon');
+            const mTitle = document.getElementById('modal-title');
+            const mMsg = document.getElementById('modal-message');
+            const btnClose = document.getElementById('modal-btn-close');
+
+            mTitle.textContent = title;
+            mMsg.textContent = message;
+            btnClose.classList.remove('hidden');
+
+            // Customizar estilo baseado no tipo
+            if (type === 'success') {
+                iconDiv.className = "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-emerald-100 text-emerald-600 text-2xl";
+                iconDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            } else if (type === 'error') {
+                iconDiv.className = "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-rose-100 text-rose-600 text-2xl";
+                iconDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+            } else {
+                iconDiv.className = "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-teal-100 text-teal-600 text-2xl";
+                iconDiv.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function showLoadingNotification(title, message) {
+            const modal = document.getElementById('custom-modal');
+            const iconDiv = document.getElementById('modal-icon');
+            const mTitle = document.getElementById('modal-title');
+            const mMsg = document.getElementById('modal-message');
+            const btnClose = document.getElementById('modal-btn-close');
+
+            mTitle.textContent = title;
+            mMsg.textContent = message;
+            btnClose.classList.add('hidden'); // oculta botão de fechar para o usuário esperar
+
+            iconDiv.className = "w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-teal-50 text-teal-600 text-2xl";
+            iconDiv.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i>';
+
+            modal.classList.remove('hidden');
+        }
+
+        function hideNotification() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        function closeModal() {
+            hideNotification();
+        }
+    </script>
+</body>
+</html>

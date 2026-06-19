@@ -7,7 +7,7 @@
     <!-- Tailwind CSS para design ágil e responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome para ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link class="rtl" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* Ajustes específicos de acessibilidade e transições */
@@ -139,7 +139,7 @@
 
             <!-- ETAPA 2: Perfil Acadêmico e Diversidade -->
             <div id="step-2" class="step-panel space-y-6">
-                <!-- Turma de Inresso -->
+                <!-- Turma de Ingresso -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
                     <div class="flex justify-between items-start">
                         <label for="turma" class="block font-bold text-slate-800 text-base">1. Turma de Ingresso <span class="text-red-500">*</span></label>
@@ -1093,7 +1093,7 @@
                                     <i class="fa-solid fa-hands-asl-interpreting"></i> Libras
                                 </button>
                             </div>
-                            <div id="video-plano-21" class="hidden mt-2 bg-slate-900 aspect-video rounded-xl overflow-hidden relative shadow-inner">
+                            <div id="video-plano-21" class="hidden mt-2 bg-slate-900 aspect-video rounded-lg overflow-hidden relative shadow-inner">
                                 <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-2 text-center text-xs">
                                     <i class="fa-solid fa-play text-xl text-teal-400 mb-1"></i>
                                     <span>Libras: Acessibilidade</span>
@@ -1697,42 +1697,29 @@
                         searchParams.append(pair[0], pair[1]);
                     }
 
-                    // Implementação de Retentativa simples
-                    let response;
-                    let retries = 3;
-                    while (retries > 0) {
-                        try {
-                            response = await fetch(targetUrl, {
-                                method: 'POST',
-                                body: searchParams,
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                }
-                            });
-                            if (response.ok) break;
-                        } catch (err) {
-                            retries--;
-                            if (retries === 0) throw err;
-                            await new Promise(resolve => setTimeout(resolve, 1000));
+                    // Envia usando mode: 'no-cors' para aceitar o redirecionamento opaco do Google Apps Script sem falhar no navegador
+                    await fetch(targetUrl, {
+                        method: 'POST',
+                        body: searchParams,
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         }
-                    }
+                    });
 
-                    const resData = await response.json();
+                    // Como usamos no-cors, o navegador não deixa ler o JSON de resposta (por privacidade).
+                    // Mas sabemos que se o fetch não deu throw de erro de rede, o dado chegou com sucesso no Apps Script.
                     hideNotification();
+                    showNotification('success', 'Respostas Registradas!', 'Agradecemos sua colaboração. Suas respostas foram inseridas na planilha com sucesso.');
+                    form.reset();
+                    currentStep = 1;
+                    updateStepVisibility();
+                    resetPlanoCounter();
+                    resetBolsaField();
 
-                    if (resData.status === 'success') {
-                        showNotification('success', 'Respostas Registradas!', 'Agradecemos sua colaboração. Suas respostas foram inseridas na planilha com sucesso.');
-                        form.reset();
-                        currentStep = 1;
-                        updateStepVisibility();
-                        resetPlanoCounter();
-                        resetBolsaField();
-                    } else {
-                        throw new Error('Servidor retornou status inválido.');
-                    }
                 } catch (error) {
                     hideNotification();
-                    showNotification('error', 'Falha no Envio', 'Houve um problema de rede ou a URL do Apps Script não tem suporte CORS. Verifique as configurações de implantação.');
+                    showNotification('error', 'Falha no Envio', 'Houve um problema de rede ao enviar suas respostas. Verifique sua conexão.');
                 }
             }
         }

@@ -227,6 +227,16 @@
         };
 
         const dayNames = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
+
+        // Lista consolidada de disciplinas optativas para aplicação da estilização diferenciada
+        const electives = [
+            "Coleta de Dados em LS",
+            "Tópicos em Cultura e Sociedade",
+            "Sociolinguística",
+            "Onomástica",
+            "Semiótica",
+            "Educação e Diversidade Étnico-racial"
+        ];
         
         let currentViewMode = 'grid'; // 'grid' ou 'list'
 
@@ -405,13 +415,26 @@
                                 lineHasMatch = true;
                                 matchesCount++;
 
+                                // Define se a disciplina ativa é uma optativa para aplicar cores e rótulos alternativos
+                                const isElective = electives.includes(parsed.subject);
+                                const cardClass = isElective 
+                                    ? "bg-purple-50 border-purple-600 hover:border-purple-700" 
+                                    : "bg-blue-50 border-ufal-600 hover:border-ufal-700";
+                                const dividerClass = isElective ? "border-purple-200/50" : "border-blue-200/50";
+                                const badgeHtml = isElective 
+                                    ? `<span class="inline-block bg-purple-100 text-purple-700 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0 select-none">Optativa</span>` 
+                                    : '';
+
                                 // Formatação do Card de Disciplina Ativa com comportamento flutuante "h-auto bottom-auto z-30" no hover
                                 td.innerHTML = `
-                                    <div class="absolute inset-1 p-2 rounded-lg bg-blue-50 border-l-4 border-ufal-600 shadow-sm flex flex-col justify-between transition-all duration-200 hover:bg-white hover:border-ufal-700 hover:shadow-xl hover:scale-[1.03] hover:h-auto hover:bottom-auto hover:z-30 group overflow-hidden hover:overflow-visible">
+                                    <div class="absolute inset-1 p-2 rounded-lg ${cardClass} shadow-sm flex flex-col justify-between transition-all duration-200 hover:bg-white hover:shadow-xl hover:scale-[1.03] hover:h-auto hover:bottom-auto hover:z-30 group overflow-hidden hover:overflow-visible">
                                         <div class="flex-grow">
-                                            <h4 class="font-semibold text-slate-800 text-[11px] sm:text-xs leading-tight line-clamp-3 group-hover:line-clamp-none">${parsed.subject}</h4>
+                                            <div class="flex items-start justify-between gap-1">
+                                                <h4 class="font-semibold text-slate-800 text-[11px] sm:text-xs leading-tight line-clamp-3 group-hover:line-clamp-none">${parsed.subject}</h4>
+                                                ${badgeHtml}
+                                            </div>
                                         </div>
-                                        <div class="mt-1 pt-1.5 border-t border-blue-200/50 flex items-center gap-1 shrink-0">
+                                        <div class="mt-1 pt-1.5 border-t ${dividerClass} flex items-center gap-1 shrink-0">
                                             <svg class="w-3 h-3 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                             <span class="text-[9px] sm:text-[10px] font-medium text-slate-600 line-clamp-1 group-hover:line-clamp-none group-hover:text-slate-700 break-words">${parsed.teacher}</span>
                                         </div>
@@ -506,6 +529,12 @@
 
                             if (textMatch && teacherMatch) {
                                 matchesCount++;
+
+                                const isElective = electives.includes(parsed.subject);
+                                const badgeHtml = isElective 
+                                    ? `<span class="inline-block bg-purple-100 text-purple-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide ml-2">Optativa</span>` 
+                                    : '';
+
                                 const tr = document.createElement('tr');
                                 tr.className = "hover:bg-slate-50 transition-colors";
                                 tr.innerHTML = `
@@ -516,7 +545,10 @@
                                     </td>
                                     <td class="py-3.5 px-4 text-slate-600 text-sm font-medium whitespace-nowrap">${row.time}</td>
                                     <td class="py-3.5 px-4 text-slate-600 text-sm font-semibold">${periodKey}</td>
-                                    <td class="py-3.5 px-4 text-slate-900 text-sm font-medium">${parsed.subject}</td>
+                                    <td class="py-3.5 px-4 text-slate-900 text-sm font-medium flex items-center">
+                                        <span>${parsed.subject}</span>
+                                        ${badgeHtml}
+                                    </td>
                                     <td class="py-3.5 px-4 text-slate-600 text-sm">${parsed.teacher}</td>
                                 `;
                                 tbody.appendChild(tr);

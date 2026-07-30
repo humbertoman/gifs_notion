@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acompanhamento Discente 2026.1 — Letras-Libras UFAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0C1A2B; --bg2:#12243A; --bg3:#18304A;
+  --line:rgba(232,238,246,.14); --line2:rgba(232,238,246,.28);
+  --paper:#E8EEF6; --dim:#8FA3BC; --dim2:#63799A;
+  --amber:#F2B33D; --teal:#52C7B8; --rose:#EE5F86;
+  --disp:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","SF Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--paper); font-family:var(--body);
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(115% 80% at 88% -10%, rgba(82,199,184,.10), transparent 60%),
+    radial-gradient(90% 70% at -10% 110%, rgba(242,179,61,.08), transparent 60%);
+}
+
+/* ---------- shell ---------- */
+.deck{position:relative;z-index:1;height:100%;display:grid;grid-template-columns:112px 1fr;}
+.rail{
+  border-right:1px solid var(--line); padding:22px 14px 74px;
+  display:flex; flex-direction:column; gap:14px; align-items:center;
+}
+.rail .count{font-family:var(--disp);font-size:38px;font-weight:800;line-height:.9;letter-spacing:-.02em}
+.rail .of{font-family:var(--mono);font-size:11.5px;color:var(--dim2);text-transform:uppercase;letter-spacing:.14em;text-align:center;line-height:1.5}
+.rail .field{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;width:76px}
+.rail .pct{font-family:var(--mono);font-size:13px;color:var(--amber);letter-spacing:.08em}
+.rail .vsep{flex:1}
+.rail .brand{font-family:var(--mono);font-size:11px;color:var(--dim2);writing-mode:vertical-rl;letter-spacing:.2em;text-transform:uppercase}
+
+.dot{width:100%;aspect-ratio:1;border-radius:50%;border:1px solid var(--dim2);}
+.dot.on{background:var(--amber);border-color:var(--amber)}
+.dot.deaf{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 2px rgba(82,199,184,.32)}
+
+/* ---------- stage ---------- */
+.stage{position:relative;overflow:hidden}
+.slide{
+  position:absolute;inset:0;padding:44px 56px 84px;
+  display:flex;flex-direction:column;gap:16px;
+  opacity:0;transform:translateY(14px);pointer-events:none;
+  transition:opacity .42s ease,transform .42s ease;
+  overflow:auto;
+}
+.slide.live{opacity:1;transform:none;pointer-events:auto}
+.gloss{
+  font-family:var(--mono);font-size:14.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--teal);display:flex;align-items:center;gap:12px;flex:none;
+}
+.gloss::after{content:"";height:1px;flex:1;background:var(--line)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(34px,4.4vw,62px);line-height:1.02;letter-spacing:-.025em;margin:0;flex:none}
+h2{font-family:var(--disp);font-weight:600;font-size:clamp(27px,2.8vw,42px);line-height:1.08;letter-spacing:-.02em;margin:0;flex:none;max-width:22ch}
+h2.wide{max-width:34ch}
+.lede{font-size:clamp(17px,1.45vw,22px);color:var(--dim);max-width:62ch;line-height:1.55;margin:0;flex:none}
+.body-area{flex:1;min-height:0;display:flex;flex-direction:column;gap:18px}
+.read{
+  flex:none;border-left:2px solid var(--amber);padding:2px 0 2px 16px;
+  font-size:clamp(16.5px,1.35vw,20.5px);line-height:1.5;max-width:68ch;color:#CFDBEA;
+}
+.read b{color:var(--paper);font-weight:600}
+
+/* ---------- cover ---------- */
+.cover{justify-content:center;gap:22px}
+.cover h1{font-size:clamp(44px,7vw,104px);max-width:16ch}
+.cover .sub{font-family:var(--disp);font-weight:400;font-size:clamp(17px,1.9vw,26px);color:var(--teal);letter-spacing:-.01em}
+.cover .meta{font-family:var(--mono);font-size:15px;color:var(--dim);letter-spacing:.04em;line-height:2}
+kbd{font-family:var(--mono);font-size:13.5px;background:var(--bg3);border:1px solid var(--line2);border-radius:4px;padding:2px 6px;color:var(--paper)}
+
+/* ---------- bars ---------- */
+.bars{display:flex;flex-direction:column;gap:7px}
+.bar{display:grid;grid-template-columns:minmax(150px,26ch) 1fr 80px;align-items:center;gap:14px;cursor:default}
+.bar .bl{font-size:17.5px;line-height:1.25;text-align:right;color:#D5E0EE}
+.bar .bt{height:24px;background:rgba(232,238,246,.055);border-radius:2px;overflow:hidden;position:relative}
+.bar .bf{height:100%;width:0;border-radius:2px;background:var(--amber);transition:width .8s cubic-bezier(.22,1,.36,1)}
+.bar .bv{font-family:var(--mono);font-size:15.5px;color:var(--dim)}
+.bar .bv b{color:var(--paper);font-size:18px;font-weight:500}
+.bar:hover .bl{color:#fff}
+.bar.zero .bt{border:1px dashed var(--line2);background:none}
+.bar.zero .bv{color:var(--rose)}
+.bar.teal .bf{background:var(--teal)}
+.bar.slim{grid-template-columns:minmax(150px,34ch) 1fr 76px}
+.bar.slim .bt{height:19px}
+#ch-plano{gap:6px}
+#ch-plano .bl{font-size:16.5px;line-height:1.18}
+#ch-plano .bv{font-size:14.5px}
+#ch-plano .bv b{font-size:16px}
+
+/* ---------- paired ---------- */
+.pair{display:grid;grid-template-columns:minmax(165px,30ch) 1fr;gap:18px;align-items:center;margin-bottom:11px}
+.pair .pl{font-size:17.5px;text-align:right;color:#D5E0EE;line-height:1.25}
+.pair .pg{display:flex;flex-direction:column;gap:4px}
+.prow{display:grid;grid-template-columns:1fr 94px;gap:14px;align-items:center}
+.ptr{height:17px;background:rgba(232,238,246,.055);border-radius:2px;overflow:hidden}
+.pfl{height:100%;width:0;border-radius:2px;transition:width .8s cubic-bezier(.22,1,.36,1)}
+.pfl.c{background:var(--amber)} .pfl.v{background:var(--teal)} .pfl.g{background:var(--paper)}
+.pv{font-family:var(--mono);font-size:14.5px;color:var(--dim)}
+.prow.solo .ptr{height:27px}
+.prow.solo .pv{font-size:16px;color:var(--paper)}
+
+/* ---------- dot matrix ---------- */
+.mx{display:flex;flex-direction:column;gap:22px}
+.mxrow{display:grid;grid-template-columns:minmax(180px,30ch) 1fr;gap:20px;align-items:center}
+.mxlab{text-align:right}
+.mxlab .t{font-size:19px;color:var(--paper);line-height:1.25}
+.mxlab .s{font-family:var(--mono);font-size:14.5px;color:var(--dim2);margin-top:4px}
+.mxdots{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.md{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--dim2);flex:none;transform:scale(.4);opacity:0;transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+.md.in{transform:scale(1);opacity:1}
+.md.f{background:var(--amber);border-color:var(--amber)}
+.md.ft{background:var(--teal);border-color:var(--teal)}
+.mxval{font-family:var(--mono);font-size:16px;color:var(--paper);margin-left:8px}
+
+/* ---------- stacks ---------- */
+.stacks{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px 34px}
+.st .sh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;gap:10px}
+.st .sn{font-size:17.5px;color:var(--paper);font-weight:500}
+.st .sq{font-family:var(--mono);font-size:13.5px;color:var(--dim2);text-align:right}
+.strack{display:flex;height:34px;border-radius:3px;overflow:hidden;background:rgba(232,238,246,.055)}
+.sseg{width:0;transition:width .8s cubic-bezier(.22,1,.36,1);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:14.5px;color:var(--bg);font-weight:600;white-space:nowrap;overflow:hidden}
+.sleg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:9px}
+.sleg span{font-size:15px;color:var(--dim);display:flex;align-items:center;gap:6px}
+.sleg i{width:12px;height:12px;border-radius:2px;display:inline-block}
+
+/* ---------- callout ---------- */
+.callout{border:1px solid rgba(238,95,134,.4);background:rgba(238,95,134,.09);border-radius:10px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start}
+.callout .k{font-family:var(--disp);font-size:46px;font-weight:800;color:var(--rose);line-height:.85;flex:none}
+.callout .x{font-size:17px;line-height:1.5;color:#F4DDE4}
+.callout .x b{color:#fff}
+
+/* ---------- board ---------- */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;flex:1;min-height:0}
+.col{border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;overflow:auto}
+.col h3{font-family:var(--mono);font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;margin:0;color:var(--teal)}
+.col.b h3{color:var(--amber)} .col.c h3{color:var(--rose)}
+.col .who{font-size:14.5px;color:var(--dim2);margin:-4px 0 4px}
+.col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.col li{font-size:16.5px;line-height:1.32;padding-left:17px;position:relative;color:#D5E0EE}
+.col li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--dim2)}
+.col.a li::before{background:var(--teal)} .col.b li::before{background:var(--amber)} .col.c li::before{background:var(--rose)}
+
+/* ---------- questions ---------- */
+.qs{display:grid;grid-template-columns:1fr 1fr;gap:16px 30px}
+.q{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+.q .qn{font-family:var(--mono);font-size:14.5px;color:var(--teal);padding-top:5px}
+.q .qt{font-size:19.5px;line-height:1.45}
+
+/* ---------- checklist ---------- */
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:12px 30px}
+.chk{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:start}
+.chk i{width:16px;height:16px;border:1.5px solid var(--teal);border-radius:3px;margin-top:3px;flex:none}
+.chk .ct2{font-size:17.5px;line-height:1.4}
+.chk .cd2{font-size:15px;color:var(--dim2);margin-top:4px;line-height:1.45}
+
+/* ---------- toggles ---------- */
+.toggle{display:flex;gap:6px;flex:none;margin-bottom:2px}
+.toggle button{
+  font-family:var(--mono);font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;
+  background:none;border:1px solid var(--line2);color:var(--dim);padding:8px 17px;border-radius:99px;cursor:pointer;
+  transition:.2s
+}
+.toggle button:hover{color:var(--paper);border-color:var(--paper)}
+.toggle button[aria-pressed=true]{background:var(--paper);color:var(--bg);border-color:var(--paper)}
+.toggle button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+/* ---------- controls ---------- */
+.ctl{
+  position:fixed;left:0;right:0;bottom:0;height:56px;z-index:5;
+  border-top:1px solid var(--line);background:rgba(12,26,43,.9);backdrop-filter:blur(8px);
+  display:flex;align-items:center;gap:14px;padding:0 22px;
+}
+.ctl button{background:none;border:1px solid var(--line2);color:var(--paper);width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1}
+.ctl button:hover{background:var(--bg3)}
+.ctl button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ctl .idx{font-family:var(--mono);font-size:14px;color:var(--dim);letter-spacing:.08em;min-width:52px}
+.pips{display:flex;gap:5px;flex:1;align-items:center}
+.pip{height:3px;flex:1;max-width:44px;background:rgba(232,238,246,.16);border:none;padding:0;cursor:pointer;border-radius:2px;transition:.25s}
+.pip:hover{background:var(--dim)}
+.pip.on{background:var(--amber)}
+
+@media (max-width:900px){
+  .deck{grid-template-columns:64px 1fr}
+  .rail .field{width:44px;grid-template-columns:repeat(4,1fr)}
+  .rail .count{font-size:24px}
+  .slide{padding:28px 22px 78px}
+  .bar,.bar.slim{grid-template-columns:minmax(96px,17ch) 1fr 62px;gap:9px}
+  .bar .bl,#ch-plano .bl{font-size:13.5px}
+  .pair .pl{font-size:13.5px}
+  .q .qt{font-size:16px}
+  .md{width:20px;height:20px}
+  .col li{font-size:14.5px}
+  .pair{grid-template-columns:minmax(96px,16ch) 1fr;gap:9px}
+  .mxrow{grid-template-columns:1fr;gap:8px}.mxlab{text-align:left}
+  .board{grid-template-columns:1fr}
+  .qs,.checks{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  .md{transform:none;opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+  <aside class="rail" aria-hidden="true">
+    <div class="count">31</div>
+    <div class="of">respostas<br>de 112 alunos</div>
+    <div class="field" id="railfield"></div>
+    <div class="pct">28%</div>
+    <div class="vsep"></div>
+    <div class="brand">Letras-Libras · UFAL</div>
+  </aside>
+
+  <main class="stage" id="stage">
+
+    <!-- 1 -->
+    <section class="slide cover">
+      <div class="gloss">Ciclo 01 · Julho de 2026</div>
+      <h1>Acompanhamento Discente</h1>
+      <div class="sub">Letras-Libras Licenciatura · UFAL</div>
+      <p class="lede">Este é o primeiro ciclo de um questionário que passa a ser aplicado ao fim de cada semestre. Aqui está o que 29 estudantes responderam — e as perguntas que a conversa de hoje precisa responder junto com vocês.</p>
+      <div class="meta"><kbd>→</kbd> avançar &nbsp;·&nbsp; <kbd>←</kbd> voltar &nbsp;·&nbsp; <kbd>F</kbd> tela cheia</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide">
+      <div class="gloss">Quem respondeu</div>
+      <h2>31 estudantes responderam. O curso tem 112.</h2>
+      <div class="body-area">
+        <div id="bigfield" style="display:grid;grid-template-columns:repeat(28,1fr);gap:6px;max-width:760px"></div>
+        <div class="sleg">
+          <span><i style="background:var(--amber)"></i> 30 respondentes ouvintes</span>
+          <span><i style="background:var(--teal)"></i> 1 respondente surdo/a</span>
+          <span><i style="background:none;border:1px solid var(--dim2)"></i> 81 estudantes sem resposta</span>
+        </div>
+        <div class="callout">
+          <div class="k">1</div>
+          <div class="x">Uma única resposta de estudante surdo/a, em um curso de Letras-Libras. <b>O questionário foi bilíngue, em português e em Libras</b> — então a língua do formulário não explica essa ausência. <b>Queremos ouvir dos estudantes surdos, hoje, o que precisa mudar para que o próximo ciclo alcance vocês.</b></div>
+        </div>
+      </div>
+      <p class="read">Esse campo de pontos aparece em todos os slides desta apresentação. Ele lembra de quem falou e de quem ainda não falou — os números daqui vêm sempre com a base ao lado.</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide">
+      <div class="gloss">Turma de ingresso</div>
+      <h2 class="wide">21 das 31 respostas vêm de quem entrou este semestre</h2>
+      <div class="body-area"><div class="bars" id="ch-cohort"></div></div>
+      <p class="read">Três turmas não têm nenhuma resposta: <b>2025.2, 2020.2 e 2019.2</b> — turmas que estão mais perto da conclusão, com estágio e TCC em andamento. Se você é dessas turmas, sua experiência ainda não entrou nesses gráficos.</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide">
+      <div class="gloss">Perfil</div>
+      <h2>Quem são as 29 pessoas</h2>
+      <div class="body-area"><div class="stacks" id="ch-perfil"></div></div>
+      <p class="read">Metade das pessoas leva <b>45 minutos ou mais</b> para chegar à UFAL, e doze levam uma hora ou mais. Nenhuma das 31 praticou esporte na universidade neste semestre.</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide">
+      <div class="gloss">Maiores dificuldades</div>
+      <h2 class="wide">Saúde mental e falta de tempo lideram, e vêm juntas</h2>
+      <div class="body-area"><div class="bars" id="ch-dif"></div></div>
+      <p class="read">Cada pessoa podia marcar quantos itens quisesse: foram <b>65 marcações</b> no total.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide">
+      <div class="gloss">Saúde mental × trabalho</div>
+      <h2 class="wide">Quem trabalha na área foi quem mais relatou adoecimento</h2>
+      <div class="body-area">
+        <div class="mx" id="ch-saude"></div>
+        <div class="sleg"><span><i style="background:var(--amber)"></i> relatou questões emocionais ou de saúde mental</span><span><i style="background:none;border:1px solid var(--dim2)"></i> não relatou</span></div>
+      </div>
+      <p class="read">Cinco pessoas em cinco. São poucas pessoas, e é justamente por isso que queremos ouvir de vocês <b>o que está por trás desse número</b>. O relato também é mais frequente entre quem está há mais tempo no curso: 6 de 10, contra 7 de 21 entre os ingressantes.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide">
+      <div class="gloss">Bolsa × turma de ingresso</div>
+      <h2 class="wide">A bolsa chega depois do momento em que ela mais falta</h2>
+      <div class="body-area">
+        <div class="mx" id="ch-bolsa"></div>
+        <div class="sleg"><span><i style="background:var(--teal)"></i> recebeu bolsa em 2026.1</span><span><i style="background:none;border:1px solid var(--dim2)"></i> nenhuma bolsa</span></div>
+      </div>
+      <p class="read">Metade dos veteranos tem bolsa: 5 de 10. Entre os 21 ingressantes, <b>apenas um</b> — auxílio de permanência. E <b>sete das oito pessoas</b> que citaram problemas financeiros como obstáculo à permanência são ingressantes. Se você não soube de um edital, não pôde concorrer ou concorreu e não conseguiu, hoje é o dia de dizer.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide">
+      <div class="gloss">Plano de ação · 3 escolhas por pessoa</div>
+      <h2 class="wide">O que vocês escolheram priorizar</h2>
+      <div class="toggle" role="group" aria-label="Modo de exibição">
+        <button data-mode="item" aria-pressed="true">Por item</button>
+        <button data-mode="eixo" aria-pressed="false">Por eixo</button>
+      </div>
+      <div class="body-area"><div class="bars" id="ch-plano"></div></div>
+      <p class="read" id="plano-read">Nenhum item passa de 9 marcações em 31 respostas, e cinco itens empatam em 8: as escolhas ficaram <b>muito distribuídas</b>. Agrupar por eixo mostra onde a demanda de fato se concentra.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide">
+      <div class="gloss">Prioridades por momento do curso</div>
+      <h2 class="wide">As mesmas escolhas, vistas de quatro formas</h2>
+      <div class="toggle" role="group" aria-label="Visualização">
+        <button data-serie="geral" aria-pressed="true">Geral</button>
+        <button data-serie="both" aria-pressed="false">Comparar</button>
+        <button data-serie="c" aria-pressed="false">Ingressantes</button>
+        <button data-serie="v" aria-pressed="false">Veteranos</button>
+      </div>
+      <div class="body-area">
+        <div id="ch-agenda"></div>
+        <div class="sleg" id="ag-leg"></div>
+      </div>
+      <p class="read" id="agenda-read"></p>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide">
+      <div class="gloss">Três caminhos, três prazos</div>
+      <h2>Cada demanda tem um caminho diferente</h2>
+      <div class="body-area">
+        <div class="board">
+          <div class="col a">
+            <h3>Decide o curso</h3>
+            <div class="who">Coordenação e colegiado · semanas</div>
+            <ul>
+              <li>Grade horária e choque entre obrigatórias e optativas</li>
+              <li>Combinado de língua nas aulas e nos espaços do curso</li>
+              <li>Início e término das aulas</li>
+              <li>Projetos voltados ao mercado e à prática profissional</li>
+              <li>Disciplina CCC Avançado no currículo</li>
+              <li>Sistema de apoio a calouros</li>
+            </ul>
+          </div>
+          <div class="col b">
+            <h3>Decidimos juntos</h3>
+            <div class="who">Turmas, centro acadêmico e curso · imediato</div>
+            <ul>
+              <li>Conversas paralelas e dispersão durante as aulas</li>
+              <li>Uso da sala de estudos e sua finalidade</li>
+              <li>Ruído de portas e cadeiras</li>
+              <li>Interação efetiva entre surdos e ouvintes</li>
+              <li>Grupo de teatro e apresentações visuais em Libras</li>
+              <li>Mobilização para o próximo questionário</li>
+            </ul>
+          </div>
+          <div class="col c">
+            <h3>Depende de fora</h3>
+            <div class="who">Pró-reitorias, orçamento e obra · meses</div>
+            <ul>
+              <li>Bolsas de permanência e vagas nos editais</li>
+              <li>Computadores e câmera profissional</li>
+              <li>Sala de gravação, armários e espaço de convivência</li>
+              <li>Sala de regulação para estudantes neurodivergentes</li>
+              <li>Intérpretes em todos os espaços</li>
+              <li>Transporte e acesso ao campus</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide">
+      <div class="gloss">A conversa de hoje</div>
+      <h2>Seis perguntas para a roda</h2>
+      <div class="body-area">
+        <div class="qs">
+          <div class="q"><div class="qn">01</div><div class="qt">O questionário foi bilíngue e ainda assim só uma pessoa surda respondeu. O que precisa mudar?</div></div>
+          <div class="q"><div class="qn">02</div><div class="qt">Todas as pessoas que trabalham na área relataram sofrimento emocional. O que está acontecendo?</div></div>
+          <div class="q"><div class="qn">03</div><div class="qt">Só um dos 21 ingressantes recebeu bolsa. Onde a informação sobre os editais está se perdendo?</div></div>
+          <div class="q"><div class="qn">04</div><div class="qt">Num curso de Letras-Libras, o barulho aparece entre os maiores obstáculos. O que isso diz sobre a língua das nossas aulas?</div></div>
+          <div class="q"><div class="qn">05</div><div class="qt">Seis pessoas apontaram a didática dos professores. O que ajudaria de forma concreta nas disciplinas?</div></div>
+          <div class="q"><div class="qn">06</div><div class="qt">Empregabilidade é a demanda número um de quem está no primeiro semestre. Como o curso responde a isso?</div></div>
+        </div>
+      </div>
+      <p class="read">Em cada rodada, <b>a palavra começa com os estudantes surdos</b>.</p>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide">
+      <div class="gloss">Próximo ciclo · 2026.2</div>
+      <h2>O que muda até dezembro</h2>
+      <div class="body-area">
+        <div class="checks">
+          <div class="chk"><i></i><div><div class="ct2">Bloco sensível em formulário anônimo</div><div class="cd2">Saúde mental, convivência e avaliação das aulas passam a ser respondidos sem vínculo com nome, e-mail ou WhatsApp.</div></div></div>
+          <div class="chk"><i></i><div><div class="ct2">Resposta em vídeo nas questões abertas</div><div class="cd2">O questionário já pergunta em Libras; passa a aceitar resposta em Libras também.</div></div></div>
+          <div class="chk"><i></i><div><div class="ct2">Período e situação de TCC no formulário</div><div class="cd2">As respostas sobre TCC deste ciclo não chegaram até nós. O envio será testado antes da próxima aplicação.</div></div></div>
+          <div class="chk"><i></i><div><div class="ct2">Deslocamento em faixas de tempo</div><div class="cd2">Opções fechadas em vez de escrita livre, para o dado ficar comparável entre semestres.</div></div></div>
+          <div class="chk"><i></i><div><div class="ct2">Três perguntas novas</div><div class="cd2">Disciplinas cursadas e aprovadas; se concorreu a bolsa e não conseguiu; se pensou em trancar ou desistir.</div></div></div>
+          <div class="chk"><i></i><div><div class="ct2">Convite direto às turmas ausentes</div><div class="cd2">2025.2, 2020.2 e 2019.2, com prazo, antes de fechar o próximo ciclo.</div></div></div>
+        </div>
+        <p class="read">Os gráficos de hoje voltam em dezembro, lado a lado com os do próximo ciclo. <b>A adesão é o que dá força a tudo isso</b> — quanto mais gente responde, mais peso essas pautas ganham dentro e fora do curso.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="ctl">
+  <button id="prev" aria-label="Slide anterior">←</button>
+  <button id="next" aria-label="Próximo slide">→</button>
+  <div class="idx"><span id="cur">01</span> / <span id="tot">12</span></div>
+  <div class="pips" id="pips"></div>
+  <button id="btnFull" aria-label="Tela cheia">⛶</button>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var TOTAL_ALUNOS = 112, N = 31, N_CAL = 21, N_VET = 10;
+
+var cohort = [
+  {label:"2026.1", v:21}, {label:"2025.2", v:0}, {label:"2024.2", v:5},
+  {label:"2023.2", v:2},  {label:"2022.2", v:2}, {label:"2021.2", v:1},
+  {label:"2020.2", v:0},  {label:"2019.2", v:0}
+];
+
+var dificuldades = [
+  {label:"Questões emocionais ou de saúde mental", v:13},
+  {label:"Falta de tempo pelo trabalho ou rotina externa", v:11},
+  {label:"Problemas financeiros que afetam a permanência", v:8},
+  {label:"Transporte e deslocamento até a UFAL", v:7},
+  {label:"Didática dos professores", v:6},
+  {label:"Dificuldade com a Libras", v:5},
+  {label:"Ambiente domiciliar inadequado", v:5},
+  {label:"Falta de material de apoio acessível", v:3},
+  {label:"Base fraca do ensino médio", v:3},
+  {label:"Dificuldade com a Língua Portuguesa", v:3},
+  {label:"Outro", v:1}
+];
+
+var plano = [
+  {label:"Inserção no mercado de trabalho", v:9},
+  {label:"Proficiência em Libras dos ouvintes", v:8},
+  {label:"Projetos de prática profissional", v:8},
+  {label:"Conversas e barulho em sala", v:8},
+  {label:"Computadores e câmera", v:8},
+  {label:"Choque de horários na grade", v:8},
+  {label:"Integração de calouros", v:7},
+  {label:"Ruído de portas e cadeiras", v:5},
+  {label:"Uso da sala de estudos", v:4},
+  {label:"Segregação entre surdos e ouvintes", v:4},
+  {label:"Teatro e expressão em Libras", v:4},
+  {label:"Excesso de oralização no curso", v:3},
+  {label:"Sala de regulação", v:3},
+  {label:"Sala de gravação e armários", v:3},
+  {label:"Intérpretes em todos os espaços", v:2},
+  {label:"Disciplina CCC Avançado", v:2},
+  {label:"Conflitos e desunião", v:2},
+  {label:"Área de convivência", v:2},
+  {label:"Ativismo e engajamento", v:2},
+  {label:"Professores interrompem intérpretes", v:1}
+];
+
+var eixos = [
+  {label:"Ambiente e clima de sala",      v:21, sub:"dispersão, ruído, sala de estudos, convivência, conflitos"},
+  {label:"Formação profissional",         v:19, sub:"inserção no mercado, projetos de prática, CCC Avançado"},
+  {label:"Identidade linguística",        v:18, sub:"proficiência, segregação, oralização, intérpretes"},
+  {label:"Vida estudantil e acolhimento", v:13, sub:"integração de calouros, teatro em Libras, ativismo"},
+  {label:"Meios de produção",             v:11, sub:"computador, câmera, sala de gravação, armários"},
+  {label:"Organização acadêmica",         v:8,  sub:"choque de horários entre obrigatórias e optativas"},
+  {label:"Suporte à neurodivergência",    v:3,  sub:"sala de regulação"}
+];
+
+var agenda = [
+  {label:"Inserção no mercado",                 c:7, v:2},
+  {label:"Proficiência em Libras dos ouvintes", c:4, v:4},
+  {label:"Projetos de prática profissional",    c:6, v:2},
+  {label:"Conversas e barulho em sala",         c:7, v:1},
+  {label:"Computadores e câmera",               c:4, v:4},
+  {label:"Choque de horários na grade",         c:7, v:1},
+  {label:"Integração de calouros",              c:6, v:1},
+  {label:"Ruído de portas e cadeiras",          c:2, v:3},
+  {label:"Uso da sala de estudos",              c:1, v:3},
+  {label:"Segregação entre surdos e ouvintes",  c:3, v:1},
+  {label:"Teatro e expressão em Libras",        c:4, v:0}
+];
+
+var perfil = [
+  {name:"Situação de trabalho", q:"31 respostas", total:31, segs:[
+    {label:"não trabalha", v:19, color:"#63799A"},
+    {label:"trabalha fora da área", v:7, color:"#F2B33D"},
+    {label:"trabalha na área", v:5, color:"#52C7B8"}
+  ]},
+  {name:"Bolsa em 2026.1", q:"31 respostas", total:31, segs:[
+    {label:"nenhuma bolsa", v:25, color:"#63799A"},
+    {label:"com bolsa", v:6, color:"#52C7B8"}
+  ]},
+  {name:"Deslocamento até a UFAL", q:"mediana de 45 minutos", total:31, segs:[
+    {label:"até 30 min", v:9, color:"#52C7B8"},
+    {label:"30 min a 1 h", v:10, color:"#F2B33D"},
+    {label:"1 h ou mais", v:12, color:"#EE5F86"}
+  ]},
+  {name:"Participou de evento", q:"31 respostas", total:31, segs:[
+    {label:"sim", v:27, color:"#52C7B8"},
+    {label:"não", v:4, color:"#63799A"}
+  ]},
+  {name:"Praticou esporte na UFAL", q:"nenhuma resposta afirmativa", total:31, segs:[
+    {label:"não", v:31, color:"#EE5F86"}
+  ]}
+];
+
+var saude = [
+  {t:"Trabalha na área", s:"5 de 5 pessoas", total:5, fill:5},
+  {t:"Trabalha fora da área", s:"3 de 7 pessoas", total:7, fill:3},
+  {t:"Não trabalha", s:"5 de 19 pessoas", total:19, fill:5}
+];
+
+var bolsa = [
+  {t:"Turmas anteriores", s:"5 de 10 com bolsa", total:10, fill:5, teal:true},
+  {t:"Ingressantes 2026.1", s:"1 dos 21 com bolsa", total:21, fill:1, teal:true}
+];
+
+/* ---------- helpers ---------- */
+function el(tag, cls, html){
+  var e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined) e.innerHTML = html;
+  return e;
+}
+function pad(n){ return (n<10?"0":"")+n; }
+
+function dotField(container, cols){
+  container.innerHTML = "";
+  container.style.gridTemplateColumns = "repeat("+cols+",1fr)";
+  for(var i=0;i<TOTAL_ALUNOS;i++){
+    var cls = "dot";
+    if(i===0) cls += " deaf";
+    else if(i < N) cls += " on";
+    container.appendChild(el("div", cls));
+  }
+}
+
+function renderBars(host, rows, opts){
+  opts = opts || {};
+  host.innerHTML = "";
+  var max = opts.max || Math.max.apply(null, rows.map(function(r){return r.v;}));
+  rows.forEach(function(r){
+    var cls = "bar" + (opts.slim?" slim":"") + (r.v===0?" zero":"") + (opts.tone?" "+opts.tone:"");
+    var row = el("div", cls);
+    row.appendChild(el("div","bl", r.label));
+    var tr = el("div","bt");
+    var fl = el("div","bf");
+    fl.dataset.w = r.v===0 ? 0 : Math.max(1.5,(r.v/max)*100);
+    tr.appendChild(fl);
+    row.appendChild(tr);
+    var denom = opts.denom || N;
+    row.appendChild(el("div","bv", r.v===0 ? "sem resposta" : "<b>"+r.v+"</b> de "+denom));
+    row.title = r.sub ? r.label+" — "+r.sub : r.label+": "+r.v+" de "+denom;
+    host.appendChild(row);
+  });
+}
+
+function renderPaired(host, rows, serie){
+  host.innerHTML = "";
+  var maxGeral = Math.max.apply(null, rows.map(function(r){ return r.c + r.v; }));
+  rows.forEach(function(r){
+    var wrap = el("div","pair");
+    wrap.appendChild(el("div","pl", r.label));
+    var g = el("div","pg");
+    if(serie==="geral"){
+      g.appendChild(prow(r.c + r.v, N, "g", maxGeral));
+    } else {
+      if(serie==="both" || serie==="c") g.appendChild(prow(r.c, N_CAL, "c"));
+      if(serie==="both" || serie==="v") g.appendChild(prow(r.v, N_VET, "v"));
+    }
+    wrap.appendChild(g);
+    host.appendChild(wrap);
+  });
+  function prow(v, n, klass, scale){
+    var row = el("div","prow" + (klass==="g" ? " solo" : ""));
+    var tr = el("div","ptr");
+    var fl = el("div","pfl "+klass);
+    fl.dataset.w = scale ? (v/scale)*100 : (v/n)*100;
+    tr.appendChild(fl); row.appendChild(tr);
+    row.appendChild(el("div","pv", v+" de "+n));
+    return row;
+  }
+}
+
+function renderMatrix(host, rows){
+  host.innerHTML = "";
+  rows.forEach(function(r){
+    var row = el("div","mxrow");
+    var lab = el("div","mxlab");
+    lab.appendChild(el("div","t", r.t));
+    lab.appendChild(el("div","s", r.s));
+    row.appendChild(lab);
+    var dots = el("div","mxdots");
+    for(var i=0;i<r.total;i++){
+      var d = el("div","md" + (i<r.fill ? (r.teal?" ft":" f") : ""));
+      d.style.transitionDelay = (i*26)+"ms";
+      dots.appendChild(d);
+    }
+    if(r.fill===0) dots.appendChild(el("div","mxval","zero"));
+    row.appendChild(dots);
+    host.appendChild(row);
+  });
+}
+
+function renderStacks(host, items){
+  host.innerHTML = "";
+  items.forEach(function(it){
+    var b = el("div","st");
+    var h = el("div","sh");
+    h.appendChild(el("div","sn", it.name));
+    h.appendChild(el("div","sq", it.q));
+    b.appendChild(h);
+    var tr = el("div","strack");
+    it.segs.forEach(function(s){
+      var seg = el("div","sseg", s.v>=4 ? String(s.v) : "");
+      seg.style.background = s.color;
+      seg.dataset.w = (s.v/it.total)*100;
+      seg.title = s.label+": "+s.v+" de "+it.total;
+      tr.appendChild(seg);
+    });
+    b.appendChild(tr);
+    var lg = el("div","sleg");
+    it.segs.forEach(function(s){
+      var sp = el("span");
+      var i2 = el("i"); i2.style.background = s.color;
+      sp.appendChild(i2);
+      sp.appendChild(document.createTextNode(s.label));
+      lg.appendChild(sp);
+    });
+    b.appendChild(lg);
+    host.appendChild(b);
+  });
+}
+
+function play(slide){
+  var fills = slide.querySelectorAll(".bf,.pfl,.sseg");
+  fills.forEach(function(f){ f.style.width = "0"; });
+  var dots = slide.querySelectorAll(".md");
+  dots.forEach(function(d){ d.classList.remove("in"); });
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      fills.forEach(function(f){ f.style.width = (f.dataset.w||0)+"%"; });
+      dots.forEach(function(d){ d.classList.add("in"); });
+    });
+  });
+}
+
+/* ---------- build ---------- */
+dotField(document.getElementById("railfield"), 8);
+dotField(document.getElementById("bigfield"), 28);
+
+renderBars(document.getElementById("ch-cohort"), cohort, {max:20});
+renderBars(document.getElementById("ch-dif"), dificuldades, {slim:true, max:11});
+renderStacks(document.getElementById("ch-perfil"), perfil);
+renderMatrix(document.getElementById("ch-saude"), saude);
+renderMatrix(document.getElementById("ch-bolsa"), bolsa);
+
+var planoHost = document.getElementById("ch-plano");
+var planoRead = document.getElementById("plano-read");
+function drawPlano(mode){
+  if(mode==="eixo"){
+    renderBars(planoHost, eixos, {max:22, denom:"93 marcações", tone:"teal"});
+    planoRead.innerHTML = 'As 21 opções cabem em sete eixos. <b>Ambiente de sala</b>, <b>formação profissional</b> e <b>identidade linguística</b> reúnem 58 das 93 marcações — quase dois terços de tudo que foi escolhido.';
+  } else {
+    renderBars(planoHost, plano, {slim:true, max:9});
+    planoRead.innerHTML = 'Nenhum item passa de 9 marcações em 31 respostas, e cinco itens empatam em 8: as escolhas ficaram <b>muito distribuídas</b>. Agrupar por eixo mostra onde a demanda de fato se concentra.';
+  }
+  play(planoHost.closest(".slide"));
+}
+drawPlano("item");
+document.querySelectorAll("[data-mode]").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll("[data-mode]").forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+    drawPlano(b.dataset.mode);
+  });
+});
+
+var agHost = document.getElementById("ch-agenda");
+var agLeg = document.getElementById("ag-leg");
+var agRead = document.getElementById("agenda-read");
+var AG_TXT = {
+  geral: {
+    leg: '<span><i style="background:var(--paper)"></i> todos os respondentes (n=31)</span>',
+    read: 'Estes são os <b>onze itens que receberam quatro escolhas ou mais</b>. No conjunto, o topo é inserção no mercado de trabalho — e logo atrás vem um empate de cinco itens com oito escolhas cada.'
+  },
+  both: {
+    leg: '<span><i style="background:var(--amber)"></i> ingressantes 2026.1 (n=21)</span><span><i style="background:var(--teal)"></i> turmas anteriores (n=10)</span>',
+    read: 'Separando os dois grupos, o mesmo total esconde prioridades diferentes: <b>quem entrou agora pede acolhimento e futuro; quem está terminando pede condições de produção</b>. Só dois itens aparecem igual nos dois: proficiência em Libras e equipamento.'
+  },
+  c: {
+    leg: '<span><i style="background:var(--amber)"></i> ingressantes 2026.1 (n=21)</span>',
+    read: 'Quem entrou este semestre prioriza <b>inserção no mercado, integração de calouros e o clima da sala de aula</b> — e já pensa em empregabilidade no primeiro período.'
+  },
+  v: {
+    leg: '<span><i style="background:var(--teal)"></i> turmas anteriores (n=10)</span>',
+    read: 'Quem está mais perto de terminar prioriza <b>computador, câmera e sala de gravação</b>. Em Letras-Libras, produção acadêmica é produção de vídeo — e o gargalo aparece no estágio e no TCC.'
+  }
+};
+function drawAgenda(s){
+  renderPaired(agHost, agenda, s);
+  agLeg.innerHTML = AG_TXT[s].leg;
+  agRead.innerHTML = AG_TXT[s].read;
+  play(agHost.closest(".slide"));
+}
+drawAgenda("geral");
+document.querySelectorAll("[data-serie]").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll("[data-serie]").forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+    drawAgenda(b.dataset.serie);
+  });
+});
+
+/* ---------- navigation ---------- */
+var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+var i = 0;
+var pips = document.getElementById("pips");
+document.getElementById("tot").textContent = pad(slides.length);
+
+slides.forEach(function(s, k){
+  var p = el("button","pip");
+  p.setAttribute("aria-label","Ir para o slide "+(k+1));
+  p.addEventListener("click", function(){ go(k); });
+  pips.appendChild(p);
+});
+
+function go(n){
+  i = Math.max(0, Math.min(slides.length-1, n));
+  slides.forEach(function(s,k){ s.classList.toggle("live", k===i); });
+  Array.prototype.forEach.call(pips.children, function(p,k){ p.classList.toggle("on", k<=i); });
+  document.getElementById("cur").textContent = pad(i+1);
+  slides[i].scrollTop = 0;
+  play(slides[i]);
+}
+
+document.getElementById("next").addEventListener("click", function(){ go(i+1); });
+document.getElementById("prev").addEventListener("click", function(){ go(i-1); });
+document.getElementById("btnFull").addEventListener("click", toggleFull);
+
+function toggleFull(){
+  if(document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen();
+}
+
+document.addEventListener("keydown", function(e){
+  if(e.target.tagName === "BUTTON" && (e.key===" "||e.key==="Enter")) return;
+  switch(e.key){
+    case "ArrowRight": case "PageDown": case " ": e.preventDefault(); go(i+1); break;
+    case "ArrowLeft": case "PageUp": e.preventDefault(); go(i-1); break;
+    case "Home": go(0); break;
+    case "End": go(slides.length-1); break;
+    case "f": case "F": toggleFull(); break;
+  }
+});
+
+go(0);
+})();
+</script>
+</body>
+</html>
